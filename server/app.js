@@ -24,18 +24,17 @@ app.get('/', (req, res) => {
 	res.json({greetings: 'hello world'});
 })
 
-console.log(GPT_API_KEY)
-
 const openai = new OpenAIApi(new Configuration({
   apiKey: GPT_API_KEY
 }))
 
-openai.createChatCompletion({
-  model: "gpt-3.5-turbo",
-  messages: [{ role: "user", content: "Hello World"}]
-}).then(res => {
-  console.log(res)
-})
+// const respond = openai.createChatCompletion({
+//   model: "gpt-3.5-turbo",
+//   messages: [{ role: "user", content: "Hello"}]
+// }).then(res => {
+//   console.log(res.data.choices)
+//   return res.data.choices
+// })
 
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

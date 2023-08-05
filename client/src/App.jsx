@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ImageWithIcons from './components/ImageWithIcons';
 import './App.css';
 
 function App() {
-
+  
   return (
     <>
       <div className="collapse bg-base-200">
@@ -15,6 +16,7 @@ function App() {
           <p>helloö222222</p>
         </div>
       </div>
+      <ImageWithIcons imageUrl={"https://i.imgur.com/JO6RB08.jpeg"}/>
     </>
   );
 }
