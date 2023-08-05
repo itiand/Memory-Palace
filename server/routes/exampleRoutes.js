@@ -1,9 +1,11 @@
-const router = require('express').Router();
+import express from 'express';
+
+const router = express.Router();
 
 router.get('/', (req, res) => {
   const cats = ['Rosey', 'Puma', 'Mr Buttons', 'Aya'];
   res.json(cats);
 });
-  
 
-module.exports = router;
+
+export default router
