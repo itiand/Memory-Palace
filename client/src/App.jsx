@@ -40,11 +40,12 @@ function App() {
     themeChange(false);
   });
 
-  
+
   return (
     <>
       <div className="navbar bg-base-100">
         <div className="navbar-start">
+
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
@@ -55,11 +56,15 @@ function App() {
               <li><a>About</a></li>
             </ul>
           </div>
+          <button class="rounded-full ...">New Room</button>
         </div>
         <div className="navbar-center">
           <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
         </div>
         <div className="navbar-end">
+          <button className="text-info btn btn-ghost btn-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+          </button>
           <button className="btn btn-ghost btn-circle">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
           </button>
@@ -77,6 +82,13 @@ function App() {
           </select>
         </div>
       </div>
+      <div className="form-control w-52">
+        <label className="cursor-pointer label">
+          <span className="label-text">View Mode</span>
+          <input type="checkbox" className="toggle toggle-info" checked />
+        </label>
+      </div>
+
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row">
           <img src="https://i.imgur.com/ZEpq5CO.jpeg" className="max-w-sm rounded-lg shadow-2xl" />
