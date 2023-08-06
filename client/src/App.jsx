@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ImageWithIcons from './components/ImageWithIcons';
-import './App.css';
+import './App.scss';
 
 function App() {
   
