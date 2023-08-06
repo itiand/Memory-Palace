@@ -23,6 +23,7 @@ const ImageWithIcons = ({ imageUrl }) => {
             top: `calc(${icon.y}px - 12px)`,  // adjust to middle 0,0
             left: `calc(${icon.x}px - 12px)`, // adjust to middle 0,0
             cursor: 'pointer',
+            animation: 'pop-in 0.1s ease-out',
           }}
           size={24} 
         />

@@ -13,7 +13,7 @@ function App() {
           Click me to show/hide content
         </div>
         <div className="collapse-content">
-          <p>helloö222222</p>
+          <p>hello</p>
         </div>
       </div>
       <ImageWithIcons imageUrl={"https://i.imgur.com/JO6RB08.jpeg"}/>
