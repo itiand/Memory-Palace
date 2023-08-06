@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BsFillPinFill } from 'react-icons/Bs';
 
+
 const ImageWithIcons = ({ imageUrl }) => {
   const [icons, setIcons] = useState([]);
 
