@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { themeChange } from "theme-change";
 import axios from 'axios';
-import './App.css';
+import './App.scss';
 
 function App() {
   const themeValues = [
