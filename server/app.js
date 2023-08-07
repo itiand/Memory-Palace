@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 	res.json({greetings: 'hello world'});
 })
 
-console.log(GPT_API_KEY)
+// console.log(GPT_API_KEY)
 
 const openai = new OpenAIApi(new Configuration({
   apiKey: GPT_API_KEY
@@ -39,7 +39,7 @@ const openai = new OpenAIApi(new Configuration({
 userInterface.prompt()
 userInterface.on("line", async input => {
   const res = await openai
-  .createChatCompletion({
+  .createChatCompletion({ 
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: input}]
   })
@@ -47,5 +47,13 @@ userInterface.on("line", async input => {
 
 })
 
+const response = await openai.createImage({
+  prompt: "lovely dog",
+  n: 1,
+  size: "256x256",
+});
+// console.log(response.data)
+const image_url = response.data.data[0].url;
+console.log(image_url)
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
