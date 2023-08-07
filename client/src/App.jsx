@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { themeChange } from "theme-change";
-import useApplicationData from './hooks/useApplicationData';
-import axios from 'axios';
-import './App.scss';
+import useApplicationData from "./hooks/useApplicationData";
+import axios from "axios";
+import "./App.scss";
 
 function App() {
   const { themes } = useApplicationData();
@@ -11,74 +11,259 @@ function App() {
     themeChange(false);
   });
 
-
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-primary">
         <div className="navbar-start">
-
+          <select className="px-2 py-3" data-choose-theme>
+            <option value="" className="">
+              default
+            </option>
+            {themes.map((value) => (
+              <option
+                className=""
+                key={value.toLocaleLowerCase()}
+                value={value.toLocaleLowerCase()}
+              >
+                {value}
+              </option>
+            ))}
+          </select>
           <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+            <label tabIndex={0} className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
             </label>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a>Homepage</a></li>
-              <li><a>Portfolio</a></li>
-              <li><a>About</a></li>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a>Item 1</a>
+              </li>
+              <li>
+                <a>Parent</a>
+                <ul className="p-2">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a>Item 3</a>
+              </li>
             </ul>
           </div>
-          <button class="rounded-full ...">New Room</button>
+          <a className="btn btn-ghost normal-case text-xl">Pensieve</a>
         </div>
-        <div className="navbar-center">
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li tabIndex={0}>
+              <details>
+                <summary>Parent</summary>
+                <ul className="p-2">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <a>Item 3</a>
+            </li>
+          </ul>
         </div>
+
+
+              {/* Start Modal */}
         <div className="navbar-end">
-          <button className="text-info btn btn-ghost btn-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+
+
+          <button className="btn" onClick={() => window.my_modal_1.showModal()}>
+            Add New Palace
           </button>
-          <button className="btn btn-ghost btn-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-          </button>
-          <button className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-              <span className="badge badge-xs badge-primary indicator-item"></span>
-            </div>
-          </button>
-          <select className="px-2 py-3" data-choose-theme>
-            <option value="" className="">default</option>
-            {themes.map(value =>
-              <option className="" key={value.toLocaleLowerCase()} value={value.toLocaleLowerCase()}>{value}</option>
-            )}
-          </select>
+          <dialog id="my_modal_1" className="modal">
+            <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+              <h3 className="font-bold text-lg">Add New Palace Description (name, description)</h3>
+              <img src="https://images.pexels.com/photos/277559/pexels-photo-277559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className="image-box w-60 mx-auto"></img>
+              <p className="py-4">Description: New Palace Modal pops up and prompts: * Name of New Palace * Description of Palace * Save New Palace * Change to Add-Palace-Image-Modal</p>
+              <div className="modal-action">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕ </button>
+              </div>
+              
+              {/* Add Palace Image */}
+              <div>
+              <button className="btn" onClick={() => window.my_modal_2.showModal()}>Add Palace Image</button>
+
+              <dialog id="my_modal_2" className="modal">
+              <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+              <h3 className="font-bold text-lg">Add Palace Image (upload image)</h3>
+
+              <img src=" https://images.unsplash.com/photo-1635945416566-6302b54c056b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2060&q=80" className="image-box w-60 mx-auto"></img>
+              <p className="py-4">Description: Add image for cover of Palace * Add Description of Room * Save Palace Cover Photo & Description * Changes to Regular Palace Modal</p>
+              <div className="modal-action">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕ </button>
+              </div>
+              
+              {/* Save Palace Image */}
+              <div>
+              <button className="btn" onClick={() => window.my_modal_4.showModal()}>Save Add Palace Image</button>
+              
+
+              {/* Regular Palace Modal */}
+              <dialog id="my_modal_4" className="modal">
+              <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+              <h3 className="font-bold text-lg">Regular Palace Modal</h3>
+              <img src="https://cornwall.historic-cornwall.org.uk/when_was_the_east_front_of_buckingham_palace_built.jpg" className="image-box w-70 mx-auto"></img>
+              <p className="py-4">Regular Palace Modal: 
+                * Clicking Main Photo to Edit Cover * Hover for Descriptions * Click Rooms to Edit Rooms </p>
+              <div className="modal-action">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕ </button>
+              </div>
+
+              {/* Individual Rooms */}
+              <div className="regular-modal-rooms w-60 flex">
+                <img src="https://i.imgur.com/EdZmnSg.jpeg"></img>
+                <img src="https://i.imgur.com/rXkxaAo.jpeg"></img>
+                <img src="https://i.imgur.com/gNoTLLj.jpeg"></img>
+                <img src="https://i.imgur.com/NIYnoFP.jpeg"></img>
+                <img src="https://i.imgur.com/QokO0HE.jpeg"></img>
+              </div>
+
+              <div>
+                {/* Story-Mode Button */}
+              <button className="btn" onClick={() => window.my_modal_0.showModal()}>Story-Mode</button>
+            
+                {/* Add Room Modal */}
+              <button className="btn" onClick={() => window.my_modal_5.showModal()}>Add New Room</button>
+                {/* Insert Nested Modal */}
+                <dialog id="my_modal_5" className="modal">
+              <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+              <h3 className="font-bold text-lg">Add Room Modal</h3>
+              <img src="https://i.imgur.com/ZEpq5CO.jpeg" className="image-box w-60 mx-auto"></img>
+              <p className="py-4">Add Room Modal: 
+                - Can input Subject of Room
+                -To do List
+                - Button: Add-Memory</p>
+              <div className="modal-action">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => window.my_modal_4.showModal()}>
+                  ✕ </button>
+              </div>
+
+              <div>
+                {/* Add Memory Modal */}
+              <button className="btn" onClick={() => window.my_modal_6.showModal()}>Add Memory</button>
+                {/* Insert Nested Modal */}
+                <dialog id="my_modal_6" className="modal">
+              <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+              <h3 className="font-bold text-lg">Add Memory Modal</h3>
+              <img src="https://i.imgur.com/ZEpq5CO.jpeg" className="image-box w-60 mx-auto"></img>
+              <p className="py-4">Add Memory Modal: List of What you want to save * This is where ChatGPT and Dall-E come in</p>
+              <div className="modal-action">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => window.my_modal_4.showModal()}>
+                  ✕ </button>
+              </div>
+
+              <div>
+                {/* Set Memory*/}
+              <button className="btn" onClick={() => window.my_modal_4.showModal()}>Save Memory</button>
+                {/* Insert Nested Modal */}
+
+              </div>
+              </form>
+              </dialog>
+
+              </div>
+              </form>
+              </dialog>
+
+              </div>
+              </form>
+              </dialog>
+              
+              </div>
+              </form>
+              </dialog>
+              
+              </div>
+              </form>
+              </dialog>
+
         </div>
-      </div>
-      <div className="form-control w-52">
-        <label className="cursor-pointer label">
-          <span className="label-text">View Mode</span>
-          <input type="checkbox" className="toggle toggle-info" checked />
-        </label>
+              {/* End Modal */}
+
       </div>
 
-      <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row">
-          <img src="https://i.imgur.com/ZEpq5CO.jpeg" className="max-w-sm rounded-lg shadow-2xl" />
-          <div>
-            <h1 className="text-5xl font-bold">Box Office News!</h1>
-            <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-            <button className="btn btn-primary">Get Started</button>
+      {/* Carousel */}
+      <div className="container mx-auto">
+        <div className="carousel mx-auto max-w-screen-lg">
+          <div className="carousel-item w-full flex flex-col">
+            <div>
+              <img
+                src="https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
+                className="w-full"
+                alt="Tailwind CSS Carousel component"
+              />
+            </div>
+            <p className="text-center">LHL PALACE</p>
+          </div>
+          <div className="carousel-item w-full flex flex-col">
+            <div>
+              <img
+                src="https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
+                className="w-full"
+                alt="Tailwind CSS Carousel component"
+              />
+            </div>
+            <p className="text-center">LHL PALACE</p>
+          </div>
+          <div className="carousel-item w-full flex flex-col">
+            <div>
+              <img
+                src="https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
+                className="w-full"
+                alt="Tailwind CSS Carousel component"
+              />
+            </div>
+            <p className="text-center">LHL PALACE</p>
+          </div>
+          <div className="carousel-item w-full flex flex-col">
+            <div>
+              <img
+                src="https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
+                className="w-full"
+                alt="Tailwind CSS Carousel component"
+              />
+            </div>
+            <p className="text-center">LHL PALACE</p>
           </div>
         </div>
       </div>
-      <div className="collapse bg-base-200 py-5">
-        <input type="checkbox" />
-        <div className="collapse-title text-xl font-medium">
-          Click me to show/hide content
-        </div>
-        <div className="collapse-content">
-          <p>hello</p>
-        </div>
-      </div>
+      {/* Carousel End */}
     </>
   );
 }
