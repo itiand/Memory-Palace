@@ -5,12 +5,24 @@ import axios from "axios";
 import "./App.scss";
 
 function App() {
-  const { themes } = useApplicationData();
+  const { themes, memoryPalace } = useApplicationData();
 
   useEffect(() => {
     themeChange(false);
   });
 
+  const memoryPalaceCarousel = memoryPalace.map((palace) => {
+    return (
+      <div className="carousel-item w-full flex flex-col items-center justify-center space-y-4">
+        <div className="w-full h-56 flex items-center justify-center overflow-hidden">
+          <img src={palace.front_img_url} className="object-cover" alt="Tailwind CSS Carousel component" />
+        </div>
+        <div className='carousel-body bg-base-300 py-2 px-4 w-full m-0'>
+          <p className='text-center'>{palace.name}</p>
+        </div>
+      </div>
+    );
+  });
   return (
     <>
       <div className="navbar bg-primary">
@@ -217,53 +229,11 @@ function App() {
               {/* End Modal */}
 
       </div>
-
-      {/* Carousel */}
-      <div className="container mx-auto">
-        <div className="carousel mx-auto max-w-screen-lg">
-          <div className="carousel-item w-full flex flex-col">
-            <div>
-              <img
-                src="https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
-                className="w-full"
-                alt="Tailwind CSS Carousel component"
-              />
-            </div>
-            <p className="text-center">LHL PALACE</p>
-          </div>
-          <div className="carousel-item w-full flex flex-col">
-            <div>
-              <img
-                src="https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
-                className="w-full"
-                alt="Tailwind CSS Carousel component"
-              />
-            </div>
-            <p className="text-center">LHL PALACE</p>
-          </div>
-          <div className="carousel-item w-full flex flex-col">
-            <div>
-              <img
-                src="https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
-                className="w-full"
-                alt="Tailwind CSS Carousel component"
-              />
-            </div>
-            <p className="text-center">LHL PALACE</p>
-          </div>
-          <div className="carousel-item w-full flex flex-col">
-            <div>
-              <img
-                src="https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
-                className="w-full"
-                alt="Tailwind CSS Carousel component"
-              />
-            </div>
-            <p className="text-center">LHL PALACE</p>
-          </div>
+      <div className="container carousel-container mx-auto">
+        <div className="carousel mx-auto">
+          {memoryPalaceCarousel}
         </div>
       </div>
-      {/* Carousel End */}
     </>
   );
 }
