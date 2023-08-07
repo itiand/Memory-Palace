@@ -1,46 +1,17 @@
 import { useState, useEffect } from 'react';
 import { themeChange } from "theme-change";
+import useApplicationData from './hooks/useApplicationData';
 import axios from 'axios';
 import './App.scss';
 
 function App() {
-  const themeValues = [
-    "light",
-    "dark",
-    "cupcake",
-    "bumblebee",
-    "emerald",
-    "corporate",
-    "synthwave",
-    "retro",
-    "cyberpunk",
-    "valentine",
-    "halloween",
-    "garden",
-    "forest",
-    "aqua",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "wireframe",
-    "black",
-    "luxury",
-    "dracula",
-    "cmyk",
-    "autumn",
-    "business",
-    "acid",
-    "lemonade",
-    "night",
-    "coffee",
-    "winter",
-  ];
+  const { themes } = useApplicationData();
 
   useEffect(() => {
     themeChange(false);
   });
 
-  
+
   return (
     <>
       <div className="navbar bg-base-100">
@@ -71,7 +42,7 @@ function App() {
           </button>
           <select className="px-2 py-3" data-choose-theme>
             <option value="" className="">default</option>
-            {themeValues.map(value =>
+            {themes.map(value =>
               <option className="" key={value.toLocaleLowerCase()} value={value.toLocaleLowerCase()}>{value}</option>
             )}
           </select>
