@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { themeChange } from "theme-change";
 import useApplicationData from "./hooks/useApplicationData";
-import axios from "axios";
 import "./App.scss";
 import TodoList from "./components/TodoList";
 
@@ -10,11 +9,11 @@ function App() {
 
   useEffect(() => {
     themeChange(false);
-  });
+  }, []);
 
-  const memoryPalaceCarousel = memoryPalace.map((palace) => {
-    return (
-      <div className="carousel-item w-full flex flex-col items-center justify-center space-y-4">
+  const renderMemoryPalaceCarousel = () => {
+    return memoryPalace.map((palace) => (
+      <div key={palace.id} className="carousel-item w-full flex flex-col items-center justify-center space-y-4">
         <div className="w-full h-56 flex items-center justify-center overflow-hidden">
           <img
             src={palace.front_img_url}
@@ -26,23 +25,17 @@ function App() {
           <p className="text-center">{palace.name}</p>
         </div>
       </div>
-    );
-  });
+    ));
+  };
 
   return (
     <>
       <div className="navbar bg-primary">
         <div className="navbar-start">
           <select className="px-2 py-3" data-choose-theme>
-            <option value="" className="">
-              default
-            </option>
+            <option value="">default</option>
             {themes.map((value) => (
-              <option
-                className=""
-                key={value.toLocaleLowerCase()}
-                value={value.toLocaleLowerCase()}
-              >
+              <option key={value.toLowerCase()} value={value.toLowerCase()}>
                 {value}
               </option>
             ))}
@@ -115,12 +108,12 @@ function App() {
 
         {/* Start Modal */}
         <div className="navbar-end">
-          {/*Add New Palace */}
+          {/* Add New Palace */}
           <button className="btn" onClick={() => window.my_modal_1.showModal()}>
             Add New Palace
           </button>
           <dialog id="my_modal_1" className="modal">
-            <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+            <div className="modal-box w-11/12 max-w-5xl">
               <h3 className="font-bold text-lg">
                 Add New Palace Description (name, description)
               </h3>
@@ -134,7 +127,7 @@ function App() {
                 Add-Palace-Image-Modal
               </p>
               <div className="modal-action">
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => window.my_modal_1.close()}>
                   ✕
                 </button>
               </div>
@@ -150,12 +143,12 @@ function App() {
 
                 {/* Add Palace Image */}
                 <dialog id="my_modal_2" className="modal">
-                  <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+                  <div className="modal-box w-11/12 max-w-5xl">
                     <h3 className="font-bold text-lg">
-                      Add Palace Image(upload img){" "}
+                      Add Palace Image (upload img){" "}
                     </h3>
                     <img
-                      src=" https://images.unsplash.com/photo-1635945416566-6302b54c056b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2060&q=80"
+                      src="https://images.unsplash.com/photo-1635945416566-6302b54c056b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2060&q=80"
                       className="image-box w-60 mx-auto"
                     ></img>
                     <p className="py-4">
@@ -164,7 +157,7 @@ function App() {
                       Description * Changes to Regular Palace Modal
                     </p>
                     <div className="modal-action">
-                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => window.my_modal_2.close()}>
                         ✕
                       </button>
                     </div>
@@ -180,10 +173,7 @@ function App() {
 
                       {/* Regular Palace Modal */}
                       <dialog id="my_modal_4" className="modal">
-                        <form
-                          method="dialog"
-                          className="modal-box w-11/12 max-w-5xl"
-                        >
+                        <div className="modal-box w-11/12 max-w-5xl">
                           <h3 className="font-bold text-lg">
                             Regular Palace Modal
                           </h3>
@@ -197,17 +187,17 @@ function App() {
                             Rooms{" "}
                           </p>
                           <div className="modal-action">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => window.my_modal_4.close()}>
                               ✕
                             </button>
                           </div>
                           {/* Individual Rooms */}
                           <div className="regular-modal-rooms w-60 flex">
-                            <img src="https://i.imgur.com/EdZmnSg.jpeg"></img>
-                            <img src="https://i.imgur.com/rXkxaAo.jpeg"></img>
-                            <img src="https://i.imgur.com/gNoTLLj.jpeg"></img>
-                            <img src="https://i.imgur.com/NIYnoFP.jpeg"></img>
-                            <img src="https://i.imgur.com/QokO0HE.jpeg"></img>
+                            <img src="https://i.imgur.com/EdZmnSg.jpeg" alt="Room 1" />
+                            <img src="https://i.imgur.com/rXkxaAo.jpeg" alt="Room 2" />
+                            <img src="https://i.imgur.com/gNoTLLj.jpeg" alt="Room 3" />
+                            <img src="https://i.imgur.com/NIYnoFP.jpeg" alt="Room 4" />
+                            <img src="https://i.imgur.com/QokO0HE.jpeg" alt="Room 5" />
                           </div>
 
                           <div>
@@ -228,16 +218,14 @@ function App() {
                             </button>
                             {/* Insert Nested Modal */}
                             <dialog id="my_modal_5" className="modal">
-                              <form
-                                method="dialog"
-                                className="modal-box w-11/12 max-w-5xl"
-                              >
+                              <div className="modal-box w-11/12 max-w-5xl">
                                 <h3 className="font-bold text-lg">
                                   Add Room Modal
                                 </h3>
                                 <img
                                   src="https://i.imgur.com/ZEpq5CO.jpeg"
                                   className="image-box w-60 mx-auto"
+                                  alt="Room Image"
                                 ></img>
                                 <p className="py-4">
                                   Add Room Modal: * Can input Subject of Room *
@@ -247,7 +235,7 @@ function App() {
                                   <button
                                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                                     onClick={() =>
-                                      window.my_modal_4.showModal()
+                                      window.my_modal_5.close()
                                     }
                                   >
                                     ✕
@@ -266,12 +254,7 @@ function App() {
                                   </button>
 
                                   <dialog id="my_modal_6" className="modal">
-                                    <form
-                                      onSubmit={(event) =>
-                                        event.preventDefault()
-                                      }
-                                      className="modal-box w-11/12 max-w-5xl"
-                                    >
+                                    <div className="modal-box w-11/12 max-w-5xl">
                                       <h3 className="font-bold text-lg">
                                         Add Memory Modal
                                       </h3>
@@ -280,7 +263,7 @@ function App() {
                                         className="image-box w-60 mx-auto"
                                         alt="Memory"
                                       />
-                                       <div>
+                                      <div>
                                         <TodoList />
                                       </div>
                                       <p className="py-4">
@@ -288,7 +271,7 @@ function App() {
                                         to save * This is where ChatGPT and
                                         Dall-E come in
                                       </p>
-                                     
+
                                       <div className="modal-action">
                                         <button
                                           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -301,36 +284,37 @@ function App() {
                                       </div>
 
                                       <div>
-
                                         <button
                                           className="btn"
                                           onClick={() =>
                                             window.my_modal_4.showModal()
                                           }
                                         >
-                                          Save Memory
+                                          Save Memory (doesnt save yet)
                                         </button>
-                                        {/* Insert Nested Modal */}
+
+
+                                        
                                       </div>
-                                    </form>
+                                    </div>
                                   </dialog>
                                 </div>
-                              </form>
+                              </div>
                             </dialog>
                           </div>
-                        </form>
+                        </div>
                       </dialog>
                     </div>
-                  </form>
+                  </div>
                 </dialog>
               </div>
-            </form>
+            </div>
           </dialog>
         </div>
         {/* End Modal */}
       </div>
       <div className="container carousel-container mx-auto">
-        <div className="carousel mx-auto">{memoryPalaceCarousel}</div>
+        <div className="carousel mx-auto">{renderMemoryPalaceCarousel()}</div>
       </div>
     </>
   );
