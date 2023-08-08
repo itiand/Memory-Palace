@@ -11,21 +11,6 @@ function App() {
     themeChange(false);
   }, []);
 
-
-  // const memoryPalaceCarousel = memoryPalace.map((palace) => {
-  //   return (
-  //     <div className="carousel-item w-full flex flex-col">
-  //       <div>
-  //         <img src={palace.front_img_url} className="" alt="Tailwind CSS Carousel component" />
-  //       </div>
-  //       <div className='carousel-body bg-base-300 py-2 px-4'>
-  //         <p className='text-center'>{palace.name}</p>
-  //       </div>
-  //     </div>
-  //   );
-  // });
-
-
   const memoryPalaceCarousel = memoryPalace.map((palace) => {
     return (
       <div className="carousel-item w-full flex flex-col items-center justify-center">
@@ -33,8 +18,8 @@ function App() {
         <div className="h-72 flex items-center justify-center overflow-hidden">
           <img src={palace.front_img_url} className="object-cover" alt="Tailwind CSS Carousel component" />
         </div>
-        <div className='carousel-body bg-base-300 py-2 px-4 w-full'>
-          <p className='text-xl'>{palace.name}</p>
+        <div className='carousel-body bg-neutral/50 py-1 px-4 -mt-8 text-gray-200 self-start rounded-br'>
+          <p className='text-m'>{palace.name}</p>
         </div>
       </div>
     );
@@ -326,7 +311,7 @@ function App() {
         </div>
         {/* End Modal */}
       </div>
-
+      <h1 className="mt-6 text-center text-4xl">My Palaces</h1>
       <div className="container carousel-container mx-auto">
         <div className="carousel mx-auto mt-7 rounded-lg">
           {memoryPalaceCarousel}
