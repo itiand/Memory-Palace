@@ -5,9 +5,10 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import { Configuration, OpenAIApi } from 'openai'
 import readline from 'readline'
-
+import { MongoClient, ServerApiVersion } from 'mongodb'
 dotenv.config()
 
+const uri = "mongodb+srv://adavidliang:a524219509@davidcluster0.ecrbedh.mongodb.net/?retryWrites=true&w=majority";
 const { ENVIROMENT, PORT, GPT_API_KEY } = process.env
 
 const userInterface = readline.createInterface({
@@ -17,7 +18,7 @@ const userInterface = readline.createInterface({
 
 //routes import
 import exampleRoutes from './routes/exampleRoutes.js'
-import dalleImgRouter from './routes/dalleImgRoutes.js'
+
 
 const app = express();
 
@@ -26,13 +27,13 @@ app.use(morgan(ENVIROMENT));
 app.use(bodyParser.json());
 
 app.use('/cats', exampleRoutes);
-app.use('/img', dalleImgRouter)
+
 
 app.get('/', (req, res) => {
 	res.json({greetings: 'hello world'});
 })
 
-// console.log(GPT_API_KEY)
+
 const openai = new OpenAIApi(new Configuration({
   apiKey: GPT_API_KEY
 }))
@@ -56,5 +57,30 @@ const response = await openai.createImage({
 // console.log(response.data)
 const image_url = response.data.data[0].url;
 console.log(image_url)
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
+
+
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
