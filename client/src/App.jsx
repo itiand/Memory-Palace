@@ -11,27 +11,19 @@ function App() {
     themeChange(false);
   }, []);
 
-  const Card = ({ imageSrc, title, description }) => (
-    <div className="carousel-item flex flex-col items-center justify-between h-[500px] w-[400px]" >
-      <img src={imageSrc} className="object-contain h-[70%]" alt="Memory Palace" />
-      <div className="text-center ">
-        <p className="font-semibold">{title}</p>
-        <p className="text-sm">{description}</p>
+  const memoryPalaceCarousel = memoryPalace.map((palace) => {
+    return (
+      <div className="carousel-item w-full flex flex-col items-center justify-center cursor-pointer">
+        <div className="h-64 flex items-center justify-center overflow-hidden">
+          <img src={palace.front_img_url} className="object-cover" alt="" />
+        </div>
+        <div className='carousel-body bg-neutral/50 py-1 px-4 -mt-8 text-gray-200 self-start rounded-br'>
+          <p className='text-m'>{palace.name}</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  });
 
-
-  const renderMemoryPalaceCarousel = () => {
-    return memoryPalace.map((palace) => (
-      <Card
-        key={palace.id}
-        imageSrc={palace.front_img_url}
-        title={palace.name}
-        description={palace.description}
-      />
-    ));
-  };
 
   return (
     <>
@@ -318,12 +310,11 @@ function App() {
         </div>
         {/* End Modal */}
       </div>
+      <h1 className="mt-6 text-center text-4xl">My Palaces</h1>
       <div className="container carousel-container mx-auto">
-        <div className="carousel mx-auto w-96 h-96 py-2">
-          {renderMemoryPalaceCarousel()}
+        <div className="carousel mx-auto mt-7 rounded-lg">
+          {memoryPalaceCarousel}
         </div>
-        
-
       </div>
     </>
   );
