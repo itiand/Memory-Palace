@@ -1,22 +1,23 @@
 // declarations
-import dotenv from 'dotenv'
-import express from 'express'
-import morgan from 'morgan'
-import bodyParser from 'body-parser'
-import { Configuration, OpenAIApi } from 'openai'
-import readline from 'readline'
+import dotenv from 'dotenv';
+import express, { response } from 'express';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import readline from 'readline';
+import { getImage, getChatResponse } from './lib/openAIHelpers.js';
 
-dotenv.config()
+dotenv.config();
 
-const { ENVIROMENT, PORT, GPT_API_KEY } = process.env
+const { ENVIROMENT, PORT, GPT_API_KEY } = process.env;
+// console.log('WALI', ENVIROMENT, PORT, GPT_API_KEY)
 
 const userInterface = readline.createInterface({
   input: process.stdin,
   output: process.stdout
-})
+});
 
 //routes import
-import exampleRoutes from './routes/exampleRoutes.js'
+import exampleRoutes from './routes/exampleRoutes.js';
 
 const app = express();
 
@@ -26,32 +27,12 @@ app.use(bodyParser.json());
 
 app.use('/cats', exampleRoutes);
 
-app.get('/', (req, res) => {
-	res.json({greetings: 'hello world'});
-})
-
-const openai = new OpenAIApi(new Configuration({
-  apiKey: GPT_API_KEY
-}))
-
-userInterface.prompt()
-userInterface.on("line", async input => {
-  const res = await openai
-  .createChatCompletion({ 
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: input}]
-  })
-    console.log(res.data.choices[0].message.content)
-
-})
-
-const response = await openai.createImage({
-  prompt: "michael jordan eating spagetti",
-  n: 3,
-  size: "256x256",
+app.get('/phrases', (req, res) => {
+  const result = getChatResponse('Hello, Chat GPT')
+    .then(response => {
+      res.json(response)
+    });
 });
-// console.log(response.data)
-const image_url = response.data.data[0].url;
-console.log(image_url)
+
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
