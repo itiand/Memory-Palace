@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
 	res.json({greetings: 'hello world'});
 })
 
-// console.log(GPT_API_KEY)
 const openai = new OpenAIApi(new Configuration({
   apiKey: GPT_API_KEY
 }))
