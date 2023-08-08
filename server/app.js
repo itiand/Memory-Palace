@@ -17,7 +17,6 @@ const userInterface = readline.createInterface({
 
 //routes import
 import exampleRoutes from './routes/exampleRoutes.js'
-import dalleImgRouter from './routes/dalleImgRoutes.js'
 
 const app = express();
 
@@ -26,13 +25,11 @@ app.use(morgan(ENVIROMENT));
 app.use(bodyParser.json());
 
 app.use('/cats', exampleRoutes);
-app.use('/img', dalleImgRouter)
 
 app.get('/', (req, res) => {
 	res.json({greetings: 'hello world'});
 })
 
-// console.log(GPT_API_KEY)
 const openai = new OpenAIApi(new Configuration({
   apiKey: GPT_API_KEY
 }))
@@ -49,8 +46,8 @@ userInterface.on("line", async input => {
 })
 
 const response = await openai.createImage({
-  prompt: "lovely dog",
-  n: 1,
+  prompt: "michael jordan eating spagetti",
+  n: 3,
   size: "256x256",
 });
 // console.log(response.data)
