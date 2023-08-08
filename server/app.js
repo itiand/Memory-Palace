@@ -7,7 +7,7 @@ import readline from 'readline';
 import { getImage, getChatResponse } from './lib/openAIHelpers.js';
 import { MongoClient, ServerApiVersion } from 'mongodb'
 
-const uri = "mongodb+srv://adavidliang:a524219509@davidcluster0.ecrbedh.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://david:Ftmnk1v1Zep8PevL@davidcluster0.ecrbedh.mongodb.net/?retryWrites=true&w=majority";
 dotenv.config();
 
 const { ENVIROMENT, PORT, GPT_API_KEY } = process.env;
