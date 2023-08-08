@@ -38,11 +38,11 @@ function getInitialSelectedPalace() {
   }
 }
 
-const initialState = {
-  likes: [],
-  selectedImg: getInitialSelectedImgState(),
-  isModalOpen: false
-};
+// const initialState = {
+//   likes: [],
+//   selectedImg: getInitialSelectedImgState(),
+//   isModalOpen: false
+// };
 
 const useApplicationData = () => {
   return {
