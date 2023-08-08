@@ -13,7 +13,7 @@ function App() {
 
   const memoryPalaceCarousel = memoryPalace.map((palace) => {
     return (
-      <div className="carousel-item w-full flex flex-col items-center justify-center cursor-pointer">
+      <div className="carousel-item w-full flex flex-col items-center justify-center cursor-pointer" key={palace.id} onClick={() => window.my_modal_4.showModal()}>
         <div className="h-64 flex items-center justify-center overflow-hidden">
           <img src={palace.front_img_url} className="object-cover" alt="" />
         </div>

@@ -9,7 +9,6 @@ import { getImage, getChatResponse } from './lib/openAIHelpers.js';
 dotenv.config();
 
 const { ENVIROMENT, PORT, GPT_API_KEY } = process.env;
-// console.log('WALI', ENVIROMENT, PORT, GPT_API_KEY)
 
 const userInterface = readline.createInterface({
   input: process.stdin,
