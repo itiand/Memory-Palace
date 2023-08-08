@@ -6,7 +6,7 @@ const memoryPalace = [
   {
     id: 1,
     name: "palace1",
-    front_img_url: "https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228"
+    front_img_url: "https://i.imgur.com/RBJ5YSd.jpeg"
   },
   {
     id: 2,
