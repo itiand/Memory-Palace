@@ -13,10 +13,9 @@ function App() {
 
   const memoryPalaceCarousel = memoryPalace.map((palace) => {
     return (
-      <div className="carousel-item w-full flex flex-col items-center justify-center">
-        <div className="card"></div>
-        <div className="h-72 flex items-center justify-center overflow-hidden">
-          <img src={palace.front_img_url} className="object-cover" alt="Tailwind CSS Carousel component" />
+      <div className="carousel-item w-full flex flex-col items-center justify-center cursor-pointer">
+        <div className="h-64 flex items-center justify-center overflow-hidden">
+          <img src={palace.front_img_url} className="object-cover" alt="" />
         </div>
         <div className='carousel-body bg-neutral/50 py-1 px-4 -mt-8 text-gray-200 self-start rounded-br'>
           <p className='text-m'>{palace.name}</p>
