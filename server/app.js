@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import { getImage, getChatResponse } from './lib/openAIHelpers.js';
 import { MongoClient, ServerApiVersion } from 'mongodb'
-import { termForAiDrawer, termForAiDrawer1} from './helper/filterUserWords.js'
+import { termForAiDrawer, termForAiDrawer1 } from './helper/filterUserWords.js'
 
 
 dotenv.config();
@@ -13,7 +13,13 @@ const app = express();
 const { ENVIROMENT, PORT, GPT_API_KEY, DB_MONGO_PASSWORD } = process.env;
 
 ///
-//MONGO
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+})
 ///
 const uri = DB_MONGO_PASSWORD;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -49,18 +55,19 @@ app.use(bodyParser.json());
 app.use('/cats', exampleRoutes);
 
 app.get('/phrases', (req, res) => {
-  const ChatGptWord = WordtermForAiDrawer(req)
-  const result = getChatResponse(`${ChatGptWord}`)
+  // const ChatGptWord = termForAiDrawer(req)
+  // const result = getChatResponse(`${ChatGptWord}`)
+  const result = getChatResponse(`hellow`)
     .then(response => {
       res.json(response)
 
-      const img_url = getImage(result)
-      db.Palace.insertOne({
-      "name" : `${item}`,
-      "Palace Description" : `${result}`,
-      "front_img_url" : `${img_url}`,
-      "room" : `${roomID}`
-      })
+      // const img_url = getImage(result)
+      // .Palace.insertOne({
+      //   "name": `${item}`,
+      //   "Palace Description": `${result}`,
+      //   "front_img_url": `${img_url}`,
+      //   "room": `${roomID}`
+      // })
 
     });
 });
@@ -69,13 +76,7 @@ app.get('/phrases', (req, res) => {
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-})
+
 app.post('/initMemoryPalace', (req, res) => {
   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
 
