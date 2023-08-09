@@ -60,6 +60,7 @@ app.get('/phrases', (req, res) => {
     });
 });
 
+
 app.post('/initMemoryPalace', (req, res) => {
   const memoryPalaceCollection = db.collection("Palace"); //name of collection
 
@@ -67,12 +68,14 @@ app.post('/initMemoryPalace', (req, res) => {
 
   memoryPalaceCollection.insertMany(dataToInsert)
     .then(result => {
-      res.json({ success: true, insertedCount: result.insertedCount });
+      res.json({ success: true, insertedCount: result.insertedCount, insertedIds: result.insertedIds });
     })
     .catch(error => {
-      res.status(500).json({ success: false, message: "Failed to insert memory palaces." });
+      res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });
     });
 });
+
+
 
 app.get('/getMemoryPalaces', (req, res) => {
   const memoryPalaceCollection = db.collection("Palace"); //name of collection
