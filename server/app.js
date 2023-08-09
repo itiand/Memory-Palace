@@ -3,33 +3,57 @@ import dotenv from 'dotenv';
 import express, { response } from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import readline from 'readline';
 import { getImage, getChatResponse } from './lib/openAIHelpers.js';
 import { MongoClient, ServerApiVersion } from 'mongodb'
 import { termForAiDrawer, termForAiDrawer1} from './helper/filterUserWords.js'
+import { MongoClient, ServerApiVersion } from 'mongodb';
+
 
 dotenv.config();
-
+const app = express();
 const { ENVIROMENT, PORT, GPT_API_KEY, DB_MONGO_PASSWORD } = process.env;
 
-const uri = DB_MONGO_PASSWORD
-
-const userInterface = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+///
+//MONGO
+///
+const uri = DB_MONGO_PASSWORD;
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
 });
 
+let db;
+async function run() {
+  try {
+    await client.connect();
+    db = client.db("Memory"); //name of the db
+    console.log("Successfully connected to MongoDB!");
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+    process.exit(1);
+  }
+}
+
+run().catch(console.dir);
+///
+//END MONGO
+//
+
 //routes import
-
-import exampleRoutes from './routes/exampleRoutes.js'
-
-
-const app = express();
+import exampleRoutes from './routes/exampleRoutes.js';
 
 // middleware setup
 app.use(morgan(ENVIROMENT));
 app.use(bodyParser.json());
 
+
+//
+//ROUTES
+//
 app.use('/cats', exampleRoutes);
 
 app.get('/phrases', (req, res) => {
@@ -45,8 +69,10 @@ app.get('/phrases', (req, res) => {
       "front_img_url" : `${img_url}`,
       "room" : `${roomID}`
       })
+
     });
 });
+
 
 
 
@@ -57,20 +83,44 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   }
+
+app.post('/initMemoryPalace', (req, res) => {
+  const memoryPalaceCollection = db.collection("Palaces"); //name of collection
+
+  const dataToInsert = req.body;
+
+  memoryPalaceCollection.insertMany(dataToInsert)
+    .then(result => {
+      //example result
+      //  = {
+      //   acknowledged: true,
+      //   insertedCount: 2,
+      //   insertedIds: {
+      //     '0': new ObjectId("64d3bb72171be03ea57537d7"),
+      //     '1': new ObjectId("64d3bb72171be03ea57537d8")
+      //        ......
+      //   }
+      // }
+      res.json({ success: true, insertedCount: result.insertedCount, insertedIds: result.insertedIds });
+    })
+    .catch(error => {
+      res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });
+    });
 });
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+
+
+
+app.get('/getMemoryPalaces', (req, res) => {
+  const memoryPalaceCollection = db.collection("Palaces"); //name of collection
+
+  memoryPalaceCollection.find({}).toArray()
+    .then(palaces => {
+      res.json(palaces);
+    })
+    .catch(error => {
+      res.status(500).json({ success: false, message: "Failed to fetch memory palaces." });
+    });
+});
 
 
 
