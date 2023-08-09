@@ -68,6 +68,16 @@ app.post('/initMemoryPalace', (req, res) => {
 
   memoryPalaceCollection.insertMany(dataToInsert)
     .then(result => {
+      //example result
+      //  = {
+      //   acknowledged: true,
+      //   insertedCount: 2,
+      //   insertedIds: {
+      //     '0': new ObjectId("64d3bb72171be03ea57537d7"),
+      //     '1': new ObjectId("64d3bb72171be03ea57537d8")
+      //        ......
+      //   }
+      // }
       res.json({ success: true, insertedCount: result.insertedCount, insertedIds: result.insertedIds });
     })
     .catch(error => {
