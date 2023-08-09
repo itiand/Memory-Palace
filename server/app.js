@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import readline from 'readline';
 import { getImage, getChatResponse } from './lib/openAIHelpers.js';
 import { MongoClient, ServerApiVersion } from 'mongodb'
-
+import { termForAiDrawer, termForAiDrawer1} from './helper/filterUserWords.js'
 
 dotenv.config();
 
@@ -33,11 +33,21 @@ app.use(bodyParser.json());
 app.use('/cats', exampleRoutes);
 
 app.get('/phrases', (req, res) => {
-  const result = getChatResponse('Hello, Chat GPT')
+  const ChatGptWord = WordtermForAiDrawer(req)
+  const result = getChatResponse(`${ChatGptWord}`)
     .then(response => {
       res.json(response)
+
+      const img_url = getImage(result)
+      db.Palace.insertOne({
+      "name" : `${item}`,
+      "Palace Description" : `${result}`,
+      "front_img_url" : `${img_url}`,
+      "room" : `${roomID}`
+      })
     });
 });
+
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
