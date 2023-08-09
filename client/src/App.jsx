@@ -6,7 +6,7 @@ import TodoList from "./components/TodoList";
 
 function App() {
   const { themes, memoryPalace } = useApplicationData();
-
+  
   useEffect(() => {
     themeChange(false);
   }, []);
