@@ -106,6 +106,16 @@ const palaceExample = {
   }
 };
 
+// const result = db.Palaces.update_one({
+//   "x": "null"
+// },
+// {
+//   "$set": { "toDoItem" : palaceExample.PalaceToDoList.toDo1}
+// })
+
+// result;
+
+
 // app.post('/initMemoryPalace', (req, res) => {
 //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
 
