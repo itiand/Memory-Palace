@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 const { ENVIROMENT, PORT, GPT_API_KEY, DB_MONGO_PASSWORD } = process.env;
 
-///
+const uri = DB_MONGO_PASSWORD;
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -20,8 +20,6 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 })
-///
-const uri = DB_MONGO_PASSWORD;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 
 
