@@ -62,7 +62,7 @@ app.get('/phrases', (req, res) => {
 
 
 app.post('/initMemoryPalace', (req, res) => {
-  const memoryPalaceCollection = db.collection("Palace"); //name of collection
+  const memoryPalaceCollection = db.collection("Palaces"); //name of collection
 
   const dataToInsert = req.body;
 
@@ -88,7 +88,7 @@ app.post('/initMemoryPalace', (req, res) => {
 
 
 app.get('/getMemoryPalaces', (req, res) => {
-  const memoryPalaceCollection = db.collection("Palace"); //name of collection
+  const memoryPalaceCollection = db.collection("Palaces"); //name of collection
 
   memoryPalaceCollection.find({}).toArray()
     .then(palaces => {
