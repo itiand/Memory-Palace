@@ -16,11 +16,11 @@ function getInitialSelectedPalace() {
 //   isModalOpen: false
 // };
 
-const useApplicationData = (newPalace) => {
+const useApplicationData = () => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
 
-  function initAndFetchNewMemoryPalace() {
+  function initAndFetchNewMemoryPalace(newPalace) {
     fetch("/initMemoryPalace", {
       method: 'POST',
       headers: {
@@ -70,8 +70,10 @@ const useApplicationData = (newPalace) => {
 
 
   return {
-    selectedPalace,
     memoryPalaces,
+    selectedPalace,
+    initAndFetchNewMemoryPalace,
+    fetchMemoryPalaces,
     themes
   };
 };
