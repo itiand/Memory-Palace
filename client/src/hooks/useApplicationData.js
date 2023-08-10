@@ -67,6 +67,7 @@ const useApplicationData = () => {
   return {
     memoryPalaces,
     selectedPalace,
+    setSelectedPalace,
     initAndFetchNewMemoryPalace,
     fetchMemoryPalaces,
     themes
