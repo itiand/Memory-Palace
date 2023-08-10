@@ -3,17 +3,18 @@ import { themeChange } from "theme-change";
 import useApplicationData from "./hooks/useApplicationData";
 import "./App.scss";
 import TodoList from "./components/TodoList";
+import RegularPalaceView from "./components/RegularPalaceView";
 
 function App() {
   const { themes, memoryPalaces, selectedPalace } = useApplicationData();
-  console.log('WALDO',memoryPalaces)
+  console.log('WALDO', memoryPalaces);
   useEffect(() => {
     themeChange(false);
   }, []);
 
   const memoryPalaceCarousel = memoryPalaces.map((palace) => {
     return (
-      <div className="carousel-item w-full flex flex-col items-center justify-center cursor-pointer" key={palace._id} onClick={() => window.my_modal_4.showModal()}>
+      <div className="carousel-item w-full flex flex-col items-center justify-center cursor-pointer" key={palace._id} onClick={() => window.reg_view.showModal()}>
         <div className="h-64 flex items-center justify-center overflow-hidden">
           <img src={palace.PalaceCoverImg} className="object-cover" alt="" />
         </div>
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <>
+      <RegularPalaceView></RegularPalaceView>
       <div className="navbar bg-primary">
         <div className="navbar-start">
           <select className="px-2 py-3" data-choose-theme>
@@ -291,7 +293,7 @@ function App() {
                                         </button>
 
 
-                                        
+
                                       </div>
                                     </div>
                                   </dialog>
