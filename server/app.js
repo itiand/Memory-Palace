@@ -72,6 +72,7 @@ app.get('/phrases', (req, res) => {
 });
 
 
+<<<<<<< HEAD
 
 const palaceExample = {
   PalaceName: "the office",
@@ -116,12 +117,14 @@ const palaceExample = {
 // result;
 
 
+=======
+>>>>>>> main
 // app.post('/initMemoryPalace', (req, res) => {
 //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
 
-//   const dataToInsert = req.body;
+//   const palaceToInsert = req.body;
 
-//   memoryPalaceCollection.insertMany(palaceExample)
+//   memoryPalaceCollection.insertMany(palaceToInsert)
 //     .then(result => {
 //       //example result
 //       //  = {
@@ -143,9 +146,27 @@ const palaceExample = {
 app.post('/initMemoryPalace', (req, res) => {
   const memoryPalaceCollection = db.collection("Palaces");
 
-  memoryPalaceCollection.insertOne(palaceExample) // Changed to insertOne
+  // const palaceToInsert = req.body;
+
+  memoryPalaceCollection.insertOne({ name: "testing" }) // Changed to insertOne
     .then(result => {
-      res.json({ success: true, insertedCount: result.insertedCount, insertedId: result.insertedId });
+      const insertedId = result.insertedId;
+      return memoryPalaceCollection.findOne({ _id: insertedId });
+    })
+    .then(insertedDocument => {
+      if (insertedDocument) {
+        res.json({
+          success: true,
+          insertedCount: 1,
+          insertedId: insertedDocument._id,
+          palaceData: insertedDocument
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Inserted data is not available."
+        });
+      }
     })
     .catch(error => {
       res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });

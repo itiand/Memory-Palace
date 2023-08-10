@@ -2,51 +2,46 @@ import { useState, useEffect } from 'react';
 import tailwindConfig from '../../tailwind.config.js';
 const { themes } = tailwindConfig;
 
-
-// const memoryPalace = [
-//   {
-//     id: 1,
-//     name: "palace1",
-//     front_img_url: "https://images-ext-1.discordapp.net/external/rJs80p45-ElChRCSR3ELP2k_VWSEKauZphmw7PzDpfk/https/i.imgur.com/JjF0Lda.jpg?width=1036&height=1228",
-//     rooms: []
-//   },
-//   {
-//     id: 2,
-//     name: "fresh prince",
-//     front_img_url: "https://media.architecturaldigest.com/photos/5f60d4247cb92d03f8366538/16:9/w_2560%2Cc_limit/01_Airbnb_Fresh_Exterior-A.jpg",
-//     rooms: []
-//   },
-//   {
-//     id: 3,
-//     name: "the office",
-//     front_img_url: "https://i0.wp.com/lokagraph.com/wp-content/uploads/2018/05/dunder-Mifflin-building-the-office-where-location.jpg?fit=2048%2C1280",
-//     rooms: []
-//   },
-//   {
-//     id: 4,
-//     name: "big bang theory",
-//     front_img_url: "https://s28943.pcdn.co/wp-content/uploads/2019/06/Apt-4A-TV-Approved.jpg",
-//     rooms: []
-//   }
-// ];
-
-
-function getInitialSelectedPalace() {
-  return {
-    id: ``,
-    name: ``,
-    front_img_url: ``
-  };
-}
-
-// const initialState = {
-//   likes: [],
-//   selectedImg: getInitialSelectedImgState(),
-//   isModalOpen: false
-// };
+// function getInitialSelectedPalace() {
+//   return {
+//     id: ``,
+//     name: ``,
+//     front_img_url: ``
+//   };
+// }
 
 const useApplicationData = () => {
-  const [memoryPalace, setMemoryPalace] = useState([]);
+  
+  const [memoryPalaces, setMemoryPalaces] = useState([]);
+  const [selectedPalace, setSelectedPalace] = useState({});
+
+  function initAndFetchNewMemoryPalace(newPalace) {
+    fetch("/initMemoryPalace", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPalace)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to initialize memory palace data.");
+        }
+        //eg response 
+        //{"success":true,"insertedCount":1,"insertedId":"64d45ba89dad3aeedc785861","palaceData":{"_id":"64d45ba89dad3aeedc785861","name":"testing"}}%     
+        return response.json();
+      })
+      .then(data => {
+        if(data.success) {
+          setMemoryPalaces(prevState => [...prevState, data.palaceData]);
+          setSelectedPalace(data.palaceData);
+          return(data.palaceData)
+        }
+      })
+      .catch(error => {
+        console.error("There was a problem:", error.message);
+      });
+  }
 
   function fetchMemoryPalaces() {
     fetch("api/getMemoryPalaces")
@@ -57,7 +52,7 @@ const useApplicationData = () => {
         return response.json();
       })
       .then(data => {
-        setMemoryPalace(data);
+        setMemoryPalaces(data);
       })
       .catch(error => {
         console.error("There was a problem with the fetch operation:", error.message);
@@ -70,7 +65,11 @@ const useApplicationData = () => {
 
 
   return {
-    memoryPalace,
+    memoryPalaces,
+    selectedPalace,
+    setSelectedPalace,
+    initAndFetchNewMemoryPalace,
+    fetchMemoryPalaces,
     themes
   };
 };
