@@ -18,6 +18,7 @@ function getInitialSelectedPalace() {
 
 const useApplicationData = () => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
+  const [selectedPalace, setSelectedPalace] = useState({})
 
   function initAndFetchMemoryPalaces() {
     fetch("/initMemoryPalace", {
@@ -26,12 +27,19 @@ const useApplicationData = () => {
         'Content-Type': 'application/json',
       },
     })
-    .then( response => {
-      if (!response.ok) {
-        throw new Error("Failed to initialize memory palace data.");
-      }
-      fetchMemoryPalaces();
-    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to initialize memory palace data.");
+        }
+        return response.json();
+      })
+      .then(data => {
+        setMemoryPalaces(preveState => [...preveState, palaceData]);
+        setSelectedPalace(palaceData);
+      })
+      .catch(error => {
+        console.error("There was a problem:", error.message);
+      });
   }
 
   function fetchMemoryPalaces() {
