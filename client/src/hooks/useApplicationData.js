@@ -17,7 +17,22 @@ function getInitialSelectedPalace() {
 // };
 
 const useApplicationData = () => {
-  const [memoryPalace, setMemoryPalace] = useState([]);
+  const [memoryPalaces, setMemoryPalaces] = useState([]);
+
+  function initAndFetchMemoryPalaces() {
+    fetch("/initMemoryPalace", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then( response => {
+      if (!response.ok) {
+        throw new Error("Failed to initialize memory palace data.");
+      }
+      fetchMemoryPalaces();
+    })
+  }
 
   function fetchMemoryPalaces() {
     fetch("api/getMemoryPalaces")
@@ -28,7 +43,7 @@ const useApplicationData = () => {
         return response.json();
       })
       .then(data => {
-        setMemoryPalace(data);
+        setMemoryPalaces(data);
       })
       .catch(error => {
         console.error("There was a problem with the fetch operation:", error.message);
@@ -41,7 +56,7 @@ const useApplicationData = () => {
 
 
   return {
-    memoryPalace,
+    memoryPalaces,
     themes
   };
 };
