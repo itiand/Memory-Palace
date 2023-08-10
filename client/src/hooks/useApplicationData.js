@@ -20,7 +20,7 @@ const useApplicationData = () => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
 
-  function initAndFetchMemoryPalaces() {
+  function initAndFetchNewMemoryPalace() {
     fetch("/initMemoryPalace", {
       method: 'POST',
       headers: {
@@ -39,6 +39,7 @@ const useApplicationData = () => {
         if(data.success) {
           setMemoryPalaces(prevState => [...prevState, data.palaceData]);
           setSelectedPalace(data.palaceData);
+          return(data.palaceData)
         }
       })
       .catch(error => {
