@@ -110,7 +110,6 @@ app.post('/initMemoryPalace', (req, res) => {
       return memoryPalaceCollection.findOne({ _id: insertedId });
     })
     .then(insertedDocument => {
-      console.log('WALDOOO', insertedDocument)
       if (insertedDocument) {
         res.json({
           success: true,
