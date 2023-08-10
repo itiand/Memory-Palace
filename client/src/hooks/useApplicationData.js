@@ -16,7 +16,7 @@ function getInitialSelectedPalace() {
 //   isModalOpen: false
 // };
 
-const useApplicationData = () => {
+const useApplicationData = (newPalace) => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
 
@@ -26,6 +26,7 @@ const useApplicationData = () => {
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(newPalace)
     })
       .then(response => {
         if (!response.ok) {
