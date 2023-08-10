@@ -29,7 +29,7 @@ function App() {
 
   return (
     <>
-      <RegularPalaceView></RegularPalaceView>
+      <RegularPalaceView/>
       <div className="navbar bg-primary">
         <div className="navbar-start">
           <select className="px-2 py-3" data-choose-theme>

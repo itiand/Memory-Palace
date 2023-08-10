@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { PalaceContext } from "../providers/palaceProvider";
 
 
 function RegularPalaceView() {
-
+  const { selectedPalace } = useContext(PalaceContext);
   return (
     <>
       <dialog id="reg_view" className="modal">
@@ -24,7 +25,7 @@ function RegularPalaceView() {
             <img src="https://i.imgur.com/QokO0HE.jpeg" alt="Room 5" />
           </div> */}
           <div className="reg_view-rooms">
-            
+
           </div>
         </form>
       </dialog>
