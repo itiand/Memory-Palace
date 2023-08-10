@@ -75,7 +75,6 @@ app.get('/phrases', (req, res) => {
 });
 
 
-
 // app.post('/initMemoryPalace', (req, res) => {
 //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
 
