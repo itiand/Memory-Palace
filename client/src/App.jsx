@@ -73,6 +73,5 @@ function App() {
     </>
   );
 }
-{/* <form className="palaceForm">
-<button className="btn" id="submitPalaceButton" onSubmit= {handleSubmit}>Submit Palace</button></form> */}
+
 export default App;

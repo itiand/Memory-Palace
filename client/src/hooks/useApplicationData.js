@@ -16,7 +16,7 @@ const useApplicationData = () => {
   const [selectedPalace, setSelectedPalace] = useState({});
 
   function initAndFetchNewMemoryPalace(newPalace) {
-    fetch("/initMemoryPalace", {
+    fetch("api/initMemoryPalace", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
