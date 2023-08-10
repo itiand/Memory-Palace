@@ -5,8 +5,8 @@ import "./App.scss";
 import TodoList from "./components/TodoList";
 
 function App() {
-  const { themes, memoryPalaces } = useApplicationData();
-  
+  const { themes, memoryPalaces, selectedPalace } = useApplicationData();
+  console.log('WALDO',memoryPalaces)
   useEffect(() => {
     themeChange(false);
   }, []);
