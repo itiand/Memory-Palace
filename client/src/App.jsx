@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { themeChange } from "theme-change";
-// import useApplicationData from "./hooks/useApplicationData"; // 1.context instead
 import { PalaceContext } from "./providers/palaceProvider";
 import "./App.scss";
 import TodoList from "./components/TodoList";
 import RegularPalaceView from "./components/RegularPalaceView";
 
 function App() {
-  // const { themes, memoryPalaces, selectedPalace } = useApplicationData(); //1.context instead
   const { memoryPalaces, selectedPalace, themes } = useContext(PalaceContext);
   console.log(useContext(PalaceContext))
 

@@ -2,21 +2,16 @@ import { useState, useEffect } from 'react';
 import tailwindConfig from '../../tailwind.config.js';
 const { themes } = tailwindConfig;
 
-function getInitialSelectedPalace() {
-  return {
-    id: ``,
-    name: ``,
-    front_img_url: ``
-  };
-}
-
-// const initialState = {
-//   likes: [],
-//   selectedImg: getInitialSelectedImgState(),
-//   isModalOpen: false
-// };
+// function getInitialSelectedPalace() {
+//   return {
+//     id: ``,
+//     name: ``,
+//     front_img_url: ``
+//   };
+// }
 
 const useApplicationData = () => {
+  
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
 
