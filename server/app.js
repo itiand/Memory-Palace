@@ -102,11 +102,28 @@ app.get('/phrases', (req, res) => {
 app.post('/initMemoryPalace', (req, res) => {
   const memoryPalaceCollection = db.collection("Palaces");
 
-  const palaceToInsert = req.body;
+  // const palaceToInsert = req.body;
 
-  memoryPalaceCollection.insertOne(palaceToInsert) // Changed to insertOne
+  memoryPalaceCollection.insertOne({ name: "testing" }) // Changed to insertOne
     .then(result => {
-      res.json({ success: true, insertedCount: result.insertedCount, insertedId: result.insertedId });
+      const insertedId = result.insertedId;
+      return memoryPalaceCollection.findOne({ _id: insertedId });
+    })
+    .then(insertedDocument => {
+      console.log('WALDOOO', insertedDocument)
+      if (insertedDocument) {
+        res.json({
+          success: true,
+          insertedCount: 1,
+          insertedId: insertedDocument._id,
+          palaceData: insertedDocument
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Inserted data is not available."
+        });
+      }
     })
     .catch(error => {
       res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });
