@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 import { FaRegEye, FaEdit, FaPlus, FaCheck } from 'react-icons/fa';
+import AlertMessage from "./AlertMessage";
 
 
 function RegularPalaceView() {
@@ -9,6 +10,8 @@ function RegularPalaceView() {
 
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
+
+  //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
   const [newImageURL, setNewImageURL] = useState('');
 
@@ -16,6 +19,7 @@ function RegularPalaceView() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
+  //helpers 
   useEffect(() => {
     if (Rooms) {
       const roomArray = Object.values(Rooms);
@@ -31,7 +35,7 @@ function RegularPalaceView() {
       return false;
     }
   };
-  
+
   const isImageUrl = (url) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -39,8 +43,10 @@ function RegularPalaceView() {
       img.onerror = () => reject(false);
       img.src = url;
     });
-  }
+  };
+  //helpers END//
 
+  //on submit update
   const handleImageSubmit = () => {
     if (!isValidUrl(newImageURL)) {
       setAlertMessage('Please enter a valid URL.');
@@ -54,20 +60,11 @@ function RegularPalaceView() {
     // setIsEditMode(false);
   };
 
-  // console.log('roomArray', roomArray);
-
   return (
     <>
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
-          {showAlert && (
-            <div className="alert alert-warning">
-              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-              <span>{alertMessage}</span>
-            </div>
-          )}
+          {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
