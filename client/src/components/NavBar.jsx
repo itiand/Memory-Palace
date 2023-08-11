@@ -1,8 +1,9 @@
-import React from "react";
-import AddNewPalace from "./AddNewPalace";
+// import React from "react";
+// import AddNewPalace from "./AddNewPalace";
 import PropTypes from "prop-types";
 
 function Navbar(props) {
+
 
   Navbar.propTypes = {
     themes: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -12,6 +13,7 @@ const handleMyPalaces = (e) => {
   e.preventDefault();
   console.log("My Palaces has been clicked")
 }
+
   return (
     <div className="navbar bg-primary">
     <div className="navbar-start">
@@ -66,10 +68,8 @@ const handleMyPalaces = (e) => {
       <a className="btn btn-ghost normal-case text-xl">Pensieve</a>
     </div>
     <div>
-      {/* Redirect to My Palaces route */}
       <a className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>My Palaces</a>
     </div>
-    
     <div className="navbar-center hidden lg:flex">
       <ul className="menu menu-horizontal px-1">
         <li>
@@ -93,9 +93,9 @@ const handleMyPalaces = (e) => {
         </li>
       </ul>
     </div>
-
-    <AddNewPalace/>
-
+    <div className="navbar-end">
+      <button className="btn" onClick={() => window.add_palace_view.showModal()}> Add New Palace </button>
+    </div>
   </div>
   );
 }

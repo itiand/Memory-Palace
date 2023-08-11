@@ -1,7 +1,9 @@
 import React from 'react';
+import { PalaceContext } from "../providers/palaceProvider";
 
 function PalaceCarouselItem(props) {
   const { palace, onPalaceClick } = props;
+  // const { palace } = PalaceContext;
   return (
     <div
       className="carousel-item w-full flex flex-col items-center justify-center cursor-pointer"
@@ -26,4 +28,5 @@ function PalaceCarouselItem(props) {
 //     <p className='text-m'>{palace.PalaceName}</p>
 //   </div>
 // </div>
+
 export default PalaceCarouselItem;

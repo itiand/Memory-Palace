@@ -4,7 +4,7 @@ import AddMemory from "./AddMemory";
 const AddRoom = () => {
 
   return ( 
-     <dialog id="my_modal_5" className="modal">
+     <dialog id="add_room_view" className="modal">
      <div className="modal-box w-11/12 max-w-5xl">
        <h3 className="font-bold text-lg">
          Add Room Modal
@@ -22,27 +22,19 @@ const AddRoom = () => {
          <button
            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
            onClick={() =>
-             window.my_modal_5.close()
+             window.add_room_view.close()
            }
-         >
-           ✕
-         </button>
+         >✕</button>
        </div>
-
        <div>
-         {/* Add Memory Modal */}
          <button
            className="btn"
-           onClick={() =>
-             window.my_modal_6.showModal()
-           }
-         >
-           Add Memory
-         </button>
+           onClick={() => {
+            window.add_room_view.close();
+            window.add_memory_view.showModal();
+           }}
+         > Add Memory </button>
          <button className="btn" >Save</button>
-
-        < AddMemory />
-
        </div>
      </div>
    </dialog>

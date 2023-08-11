@@ -3,7 +3,6 @@ import { PalaceContext } from "../providers/palaceProvider";
 import { FaRegEye, FaEdit, FaPlus } from 'react-icons/fa';
 
 
-
 function RegularPalaceView() {
   const { selectedPalace } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
@@ -53,7 +52,18 @@ function RegularPalaceView() {
                   </div>
                 );
               })}
-            </div>
+              </div>
+              {/****TONY ADDED*****/}
+                <button className="btn" onClick={() => {
+                    window.reg_view.close()
+                  }} > Story-Mode </button>
+                <button className="btn" onClick={() => {
+                  window.reg_view.close();
+                  window.add_room_view.showModal();
+                }}> Add New Room </button>
+                <button className="btn"onClick={() => window.reg_view.close()}  >Close</button>
+             {/****TONY END*****/}
+              
           </div>
         </form>
       </dialog>
@@ -73,4 +83,5 @@ function RegularPalaceView() {
 //             <img src="https://i.imgur.com/NIYnoFP.jpeg" alt="Room 4" />
 //             <img src="https://i.imgur.com/QokO0HE.jpeg" alt="Room 5" />
 //           </div> */}
+
 export default RegularPalaceView;

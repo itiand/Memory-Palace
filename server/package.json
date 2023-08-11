@@ -20,7 +20,8 @@
     "morgan": "^1.10.0",
     "openai": "^3.3.0",
     "pg": "^8.11.2",
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "react-icons": "^4.10.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
