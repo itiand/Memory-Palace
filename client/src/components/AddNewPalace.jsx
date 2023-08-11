@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 // import React, { useEffect } from 'react';
 // import RegularPalaceModal from './RegularPalaceModal';
 import { PalaceContext } from "../providers/palaceProvider";
+import '../view/addNewPalace.scss';
 
 const AddNewPalace = () => {
   const {
@@ -55,7 +56,15 @@ const AddNewPalace = () => {
   //   createNewPalace(newPalaceName.toString, newPalaceDescription.toString);
   // }
 
+  const handleSaveAndEdit = async (e) => {
+    e.preventDefault();
 
+    isValidUrl(newPalaceUrl)
+    isImageUrl(newPalaceUrl)
+    createNewPalace(newPalaceName, newPalaceDescription, newPalaceUrl);
+    window.add_palace_image_view.close();
+    window.reg_view.showModal();
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -72,9 +81,9 @@ const AddNewPalace = () => {
     <dialog id="add_palace_view" className="modal">
       <div className="modal-box w-11/12 max-w-5xl">
         <h3 className="font-bold text-lg">
-          Add New Palace Description (name, description)
+        New Palace :
         </h3>
-
+        <li>Add Palace Name</li>
         <input
           type="text"
           placeholder="Palace Name"
@@ -82,6 +91,8 @@ const AddNewPalace = () => {
           onChange={handleNewPalaceNameChange}
           className="input input-bordered input-info input-xs w-full max-w-xs"
         />
+        <br />
+        <li>Add Palace Cover Photo</li>
         <input
           type="text"
           placeholder="Palace Cover Image Url"
@@ -89,13 +100,14 @@ const AddNewPalace = () => {
           onChange={handleNewPalaceUrl}
           className="input input-bordered input-info input-xs w-full max-w-xs"
         />
+        <br />
+        <li>Add Description of Room</li>
         <textarea
           placeholder="Palace Description"
           value={newPalaceDescription}
           onChange={handleNewPalaceDescriptionChange}
           className="textarea textarea-info"
         />
-
         <img
           src="https://images.pexels.com/photos/277559/pexels-photo-277559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           className="image-box w-60 mx-auto"
@@ -108,28 +120,25 @@ const AddNewPalace = () => {
           >✕</button>
         </div>
 
-        <div className="addAndSubmitButton">
-          <button
+        <div className="EditAndSubmitButton">
+          {/* <button
             className="btn btn-success"
             onClick={() => {
               window.add_palace_view.close();
               window.add_palace_image_view.showModal();
             }}
-          > Add Palace Image </button>
+          > Add Palace Image </button> */}
+            <button
+              className="btn btn-success"
+              onClick={handleSaveAndEdit}
+            >Save and edit room </button>
           <button
             className="btn btn-success"
             onClick={handleSubmit}
           > Submit Palace </button>
         </div>
-        <div>
-          <button
-            className="btn"
-            onClick={() => {
-              window.add_palace_image_view.close();
-              window.reg_view.showModal();
-            }}
-          >Save room </button>
-        </div>
+
+
       </div>
     </dialog>
   );
