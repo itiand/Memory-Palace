@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { createContext } from "react";
 import useApplicationData from "../hooks/useApplicationData";
@@ -9,34 +8,38 @@ const PalaceProvider = (props) => {
   const { 
     memoryPalaces, 
     selectedPalace, 
+    themes, 
     setSelectedPalace, 
     initAndFetchNewMemoryPalace, 
     fetchMemoryPalaces, 
-    themes, 
     updateMemoryPalace,
     setMemoryPalaces,
+    deleteAndSwitchToLastPalace,
+
   } = useApplicationData();
+
+  // Validation for props.children
+  PalaceProvider.propTypes = {
+    children: PropTypes.node.isRequired, 
+  };
 
   return (
     <PalaceContext.Provider value={{ 
       memoryPalaces, 
       selectedPalace, 
+      themes, 
       setSelectedPalace, 
       initAndFetchNewMemoryPalace, 
       fetchMemoryPalaces, 
-      themes, 
-
       setMemoryPalaces,
       updateMemoryPalace,
+      deleteAndSwitchToLastPalace,
     }}>
       {props.children}
     </PalaceContext.Provider>
   );
 }
 
-PalaceProvider.propTypes = {
-  children: PropTypes.node.isRequired, // Validation for children prop
-};
 
 export default PalaceProvider;
 

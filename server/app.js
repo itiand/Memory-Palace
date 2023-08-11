@@ -101,39 +101,34 @@
   //     });
   // });
 
-  
 
-  //  Creates a New Memory Palace
-  app.post('/initMemoryPalace', (req, res) => {
+  // CREATE: New Memory Palace
+  app.post('/initMemoryPalace', async (req, res) => {
     const memoryPalaceCollection = db.collection("Palaces");
-    // const palaceToInsert = req.body;
-    memoryPalaceCollection.insertOne({ name: "testing" }) // Changed to insertOne
-      .then(result => {
-        const insertedId = result.insertedId;
-        return memoryPalaceCollection.findOne({ _id: insertedId });
-      })
-      .then(insertedDocument => {
-        if (insertedDocument) {
-          res.json({
-            success: true,
-            insertedCount: 1,
-            insertedId: insertedDocument._id,
-            palaceData: insertedDocument
-          });
-        } else {
-          res.status(500).json({
-            success: false,
-            message: "Inserted data is not available."
-          });
-        }
-      })
-      .catch(error => {
-        res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });
-      });
+  
+    try {
+      const result = await memoryPalaceCollection.insertOne(req.body);
+      const insertedDocument = await memoryPalaceCollection.findOne({ _id: result.insertedId });
+  
+      if (insertedDocument) {
+        res.json({
+          success: true,
+          insertedCount: 1,
+          insertedId: insertedDocument._id,
+          palaceData: insertedDocument
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Inserted data is not available."
+        });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });
+    }
   });
-
-
-  // Fetch All Memory Palaces
+ 
+  // READ: All Memory Palaces
   app.get('/getMemoryPalaces', (req, res) => {
     const memoryPalaceCollection = db.collection("Palaces"); //name of collection
     memoryPalaceCollection.find({}).toArray()
@@ -145,37 +140,30 @@
       });
   });
 
-
-  // Update Existing Memory Palace
+  // UPDATE: Existing Memory Palace
   app.put('/update', (req, res) => {
     const palaceId = new ObjectId(req.body.id);
     const updatedData = req.body.data;
     updatedData._id = palaceId;
     // console.log(palaceId);
     // console.log(updatedData);
-  
     const memoryPalaceCollection = db.collection('Palaces');
     memoryPalaceCollection.find({_id: new ObjectId(palaceId) }).toArray().then(palaces => {
       console.log(palaces);
-      console.log("&&&&&&&&&&&");
     });
-
     memoryPalaceCollection
       .replaceOne(
         {  _id: palaceId }, // Query for the specific palace using _id
-        updatedData // Update specific fields using $set
-      ).then(result => {
-        console.log(result);
+          updatedData // Update specific fields using $set
+          ).then(result => {
+          // console.log(result);
         if (result.matchedCount > 0) {
-          console.log("**** object update success");
+          console.log("*** object update success ***");
           res.json({
             success: true,
             message: 'Palace updated successfully.',
           });
         } else {
-          console.log("@@@@@ no object found@@@@");
-          // console.log(palaceId)
-          // console.log(updatedData)
           res.status(404).json({
             success: false,
             message: 'Palace not found.',
@@ -183,7 +171,6 @@
         }
       })
       .catch(error => {
-        console.log("!!!!!!! object update failure");
         res.status(500).json({
           success: false,
           message: 'Failed to update palace.',
@@ -192,6 +179,37 @@
       });
   });
 
+  // DELETE: Memory Palace by ID
+  app.delete('/deleteMemoryPalace/:id', async (req, res) => {
+  const palaceId = new ObjectId(req.params.id);
+  try {
+    const memoryPalaceCollection = db.collection('Palaces');
+    // Find the palace before deleting it (for logging or other purposes if needed)
+    const palaceToDelete = await memoryPalaceCollection.findOne({ _id: palaceId });
+    // Delete the palace
+    const deleteResult = await memoryPalaceCollection.deleteOne({ _id: palaceId });
+    if (deleteResult.deletedCount > 0) {
+      console.log(`Deleted palace with ID: ${palaceId}`);
+      res.json({
+        success: true,
+        message: 'Palace deleted successfully.',
+        deletedPalace: palaceToDelete
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'Palace not found for deletion.'
+      });
+    }
+  } catch (error) {
+    console.error("Error deleting memory palace:", error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete palace.',
+      error: error
+    });
+  }
+});
 
 
 

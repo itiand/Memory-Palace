@@ -17,9 +17,9 @@ const useApplicationData = () => {
 
 
 
-  // Creates a New Memory Palace 
+  // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
-    fetch("/api/initMemoryPalace", {
+    fetch("api/initMemoryPalace", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,20 +63,38 @@ const useApplicationData = () => {
       });
   }
 
-
-
   // Update Existing Memory Palace
   function updateMemoryPalace(palaceId, updatedData) {
     sendRequest(`/api/update`, 'PUT', { id: palaceId, data: updatedData });
   }
 
 
-  
+// Delete Palace By ID
+// delete from Mongo by ID and setSelectedPalace to next on list.
+const deleteAndSwitchToLastPalace = async (idToDelete) => {
+  try {
+    // Send delete request to server
+    await fetch(`api/deleteMemoryPalace/${idToDelete}`, {
+      method: 'DELETE',
+    });
+    // Update local state after successful deletion
+    const updatedMemoryPalaces = memoryPalaces.filter(palace => palace.id !== idToDelete);
+    setMemoryPalaces(updatedMemoryPalaces);
+    // Switch to the last palace in updatedMemoryPalaces
+    if (updatedMemoryPalaces.length > 0) {
+      setSelectedPalace(updatedMemoryPalaces[updatedMemoryPalaces.length - 1]);
+    } else {
+      setSelectedPalace(null);
+    }
+  } catch (error) {
+    console.error("Error deleting memory palace:", error);
+  }
+};
+
 
 
 
   // Fetch Response Functions
-
   // Utility function to handle fetch responses
   function handleResponse(response) {
     if (!response.ok) {
@@ -84,13 +102,11 @@ const useApplicationData = () => {
     }
     return response.json();
   }
-
   // Utility function to handle errors
-    function handleError(error) {
-      console.error("There was a problem:", error.message);
-    }
-
-     // Utility function to send requests
+  function handleError(error) {
+    console.error("There was a problem:", error.message);
+  }
+  // Utility function to send requests
   function sendRequest(url, method, body = null) {
     const options = {
       method,
@@ -99,7 +115,6 @@ const useApplicationData = () => {
       },
       body: body ? JSON.stringify(body) : null,
     };
-
     fetch(url, options)
       .then(handleResponse)
       .then(data => {
@@ -108,9 +123,18 @@ const useApplicationData = () => {
       .catch(handleError);
   }
 
+  
+
   useEffect(() => {
     fetchMemoryPalaces();
   }, []);
+
+// Sets SelectPalace to first memoryPalace item upon initialization
+  useEffect(() => {
+    if (memoryPalaces.length > 0) {
+      setSelectedPalace(memoryPalaces[0]);
+    }
+  }, [memoryPalaces]);
 
 
   return {
@@ -120,9 +144,9 @@ const useApplicationData = () => {
     initAndFetchNewMemoryPalace,
     fetchMemoryPalaces,
     themes,
-
     setMemoryPalaces,
     updateMemoryPalace,
+    deleteAndSwitchToLastPalace,
   };
 };
 
