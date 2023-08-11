@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 
 
@@ -6,7 +6,19 @@ function RegularPalaceView() {
   const { selectedPalace } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms } = selectedPalace;
 
-  console.log('SELECTED PALACE', selectedPalace);
+  //rooms object into an array
+  const [ rooms, setRooms ] = useState([])
+
+  useEffect(() => {
+    if (Rooms) {
+      const roomArray = Object.values(Rooms);
+      setRooms(roomArray)
+    }
+  }, [Rooms]);
+
+
+  // console.log('roomArray', roomArray);
+
   return (
     <>
       <dialog id="reg_view" className="modal">
@@ -15,8 +27,8 @@ function RegularPalaceView() {
           <h3 className="font-bold text-lg">{selectedPalace.PalaceName}</h3>
           <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
           <div className="reg_view-rooms">
-            {Rooms.map((room, index) => (
-              <img key={index} src={room.img} alt={room.name} className="room-img" />
+            {rooms.map((room, index) => (
+              <img key={room.id} src={room.roomImg} alt={room.roomDescription} className="room-img" />
             ))}
           </div>
         </form>
