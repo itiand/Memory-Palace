@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 import { GrView } from 'react-icons/Gr'
 
