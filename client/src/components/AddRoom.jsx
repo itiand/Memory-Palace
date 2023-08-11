@@ -39,6 +39,7 @@ const AddRoom = () => {
          >
            Add Memory
          </button>
+         <button className="btn" >Save</button>
 
         < AddMemory />
 
