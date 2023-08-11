@@ -109,7 +109,6 @@
     try {
       const result = await memoryPalaceCollection.insertOne(req.body);
       const insertedDocument = await memoryPalaceCollection.findOne({ _id: result.insertedId });
-  
       if (insertedDocument) {
         res.json({
           success: true,
