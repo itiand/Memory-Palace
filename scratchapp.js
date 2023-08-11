@@ -1,13 +1,11 @@
-  // Declarations
+  // declarations
   import dotenv from 'dotenv';
   import express, { response } from 'express';
   import morgan from 'morgan';
   import bodyParser from 'body-parser';
   import { getImage, getChatResponse } from './lib/openAIHelpers.js';
-  import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
-
-
-  // import { termForAiDrawer, termForAiDrawer1 } from './helper/filterUserWords.js';
+  import { MongoClient, ServerApiVersion } from 'mongodb';
+  import { termForAiDrawer, termForAiDrawer1 } from './helper/filterUserWords.js';
 
 
   dotenv.config();
@@ -26,6 +24,7 @@
       deprecationErrors: true,
     }
   });
+
 
   let db;
   async function run() {
@@ -48,16 +47,15 @@
   import exampleRoutes from './routes/exampleRoutes.js';
 
   // middleware setup
-  app.use(bodyParser.json());
   app.use(morgan(ENVIROMENT));
+  app.use(bodyParser.json());
 
 
   //
   //ROUTES
   //
-  // app.use('/cats', exampleRoutes);
+  app.use('/cats', exampleRoutes);
 
-  // For Later ChatGPT integration
   app.get('/phrases', (req, res) => {
     const ChatGptWord = WordtermForAiDrawer(req);
     const result = getChatResponse(`${ChatGptWord}`)
@@ -101,12 +99,11 @@
   //     });
   // });
 
-  
-
-  //  Creates a New Memory Palace
   app.post('/initMemoryPalace', (req, res) => {
     const memoryPalaceCollection = db.collection("Palaces");
+
     // const palaceToInsert = req.body;
+
     memoryPalaceCollection.insertOne({ name: "testing" }) // Changed to insertOne
       .then(result => {
         const insertedId = result.insertedId;
@@ -133,9 +130,9 @@
   });
 
 
-  // Fetch All Memory Palaces
   app.get('/getMemoryPalaces', (req, res) => {
     const memoryPalaceCollection = db.collection("Palaces"); //name of collection
+
     memoryPalaceCollection.find({}).toArray()
       .then(palaces => {
         res.json(palaces);
@@ -146,36 +143,25 @@
   });
 
 
-  // Update Existing Memory Palace
-  app.put('/update', (req, res) => {
-    const palaceId = new ObjectId(req.body.id);
-    const updatedData = req.body.data;
-    updatedData._id = palaceId;
-    // console.log(palaceId);
-    // console.log(updatedData);
+  
+  app.put('/update/:id', (req, res) => {
+    const palaceId = req.params.id;
+    const updatedData = req.body;
   
     const memoryPalaceCollection = db.collection('Palaces');
-    memoryPalaceCollection.find({_id: new ObjectId(palaceId) }).toArray().then(palaces => {
-      console.log(palaces);
-      console.log("&&&&&&&&&&&");
-    });
-
+  
     memoryPalaceCollection
-      .replaceOne(
-        {  _id: palaceId }, // Query for the specific palace using _id
-        updatedData // Update specific fields using $set
-      ).then(result => {
-        console.log(result);
-        if (result.matchedCount > 0) {
-          console.log("**** object update success");
+      .updateOne(
+        { _id: ObjectID(palaceId) }, // Query for the specific palace using _id
+        { $set: updatedData } // Update specific fields using $set
+      )
+      .then(result => {
+        if (result.modifiedCount > 0) {
           res.json({
             success: true,
             message: 'Palace updated successfully.',
           });
         } else {
-          console.log("@@@@@ no object found@@@@");
-          // console.log(palaceId)
-          // console.log(updatedData)
           res.status(404).json({
             success: false,
             message: 'Palace not found.',
@@ -183,7 +169,6 @@
         }
       })
       .catch(error => {
-        console.log("!!!!!!! object update failure");
         res.status(500).json({
           success: false,
           message: 'Failed to update palace.',
@@ -191,6 +176,7 @@
         });
       });
   });
+  
 
 
 

@@ -1,82 +1,55 @@
 import { useState, useEffect } from 'react';
 import tailwindConfig from '../../tailwind.config.js';
+
 const { themes } = tailwindConfig;
 
-// function getInitialSelectedPalace() {
-//   return {
-//     id: ``,
-//     name: ``,
-//     front_img_url: ``
-//   };
-// }
-
 const useApplicationData = () => {
-  
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
 
-
-
-  // Creates a New Memory Palace 
+  // Create a new memory palace and fetch the updated list
   function initAndFetchNewMemoryPalace(newPalace) {
-    fetch("/api/initMemoryPalace", {
+    fetch("/initMemoryPalace", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newPalace)
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Failed to initialize memory palace data.");
-        }
-        //eg response 
-        //{"success":true,"insertedCount":1,"insertedId":"64d45ba89dad3aeedc785861","palaceData":{"_id":"64d45ba89dad3aeedc785861","name":"testing"}}%     
-        return response.json();
-      })
+      .then(handleResponse)
       .then(data => {
-        if(data.success) {
-          setMemoryPalaces(prevState => [...prevState, data.palaceData]);
+        if (data.success) {
+          setMemoryPalaces(prevPalaces => [...prevPalaces, data.palaceData]);
           setSelectedPalace(data.palaceData);
-          return(data.palaceData)
         }
       })
-      .catch(error => {
-        console.error("There was a problem:", error.message);
-      });
+      .catch(handleError);
   }
 
-  // Fetch All Memory Palaces
+  // Fetch memory palaces from the server
   function fetchMemoryPalaces() {
     fetch("/api/getMemoryPalaces")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+      .then(handleResponse)
       .then(data => {
         setMemoryPalaces(data);
       })
-      .catch(error => {
-        console.error("There was a problem with the fetch operation:", error.message);
-      });
+      .catch(handleError);
   }
 
-
-
-  // Update Existing Memory Palace
+  // Update a memory palace with new data
   function updateMemoryPalace(palaceId, updatedData) {
-    sendRequest(`/api/update`, 'PUT', { id: palaceId, data: updatedData });
+    sendRequest(`/update/${palaceId}`, 'PUT', updatedData);
   }
+
+  // Delete a memory palace
+  function deleteMemoryPalace(palaceId) {
+    sendRequest(`/delete/${palaceId}`, 'DELETE');
+  }
+
+
 
 
   
-
-
-
-  // Fetch Response Functions
-
   // Utility function to handle fetch responses
   function handleResponse(response) {
     if (!response.ok) {
@@ -86,11 +59,11 @@ const useApplicationData = () => {
   }
 
   // Utility function to handle errors
-    function handleError(error) {
-      console.error("There was a problem:", error.message);
-    }
+  function handleError(error) {
+    console.error("There was a problem:", error.message);
+  }
 
-     // Utility function to send requests
+  // Utility function to send requests
   function sendRequest(url, method, body = null) {
     const options = {
       method,
@@ -112,17 +85,14 @@ const useApplicationData = () => {
     fetchMemoryPalaces();
   }, []);
 
-
   return {
     memoryPalaces,
     selectedPalace,
     setSelectedPalace,
     initAndFetchNewMemoryPalace,
-    fetchMemoryPalaces,
-    themes,
-
-    setMemoryPalaces,
     updateMemoryPalace,
+    deleteMemoryPalace,
+    themes
   };
 };
 
