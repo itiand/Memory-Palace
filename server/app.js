@@ -102,8 +102,8 @@
   //       res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });
   //     });
   // });
-
-
+  
+  
   // CREATE: New Memory Palace
   app.post('/initMemoryPalace', async (req, res) => {
     const memoryPalaceCollection = db.collection("Palaces");
