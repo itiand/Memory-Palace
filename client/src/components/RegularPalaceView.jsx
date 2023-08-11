@@ -28,7 +28,7 @@ function RegularPalaceView() {
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
-            <div className="overlay absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-50 bg-black">
+            <div className="overlay absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-60 bg-black">
               <span className="text-white p-2">{PalaceDescription}</span>
             </div>
           </div>
@@ -39,9 +39,9 @@ function RegularPalaceView() {
                 return (
                   <div key={index} className="carousel-item w-1/2 relative">
                     <img src={room.roomImg} alt={room.description} className="w-full" />
-                    <div className="overlay absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-50 bg-black">
-                      <span className="text-white p-2 rounded">{room.name}</span>
-                      <span className="text-white p-2 bg-gray-300 rounded"><GrView /></span>
+                    <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
+                      <span className="mb-1 text-white text-xs">{room.name}</span>
+                      <span className="py-1 px-2 bg-gray-200 rounded"><GrView /></span>
                     </div>
                   </div>
                 );
