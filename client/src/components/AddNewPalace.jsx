@@ -4,6 +4,27 @@ import { useState, useEffect, useContext } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 
 const AddNewPalace = () => {
+  const { 
+      initAndFetchNewMemoryPalace,
+      deleteAndSwitchToLastPalace,
+      updateMemoryPalace,
+      fetchMemoryPalaces,
+      
+      themes,
+      memoryPalaces, 
+      setMemoryPalaces,
+      selectedPalace, 
+      setSelectedPalace,
+  
+      findPalaceById,
+      switchSelectPalaceById,  
+      switchToLastPalace,
+      createNewPalace,
+      deleteCurrentSelectedPalace,  
+      changePalaceEntry,
+      deletePalaceEntry, 
+      savePalaceState,
+  } = useContext( PalaceContext );
 
 
   // const { initAndFetchNewMemoryPalace } = useContext(PalaceContext)
@@ -12,14 +33,20 @@ const AddNewPalace = () => {
   const [newPalaceDescription, setNewPalaceDescription] = useState("");
 
 
-
   const handleNewPalaceNameChange = (event) => {
+    console.log(event.target.value)
     setNewPalaceName(event.target.value);
   };
-
   const handleNewPalaceDescriptionChange = (event) => {
+    console.log(event.target.value)
     setNewPalaceDescription(event.target.value);
   };
+
+  // const submitSelectedPalaceNameDesc =(newPalaceName, newPalaceDescription) => {
+  //   console.log("PalaceCreated with PalaceName and Description");
+  //   createNewPalace(newPalaceName.toString, newPalaceDescription.toString);
+  // }
+
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();

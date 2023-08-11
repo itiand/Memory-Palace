@@ -16,24 +16,27 @@ import AddMemory from "./components/AddMemory";
 
 function App() {
   const { 
-    setMemoryPalaces,
-    memoryPalaces, 
-    selectedPalace, 
-    setSelectedPalace, 
-    themes, 
-    updateMemoryPalace,
-    initAndFetchNewMemoryPalace,
-    deleteAndSwitchToLastPalace,
+    // initAndFetchNewMemoryPalace,
+    //   deleteAndSwitchToLastPalace,
+    //   updateMemoryPalace,
+    //   fetchMemoryPalaces,
+      
+      themes,
+      memoryPalaces, 
+      // setMemoryPalaces,
+      // selectedPalace, 
+      setSelectedPalace,
+  
+      findPalaceById,
+      switchSelectPalaceById,  
+      switchToLastPalace,
+      createNewPalace,
+      deleteCurrentSelectedPalace,  
+      changePalaceEntry,
+      deletePalaceEntry, 
+      savePalaceState,
+  } = useContext( PalaceContext );
 
-    changePalaceEntry,
-    deletePalaceEntry, 
-    savePalaceState,
-    createNewPalace,
-    findPalaceById,
-    switchSelectPalaceById,  
-    switchToLastPalace,
-    deleteCurrentSelectedPalace, 
-  } = useContext(PalaceContext);
 
   useEffect(() => {
     themeChange(false);
@@ -74,17 +77,17 @@ function App() {
   // const form = document.querySelector('.palaceForm');
   // form.addEventListener('submit', handleSubmit);
 
+
+
   const handleTestClick1 = () => {
-    switchToLastPalace();
+    // switchToLastPalace();
     // switchSelectPalaceById("");
-    // createNewPalace("Wonderful", "A place to chill out");
-    
+    createNewPalace("Wonderful", "A place to chill out");
   };
   const handleTestClick2 = () => {
     switchToLastPalace();
-    deletePalaceEntry("@@@Random@@@");
+    // deletePalaceEntry("@@@Random@@@");
   };
-  
   const handleTestClick3 = () => {
     // changePalaceEntry("PalaceName", "My Awesome Palace");
     // changePalaceEntry("@@@Random@@@", "Bruce");

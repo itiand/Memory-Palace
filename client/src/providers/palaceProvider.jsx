@@ -9,28 +9,24 @@ export const PalaceContext = createContext();
 
 const PalaceProvider = (props) => {
   const { 
-    memoryPalaces, 
-    selectedPalace, 
-    themes, 
-    setSelectedPalace, 
-    initAndFetchNewMemoryPalace, 
-    fetchMemoryPalaces, 
-    updateMemoryPalace,
-    setMemoryPalaces,
+    initAndFetchNewMemoryPalace,
     deleteAndSwitchToLastPalace,
+    updateMemoryPalace,
+    fetchMemoryPalaces,
+    
+    themes,
+    memoryPalaces, setMemoryPalaces,
+    selectedPalace, setSelectedPalace,
 
-    changePalaceEntry,
-    deletePalaceEntry, 
-    savePalaceState,
-    createNewPalace,
     findPalaceById,
     switchSelectPalaceById,  
     switchToLastPalace,
-    deleteCurrentSelectedPalace, 
-
+    createNewPalace,
+    deleteCurrentSelectedPalace,  
+    changePalaceEntry,
+    deletePalaceEntry, 
+    savePalaceState,
   } = useApplicationData();
-
-  // const [state, dispatch] = useReducer(reducer, initialState);
 
   // Validation for props.children
   PalaceProvider.propTypes = {
@@ -39,31 +35,30 @@ const PalaceProvider = (props) => {
 
   return (
     <PalaceContext.Provider value={{ 
-      // state, dispatch,
-      memoryPalaces, 
-      selectedPalace, 
-      themes, 
-      setSelectedPalace, 
-      initAndFetchNewMemoryPalace, 
-      fetchMemoryPalaces, 
-      setMemoryPalaces,
-      updateMemoryPalace,
+      initAndFetchNewMemoryPalace,
       deleteAndSwitchToLastPalace,
+      updateMemoryPalace,
+      fetchMemoryPalaces,
       
-      changePalaceEntry,
-      deletePalaceEntry, 
-      savePalaceState,
-      createNewPalace,
+      themes,
+      memoryPalaces, 
+      setMemoryPalaces,
+      selectedPalace, 
+      setSelectedPalace,
+  
       findPalaceById,
       switchSelectPalaceById,  
       switchToLastPalace,
-      deleteCurrentSelectedPalace, 
+      createNewPalace,
+      deleteCurrentSelectedPalace,  
+      changePalaceEntry,
+      deletePalaceEntry, 
+      savePalaceState,
     }}>
       {props.children}
     </PalaceContext.Provider>
   );
 }
-
 
 export default PalaceProvider;
 

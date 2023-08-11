@@ -16,7 +16,6 @@ const useApplicationData = () => {
   const [selectedPalace, setSelectedPalace] = useState({});
 
 
-
   // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
     fetch("api/initMemoryPalace", {
@@ -138,8 +137,9 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
 
 
   // Helper Functions
-  // Update Single Entry in Selected Palace
-    // use savePalaceState() to apply to Mongo
+
+  // Update Single Entry in selectedPalace
+    // use savePalaceState(f) to apply change to Mongo
     const changePalaceEntry = (key, value) => {
       if (selectedPalace) {
         setSelectedPalace(prevPalace => ({
@@ -149,8 +149,7 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
       }
     };
   
-    // Delete an Entry by its Key from Selected Palace
-      // use savePalaceState() to apply to Mongo
+    // Delete an Entry by its Key from selectedPalace
     const deletePalaceEntry = (key) => {
       console.log('deletePalaceEntry')
       if (selectedPalace) {
@@ -159,8 +158,7 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
       }
     };
   
-    //Saves selectPalace to Mongo
-      //saves current state of selectPalace object to Mongo. Refreshing will update memoryPalaces
+    //Save selectedPalace to MongoDb
     const savePalaceState = () => {
       if (selectedPalace) {
         console.log("savePalaceState");
@@ -169,7 +167,7 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
     };
   
   
-    // Create New Palace (basic frame)
+    // Create New Palace (with basic frame)
     const createNewPalace = (PalaceName, PalaceDescription) => {
       console.log("createNewPalace(f)")
       const newPalaceData = {
@@ -212,8 +210,8 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
         }
       };
   
-      // Delete selectedPalace from Mongo
-        // Whatever is the current selectedPalace will be deleted from MongoDB
+      // Delete selectedPalace from MongoDb
+        // Whichever is the current selectedPalace will be deleted from MongoDb
       const deleteCurrentSelectedPalace = () => {
         console.log("Deleted current selectPalace from Mongo and switch selectedPalace to last memoryPalace item");
         console.log(selectedPalace._id);
@@ -222,25 +220,23 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
 
 
   return {
-    memoryPalaces,
-    selectedPalace,
-    setSelectedPalace,
     initAndFetchNewMemoryPalace,
-    fetchMemoryPalaces,
-    themes,
-    setMemoryPalaces,
-    updateMemoryPalace,
     deleteAndSwitchToLastPalace,
+    updateMemoryPalace,
+    fetchMemoryPalaces,
+    
+    themes,
+    memoryPalaces, setMemoryPalaces,
+    selectedPalace, setSelectedPalace,
 
-    changePalaceEntry,
-    deletePalaceEntry, 
-    savePalaceState,
-    createNewPalace,
     findPalaceById,
     switchSelectPalaceById,  
     switchToLastPalace,
+    createNewPalace,
     deleteCurrentSelectedPalace,  
-
+    changePalaceEntry,
+    deletePalaceEntry, 
+    savePalaceState,
   };
 };
 
