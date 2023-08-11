@@ -3,75 +3,75 @@ const Palace = {
   "_id": "64d3cad2513cf28f3e4803f0",
   "PalaceName": "Palace Name",
   "PalaceCoverImg": "url",
-     // each Palace has 1 toDoList
+  // each Palace has 1 toDoList
   "PalaceToDoList": {
-      "toDo1" : {
-        "keyword": "keyword", 
-        "definition": "definition",
-        "returnedAiImgs": {
-          "aiImage1": "url",
-          "aiImage2": "url",
-          "aiImage3": "url",
-          "aiImage4": "url"
-        },
-        "chosenAiImg": "",
-        "gptDrawDesc": "",
-        "gptNarrateDesc": "",
+    "toDo1": {
+      "keyword": "keyword",
+      "definition": "definition",
+      "returnedAiImgs": {
+        "aiImage1": "url",
+        "aiImage2": "url",
+        "aiImage3": "url",
+        "aiImage4": "url"
       },
-      "toDo2" : {
-        "keyword": "keyword", 
-        "definition": "definition",
-        "returnedAiImgs": {
-          "aiImage1": "url",
-          "aiImage2": "url",
-          "aiImage3": "url",
-          "aiImage4": "url"
-        },
-        "chosenAiImg": "",
-        "gptDrawDesc": "",
-        "gptNarrateDesc": "",
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo2": {
+      "keyword": "keyword",
+      "definition": "definition",
+      "returnedAiImgs": {
+        "aiImage1": "url",
+        "aiImage2": "url",
+        "aiImage3": "url",
+        "aiImage4": "url"
       },
-      "toDo3" : {
-        "keyword": "keyword", 
-        "definition": "definition",
-        "returnedAiImgs": {
-          "aiImage1": "url",
-          "aiImage2": "url",
-          "aiImage3": "url",
-          "aiImage4": "url"
-        },
-        "chosenAiImg": "",
-        "gptDrawDesc": "",
-        "gptNarrateDesc": "",
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo3": {
+      "keyword": "keyword",
+      "definition": "definition",
+      "returnedAiImgs": {
+        "aiImage1": "url",
+        "aiImage2": "url",
+        "aiImage3": "url",
+        "aiImage4": "url"
       },
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
   },
-  
+
   "Rooms": {
     "room1": {
-      "roomDescription" : "roomDescription",
+      "roomDescription": "roomDescription",
       "roomImg": "url",
       "roomPins": {
-         "pin1": { 
-          "x": "x1", 
+        "pin1": {
+          "x": "x1",
           "y": "y1",
-          "toDo": "toDo1" 
+          "toDo": "toDo1"
         },
-        "pin2": { 
-          "x": "x1", 
+        "pin2": {
+          "x": "x1",
           "y": "y1",
-          "toDo": "toDo2" 
+          "toDo": "toDo2"
         },
-        "pin3": { 
-          "x": "x1", 
+        "pin3": {
+          "x": "x1",
           "y": "y1",
-          "toDo": "toDo3" 
+          "toDo": "toDo3"
         },
       },
-   
 
-      },
+
+    },
   }
-}
+};
 
 // Each waypoint should be an x,y + name and description + image. not separate lists of each
 
@@ -98,7 +98,7 @@ const palaceExample = {
   PalaceName: "the office", // NEEDED
   PalaceCoverImg: "https://i0.wp.com/lokagraph.com/wp-content/uploads/2018/05/dunder-Mifflin-building-the-office-where-location.jpg?fit=2048%2C1280", //NEEDED
   PalaceToDoList: {
-    toDo1: { 
+    toDo1: {
       keyword: "Flexbox",
       definition: "CSS method to arrange layouts",
       returnedAiImgs: {
@@ -112,9 +112,10 @@ const palaceExample = {
       gptNarrateDesc: "An artist's palette on fire embodies a fusion of colors akin to a blazing inferno. It symbolizes the fervor of creation, with vivid reds, oranges, and yellows intertwining in a dynamic dance. This image captures the passionate intensity and creative sparks that ignite within an artist's imagination, infusing their work with a vivid and fiery essence."
     } // NULL IN THE BEGINNING
   },
-  Rooms: {
-    "Main Office": {
-      roomDescription: "where paper magic happens",
+  Rooms: [
+    { 
+      name: "main ffice",
+      description: "where paper magic happens",
       roomImg: "https://media.timeout.com/images/105824238/750/422/image.jpg",
       roomPins: [
         {
@@ -124,7 +125,61 @@ const palaceExample = {
         }
       ],
     },
-  } //NULL
+    {
+      name: "lunch room",
+      description: "place to eat - has vending machine, microwave, and fridge",
+      roomImg: "https://media.timeout.com/images/105824267/image.jpg",
+      roomPins: [
+        {
+          x: null,
+          y: null,
+          toDoItem: null,
+        }
+      ]
+    },
+    {
+      name: "michael's office",
+      description: "lots of items on desk as reference point",
+      roomImg: "https://virtual-bg.com/wp-content/uploads/2020/06/the-office-2-background-for-teams-or-zoom-1536x864.jpg",
+      roomPins: [
+        {
+          x: null,
+          y: null,
+          toDoItem: null,
+        }
+      ]
+    },
+  ] //NULL
 };
 
 
+
+// app.post('/initMemoryPalace', (req, res) => {
+//   const memoryPalaceCollection = db.collection("Palaces");
+
+//   const palaceToInsert = req.body;
+// console.log("palaceinsert : ", palaceToInsert);
+//   memoryPalaceCollection.insertOne(palaceToInsert) // Changed to insertOne
+//     .then(result => {
+//       const insertedId = result.insertedId;
+//       return memoryPalaceCollection.findOne({ _id: insertedId });
+//     })
+//     .then(insertedDocument => {
+//       if (insertedDocument) {
+//         res.json({
+//           success: true,
+//           insertedCount: 1,
+//           insertedId: insertedDocument._id,
+//           palaceData: insertedDocument
+//         });
+//       } else {
+//         res.status(500).json({
+//           success: false,
+//           message: "Inserted data is not available."
+//         });
+//       }
+//     })
+//     .catch(error => {
+//       res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });
+//     });
+// });
