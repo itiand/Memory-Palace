@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { FaRegEye, FaEdit, FaPlus, FaCheck } from 'react-icons/fa';
+import { FaRegEye, FaEdit, FaPlus, FaCheck, FaTimes } from 'react-icons/fa';
 import AlertMessage from "./AlertMessage";
 
 
 function RegularPalaceView() {
-  const { selectedPalace, updateMemoryPalce } = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
@@ -19,7 +19,9 @@ function RegularPalaceView() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
+  //////
   //helpers 
+  ///
   useEffect(() => {
     if (Rooms) {
       const roomArray = Object.values(Rooms);
@@ -27,7 +29,7 @@ function RegularPalaceView() {
     }
   }, [Rooms]);
 
-  const isValidUrl = (url) => {
+  const isValidUrl = (url) => { // checks if it's a valid url
     try {
       new URL(url);
       return true;
@@ -36,7 +38,7 @@ function RegularPalaceView() {
     }
   };
 
-  const isImageUrl = (url) => {
+  const isImageUrl = (url) => { //checks if the url is actually an img url
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(true);
@@ -44,7 +46,9 @@ function RegularPalaceView() {
       img.src = url;
     });
   };
+  ////
   //helpers END//
+  /////
 
   //on submit update
   const handleImageSubmit = () => {
@@ -55,9 +59,18 @@ function RegularPalaceView() {
       return;
     }
 
-    //api call to update the data
-    //UPDATE PALACE --> (newImageURL)
-    // setIsEditMode(false);
+    isImageUrl(newImageURL)
+      .then(() => {
+        changePalaceEntry('PalaceCoverImg', newImageURL);  // Update the local state.
+        savePalaceState();  // save the updated state to the database.
+        setIsEditMode(false);  // exit edit mode after submitting.
+      })
+
+      .catch(() => {
+        setAlertMessage('This URL does not point to a valid image.');
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 3000);
+      });
   };
 
   return (
@@ -86,6 +99,15 @@ function RegularPalaceView() {
                       onClick={handleImageSubmit}
                     >
                       <FaCheck />
+                    </span>
+                    <span
+                      className="text-xs py-1 px-2 cursor-pointer text-white hover:text-xl hover:ease-in-out duration-200"
+                      onClick={() => {
+                        setIsEditMode(false);
+                        // setNewImageURL(PalaceCoverImg); // Reset the newImageURL to the original URL
+                      }}
+                    >
+                      <FaTimes />
                     </span>
                   </div>
                 ) :
