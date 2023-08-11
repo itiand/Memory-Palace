@@ -35,7 +35,7 @@ function RegularPalaceView() {
                   <div key={room.index} className="carousel-item w-1/2 relative">
                     <img src={room.roomImg} alt={room.roomDescription} className="w-full" />
                     <div className="overlay absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-50 bg-black">
-                      <span className="text-white p-2 bg-gray-500 rounded"><GrView/></span>
+                      <span className="text-white p-2 bg-gray-300 rounded"><GrView/></span>
                     </div>
                   </div>
                 );
