@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { GrView } from 'react-icons/Gr';
+import { FaRegEye, FaEdit } from 'react-icons/fa';
+
 
 
 function RegularPalaceView() {
@@ -28,8 +29,9 @@ function RegularPalaceView() {
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
-            <div className="overlay absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-60 bg-black">
+            <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
               <span className="text-white p-2">{PalaceDescription}</span>
+              <span className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"><FaEdit/></span>
             </div>
           </div>
           <div className="reg_view-rooms pt-3">
@@ -41,7 +43,7 @@ function RegularPalaceView() {
                     <img src={room.roomImg} alt={room.description} className="w-full" />
                     <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
                       <span className="mb-1 text-white text-xs">{room.name}</span>
-                      <span className="py-1 px-2 bg-gray-200 rounded"><GrView /></span>
+                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200"><FaRegEye /></span>
                     </div>
                   </div>
                 );
