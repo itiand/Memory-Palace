@@ -94,7 +94,6 @@ const Palace = {
 
 
 
-
 const palaceExample = {
   PalaceName: "the office", // NEEDED
   PalaceCoverImg: "https://i0.wp.com/lokagraph.com/wp-content/uploads/2018/05/dunder-Mifflin-building-the-office-where-location.jpg?fit=2048%2C1280", //NEEDED
@@ -127,3 +126,5 @@ const palaceExample = {
     },
   } //NULL
 };
+
+
