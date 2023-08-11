@@ -175,7 +175,20 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
         PalaceDescription: PalaceDescription,
         PalaceCoverImg: "",
         PalaceToDoList: {},
-        Rooms: [],
+        Rooms: [
+          {
+            name:"",
+            roomImg: "",
+            description: "",
+            pins: [
+              {
+                x: null,
+                y: null,
+                toDoId: null
+              }
+            ]
+          }
+        ],
       };
       initAndFetchNewMemoryPalace(newPalaceData);
     }
