@@ -20,6 +20,7 @@ function App() {
     updateMemoryPalace,
     initAndFetchNewMemoryPalace,
     deleteAndSwitchToLastPalace,
+    fetchMemoryPalaces,
   } = useContext(PalaceContext);
 
   useEffect(() => {
@@ -71,8 +72,12 @@ function App() {
   const savePalaceState = () => {
     if (selectedPalace) {
       updateMemoryPalace(selectedPalace._id, selectedPalace);
+      fetchMemoryPalaces();
+      switchSelectPalaceById(selectedPalace._id);
     }
+   
   };
+  // $$$ needs to refresh memoryPalace
 
 
   // Create New Palace (basic frame)
@@ -107,6 +112,7 @@ function App() {
     }
     };
 
+
   // Set selectPalace to last item of memoryPalace
     const switchToLastPalace = () => {
       console.log("switchToLastPalace");
@@ -117,6 +123,7 @@ function App() {
         setSelectedPalace(null); // No palaces available, so set selected palace to null
       }
     };
+
 
     // Delete selectedPalace from Mongo
       // Whatever is the current selectedPalace will be deleted from MongoDB
@@ -135,7 +142,7 @@ function App() {
   };
   const handleTestClick2 = () => {
     // switchToLastPalace();
-    // changePalaceEntry("PalaceName", "My Awesome Palace");
+    // changePalaceEntry("PalaceName", "Tony");
     // changePalaceEntry("@@@Random@@@", "Bruce");
     // deletePalaceEntry("@@@Random@@@");
   };

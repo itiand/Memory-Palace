@@ -129,12 +129,12 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
     fetchMemoryPalaces();
   }, []);
 
-// Sets SelectPalace to first memoryPalace item upon initialization
-  useEffect(() => {
-    if (memoryPalaces.length > 0) {
-      setSelectedPalace(memoryPalaces[0]);
-    }
-  }, [memoryPalaces]);
+// Sets SelectPalace to first memoryPalace item upon
+  // useEffect(() => {
+  //   if (memoryPalaces.length > 0) {
+  //     setSelectedPalace(memoryPalaces[0]);
+  //   }
+  // }, [memoryPalaces]);
 
 
   return {
