@@ -10,7 +10,7 @@ function RegularPalaceView() {
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
-  condt [newImageURL, setNewImageURL] = useState('');
+  condt[newImageURL, setNewImageURL] = useState('');
 
   useEffect(() => {
     if (Rooms) {
@@ -19,6 +19,11 @@ function RegularPalaceView() {
     }
   }, [Rooms]);
 
+  const handleImageSubmit = () => {
+    //api call to update the data
+    //UPDATE PALACE --> (newImageURL)
+    setIsEditMode(false);
+  };
 
   // console.log('roomArray', roomArray);
 
@@ -32,6 +37,34 @@ function RegularPalaceView() {
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
             <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
               <span className="text-white p-2">{PalaceDescription}</span>
+              { isEditMode ?
+                  (
+                    <div className="flex flex-col items-center space-y-2">
+                      <input
+                        type="text"
+                        value={newImageURL}
+                        onChange={(e) => setNewImageURL(e.target.value)}
+                        placeholder="Enter new image URL"
+                        className="text-black p-1 rounded"
+                      />
+                      <span
+                        className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"
+                        onClick={handleImageSubmit}
+                      >
+                        <FaCheck />
+                      </span>
+                    </div>
+                  ) :
+                  (
+                    <span
+                      className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"
+                      onClick={() => setIsEditMode(true)}
+                    >
+                      <FaEdit />
+                    </span>
+                  )
+              }
+
               <span className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"><FaEdit /></span>
             </div>
           </div>
