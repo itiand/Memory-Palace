@@ -60,3 +60,6 @@ const RegularPalaceModal = () => {
 
 
 export default RegularPalaceModal;
+
+
+///
