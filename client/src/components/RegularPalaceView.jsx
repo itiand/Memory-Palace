@@ -7,12 +7,12 @@ function RegularPalaceView() {
   const { PalaceName, PalaceCoverImg, Rooms } = selectedPalace;
 
   //rooms object into an array
-  const [ rooms, setRooms ] = useState([])
+  const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     if (Rooms) {
       const roomArray = Object.values(Rooms);
-      setRooms(roomArray)
+      setRooms(roomArray);
     }
   }, [Rooms]);
 
@@ -26,10 +26,17 @@ function RegularPalaceView() {
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           <h3 className="font-bold text-lg">{selectedPalace.PalaceName}</h3>
           <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
-          <div className="reg_view-rooms">
-            {rooms.map((room, index) => (
-              <img key={room.id} src={room.roomImg} alt={room.roomDescription} className="room-img" />
-            ))}
+          <div className="reg_view-rooms pt-3">
+            <h4 className="text-sm">Your rooms</h4>
+            <div className="carousel rounded-box w-full gap-x-1">
+              {rooms.map((room, index) => {
+                return (
+                  <div key={room.index} className="carousel-item w-1/2">
+                    <img  src={room.roomImg} alt={room.roomDescription} className="w-full" />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </form>
       </dialog>
