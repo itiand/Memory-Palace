@@ -168,12 +168,13 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
   
   
     // Create New Palace (with basic frame)
-    const createNewPalace = (PalaceName, PalaceDescription) => {
+    const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg
+      ) => {
       console.log("createNewPalace(f)")
       const newPalaceData = {
         PalaceName: PalaceName,
         PalaceDescription: PalaceDescription,
-        PalaceCoverImg: "",
+        PalaceCoverImg: PalaceCoverImg,
         PalaceToDoList: {},
         Rooms: [
           {
@@ -231,6 +232,23 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
         deleteAndSwitchToLastPalace(selectedPalace._id);
       }
 
+      const isValidUrl = (url) => {
+        try {
+          new URL(url);
+          return true;
+        } catch (_) {
+          return false;
+        }
+      }
+      
+      const isImageUrl = (url) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => reject(false);
+          img.src = url;
+        });
+      }
 
   return {
     initAndFetchNewMemoryPalace,
@@ -250,6 +268,9 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
     changePalaceEntry,
     deletePalaceEntry, 
     savePalaceState,
+
+    isValidUrl,
+    isImageUrl,
   };
 };
 
