@@ -10,7 +10,11 @@ function RegularPalaceView() {
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
-  condt[newImageURL, setNewImageURL] = useState('');
+  const [newImageURL, setNewImageURL] = useState('');
+
+  //states for alert messages
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     if (Rooms) {
@@ -19,10 +23,35 @@ function RegularPalaceView() {
     }
   }, [Rooms]);
 
+  const isValidUrl = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
+  
+  const isImageUrl = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => reject(false);
+      img.src = url;
+    });
+  }
+
   const handleImageSubmit = () => {
+    if (!isValidUrl(newImageURL)) {
+      setAlertMessage('Please enter a valid URL.');
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return;
+    }
+
     //api call to update the data
     //UPDATE PALACE --> (newImageURL)
-    setIsEditMode(false);
+    // setIsEditMode(false);
   };
 
   // console.log('roomArray', roomArray);
@@ -31,41 +60,47 @@ function RegularPalaceView() {
     <>
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
+          {showAlert && (
+            <div className="alert alert-warning">
+              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span>{alertMessage}</span>
+            </div>
+          )}
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
             <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
               <span className="text-white p-2">{PalaceDescription}</span>
-              { isEditMode ?
-                  (
-                    <div className="flex flex-col items-center space-y-2">
-                      <input
-                        type="text"
-                        value={newImageURL}
-                        onChange={(e) => setNewImageURL(e.target.value)}
-                        placeholder="Enter new image URL"
-                        className="text-black p-1 rounded"
-                      />
-                      <span
-                        className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"
-                        onClick={handleImageSubmit}
-                      >
-                        <FaCheck />
-                      </span>
-                    </div>
-                  ) :
-                  (
+              {isEditMode ?
+                (
+                  <div className="flex flex-col items-center space-y-2">
+                    <input
+                      type="text"
+                      value={newImageURL}
+                      onChange={(e) => setNewImageURL(e.target.value)}
+                      placeholder="Enter new image URL"
+                      className="text-black p-1 rounded"
+                    />
                     <span
                       className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"
-                      onClick={() => setIsEditMode(true)}
+                      onClick={handleImageSubmit}
                     >
-                      <FaEdit />
+                      <FaCheck />
                     </span>
-                  )
+                  </div>
+                ) :
+                (
+                  <span
+                    className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"
+                    onClick={() => setIsEditMode(true)}
+                  >
+                    <FaEdit />
+                  </span>
+                )
               }
-
-              <span className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"><FaEdit /></span>
             </div>
           </div>
           <div className="reg_view-rooms pt-3">
