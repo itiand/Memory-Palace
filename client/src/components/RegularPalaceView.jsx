@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { GrView } from 'react-icons/Gr'
+import { GrView } from 'react-icons/gr';
 
 
 function RegularPalaceView() {
