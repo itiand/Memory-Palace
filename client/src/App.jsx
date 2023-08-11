@@ -79,31 +79,6 @@ function App() {
 
 //   Update UseDataApplications
   // Create New Palace (basic frame)
-  const createNewPalace = (PalaceName, PalaceDescription) => {
-    console.log("createNewPalace(f)")
-    const newPalaceData = {
-      PalaceName: PalaceName,
-      PalaceDescription: PalaceDescription,
-      PalaceCoverImg: "",
-      PalaceToDoList: {},
-      Rooms: [
-        {
-          name:"",
-          roomImg: "",
-          description: "",
-          pins: [
-            {
-              x: null,
-              y: null,
-              toDoId: null
-            }
-          ]
-        }
-      ],
-    };
-    initAndFetchNewMemoryPalace(newPalaceData);
-  }
-
   const handleTestClick1 = () => {
     // switchToLastPalace();
     // switchSelectPalaceById("");

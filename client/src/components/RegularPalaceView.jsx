@@ -1,14 +1,16 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { FaRegEye, FaEdit, FaPlus } from 'react-icons/fa';
+import { FaRegEye, FaEdit, FaPlus, FaCheck } from 'react-icons/fa';
 
 
 function RegularPalaceView() {
-  const { selectedPalace } = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalce } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  condt [newImageURL, setNewImageURL] = useState('');
 
   useEffect(() => {
     if (Rooms) {
@@ -52,18 +54,18 @@ function RegularPalaceView() {
                   </div>
                 );
               })}
-              </div>
-              {/****TONY ADDED*****/}
-                <button className="btn" onClick={() => {
-                    window.reg_view.close()
-                  }} > Story-Mode </button>
-                <button className="btn" onClick={() => {
-                  window.reg_view.close();
-                  window.add_room_view.showModal();
-                }}> Add New Room </button>
-                <button className="btn"onClick={() => window.reg_view.close()}  >Close</button>
-             {/****TONY END*****/}
-              
+            </div>
+            {/****TONY ADDED*****/}
+            <button className="btn" onClick={() => {
+              window.reg_view.close();
+            }} > Story-Mode </button>
+            <button className="btn" onClick={() => {
+              window.reg_view.close();
+              window.add_room_view.showModal();
+            }}> Add New Room </button>
+            <button className="btn" onClick={() => window.reg_view.close()}  >Close</button>
+            {/****TONY END*****/}
+
           </div>
         </form>
       </dialog>
