@@ -1,32 +1,63 @@
-import React, { useState, useEffect, useContext } from "react";
-import RegularPalaceModal from './RegularPalaceModal';
+import { useState, useEffect, useContext } from "react";
+// import React, { useEffect } from 'react';
+// import RegularPalaceModal from './RegularPalaceModal';
 import { PalaceContext } from "../providers/palaceProvider";
 
 const AddNewPalace = () => {
-  const { initAndFetchNewMemoryPalace } = useContext(PalaceContext)
+  const { 
+      initAndFetchNewMemoryPalace,
+      deleteAndSwitchToLastPalace,
+      updateMemoryPalace,
+      fetchMemoryPalaces,
+      
+      themes,
+      memoryPalaces, 
+      setMemoryPalaces,
+      selectedPalace, 
+      setSelectedPalace,
+  
+      findPalaceById,
+      switchSelectPalaceById,  
+      switchToLastPalace,
+      createNewPalace,
+      deleteCurrentSelectedPalace,  
+      changePalaceEntry,
+      deletePalaceEntry, 
+      savePalaceState,
+  } = useContext( PalaceContext );
+
+
+  // const { initAndFetchNewMemoryPalace } = useContext(PalaceContext)
 
   const [newPalaceName, setNewPalaceName] = useState("");
   const [newPalaceDescription, setNewPalaceDescription] = useState("");
 
 
   const handleNewPalaceNameChange = (event) => {
+    console.log(event.target.value)
     setNewPalaceName(event.target.value);
   };
-
   const handleNewPalaceDescriptionChange = (event) => {
+    console.log(event.target.value)
     setNewPalaceDescription(event.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const submitSelectedPalaceNameDesc =(newPalaceName, newPalaceDescription) => {
+  //   console.log("PalaceCreated with PalaceName and Description");
+  //   createNewPalace(newPalaceName.toString, newPalaceDescription.toString);
+  // }
 
-    console.log(newPalaceName)
-    console.log(newPalaceDescription)
 
-    initAndFetchNewMemoryPalace({
-      PalaceName: newPalaceName,
-      PalaceDescription: newPalaceDescription
-    })
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   console.log(newPalaceName)
+  //   console.log(newPalaceDescription)
+
+    // initAndFetchNewMemoryPalace({
+    //   PalaceName: newPalaceName,
+    //   PalaceDescription: newPalaceDescription
+    // })
     // initAndFetchNewMemoryPalace({
     //   name: newPalaceName,
     //   description: newPalaceDescription
@@ -52,16 +83,10 @@ const AddNewPalace = () => {
     // } catch (error) {
     //   console.error('An error occurred:', error);
     // }
-  };
+  // };
 
   return (
-    <div className="navbar-end">
-      {/* Add New Palace */}
-      <button className="btn" onClick={() => window.my_modal_1.showModal()}>
-        Add New Palace
-      </button>
-      {/* <form className="palaceForm" > */}
-      <dialog id="my_modal_1" className="modal">
+      <dialog id="add_palace_view" className="modal">
         <div className="modal-box w-11/12 max-w-5xl">
           <h3 className="font-bold text-lg">
             Add New Palace Description (name, description)
@@ -87,63 +112,21 @@ const AddNewPalace = () => {
           <div className="modal-action">
             <button
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-              onClick={() => window.my_modal_1.close()}
-            >
-              ✕
-            </button>
+              onClick={() => window.add_palace_view.close()}
+            >✕</button>
           </div>
           <div>
             <button
               className="btn"
-              onClick={() => window.my_modal_2.showModal()}
-            >
-              {" "}
-              Add Palace Image{" "}
-            </button>
-            <button className="btn" id="submitPalaceButton" onClick={handleSubmit}>Submit Palace</button>
-
-
-            {/* Add Palace Image */}
-            <dialog id="my_modal_2" className="modal">
-              <div className="modal-box w-11/12 max-w-5xl">
-                <h3 className="font-bold text-lg">
-                  Add Palace Image (upload img){" "}
-                </h3>
-                <img
-                  src="https://images.unsplash.com/photo-1635945416566-6302b54c056b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2060&q=80"
-                  className="image-box w-60 mx-auto"
-                ></img>
-                <p className="py-4">
-                  Description: Add image for cover of Palace * Add
-                  Description of Room * Save Palace Cover Photo &
-                  Description * Changes to Regular Palace Modal
-                </p>
-                <div className="modal-action">
-                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => window.my_modal_2.close()}>
-                    ✕
-                  </button>
-                </div>
-
-                {/* Save Add Palace Image */}
-                <div>
-                  <button
-                    className="btn"
-                    onClick={() => window.my_modal_4.showModal()}
-                  >
-                    Save Add Palace Image
-                  </button>
-
-                  <RegularPalaceModal />
-
-                </div>
-              </div>
-            </dialog>
+              onClick={() => {
+                window.add_palace_view.close();
+                window.add_palace_image_view.showModal();
+              }}
+            > Add Palace Image </button>
           </div>
         </div>
-      </dialog>
-      {/* </form> */}
-    </div>
-  )
+      </dialog>   
+  );
 };
 
 

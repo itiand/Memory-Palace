@@ -16,7 +16,6 @@ const useApplicationData = () => {
   const [selectedPalace, setSelectedPalace] = useState({});
 
 
-
   // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
     fetch("api/initMemoryPalace", {
@@ -92,8 +91,6 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
 };
 
 
-
-
   // Fetch Response Functions
   // Utility function to handle fetch responses
   function handleResponse(response) {
@@ -123,8 +120,8 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
       .catch(handleError);
   }
 
-  
 
+// const [modal, setModal] = useReducer(reducer, []);
   useEffect(() => {
     fetchMemoryPalaces();
   }, []);
@@ -137,17 +134,119 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
   }, [memoryPalaces]);
 
 
+
+
+  // Helper Functions
+
+  // Update Single Entry in selectedPalace
+    // use savePalaceState(f) to apply change to Mongo
+    const changePalaceEntry = (key, value) => {
+      if (selectedPalace) {
+        setSelectedPalace(prevPalace => ({
+          ...prevPalace,
+          [key]: value
+        }));
+      }
+    };
+  
+    // Delete an Entry by its Key from selectedPalace
+    const deletePalaceEntry = (key) => {
+      console.log('deletePalaceEntry')
+      if (selectedPalace) {
+        const { [key]: deletedKey, ...updatedPalace } = selectedPalace;
+        setSelectedPalace(updatedPalace);
+      }
+    };
+  
+    //Save selectedPalace to MongoDb
+    const savePalaceState = () => {
+      if (selectedPalace) {
+        console.log("savePalaceState");
+        updateMemoryPalace(selectedPalace._id, selectedPalace);
+      }
+    };
+  
+  
+    // Create New Palace (with basic frame)
+    const createNewPalace = (PalaceName, PalaceDescription) => {
+      console.log("createNewPalace(f)")
+      const newPalaceData = {
+        PalaceName: PalaceName,
+        PalaceDescription: PalaceDescription,
+        PalaceCoverImg: "",
+        PalaceToDoList: {},
+        Rooms: [],
+      };
+      initAndFetchNewMemoryPalace(newPalaceData);
+    }
+  
+    // Find Palace by ID
+    const findPalaceById = (id) => {
+      const foundPalaceById = memoryPalaces.find(palace => palace._id === id);
+      if (foundPalaceById) {
+        console.log("Found Palace:", foundPalaceById);
+      } else {
+        console.log("Palace not found.");
+      }
+    }
+  
+    // Set selectPalace by ID
+    const switchSelectPalaceById  = (id) => {
+      const palaceToSelect = memoryPalaces.find(palace => palace._id === id);
+      if (palaceToSelect) {
+        console.log("Set Palace by Id", palaceToSelect )
+        setSelectedPalace(palaceToSelect);
+      }
+      };
+  
+    // Set selectPalace to last item of memoryPalace
+      const switchToLastPalace = () => {
+        console.log("switchToLastPalace");
+        if (memoryPalaces.length > 0) {
+          const lastPalace = memoryPalaces[memoryPalaces.length - 1];
+          setSelectedPalace(lastPalace);
+        } else {
+          setSelectedPalace(null); // No palaces available, so set selected palace to null
+        }
+      };
+  
+      // Delete selectedPalace from MongoDb
+        // Whichever is the current selectedPalace will be deleted from MongoDb
+      const deleteCurrentSelectedPalace = () => {
+        console.log("Deleted current selectPalace from Mongo and switch selectedPalace to last memoryPalace item");
+        console.log(selectedPalace._id);
+        deleteAndSwitchToLastPalace(selectedPalace._id);
+      }
+
+
   return {
-    memoryPalaces,
-    selectedPalace,
-    setSelectedPalace,
     initAndFetchNewMemoryPalace,
-    fetchMemoryPalaces,
-    themes,
-    setMemoryPalaces,
-    updateMemoryPalace,
     deleteAndSwitchToLastPalace,
+    updateMemoryPalace,
+    fetchMemoryPalaces,
+    
+    themes,
+    memoryPalaces, setMemoryPalaces,
+    selectedPalace, setSelectedPalace,
+
+    findPalaceById,
+    switchSelectPalaceById,  
+    switchToLastPalace,
+    createNewPalace,
+    deleteCurrentSelectedPalace,  
+    changePalaceEntry,
+    deletePalaceEntry, 
+    savePalaceState,
   };
 };
 
 export default useApplicationData;
+
+
+
+
+
+
+
+
+      

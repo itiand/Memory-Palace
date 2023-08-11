@@ -1,21 +1,31 @@
 import PropTypes from "prop-types";
 import { createContext } from "react";
 import useApplicationData from "../hooks/useApplicationData";
+// import { reducer, initialState } from '../hooks/reducers';
+
+
 
 export const PalaceContext = createContext();
 
 const PalaceProvider = (props) => {
   const { 
-    memoryPalaces, 
-    selectedPalace, 
-    themes, 
-    setSelectedPalace, 
-    initAndFetchNewMemoryPalace, 
-    fetchMemoryPalaces, 
-    updateMemoryPalace,
-    setMemoryPalaces,
+    initAndFetchNewMemoryPalace,
     deleteAndSwitchToLastPalace,
+    updateMemoryPalace,
+    fetchMemoryPalaces,
+    
+    themes,
+    memoryPalaces, setMemoryPalaces,
+    selectedPalace, setSelectedPalace,
 
+    findPalaceById,
+    switchSelectPalaceById,  
+    switchToLastPalace,
+    createNewPalace,
+    deleteCurrentSelectedPalace,  
+    changePalaceEntry,
+    deletePalaceEntry, 
+    savePalaceState,
   } = useApplicationData();
 
   // Validation for props.children
@@ -25,21 +35,30 @@ const PalaceProvider = (props) => {
 
   return (
     <PalaceContext.Provider value={{ 
-      memoryPalaces, 
-      selectedPalace, 
-      themes, 
-      setSelectedPalace, 
-      initAndFetchNewMemoryPalace, 
-      fetchMemoryPalaces, 
-      setMemoryPalaces,
-      updateMemoryPalace,
+      initAndFetchNewMemoryPalace,
       deleteAndSwitchToLastPalace,
+      updateMemoryPalace,
+      fetchMemoryPalaces,
+      
+      themes,
+      memoryPalaces, 
+      setMemoryPalaces,
+      selectedPalace, 
+      setSelectedPalace,
+  
+      findPalaceById,
+      switchSelectPalaceById,  
+      switchToLastPalace,
+      createNewPalace,
+      deleteCurrentSelectedPalace,  
+      changePalaceEntry,
+      deletePalaceEntry, 
+      savePalaceState,
     }}>
       {props.children}
     </PalaceContext.Provider>
   );
 }
-
 
 export default PalaceProvider;
 
