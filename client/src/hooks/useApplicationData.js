@@ -15,6 +15,9 @@ const useApplicationData = () => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
 
+
+
+  // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
     fetch("api/initMemoryPalace", {
       method: 'POST',
@@ -43,8 +46,9 @@ const useApplicationData = () => {
       });
   }
 
+  // Fetch All Memory Palaces
   function fetchMemoryPalaces() {
-    fetch("api/getMemoryPalaces")
+    fetch("/api/getMemoryPalaces")
       .then(response => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -59,9 +63,78 @@ const useApplicationData = () => {
       });
   }
 
+  // Update Existing Memory Palace
+  function updateMemoryPalace(palaceId, updatedData) {
+    sendRequest(`/api/update`, 'PUT', { id: palaceId, data: updatedData });
+  }
+
+
+// Delete Palace By ID
+// delete from Mongo by ID and setSelectedPalace to next on list.
+const deleteAndSwitchToLastPalace = async (idToDelete) => {
+  try {
+    // Send delete request to server
+    await fetch(`api/deleteMemoryPalace/${idToDelete}`, {
+      method: 'DELETE',
+    });
+    // Update local state after successful deletion
+    const updatedMemoryPalaces = memoryPalaces.filter(palace => palace.id !== idToDelete);
+    setMemoryPalaces(updatedMemoryPalaces);
+    // Switch to the last palace in updatedMemoryPalaces
+    if (updatedMemoryPalaces.length > 0) {
+      setSelectedPalace(updatedMemoryPalaces[updatedMemoryPalaces.length - 1]);
+    } else {
+      setSelectedPalace(null);
+    }
+  } catch (error) {
+    console.error("Error deleting memory palace:", error);
+  }
+};
+
+
+
+
+  // Fetch Response Functions
+  // Utility function to handle fetch responses
+  function handleResponse(response) {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  }
+  // Utility function to handle errors
+  function handleError(error) {
+    console.error("There was a problem:", error.message);
+  }
+  // Utility function to send requests
+  function sendRequest(url, method, body = null) {
+    const options = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body ? JSON.stringify(body) : null,
+    };
+    fetch(url, options)
+      .then(handleResponse)
+      .then(data => {
+        console.log(data);
+      })
+      .catch(handleError);
+  }
+
+  
+
   useEffect(() => {
     fetchMemoryPalaces();
   }, []);
+
+// Sets SelectPalace to first memoryPalace item upon initialization
+  useEffect(() => {
+    if (memoryPalaces.length > 0) {
+      setSelectedPalace(memoryPalaces[0]);
+    }
+  }, [memoryPalaces]);
 
 
   return {
@@ -70,7 +143,10 @@ const useApplicationData = () => {
     setSelectedPalace,
     initAndFetchNewMemoryPalace,
     fetchMemoryPalaces,
-    themes
+    themes,
+    setMemoryPalaces,
+    updateMemoryPalace,
+    deleteAndSwitchToLastPalace,
   };
 };
 
