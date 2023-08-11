@@ -42,7 +42,7 @@ const RegularPalaceModal = () => {
         >
           Story-Mode
         </button>
-
+        <button className="btn" >Save</button>
         {/* Add Room Modal */}
         <button
           className="btn"

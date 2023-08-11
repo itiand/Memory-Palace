@@ -8,6 +8,10 @@ function Navbar(props) {
     themes: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
+const handleMyPalaces = (e) => {
+  e.preventDefault();
+  console.log("My Palaces has been clicked")
+}
   return (
     <div className="navbar bg-primary">
     <div className="navbar-start">
@@ -61,6 +65,11 @@ function Navbar(props) {
       </div>
       <a className="btn btn-ghost normal-case text-xl">Pensieve</a>
     </div>
+    <div>
+      {/* Redirect to My Palaces route */}
+      <a className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>My Palaces</a>
+    </div>
+    
     <div className="navbar-center hidden lg:flex">
       <ul className="menu menu-horizontal px-1">
         <li>

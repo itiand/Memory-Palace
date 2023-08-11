@@ -18,3 +18,12 @@ pool.connect().then(() => {
 })
 
 module.exports = pool;
+
+
+
+const result = Palaces.update_one({
+	"x": "null"
+},
+{
+	"$set": { "toDoItem" : `${toDo1}`}
+})
