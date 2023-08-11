@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { FaRegEye, FaEdit } from 'react-icons/fa';
+import { FaRegEye, FaEdit, FaPlus } from 'react-icons/fa';
 
 
 
@@ -31,11 +31,16 @@ function RegularPalaceView() {
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
             <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
               <span className="text-white p-2">{PalaceDescription}</span>
-              <span className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"><FaEdit/></span>
+              <span className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"><FaEdit /></span>
             </div>
           </div>
           <div className="reg_view-rooms pt-3">
-            <h4 className="text-sm">Your rooms</h4>
+            <div className="text-sm flex items-center pb-1">
+              <h4 className="mr-1 text-gray-700">Your rooms</h4>
+              <span className="cursor-pointer text-gray-300 hover:text-black hover:ease-in-out duration-200" >
+                <FaPlus />
+              </span>
+            </div>
             <div className="carousel rounded-box w-full gap-x-1 cursor-pointer">
               {rooms.map((room, index) => {
                 return (
