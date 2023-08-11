@@ -99,9 +99,9 @@ app.get('/phrases', (req, res) => {
 app.post('/initMemoryPalace', (req, res) => {
   const memoryPalaceCollection = db.collection("Palaces");
 
-  // const palaceToInsert = req.body;
-
-  memoryPalaceCollection.insertOne({ name: "testing" }) // Changed to insertOne
+  const palaceToInsert = req.body;
+console.log("palaceinsert : ", palaceToInsert);
+  memoryPalaceCollection.insertOne(palaceToInsert) // Changed to insertOne
     .then(result => {
       const insertedId = result.insertedId;
       return memoryPalaceCollection.findOne({ _id: insertedId });
