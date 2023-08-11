@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { GrView } from 'react-icons/Gr'
+import { GrView } from 'react-icons/Gr';
 
 
 function RegularPalaceView() {
   const { selectedPalace } = useContext(PalaceContext);
-  const { PalaceName, PalaceCoverImg, Rooms } = selectedPalace;
+  const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
@@ -25,17 +25,23 @@ function RegularPalaceView() {
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-          <h3 className="font-bold text-lg">{selectedPalace.PalaceName}</h3>
-          <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
+          <h3 className="font-bold text-lg">{PalaceName}</h3>
+          <div className="relative">
+            <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
+            <div className="overlay absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-50 bg-black">
+              <span className="text-white p-2">{PalaceDescription}</span>
+            </div>
+          </div>
           <div className="reg_view-rooms pt-3">
             <h4 className="text-sm">Your rooms</h4>
             <div className="carousel rounded-box w-full gap-x-1 cursor-pointer">
               {rooms.map((room, index) => {
                 return (
                   <div key={index} className="carousel-item w-1/2 relative">
-                    <img src={room.roomImg} alt={room.roomDescription} className="w-full" />
+                    <img src={room.roomImg} alt={room.description} className="w-full" />
                     <div className="overlay absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 hover:opacity-50 bg-black">
-                      <span className="text-white p-2 bg-gray-300 rounded"><GrView/></span>
+                      <span className="text-white p-2 rounded">{room.name}</span>
+                      <span className="text-white p-2 bg-gray-300 rounded"><GrView /></span>
                     </div>
                   </div>
                 );
