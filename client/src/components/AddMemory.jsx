@@ -7,7 +7,7 @@ const AddMemory = () => {
   
   return (
 
-    <dialog id="my_modal_6" className="modal">
+    <dialog id="add_memory_view" className="modal">
     <div className="modal-box w-11/12 max-w-5xl">
       <h3 className="font-bold text-lg">
         Add Memory Modal
@@ -30,7 +30,7 @@ const AddMemory = () => {
         <button
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
           onClick={() =>
-            window.my_modal_6.close()
+            window.add_memory_view.close()
           }
         >
           ✕
@@ -40,13 +40,11 @@ const AddMemory = () => {
       <div>
         <button
           className="btn"
-          onClick={() =>
-            window.my_modal_4.showModal()
-          }
-        >
-          Save Memory (doesnt save yet)
-        </button>
-
+          onClick={() => {
+            window.add_memory_view.close();
+            window.reg_view.showModal();
+          }}
+        >Save Memory (doesnt save yet)</button>
       </div>
     </div>
   </dialog>

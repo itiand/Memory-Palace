@@ -92,8 +92,6 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
 };
 
 
-
-
   // Fetch Response Functions
   // Utility function to handle fetch responses
   function handleResponse(response) {
@@ -123,8 +121,8 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
       .catch(handleError);
   }
 
-  
 
+// const [modal, setModal] = useReducer(reducer, []);
   useEffect(() => {
     fetchMemoryPalaces();
   }, []);
@@ -137,6 +135,92 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
   }, [memoryPalaces]);
 
 
+
+
+  // Helper Functions
+  // Update Single Entry in Selected Palace
+    // use savePalaceState() to apply to Mongo
+    const changePalaceEntry = (key, value) => {
+      if (selectedPalace) {
+        setSelectedPalace(prevPalace => ({
+          ...prevPalace,
+          [key]: value
+        }));
+      }
+    };
+  
+    // Delete an Entry by its Key from Selected Palace
+      // use savePalaceState() to apply to Mongo
+    const deletePalaceEntry = (key) => {
+      console.log('deletePalaceEntry')
+      if (selectedPalace) {
+        const { [key]: deletedKey, ...updatedPalace } = selectedPalace;
+        setSelectedPalace(updatedPalace);
+      }
+    };
+  
+    //Saves selectPalace to Mongo
+      //saves current state of selectPalace object to Mongo. Refreshing will update memoryPalaces
+    const savePalaceState = () => {
+      if (selectedPalace) {
+        console.log("savePalaceState");
+        updateMemoryPalace(selectedPalace._id, selectedPalace);
+      }
+    };
+  
+  
+    // Create New Palace (basic frame)
+    const createNewPalace = (PalaceName, PalaceDescription) => {
+      console.log("createNewPalace(f)")
+      const newPalaceData = {
+        PalaceName: PalaceName,
+        PalaceDescription: PalaceDescription,
+        PalaceCoverImg: "",
+        PalaceToDoList: {},
+        Rooms: [],
+      };
+      initAndFetchNewMemoryPalace(newPalaceData);
+    }
+  
+    // Find Palace by ID
+    const findPalaceById = (id) => {
+      const foundPalaceById = memoryPalaces.find(palace => palace._id === id);
+      if (foundPalaceById) {
+        console.log("Found Palace:", foundPalaceById);
+      } else {
+        console.log("Palace not found.");
+      }
+    }
+  
+    // Set selectPalace by ID
+    const switchSelectPalaceById  = (id) => {
+      const palaceToSelect = memoryPalaces.find(palace => palace._id === id);
+      if (palaceToSelect) {
+        console.log("Set Palace by Id", palaceToSelect )
+        setSelectedPalace(palaceToSelect);
+      }
+      };
+  
+    // Set selectPalace to last item of memoryPalace
+      const switchToLastPalace = () => {
+        console.log("switchToLastPalace");
+        if (memoryPalaces.length > 0) {
+          const lastPalace = memoryPalaces[memoryPalaces.length - 1];
+          setSelectedPalace(lastPalace);
+        } else {
+          setSelectedPalace(null); // No palaces available, so set selected palace to null
+        }
+      };
+  
+      // Delete selectedPalace from Mongo
+        // Whatever is the current selectedPalace will be deleted from MongoDB
+      const deleteCurrentSelectedPalace = () => {
+        console.log("Deleted current selectPalace from Mongo and switch selectedPalace to last memoryPalace item");
+        console.log(selectedPalace._id);
+        deleteAndSwitchToLastPalace(selectedPalace._id);
+      }
+
+
   return {
     memoryPalaces,
     selectedPalace,
@@ -147,7 +231,26 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
     setMemoryPalaces,
     updateMemoryPalace,
     deleteAndSwitchToLastPalace,
+
+    changePalaceEntry,
+    deletePalaceEntry, 
+    savePalaceState,
+    createNewPalace,
+    findPalaceById,
+    switchSelectPalaceById,  
+    switchToLastPalace,
+    deleteCurrentSelectedPalace,  
+
   };
 };
 
 export default useApplicationData;
+
+
+
+
+
+
+
+
+      
