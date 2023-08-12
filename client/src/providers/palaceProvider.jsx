@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import { createContext } from "react";
 import useApplicationData from "../hooks/useApplicationData";
-// import { reducer, initialState } from '../hooks/reducers';
-
 
 
 export const PalaceContext = createContext();
@@ -10,27 +8,23 @@ export const PalaceContext = createContext();
 const PalaceProvider = (props) => {
   const { 
     initAndFetchNewMemoryPalace,
-    deleteAndSwitchToLastPalace,
-    updateMemoryPalace,
-    fetchMemoryPalaces,
-    
-    themes,
-    memoryPalaces, setMemoryPalaces,
-    selectedPalace, setSelectedPalace,
-
-    findPalaceById,
-    switchSelectPalaceById,  
-    switchToLastPalace,
-    createNewPalace,
-    deleteCurrentSelectedPalace,  
-    changePalaceEntry,
-    deletePalaceEntry, 
-    savePalaceState,
-    createPalaceExample,
-
-
-    isValidUrl,
-    isImageUrl,
+      deleteAndSwitchToLastPalace,
+      updateMemoryPalace,
+      fetchMemoryPalaces,
+      themes,
+      memoryPalaces, 
+      selectedPalace, 
+      setMemoryPalaces,
+      setSelectedPalace,
+      changePalaceEntry,
+      switchSelectPalaceById,
+      switchToLastPalace,
+      savePalaceState,
+      createNewPalace,
+      deletePalaceEntry,
+      deleteCurrentSelectedPalace,
+      isValidUrl,
+      isImageUrl,
 
   } = useApplicationData();
 
@@ -45,23 +39,18 @@ const PalaceProvider = (props) => {
       deleteAndSwitchToLastPalace,
       updateMemoryPalace,
       fetchMemoryPalaces,
-      
       themes,
       memoryPalaces, 
-      setMemoryPalaces,
       selectedPalace, 
+      setMemoryPalaces,
       setSelectedPalace,
-  
-      findPalaceById,
-      switchSelectPalaceById,  
-      switchToLastPalace,
-      createNewPalace,
-      deleteCurrentSelectedPalace,  
       changePalaceEntry,
-      deletePalaceEntry, 
+      switchSelectPalaceById,
+      switchToLastPalace,
       savePalaceState,
-      createPalaceExample,
-      
+      createNewPalace,
+      deletePalaceEntry,
+      deleteCurrentSelectedPalace,
       isValidUrl,
       isImageUrl,
 

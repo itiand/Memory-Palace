@@ -2,13 +2,6 @@ import { useState, useEffect } from 'react';
 import tailwindConfig from '../../tailwind.config.js';
 const { themes } = tailwindConfig;
 
-// function getInitialSelectedPalace() {
-//   return {
-//     id: ``,
-//     name: ``,
-//     front_img_url: ``
-//   };
-// }
 
 const useApplicationData = () => {
 
@@ -68,7 +61,6 @@ const useApplicationData = () => {
 
   }
 
-
   // Delete Palace By ID
   // delete from Mongo by ID and setSelectedPalace to next on list.
   const deleteAndSwitchToLastPalace = async (idToDelete) => {
@@ -122,43 +114,14 @@ const useApplicationData = () => {
       .catch(handleError);
   }
 
-
-  // const [modal, setModal] = useReducer(reducer, []);
   useEffect(() => {
     fetchMemoryPalaces();
   }, []);
 
-  // Sets SelectPalace to first memoryPalace item upon initialization
-  // useEffect(() => {
-  //   if (memoryPalaces.length > 0) {
-  //     setSelectedPalace(memoryPalaces[0]);
-  //   }
-  // }, [memoryPalaces]);
+  
 
-  // useEffect(() => {
-  //   // This effect will run whenever selectedPalace changes
-  //   if (selectedPalace) {
-  //     console.log("savePalaceState");
-  //     updateMemoryPalace(selectedPalace._id, selectedPalace);
-
-  //     // After 4 seconds, trigger a re-render of memoryPalaces
-  //     const timeoutId = setTimeout(() => {
-  //       // Fetch updated memoryPalaces data here
-  //       const updatedMemoryPalaces = updatedMemoryPalaces();
-  //       setMemoryPalaces(updatedMemoryPalaces);
-  //     }, 4000);
-
-  //     // Clean up the timeout when the component unmounts or selectedPalace changes
-  //     return () => clearTimeout(timeoutId);
-  //   }
-  // }, [selectedPalace]); // The effect depends on selectedPalace
-
-
-  // Helper Functions
-
-  // Update Single Entry in selectedPalace
-
-  // use savePalaceState(f) to apply change to Mongo
+  // Helper Methods
+  // Update Single Entry in selectedPalace Object
   const changePalaceEntry = async (key, value) => {
     console.log("changePalaceEntry");
     if (selectedPalace) {
@@ -169,6 +132,7 @@ const useApplicationData = () => {
     }
   };
 
+  
   // Delete an Entry by its Key from selectedPalace
   const deletePalaceEntry = (key) => {
     console.log('deletePalaceEntry');
@@ -200,190 +164,6 @@ const useApplicationData = () => {
       initAndFetchNewMemoryPalace(newPalaceData);
     }
 
-    // Create New Palace (with basic frame)
-    const createPalaceExample = () => {
-      console.log("createNewPalace(f)")
-      const newPalaceData = {
-
-        "_id": "64d3cad2513cf28f3e4803f0",
-        "PalaceName": "My First Mind Palace",
-        "PalaceDescription": "An inner look into the mind of Breadcrumbs Cabbagepatch",
-        "PalaceCoverImg": "https://miro.medium.com/v2/resize:fit:720/format:webp/1*E7LZaXyXb9Li4OvMNv32cQ.jpeg",
-
-        "PalaceToDoList": {
-          "toDoListName": "Javascript Methods",
-          "toDo1": {
-            "keyword": ".push()",
-            "definition": "Adds one or more elements to the end of an array",
-            "returnedAiImgs": {
-              "aiImage1": "url",
-              "aiImage2": "url",
-              "aiImage3": "url",
-              "aiImage4": "url"
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo2": {
-            "keyword": ".pop()",
-            "definition": "Removes and returns the last element of an array.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo3": {
-            "keyword": ".shift()",
-            "definition": "Removes and returns the first element of an array.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo4": {
-            "keyword": ".slice",
-            "definition": "Creates a new array by extracting elements from an existing array.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo5": {
-            "keyword": ".splice()",
-            "definition": "Changes an array by adding or removing elements.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo6": {
-            "keyword": ".concat()",
-            "definition": "Combines arrays to create a new array.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo7": {
-            "keyword": ".forEach()",
-            "definition": "Executes a provided function once for each array element.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo8": {
-            "keyword": ".map()",
-            "definition": "Creates a new array by applying a function to each element.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo9": {
-            "keyword": ".filter()",
-            "definition": "Creates a new array with elements that pass a test.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-          "toDo10": {
-            "keyword": ".reduce()",
-            "definition": "Applies a function to reduce an array to a single value.",
-            "returnedAiImgs": {
-              "aiImage1": "",
-              "aiImage2": "",
-              "aiImage3": "",
-              "aiImage4": ""
-            },
-            "chosenAiImg": "",
-            "gptDrawDesc": "",
-            "gptNarrateDesc": "",
-          },
-        },
-
-        "Rooms": {
-          "room1": {
-            "roomDescription": "Study",
-            "roomImg": "https://media.houseandgarden.co.uk/photos/618938787ec4df9dbbfebc7f/16:9/w_1920,h_1080,c_limit/8fb319cfcc817fa00eaee66e368db0cb-house-11jan17-Arwel-Wyn-Jones--BBC_b.jpg",
-            "Pins": [
-              {
-                x: null,
-                y: null,
-                toDoItem: null,
-              }
-            ],
-          },
-          "room2": {
-            "roomDescription": "Bathroom",
-            "roomImg": "https://dornob.com/wp-content/uploads/2009/03/vintage-bathroom-interior-design.jpg",
-            "ins": [
-              {
-                x: null,
-                y: null,
-                toDoItem: null,
-              }
-            ],
-          },
-
-          "room3": {
-            "roomDescription": "Kitchen",
-            "roomImg": "https://cdn.80.lv/api/upload/content/63/625e4a942c5f1.jpg",
-            "Pins": [
-              {
-                x: null,
-                y: null,
-                toDoItem: null,
-              }
-            ],
-          },
-        }
-      };
-      initAndFetchNewMemoryPalace(newPalaceData);
-    }
-  };
 
   // Set selectPalace by ID
   const switchSelectPalaceById = (id) => {
@@ -412,15 +192,15 @@ const useApplicationData = () => {
     console.log(selectedPalace._id);
     deleteAndSwitchToLastPalace(selectedPalace._id);
   };
-
-      const isValidUrl = (url) => {
-        try {
-          new URL(url);
-          return true;
-        } catch (_) {
-          return false;
-        }
-      }
+  
+  const isValidUrl = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (_) {
+        return false;
+    }
+  }
       
       const isImageUrl = (url) => {
         return new Promise((resolve, reject) => {
@@ -431,30 +211,29 @@ const useApplicationData = () => {
         });
       }
 
+
+
   return {
     initAndFetchNewMemoryPalace,
     deleteAndSwitchToLastPalace,
     updateMemoryPalace,
     fetchMemoryPalaces,
-
     themes,
-    memoryPalaces, setMemoryPalaces,
-    selectedPalace, setSelectedPalace,
+    memoryPalaces, 
+    selectedPalace, 
+    setMemoryPalaces,
+    setSelectedPalace,
 
-    findPalaceById,
+
+    changePalaceEntry,
     switchSelectPalaceById,
     switchToLastPalace,
-    createNewPalace,
-    deleteCurrentSelectedPalace,
-    changePalaceEntry,
-    deletePalaceEntry,
     savePalaceState,
-    createPalaceExample,
-
-
+    createNewPalace,
+    deletePalaceEntry,
+    deleteCurrentSelectedPalace,
     isValidUrl,
     isImageUrl,
-
   };
 };
 

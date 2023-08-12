@@ -6,33 +6,18 @@ import '../view/addNewPalace.scss';
 
 const AddNewPalace = () => {
   const {
-    initAndFetchNewMemoryPalace,
-    deleteAndSwitchToLastPalace,
-    updateMemoryPalace,
-    fetchMemoryPalaces,
-
-    themes,
     memoryPalaces,
-    setMemoryPalaces,
     selectedPalace,
-    setSelectedPalace,
-
-    findPalaceById,
     switchSelectPalaceById,
     switchToLastPalace,
-    createNewPalace,
     deleteCurrentSelectedPalace,
-    changePalaceEntry,
     deletePalaceEntry,
+    changePalaceEntry,
     savePalaceState,
-
+    createNewPalace,
     isValidUrl,
     isImageUrl,
   } = useContext(PalaceContext);
-
-
-  // const { initAndFetchNewMemoryPalace } = useContext(PalaceContext)
-
 
 
   const [newPalaceName, setNewPalaceName] = useState("");
@@ -52,31 +37,13 @@ const AddNewPalace = () => {
     setNewPalaceUrl(e.target.value)
   }
 
-  // const submitSelectedPalaceNameDesc =(newPalaceName, newPalaceDescription) => {
-  //   console.log("PalaceCreated with PalaceName and Description");
-  //   createNewPalace(newPalaceName.toString, newPalaceDescription.toString);
-  // }
-
-  const handleSaveAndEdit = async (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-
     isValidUrl(newPalaceUrl)
     isImageUrl(newPalaceUrl)
-    createNewPalace(newPalaceName, newPalaceDescription, newPalaceUrl);
-    window.add_palace_image_view.close();
-    window.reg_view.showModal();
+    createNewPalace(newPalaceName, newPalaceDescription, newPalaceUrl); 
   }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    console.log(newPalaceName)
-    console.log(newPalaceDescription)
-
-    isValidUrl(newPalaceUrl)
-    isImageUrl(newPalaceUrl)
-    createNewPalace(newPalaceName, newPalaceDescription, newPalaceUrl);
-    window.add_palace_view.close();
-  };
 
   return (
     <dialog id="add_palace_view" className="modal">
@@ -131,15 +98,13 @@ const AddNewPalace = () => {
           > Add Palace Image </button> */}
             <button
               className="btn btn-success"
-              onClick={handleSaveAndEdit}
-            >Save and edit room </button>
-          <button
-            className="btn btn-success"
-            onClick={handleSubmit}
-          > Submit Palace </button>
+              onClick={()=> {
+                handleSave();
+                window.add_palace_image_view.close();
+                window.reg_view.showModal();
+              }}
+            >Submit Palace</button>
         </div>
-
-
       </div>
     </dialog>
   );
