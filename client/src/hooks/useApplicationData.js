@@ -151,19 +151,18 @@ const useApplicationData = () => {
   };
 
     // Create New Palace (with basic frame)
-    const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg
-      ) => {
+    // $$$ consider adding random background generator for cover and to save time $$$
+    const createNewPalace = (PalaceName, PalaceDescription) => {
       console.log("createNewPalace(f)")
       const newPalaceData = {
         PalaceName: PalaceName,
         PalaceDescription: PalaceDescription,
-        PalaceCoverImg: PalaceCoverImg,
-        PalaceToDoList: {},
-        Rooms: [],
+        PalaceCoverImg: "https://www.richardtmoore.co.uk/wp-content/uploads/2016/10/btx-placeholder-04-2-1024x683.jpg",
+        PalaceToDoList:{},
+        Rooms:[],
       };
       initAndFetchNewMemoryPalace(newPalaceData);
     }
-
 
   // Set selectPalace by ID
   const switchSelectPalaceById = (id) => {
