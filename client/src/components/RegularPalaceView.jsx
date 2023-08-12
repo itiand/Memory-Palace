@@ -19,6 +19,13 @@ function RegularPalaceView() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
+  // useEffect(() => {
+  //   if (selectedPalace) {
+  //     console.log("savePalaceState WALDO");
+  //     updateMemoryPalace(selectedPalace._id, selectedPalace);
+  //   }
+  // }, [selectedPalace])
+
   //////
   //helpers 
   ///
@@ -38,20 +45,21 @@ function RegularPalaceView() {
     }
   };
 
-  const isImageUrl = (url) => { //checks if the url is actually an img url
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(true);
-      img.onerror = () => reject(false);
-      img.src = url;
-    });
-  };
+  // const isImageUrl = (url) => { //checks if the url is actually an img url
+  //   return new Promise((resolve, reject) => {
+  //     const img = new Image();
+  //     img.onload = () => resolve(true);
+  //     img.onerror = () => reject(false);
+  //     img.src = url;
+  //   });
+  // };
   ////
   //helpers END//
   /////
 
   //on submit update
   const handleImageSubmit = () => {
+    console.log('TRUEEEE', selectedPalace);
     if (!isValidUrl(newImageURL)) {
       setAlertMessage('Please enter a valid URL.');
       setShowAlert(true);
@@ -59,18 +67,14 @@ function RegularPalaceView() {
       return;
     }
 
-    isImageUrl(newImageURL)
-      .then(() => {
-        changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUG HERE
-        savePalaceState();  // save the updated state to the database.
-        setIsEditMode(false);  // exit edit mode after submitting.
-      })
+    changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUGHERE
+    setIsEditMode(false);  // exit edit mode after submitting.
 
-      .catch(() => {
-        setAlertMessage('This URL does not point to a valid image.');
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 3000);
-      });
+    // .catch(() => {
+    //   setAlertMessage('This URL does not point to a valid image.');
+    //   setShowAlert(true);
+    //   setTimeout(() => setShowAlert(false), 3000);
+    // });
   };
 
   return (
