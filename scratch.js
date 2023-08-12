@@ -1,13 +1,16 @@
 
 const Palace = {
+
   "_id": "64d3cad2513cf28f3e4803f0",
-  "PalaceName": "Palace Name",
-  "PalaceCoverImg": "url",
-  // each Palace has 1 toDoList
+  "PalaceName": "My First Mind Palace",
+  "PalaceDescription": "An inner look into the mind of Breadcrumbs Cabbagepatch",
+  "PalaceCoverImg": "https://miro.medium.com/v2/resize:fit:720/format:webp/1*E7LZaXyXb9Li4OvMNv32cQ.jpeg",
+
   "PalaceToDoList": {
+    "toDoListName": "Javascript Methods",
     "toDo1": {
-      "keyword": "keyword",
-      "definition": "definition",
+      "keyword": ".push()",
+      "definition": "Adds one or more elements to the end of an array",
       "returnedAiImgs": {
         "aiImage1": "url",
         "aiImage2": "url",
@@ -19,26 +22,117 @@ const Palace = {
       "gptNarrateDesc": "",
     },
     "toDo2": {
-      "keyword": "keyword",
-      "definition": "definition",
+      "keyword": ".pop()",
+      "definition": "Removes and returns the last element of an array.",
       "returnedAiImgs": {
-        "aiImage1": "url",
-        "aiImage2": "url",
-        "aiImage3": "url",
-        "aiImage4": "url"
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
       },
       "chosenAiImg": "",
       "gptDrawDesc": "",
       "gptNarrateDesc": "",
     },
     "toDo3": {
-      "keyword": "keyword",
-      "definition": "definition",
+      "keyword": ".shift()",
+      "definition": "Removes and returns the first element of an array.",
       "returnedAiImgs": {
-        "aiImage1": "url",
-        "aiImage2": "url",
-        "aiImage3": "url",
-        "aiImage4": "url"
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
+      },
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo4": {
+      "keyword": ".slice",
+      "definition": "Creates a new array by extracting elements from an existing array.",
+      "returnedAiImgs": {
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
+      },
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo5": {
+      "keyword": ".splice()",
+      "definition": "Changes an array by adding or removing elements.",
+      "returnedAiImgs": {
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
+      },
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo6": {
+      "keyword": ".concat()",
+      "definition": "Combines arrays to create a new array.",
+      "returnedAiImgs": {
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
+      },
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo7": {
+      "keyword": ".forEach()",
+      "definition": "Executes a provided function once for each array element.",
+      "returnedAiImgs": {
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
+      },
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo8": {
+      "keyword": ".map()",
+      "definition": "Creates a new array by applying a function to each element.",
+      "returnedAiImgs": {
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
+      },
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo9": {
+      "keyword": ".filter()",
+      "definition": "Creates a new array with elements that pass a test.",
+      "returnedAiImgs": {
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
+      },
+      "chosenAiImg": "",
+      "gptDrawDesc": "",
+      "gptNarrateDesc": "",
+    },
+    "toDo10": {
+      "keyword": ".reduce()",
+      "definition": "Applies a function to reduce an array to a single value.",
+      "returnedAiImgs": {
+        "aiImage1": "",
+        "aiImage2": "",
+        "aiImage3": "",
+        "aiImage4": ""
       },
       "chosenAiImg": "",
       "gptDrawDesc": "",
@@ -48,29 +142,42 @@ const Palace = {
 
   "Rooms": {
     "room1": {
-      "roomDescription": "roomDescription",
-      "roomImg": "url",
-      "roomPins": {
-        "pin1": {
-          "x": "x1",
-          "y": "y1",
-          "toDo": "toDo1"
-        },
-        "pin2": {
-          "x": "x1",
-          "y": "y1",
-          "toDo": "toDo2"
-        },
-        "pin3": {
-          "x": "x1",
-          "y": "y1",
-          "toDo": "toDo3"
-        },
-      },
+      "roomDescription": "Study",
+      "roomImg": "https://media.houseandgarden.co.uk/photos/618938787ec4df9dbbfebc7f/16:9/w_1920,h_1080,c_limit/8fb319cfcc817fa00eaee66e368db0cb-house-11jan17-Arwel-Wyn-Jones--BBC_b.jpg",
+      "Pins": [
+        {
+          x: null,
+          y: null,
+          toDoItem: null,
+        }
+      ],
+    },
+    "room2": {
+      "roomDescription": "Bathroom",
+      "roomImg": "https://dornob.com/wp-content/uploads/2009/03/vintage-bathroom-interior-design.jpg",
+      "ins": [
+        {
+          x: null,
+          y: null,
+          toDoItem: null,
+        }
+      ],
+    },
 
-
+    "room3": {
+      "roomDescription": "Kitchen",
+      "roomImg": "https://cdn.80.lv/api/upload/content/63/625e4a942c5f1.jpg",
+      "Pins": [
+        {
+          x: null,
+          y: null,
+          toDoItem: null,
+        }
+      ],
     },
   }
+
+  
 };
 
 // Each waypoint should be an x,y + name and description + image. not separate lists of each

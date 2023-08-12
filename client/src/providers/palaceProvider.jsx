@@ -26,6 +26,7 @@ const PalaceProvider = (props) => {
     changePalaceEntry,
     deletePalaceEntry, 
     savePalaceState,
+    createPalaceExample,
   } = useApplicationData();
 
   // Validation for props.children
@@ -54,6 +55,7 @@ const PalaceProvider = (props) => {
       changePalaceEntry,
       deletePalaceEntry, 
       savePalaceState,
+      createPalaceExample,
     }}>
       {props.children}
     </PalaceContext.Provider>

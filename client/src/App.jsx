@@ -35,6 +35,7 @@ function App() {
       changePalaceEntry,
       deletePalaceEntry, 
       savePalaceState,
+      createPalaceExample,
   } = useContext( PalaceContext );
 
 
@@ -82,7 +83,7 @@ function App() {
   const handleTestClick1 = () => {
     // switchToLastPalace();
     // switchSelectPalaceById("");
-    createNewPalace("Wonderful", "A place to chill out");
+    // createNewPalace("Wonderful", "A place to chill out");
   };
   const handleTestClick2 = () => {
     switchToLastPalace();
@@ -92,7 +93,8 @@ function App() {
     // changePalaceEntry("PalaceName", "My Awesome Palace");
     // changePalaceEntry("@@@Random@@@", "Bruce");
     // savePalaceState();
-    deleteCurrentSelectedPalace();
+    // createPalaceExample();
+    // deleteCurrentSelectedPalace();
   };
 
   return (
