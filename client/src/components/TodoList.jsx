@@ -44,7 +44,18 @@ const TodoList = () => {
         id: Date.now(),
         keyword: newKeyword,
         definition,
-        option: showDefinitionInput ? 'custom' : 'notDefine', // Store the selected option with the task
+        
+        // Store the selected option with the task
+        option: showDefinitionInput ? 'custom' : 'notDefine', 
+        DrawDescription: "",
+        DalleChosenImage: "",
+        DalleImages: {
+          aiImage1: "",
+          aiImage4: "", 
+          aiImage2: "",
+          aiImage3: "",
+        },
+        NarratorDescription: "",
       };
       setTasks([...tasks, newTask]);
       setNewKeyword('');

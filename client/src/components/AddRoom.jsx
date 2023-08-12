@@ -78,8 +78,6 @@ const AddRoom = () => {
 };
 
 
-
-
   const handleRoomNameChange = (event) => {
     setRoomName(event.target.value);
   };
@@ -123,7 +121,7 @@ const AddRoom = () => {
       <div className="modal-box w-11/12 max-w-5xl">
         <h3 className="font-bold text-lg">Add Room Modal</h3>
         <img
-          src="https://i.imgur.com/ZEpq5CO.jpeg"
+          src="https://media.tenor.com/tvFWFDXRrmMAAAAd/blow-mind-mind-blown.gif"
           className="image-box w-60 mx-auto"
           alt="Room Image"
         />
