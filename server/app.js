@@ -143,6 +143,7 @@
 
   // UPDATE: Existing Memory Palace
   app.put('/update', (req, res) => {
+    console.log('reqbodydata', req.body.data)
     const palaceId = new ObjectId(req.body.id);
     const updatedData = req.body.data;
     updatedData._id = palaceId;

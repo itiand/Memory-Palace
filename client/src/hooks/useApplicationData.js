@@ -146,6 +146,7 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
           ...prevPalace,
           [key]: value
         }));
+        ////WALDO: BUG HERE
       }
     };
   

@@ -61,7 +61,7 @@ function RegularPalaceView() {
 
     isImageUrl(newImageURL)
       .then(() => {
-        changePalaceEntry('PalaceCoverImg', newImageURL);  // Update the local state.
+        changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUG HERE
         savePalaceState();  // save the updated state to the database.
         setIsEditMode(false);  // exit edit mode after submitting.
       })
