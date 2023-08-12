@@ -1,12 +1,9 @@
-import React from "react";
 import TodoList from "./TodoList";
 
 
 const AddMemory = () => {
 
-  
   return (
-
     <dialog id="add_memory_view" className="modal">
     <div className="modal-box w-11/12 max-w-5xl">
       <h3 className="font-bold text-lg">

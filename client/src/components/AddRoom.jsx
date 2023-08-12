@@ -10,10 +10,10 @@ const AddRoom = () => {
     switchToLastPalace,
     createNewPalace,
     deleteCurrentSelectedPalace,  
-    changePalaceEntry,
     deletePalaceEntry, 
-    savePalaceState,
     createPalaceExample,
+    savePalaceState,
+    changePalaceEntry,
 
   } = useContext(PalaceContext);
   const [roomName, setRoomName] = useState("");
@@ -35,22 +35,7 @@ const AddRoom = () => {
 
   const createNewRoom = async () => {
     try {
-      const roomNumber = Object.keys(selectedPalace.Rooms);
-      const roomKey = `room${roomNumber.length + 1}`;
-  
-      const newRoomObject = {
-        [roomKey]: {
-          roomName: roomName,
-          roomDescription: roomDescription,
-          roomImage: roomUrl,
-          Pins: [
-            {
-              x: null,
-              y: null,
-              toDoItem: null,
-            }
-          ],
-        }
+    
       const newRoomObject = {
         roomName: roomName,
           roomDescription: roomDescription,
@@ -78,8 +63,6 @@ const AddRoom = () => {
   };
 
 
-
-
   const handleSave = () => {
     const newErrors = {};
 
@@ -94,10 +77,8 @@ const AddRoom = () => {
     }
 
     if (Object.keys(newErrors).length === 0) {
-      // Perform save logic here
       createNewRoom();
-      // console.log("Room saved:", roomName, roomDescription, roomUrl);
-      // Close the modal
+      window.add_memory_view.showModal();
       window.add_room_view.close();
     } else {
       setErrors(newErrors);
