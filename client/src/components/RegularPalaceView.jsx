@@ -1,15 +1,34 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { FaRegEye, FaEdit, FaPlus } from 'react-icons/fa';
+import { FaRegEye, FaEdit, FaPlus, FaCheck, FaTimes } from 'react-icons/fa';
+import AlertMessage from "./AlertMessage";
 
 
 function RegularPalaceView() {
-  const { selectedPalace } = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
 
+  //for edit mode
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [newImageURL, setNewImageURL] = useState('');
+
+  //states for alert messages
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  // useEffect(() => {
+  //   if (selectedPalace) {
+  //     console.log("savePalaceState WALDO");
+  //     updateMemoryPalace(selectedPalace._id, selectedPalace);
+  //   }
+  // }, [selectedPalace])
+
+  //////
+  //helpers 
+  ///
   useEffect(() => {
     if (Rooms) {
       const roomArray = Object.values(Rooms);
@@ -17,20 +36,94 @@ function RegularPalaceView() {
     }
   }, [Rooms]);
 
+  const isValidUrl = (url) => { // checks if it's a valid url
+    try {
+      new URL(url);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
 
-  // console.log('roomArray', roomArray);
+  // const isImageUrl = (url) => { //checks if the url is actually an img url
+  //   return new Promise((resolve, reject) => {
+  //     const img = new Image();
+  //     img.onload = () => resolve(true);
+  //     img.onerror = () => reject(false);
+  //     img.src = url;
+  //   });
+  // };
+  ////
+  //helpers END//
+  /////
+
+  //on submit update
+  const handleImageSubmit = () => {
+    console.log('TRUEEEE', selectedPalace);
+    if (!isValidUrl(newImageURL)) {
+      setAlertMessage('Please enter a valid URL.');
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return;
+    }
+
+    changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUGHERE
+    setIsEditMode(false);  // exit edit mode after submitting.
+
+    // .catch(() => {
+    //   setAlertMessage('This URL does not point to a valid image.');
+    //   setShowAlert(true);
+    //   setTimeout(() => setShowAlert(false), 3000);
+    // });
+  };
 
   return (
     <>
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
+          {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
             <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
               <span className="text-white p-2">{PalaceDescription}</span>
-              <span className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"><FaEdit /></span>
+              {isEditMode ?
+                (
+                  <div className="flex flex-col items-center space-y-2">
+                    <input
+                      type="text"
+                      value={newImageURL}
+                      onChange={(e) => setNewImageURL(e.target.value)}
+                      placeholder="Enter new image URL"
+                      className="text-black p-1 rounded"
+                    />
+                    <span
+                      className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"
+                      onClick={handleImageSubmit}
+                    >
+                      <FaCheck />
+                    </span>
+                    <span
+                      className="text-xs py-1 px-2 cursor-pointer text-white hover:text-xl hover:ease-in-out duration-200"
+                      onClick={() => {
+                        setIsEditMode(false);
+                        // setNewImageURL(PalaceCoverImg); // Reset the newImageURL to the original URL
+                      }}
+                    >
+                      <FaTimes />
+                    </span>
+                  </div>
+                ) :
+                (
+                  <span
+                    className="text-xl py-1 px-2 cursor-pointer text-white hover:text-3xl hover:ease-in-out duration-200"
+                    onClick={() => setIsEditMode(true)}
+                  >
+                    <FaEdit />
+                  </span>
+                )
+              }
             </div>
           </div>
           <div className="reg_view-rooms pt-3">
@@ -52,18 +145,18 @@ function RegularPalaceView() {
                   </div>
                 );
               })}
-              </div>
-              {/****TONY ADDED*****/}
-                <button className="btn" onClick={() => {
-                    window.reg_view.close()
-                  }} > Story-Mode </button>
-                <button className="btn" onClick={() => {
-                  window.reg_view.close();
-                  window.add_room_view.showModal();
-                }}> Add New Room </button>
-                <button className="btn"onClick={() => window.reg_view.close()}  >Close</button>
-             {/****TONY END*****/}
-              
+            </div>
+            {/****TONY ADDED*****/}
+            <button className="btn" onClick={() => {
+              window.reg_view.close();
+            }} > Story-Mode </button>
+            <button className="btn" onClick={() => {
+              window.reg_view.close();
+              window.add_room_view.showModal();
+            }}> Add New Room </button>
+            <button className="btn" onClick={() => window.reg_view.close()}  >Close</button>
+            {/****TONY END*****/}
+
           </div>
         </form>
       </dialog>
