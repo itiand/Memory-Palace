@@ -133,7 +133,23 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
     }
   }, [memoryPalaces]);
 
+  // useEffect(() => {
+  //   // This effect will run whenever selectedPalace changes
+  //   if (selectedPalace) {
+  //     console.log("savePalaceState");
+  //     updateMemoryPalace(selectedPalace._id, selectedPalace);
 
+  //     // After 4 seconds, trigger a re-render of memoryPalaces
+  //     const timeoutId = setTimeout(() => {
+  //       // Fetch updated memoryPalaces data here
+  //       const updatedMemoryPalaces = updatedMemoryPalaces();
+  //       setMemoryPalaces(updatedMemoryPalaces);
+  //     }, 4000);
+
+  //     // Clean up the timeout when the component unmounts or selectedPalace changes
+  //     return () => clearTimeout(timeoutId);
+  //   }
+  // }, [selectedPalace]); // The effect depends on selectedPalace
 
 
   // Helper Functions
@@ -160,10 +176,10 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
   
     //Save selectedPalace to MongoDb
     const savePalaceState = () => {
-      if (selectedPalace) {
+      // if (selectedPalace) {
         console.log("savePalaceState");
         updateMemoryPalace(selectedPalace._id, selectedPalace);
-      }
+      // }
     };
   
   
@@ -175,20 +191,7 @@ const deleteAndSwitchToLastPalace = async (idToDelete) => {
         PalaceDescription: PalaceDescription,
         PalaceCoverImg: "",
         PalaceToDoList: {},
-        Rooms: [
-          {
-            name:"",
-            roomImg: "",
-            description: "",
-            pins: [
-              {
-                x: null,
-                y: null,
-                toDoId: null
-              }
-            ]
-          }
-        ],
+        Rooms: [],
       };
       initAndFetchNewMemoryPalace(newPalaceData);
     }
