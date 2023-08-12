@@ -5,45 +5,22 @@ import AlertMessage from "./AlertMessage";
 
 
 function RegularPalaceView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces } = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, resetTemporaryStates, isEditMode, setIsEditMode, newImageURL, setNewImageURL } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
 
-  //for edit mode
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [newImageURL, setNewImageURL] = useState('');
-
   //states for alert messages
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
-  // useEffect(() => {
-  //   if (selectedPalace) {
-  //     console.log("savePalaceState WALDO");
-  //     updateMemoryPalace(selectedPalace._id, selectedPalace);
-  //   }
-  // }, [selectedPalace])
-
-  //////
-  //helpers 
-  ///
   useEffect(() => {
     if (Rooms) {
       const roomArray = Object.values(Rooms);
       setRooms(roomArray);
     }
   }, [Rooms]);
-
-  const isValidUrl = (url) => { // checks if it's a valid url
-    try {
-      new URL(url);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  };
 
 
   //on submit update
@@ -60,17 +37,14 @@ function RegularPalaceView() {
     setIsEditMode(false);  // exit edit mode after submitting.
   };
 
-  //reset 
-    //selectedPalace
-    //isEditMode
-    //reset
-    //newImgUrl
+
+
   return (
     <>
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={resetTemporaryStates}>✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />

@@ -7,7 +7,16 @@ const useApplicationData = () => {
 
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
+  //for edit mode
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [newImageURL, setNewImageURL] = useState('');
 
+
+  const resetTemporaryStates = () => {
+    setSelectedPalace({});
+    setIsEditMode(false);
+    setNewImageURL('');
+  }
 
   // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
@@ -223,6 +232,9 @@ const useApplicationData = () => {
     selectedPalace, 
     setMemoryPalaces,
     setSelectedPalace,
+    setIsEditMode,
+    isEditMode,
+    resetTemporaryStates,
 
 
     changePalaceEntry,
@@ -234,6 +246,8 @@ const useApplicationData = () => {
     deleteCurrentSelectedPalace,
     isValidUrl,
     isImageUrl,
+    newImageURL,
+    setNewImageURL
   };
 };
 
