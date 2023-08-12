@@ -169,26 +169,32 @@ const useApplicationData = () => {
     }
   };
 
-  // Create New Palace (with basic frame)
-  const createNewPalace = (PalaceName, PalaceDescription) => {
-    console.log("createNewPalace(f)");
-    const newPalaceData = {
-      PalaceName: PalaceName,
-      PalaceDescription: PalaceDescription,
-      PalaceCoverImg: "",
-      PalaceToDoList: {},
-      Rooms: [],
-    };
-    initAndFetchNewMemoryPalace(newPalaceData);
-  };
 
-  // Find Palace by ID
-  const findPalaceById = (id) => {
-    const foundPalaceById = memoryPalaces.find(palace => palace._id === id);
-    if (foundPalaceById) {
-      console.log("Found Palace:", foundPalaceById);
-    } else {
-      console.log("Palace not found.");
+    // Create New Palace (with basic frame)
+    const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg
+      ) => {
+      console.log("createNewPalace(f)")
+      const newPalaceData = {
+        PalaceName: PalaceName,
+        PalaceDescription: PalaceDescription,
+        PalaceCoverImg: PalaceCoverImg,
+        PalaceToDoList: {},
+        Rooms: [
+          {
+            name:"",
+            roomImg: "",
+            description: "",
+            pins: [
+              {
+                x: null,
+                y: null,
+                toDoId: null
+              }
+            ]
+          }
+        ],
+      };
+      initAndFetchNewMemoryPalace(newPalaceData);
     }
   };
 
@@ -220,6 +226,23 @@ const useApplicationData = () => {
     deleteAndSwitchToLastPalace(selectedPalace._id);
   };
 
+      const isValidUrl = (url) => {
+        try {
+          new URL(url);
+          return true;
+        } catch (_) {
+          return false;
+        }
+      }
+      
+      const isImageUrl = (url) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => reject(false);
+          img.src = url;
+        });
+      }
 
   return {
     initAndFetchNewMemoryPalace,
@@ -239,6 +262,9 @@ const useApplicationData = () => {
     changePalaceEntry,
     deletePalaceEntry,
     savePalaceState,
+
+    isValidUrl,
+    isImageUrl,
   };
 };
 

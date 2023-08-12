@@ -1,4 +1,3 @@
-
   // Declarations
   import dotenv from 'dotenv';
   import express, { response } from 'express';
@@ -39,7 +38,6 @@
       process.exit(1);
     }
   }
-
 
   run().catch(console.dir);
   ///

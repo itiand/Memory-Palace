@@ -58,27 +58,6 @@ function App() {
     );
   });
 
-  // function handleSubmit(event) {
-  //   event.preventDefault(); // Prevent the default form submission behavior
-  
-  //   // Access form data using DOM manipulation
-  //   const name = document.querySelector('#palaceName').value;
-  //   const description = document.querySelector('#palaceDescription').value;
-  
-  //   // Perform actions, such as sending data to a server or updating UI
-  //   console.log('Submitted Name:', name);
-  //   console.log('Submitted Description:', description);
-  
-  //   // Close the modal or perform other actions if needed
-  //   window.my_modal_1.close();
-  // }
-  
-  // // Attach event handler to the form
-  // const form = document.querySelector('.palaceForm');
-  // form.addEventListener('submit', handleSubmit);
-
-//   Update UseDataApplications
-  // Create New Palace (basic frame)
   const handleTestClick1 = () => {
     // switchToLastPalace();
     // switchSelectPalaceById("");
