@@ -60,6 +60,11 @@ function RegularPalaceView() {
     setIsEditMode(false);  // exit edit mode after submitting.
   };
 
+  //reset 
+    //selectedPalace
+    //isEditMode
+    //reset
+    //newImgUrl
   return (
     <>
       <dialog id="reg_view" className="modal">
@@ -91,7 +96,7 @@ function RegularPalaceView() {
                       className="text-xs py-1 px-2 cursor-pointer text-white hover:text-xl hover:ease-in-out duration-200"
                       onClick={() => {
                         setIsEditMode(false);
-                        // setNewImageURL(PalaceCoverImg); // Reset the newImageURL to the original URL
+                        setNewImageURL(""); // Reset the newImageURL to the original URL
                       }}
                     >
                       <FaTimes />
