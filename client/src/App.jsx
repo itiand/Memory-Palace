@@ -35,6 +35,7 @@ function App() {
       changePalaceEntry,
       deletePalaceEntry, 
       savePalaceState,
+      createPalaceExample,
   } = useContext( PalaceContext );
 
 
@@ -71,7 +72,8 @@ function App() {
     // changePalaceEntry("PalaceName", "My Awesome Palace");
     // changePalaceEntry("@@@Random@@@", "Bruce");
     // savePalaceState();
-    deleteCurrentSelectedPalace();
+    // createPalaceExample();
+    // deleteCurrentSelectedPalace();
   };
 
   return (

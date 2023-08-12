@@ -33,10 +33,11 @@ const AddNewPalace = () => {
 
   // const { initAndFetchNewMemoryPalace } = useContext(PalaceContext)
 
+
+
   const [newPalaceName, setNewPalaceName] = useState("");
   const [newPalaceDescription, setNewPalaceDescription] = useState("");
   const [newPalaceUrl, setNewPalaceUrl] = useState("");
-
 
   const handleNewPalaceNameChange = (event) => {
     console.log(event.target.value)
