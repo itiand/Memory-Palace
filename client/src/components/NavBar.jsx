@@ -12,6 +12,8 @@ function Navbar(props) {
 const handleMyPalaces = (e) => {
   e.preventDefault();
   console.log("My Palaces has been clicked")
+    window.add_palace_image_view.close();
+    window.reg_view.showModal();
 }
 
   return (
@@ -67,9 +69,7 @@ const handleMyPalaces = (e) => {
       </div>
       <a className="btn btn-ghost normal-case text-xl">Pensieve</a>
     </div>
-    <div>
-      <a className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>My Palaces</a>
-    </div>
+
     <div className="navbar-center hidden lg:flex">
       <ul className="menu menu-horizontal px-1">
         <li>
@@ -92,6 +92,9 @@ const handleMyPalaces = (e) => {
           <a>Item 3</a>
         </li>
       </ul>
+    </div>
+    <div>
+      <button className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>My Palaces</button>
     </div>
     <div className="navbar-end">
       <button className="btn" onClick={() => window.add_palace_view.showModal()}> Add New Palace </button>
