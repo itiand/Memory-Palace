@@ -45,17 +45,6 @@ function RegularPalaceView() {
     }
   };
 
-  // const isImageUrl = (url) => { //checks if the url is actually an img url
-  //   return new Promise((resolve, reject) => {
-  //     const img = new Image();
-  //     img.onload = () => resolve(true);
-  //     img.onerror = () => reject(false);
-  //     img.src = url;
-  //   });
-  // };
-  ////
-  //helpers END//
-  /////
 
   //on submit update
   const handleImageSubmit = () => {
@@ -69,12 +58,6 @@ function RegularPalaceView() {
 
     changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUGHERE
     setIsEditMode(false);  // exit edit mode after submitting.
-
-    // .catch(() => {
-    //   setAlertMessage('This URL does not point to a valid image.');
-    //   setShowAlert(true);
-    //   setTimeout(() => setShowAlert(false), 3000);
-    // });
   };
 
   return (
@@ -163,18 +146,5 @@ function RegularPalaceView() {
     </>
   );
 }
-
-
-// {/* Regular Palace Modal: * Clicking Main Photo to Edit
-//           Cover * Hover for Descriptions * Click Rooms to Edit
-//           Rooms{" "} */}
-
-// {/* <div className="regular-modal-rooms w-full flex">
-//             <img src="https://i.imgur.com/EdZmnSg.jpeg" alt="Room 1" />
-//             <img src="https://i.imgur.com/rXkxaAo.jpeg" alt="Room 2" />
-//             <img src="https://i.imgur.com/gNoTLLj.jpeg" alt="Room 3" />
-//             <img src="https://i.imgur.com/NIYnoFP.jpeg" alt="Room 4" />
-//             <img src="https://i.imgur.com/QokO0HE.jpeg" alt="Room 5" />
-//           </div> */}
 
 export default RegularPalaceView;
