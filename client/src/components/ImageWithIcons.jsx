@@ -1,22 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { BsFillPinFill } from 'react-icons/Bs';
+import { PalaceContext } from '../providers/palaceProvider';
 
 
-const ImageWithIcons = ({ imageUrl }) => {
-  const [icons, setIcons] = useState([]);
+const ImageWithIcons = ({ imageUrl, icons, setIcons }) => {
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom } = useContext(PalaceContext);
+
   const imageRef = useRef(null);
 
   const handleImageClick = (e) => {
     const rect = imageRef.current.getBoundingClientRect();
     const xPercentage = ((e.clientX - rect.left) / rect.width) * 100;
     const yPercentage = ((e.clientY - rect.top) / rect.height) * 100;
-
-    setIcons(oldIcons => [...oldIcons, { x: xPercentage, y: yPercentage }]);  };
+    setIcons(oldIcons => [...oldIcons, { x: xPercentage, y: yPercentage }]);
+  };
 
   return (
     <div className='relative'>
       <img src={imageUrl} alt='Clickable' onClick={handleImageClick} className='w-full' ref={imageRef} />
-      {icons.map((icon, index) => (
+      {icons && icons.map((icon, index) => (
         <BsFillPinFill
           key={index}
           style={{
@@ -36,3 +38,6 @@ const ImageWithIcons = ({ imageUrl }) => {
 };
 
 export default ImageWithIcons;
+
+//need the pins to be associated with the toDoItem.
+  //make fake data

@@ -5,6 +5,8 @@ import ImageWithIcons from "./ImageWithIcons";
 
 
 function RoomView() {
+  const [icons, setIcons] = useState([]);
+
   const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom} = useContext(PalaceContext);
 
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
@@ -21,7 +23,7 @@ function RoomView() {
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h4 className="text-sm">{PalaceName}</h4>
           <h3 className="font-bold text-lg">{name}</h3>
-          <ImageWithIcons imageUrl={roomImg}></ImageWithIcons>
+          <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons>
         </form>
       </dialog>
     </>
