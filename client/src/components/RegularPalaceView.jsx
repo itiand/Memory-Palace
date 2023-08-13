@@ -7,12 +7,7 @@ import RoomView from "./RoomView";
 
 function RegularPalaceView() {
 
-  const { 
-    selectedPalace, 
-    updateMemoryPalace, 
-    changePalaceEntry, 
-    savePalaceState, 
-    fetchMemoryPalaces } = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom } = useContext(PalaceContext);
 
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
@@ -30,6 +25,9 @@ function RegularPalaceView() {
     }
   }, [Rooms]);
 
+  useEffect(() => {
+    console.log('selectedRoom updated:', selectedRoom);
+  }, [selectedRoom]);
 
   //on submit update
   const handleImageSubmit = () => {
@@ -44,12 +42,14 @@ function RegularPalaceView() {
     setIsEditMode(false);  // exit edit mode after submitting.
   };
 
-  const handleRoomView = () => {
-    setIsEditMode(false)
-    setNewImageURL('')
-    window.room_view.showModal()
-    window.reg_view.close()
-  }
+  const handleRoomClick = (roomId) => {
+    console.log('roomId', roomId);
+    selectRoom(roomId);
+    setIsEditMode(false);
+    setNewImageURL('');
+    window.room_view.showModal();
+    window.reg_view.close();
+  };
 
 
 
@@ -117,7 +117,7 @@ function RegularPalaceView() {
                     <img src={room.roomImg} alt={room.description} className="w-full" />
                     <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
                       <span className="mb-1 text-white text-xs">{room.name}</span>
-                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={handleRoomView}><FaRegEye /></span>
+                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={() => { handleRoomClick(room.id); }}><FaRegEye /></span>
                     </div>
                   </div>
                 );
@@ -143,7 +143,7 @@ function RegularPalaceView() {
           </div>
         </form>
       </dialog>
-      <RoomView/>
+      <RoomView />
     </>
   );
 }

@@ -30,10 +30,17 @@ const PalaceProvider = (props) => {
       tasks,
       setTasks,
       getChatResponseFromServer,
+      getImageResponseFromServer,
 
       onCloseModal,
+      // setIsEditMode,
+      // isEditMode,
       newImageURL,
-      setNewImageURL
+      setNewImageURL,
+
+      createNewRoom,
+      selectRoom,
+      selectedRoom
 
 
   } = useApplicationData();
@@ -67,12 +74,17 @@ const PalaceProvider = (props) => {
       tasks,
       setTasks,
       getChatResponseFromServer,
+      getImageResponseFromServer,
     
       onCloseModal,
       setIsEditMode,
       isEditMode,
       newImageURL,
-      setNewImageURL
+      setNewImageURL,
+
+      createNewRoom,
+      selectRoom,
+      selectedRoom
 
     }}>
       {props.children}

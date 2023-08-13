@@ -77,9 +77,11 @@
       });
   });
 
+
+
+  //Get Chat GPT Response
   app.post('/getChatResponse', async (req, res) => {
-    const content = req.body.content;
-    console.log(content);
+    const content = req.body.content.response;
     try {
       const chatResponse = await getChatResponse(content); // Call the helper function
       const wordForDrawer = await aiDrawThePicture(content);
@@ -93,7 +95,18 @@
       res.status(500).json({ error: 'An error occurred.' });
     }
   });
-  
+
+
+  app.post('/getImageResponse', async (req, res) => {
+    const content = req.body.content;
+    try {
+      const imageResponse = await getImage(content); // Call the helper function
+      res.json({ response: imageResponse });
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred.' });
+    }
+  });
+
 
   // app.post('/initMemoryPalace', (req, res) => {
   //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection

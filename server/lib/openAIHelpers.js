@@ -29,7 +29,7 @@ export async function getImage(promptText) {
       n: 1,
       size: "256x256",
     });
-    return response.data;
+    return response.data.data[0].url ;
   } catch (error) {
     console.error("Error in getImage helper:", error);
     throw error;
