@@ -8,22 +8,24 @@ const useApplicationData = () => {
 
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
-  const [selectedRoom, setSelectedRoom] = useState(null);
 
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
   const [newImageURL, setNewImageURL] = useState('');
 
+  
+  const [selectedRoom, setSelectedRoom] = useState({});
 
   const onCloseModal = () => {
     setSelectedPalace({});
     setIsEditMode(false);
     setNewImageURL('');
   };
-  
+
   const selectRoom = (roomId) => {
     const room = selectedPalace.Rooms.find(r => r.id === roomId);
     if (room) {
+      console.log('Room found:', room);
         setSelectedRoom(room);
     } else {
         // Handle error - room not found
@@ -282,7 +284,8 @@ const useApplicationData = () => {
     isImageUrl,
     newImageURL,
     setNewImageURL,
-    selectRoom
+    selectRoom,
+    selectedRoom
   };
 };
 
