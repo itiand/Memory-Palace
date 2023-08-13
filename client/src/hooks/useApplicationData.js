@@ -20,19 +20,19 @@ const useApplicationData = () => {
     setIsEditMode(false);
     setNewImageURL('');
   };
-
-  const selectRooom = (roomID) => {
-    const currentRoom = selectedPalace.Rooms[roomId];
-    if (currentRoom) {
-      selectRooom(currentRoom);
+  
+  const selectRoom = (roomId) => {
+    const room = selectedPalace.Rooms.find(r => r.id === roomId);
+    if (room) {
+        setSelectedRoom(room);
     } else {
-
+        // Handle error - room not found
+        console.error("Room not found with ID:", roomId);
     }
-  };
+};
 
   const createNewRoom = () => {
     const newRoomId = uuidv4();
-
     const newRoomObject = {
       id: newRoomId,
       roomImg: roomUrl,
@@ -46,7 +46,7 @@ const useApplicationData = () => {
         }
       ]
     };
-    
+
     const updatedRooms = [...selectedPalace["Rooms"], newRoomObject];
     changePalaceEntry("Rooms", updatedRooms);
   };
@@ -268,19 +268,21 @@ const useApplicationData = () => {
     setIsEditMode,
     isEditMode,
     onCloseModal,
-
+    selectRoom,
 
     changePalaceEntry,
     switchSelectPalaceById,
     switchToLastPalace,
     savePalaceState,
     createNewPalace,
+    createNewRoom,
     deletePalaceEntry,
     deleteCurrentSelectedPalace,
     isValidUrl,
     isImageUrl,
     newImageURL,
-    setNewImageURL
+    setNewImageURL,
+    selectRoom
   };
 };
 

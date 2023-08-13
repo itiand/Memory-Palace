@@ -10,6 +10,7 @@ function RoomView() {
     <>
       <dialog id="room_view" className="modal">
         <form method="dialog" className="modal-box">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <h4 className="font-bold text-md"></h4>
         </form>

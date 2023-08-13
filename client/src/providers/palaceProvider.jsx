@@ -29,7 +29,10 @@ const PalaceProvider = (props) => {
       isImageUrl,
       onCloseModal,
       newImageURL,
-      setNewImageURL
+      setNewImageURL,
+      createNewRoom,
+      selectRoom,
+      selectedRoom
 
   } = useApplicationData();
 
@@ -62,7 +65,10 @@ const PalaceProvider = (props) => {
       setIsEditMode,
       isEditMode,
       newImageURL,
-      setNewImageURL
+      setNewImageURL,
+      createNewRoom,
+      selectRoom,
+      selectedRoom
 
     }}>
       {props.children}
