@@ -21,7 +21,6 @@ function RoomView() {
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h4 className="text-sm">{PalaceName}</h4>
           <h3 className="font-bold text-lg">{name}</h3>
-          <img src={roomImg} alt="" className="w-full" />
           <ImageWithIcons imageUrl={roomImg}></ImageWithIcons>
         </form>
       </dialog>
