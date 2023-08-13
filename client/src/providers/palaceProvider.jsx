@@ -20,6 +20,8 @@ const PalaceProvider = (props) => {
       switchSelectPalaceById,
       switchToLastPalace,
       savePalaceState,
+      setIsEditMode,
+      isEditMode,
       createNewPalace,
       deletePalaceEntry,
       deleteCurrentSelectedPalace,
@@ -29,6 +31,13 @@ const PalaceProvider = (props) => {
       setTasks,
       getChatResponseFromServer,
       getImageResponseFromServer,
+
+      onCloseModal,
+      // setIsEditMode,
+      // isEditMode,
+      newImageURL,
+      setNewImageURL,
+
 
   } = useApplicationData();
 
@@ -57,10 +66,17 @@ const PalaceProvider = (props) => {
       deleteCurrentSelectedPalace,
       isValidUrl,
       isImageUrl,
+    
       tasks,
       setTasks,
       getChatResponseFromServer,
       getImageResponseFromServer,
+    
+      onCloseModal,
+      setIsEditMode,
+      isEditMode,
+      newImageURL,
+      setNewImageURL,
 
     }}>
       {props.children}

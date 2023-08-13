@@ -9,6 +9,17 @@ const useApplicationData = () => {
   const [selectedPalace, setSelectedPalace] = useState({});
   const [tasks, setTasks] = useState([]);
 
+  
+  //for edit mode
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [newImageURL, setNewImageURL] = useState('');
+
+
+  const onCloseModal = () => {
+    setSelectedPalace({});
+    setIsEditMode(false);
+    setNewImageURL('');
+  }
 
   // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
@@ -262,6 +273,9 @@ const useApplicationData = () => {
     selectedPalace, 
     setMemoryPalaces,
     setSelectedPalace,
+    setIsEditMode,
+    isEditMode,
+    onCloseModal,
 
 
     changePalaceEntry,
@@ -278,6 +292,14 @@ const useApplicationData = () => {
 
     getChatResponseFromServer,
     getImageResponseFromServer,
+
+    onCloseModal,
+    setIsEditMode,
+    isEditMode,
+    newImageURL,
+    setNewImageURL,
+
+
   };
 };
 
