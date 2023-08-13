@@ -25,6 +25,9 @@ const PalaceProvider = (props) => {
       deleteCurrentSelectedPalace,
       isValidUrl,
       isImageUrl,
+      tasks,
+      setTasks,
+      getChatResponseFromServer,
 
   } = useApplicationData();
 
@@ -53,6 +56,9 @@ const PalaceProvider = (props) => {
       deleteCurrentSelectedPalace,
       isValidUrl,
       isImageUrl,
+      tasks,
+      setTasks,
+      getChatResponseFromServer,
 
     }}>
       {props.children}

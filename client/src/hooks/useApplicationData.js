@@ -7,6 +7,7 @@ const useApplicationData = () => {
 
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
+  const [tasks, setTasks] = useState([]);
 
 
   // Create a New Memory Palace 
@@ -201,14 +202,34 @@ const useApplicationData = () => {
     }
   }
       
-      const isImageUrl = (url) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => reject(false);
-          img.src = url;
-        });
-      }
+  const isImageUrl = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => reject(false);
+      img.src = url;
+    });
+  }
+
+
+   // Function to call the server-side getChatResponse endpoint
+   const getChatResponseFromServer = async (content) => {
+    try {
+      const response = await fetch('api/getChatResponse', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }), // Send the content as a JSON payload
+      });
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.log('error useApplication ln227-ish');
+      console.error('Error fetching chat response:', error);
+      return 'An error occurred';
+    }
+  };
 
 
 
@@ -233,6 +254,10 @@ const useApplicationData = () => {
     deleteCurrentSelectedPalace,
     isValidUrl,
     isImageUrl,
+    tasks,
+    setTasks,
+
+    getChatResponseFromServer,
   };
 };
 
