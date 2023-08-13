@@ -58,10 +58,9 @@ function RegularPalaceView() {
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" >✕</button>
-          {/* onClick={onCloseModal} */}
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
-          {/* <div className="relative">
+          <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
             <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
               <span className="text-white p-2">{PalaceDescription}</span>
@@ -101,8 +100,8 @@ function RegularPalaceView() {
                   </span>
                 )
               }
-            </div> */}
-          {/* </div> */}
+            </div>
+          </div>
           <div className="reg_view-rooms pt-3">
             <div className="text-sm flex items-center pb-1">
               <h4 className="mr-1 text-gray-700">Your rooms</h4>
@@ -132,12 +131,12 @@ function RegularPalaceView() {
               window.reg_view.close();
               window.add_room_view.showModal();
             }}> Add New Room </button>
-         
+
             <button className="btn" onClick={() => {
               window.reg_view.close();
               window.add_memory_view.showModal();
             }}> Add New Memory</button>
-          
+
             {/****TONY END*****/}
 
           </div>
