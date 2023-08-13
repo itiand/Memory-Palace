@@ -84,12 +84,11 @@
       const chatResponse = await getChatResponse(content); // Call the helper function
       const wordForDrawer = await aiDrawThePicture(content);
       // const wordForDrawer = await aiDrawThePicture(chatResponse);
-      const drawImage = getImage(wordForDrawer)
+      const drawImage = await getImage(wordForDrawer)
       console.log("chatResponse", chatResponse)
       console.log("wordForDrawer" ,wordForDrawer)
-
-      // res.json({ response: chatResponse });
-      res.json({ response: wordForDrawer });
+      console.log("drawImage" ,drawImage)
+      // res.json({ response: drawImage.data[0] });
     } catch (error) {
       res.status(500).json({ error: 'An error occurred.' });
     }

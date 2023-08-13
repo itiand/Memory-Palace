@@ -65,7 +65,7 @@ function App() {
     // switchToLastPalace();
     // switchSelectPalaceById("");
     // createNewPalace("Start", "Here", "https://i.imgur.com/rxWrRvs.jpeg");
-    getChatResponseFromServer('fat cat playing game');
+    // getChatResponseFromServer('fat cat playing game');
     
   };
   const handleTestClick2 = () => {

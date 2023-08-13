@@ -5,7 +5,8 @@ const TodoList = () => {
   const {
     tasks, 
     setTasks,
-    
+    getChatResponseFromServer,
+
   } = useContext( PalaceContext );
   
   const [newKeyword, setNewKeyword] = useState('');
@@ -77,6 +78,7 @@ const TodoList = () => {
 
   const handleAddTask = () => {
     addTask();
+    getChatResponseFromServer(newKeyword);
   };
 
   const handleKeyPress = (event) => {
