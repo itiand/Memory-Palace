@@ -1,7 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
+import { PalaceContext } from '../providers/palaceProvider';
 
 const TodoList = () => {
-  const [tasks, setTasks] = useState([]);
+  const {
+    tasks, 
+    setTasks,
+    
+  } = useContext( PalaceContext );
+  
   const [newKeyword, setNewKeyword] = useState('');
   const [showDefinitionInput, setShowDefinitionInput] = useState(false);
   const [newDefinition, setNewDefinition] = useState('');

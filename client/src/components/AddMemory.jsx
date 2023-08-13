@@ -1,27 +1,20 @@
 import TodoList from "./TodoList";
+import { PalaceContext } from "../providers/palaceProvider";
+import { useContext } from "react";
 
 
 const AddMemory = () => {
-//   // Creating New Room (with basic frame)
-//   const createNewRoom = () => {
-//     const newRoomObject = {
-//       roomImg: roomUrl,
-//         name: roomName,
-//         roomDescription: roomDescription,
-//         Pins: [
-//           {
-//             x: null,
-//             y: null,
-//             toDoItem: null,
-//           }
-//         ]
-//       };
-//     const newArray = selectedPalace["Rooms"];
-//     newArray.push((newRoomObject))
+const { 
+  tasks,
+  changePalaceEntry,
+ } = useContext(PalaceContext);
 
-//     changePalaceEntry("Rooms", newArray);
-// };
 
+  const handleSaveMemory = () => {
+    changePalaceEntry("PalaceToDoList", tasks);
+    window.add_memory_view.close();
+    window.reg_view.showModal();
+  }
 
   return (
     <dialog id="add_memory_view" className="modal">
@@ -56,10 +49,7 @@ const AddMemory = () => {
 
         <button
           className="btn"
-          onClick={() => {
-            window.add_memory_view.close();
-            window.reg_view.showModal();
-          }}
+          onClick={handleSaveMemory}
         >Save Memory</button>
       </div>
     </div>

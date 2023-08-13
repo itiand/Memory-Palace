@@ -6,7 +6,14 @@ import RoomView from "./RoomView";
 
 
 function RegularPalaceView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL } = useContext(PalaceContext);
+
+  const { 
+    selectedPalace, 
+    updateMemoryPalace, 
+    changePalaceEntry, 
+    savePalaceState, 
+    fetchMemoryPalaces } = useContext(PalaceContext);
+
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
