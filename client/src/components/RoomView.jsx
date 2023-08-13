@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 import { BsFillPinFill } from 'react-icons/Bs';
+import ImageWithIcons from "./ImageWithIcons";
 
 
 function RoomView() {
@@ -21,6 +22,7 @@ function RoomView() {
           <h4 className="text-sm">{PalaceName}</h4>
           <h3 className="font-bold text-lg">{name}</h3>
           <img src={roomImg} alt="" className="w-full" />
+          <ImageWithIcons imageUrl={roomImg}></ImageWithIcons>
         </form>
       </dialog>
     </>

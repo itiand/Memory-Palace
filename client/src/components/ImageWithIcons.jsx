@@ -14,7 +14,7 @@ const ImageWithIcons = ({ imageUrl }) => {
   }
 
   return (
-    <div className='relative'> {/* need to be sure the parent div is relative */}
+    <div className='relative'>
       <img src={imageUrl} alt='Clickable' onClick={handleImageClick} />
       {icons.map((icon, index) => (
         <BsFillPinFill
