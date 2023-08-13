@@ -7,6 +7,8 @@ const useApplicationData = () => {
 
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
   const [newImageURL, setNewImageURL] = useState('');
@@ -16,7 +18,35 @@ const useApplicationData = () => {
     setSelectedPalace({});
     setIsEditMode(false);
     setNewImageURL('');
-  }
+  };
+
+  const selectRooom = (roomID) => {
+    const currentRoom = selectedPalace.Rooms[roomId];
+    if (currentRoom) {
+      selectRooom(currentRoom);
+    } else {
+
+    }
+  };
+
+  const createNewRoom = () => {
+    const newRoomObject = {
+      roomImg: roomUrl,
+      name: roomName,
+      roomDescription: roomDescription,
+      Pins: [
+        {
+          x: null,
+          y: null,
+          toDoItem: null,
+        }
+      ]
+    };
+    const newArray = selectedPalace["Rooms"];
+    newArray.push((newRoomObject));
+
+    changePalaceEntry("Rooms", newArray);
+  };
 
   // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
@@ -118,7 +148,7 @@ const useApplicationData = () => {
       .then(handleResponse)
       .then(data => {
         console.log('DATA', data);
-        fetchMemoryPalaces()
+        fetchMemoryPalaces();
       })
       .catch(handleError);
   }
@@ -127,21 +157,21 @@ const useApplicationData = () => {
     fetchMemoryPalaces();
   }, []);
 
-  
+
 
   // Helper Methods
   // Update Single Entry in selectedPalace Object
   const changePalaceEntry = async (key, value) => {
     console.log("changePalaceEntry");
     if (selectedPalace) {
-      const newSelectedPalace = {...selectedPalace, [key] : value}
-      await setSelectedPalace(newSelectedPalace)
-      console.log('selectedPalace', selectedPalace)
+      const newSelectedPalace = { ...selectedPalace, [key]: value };
+      await setSelectedPalace(newSelectedPalace);
+      console.log('selectedPalace', selectedPalace);
       await updateMemoryPalace(newSelectedPalace._id, newSelectedPalace);
     }
   };
 
-  
+
   // Delete an Entry by its Key from selectedPalace
   const deletePalaceEntry = (key) => {
     console.log('deletePalaceEntry');
@@ -159,19 +189,19 @@ const useApplicationData = () => {
     }
   };
 
-    // Create New Palace (with basic frame)
-    const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg
-      ) => {
-      console.log("createNewPalace(f)")
-      const newPalaceData = {
-        PalaceName: PalaceName,
-        PalaceDescription: PalaceDescription,
-        PalaceCoverImg: PalaceCoverImg,
-        PalaceToDoList: {},
-        Rooms: [],
-      };
-      initAndFetchNewMemoryPalace(newPalaceData);
-    }
+  // Create New Palace (with basic frame)
+  const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg
+  ) => {
+    console.log("createNewPalace(f)");
+    const newPalaceData = {
+      PalaceName: PalaceName,
+      PalaceDescription: PalaceDescription,
+      PalaceCoverImg: PalaceCoverImg,
+      PalaceToDoList: {},
+      Rooms: [],
+    };
+    initAndFetchNewMemoryPalace(newPalaceData);
+  };
 
 
   // Set selectPalace by ID
@@ -201,24 +231,24 @@ const useApplicationData = () => {
     console.log(selectedPalace._id);
     deleteAndSwitchToLastPalace(selectedPalace._id);
   };
-  
+
   const isValidUrl = (url) => {
     try {
       new URL(url);
       return true;
     } catch (_) {
-        return false;
+      return false;
     }
-  }
-      
-      const isImageUrl = (url) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => reject(false);
-          img.src = url;
-        });
-      }
+  };
+
+  const isImageUrl = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => reject(false);
+      img.src = url;
+    });
+  };
 
 
 
@@ -228,8 +258,8 @@ const useApplicationData = () => {
     updateMemoryPalace,
     fetchMemoryPalaces,
     themes,
-    memoryPalaces, 
-    selectedPalace, 
+    memoryPalaces,
+    selectedPalace,
     setMemoryPalaces,
     setSelectedPalace,
     setIsEditMode,
