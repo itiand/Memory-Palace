@@ -1,7 +1,20 @@
 import TodoList from "./TodoList";
+import { PalaceContext } from "../providers/palaceProvider";
+import { useContext } from "react";
 
 
 const AddMemory = () => {
+const { 
+  tasks,
+  changePalaceEntry,
+ } = useContext(PalaceContext);
+
+
+  const handleSaveMemory = () => {
+    changePalaceEntry("PalaceToDoList", tasks);
+    window.add_memory_view.close();
+    window.reg_view.showModal();
+  }
 
   return (
     <dialog id="add_memory_view" className="modal">
@@ -10,18 +23,16 @@ const AddMemory = () => {
         Add Memory Modal
       </h3>
       <img
-        src="https://i.imgur.com/ZEpq5CO.jpeg"
+        src="https://media.tenor.com/tvFWFDXRrmMAAAAd/blow-mind-mind-blown.gif"
         className="image-box w-60 mx-auto"
         alt="Memory"
       />
+      <p className="py-4">
+        Add what you want to remember, and we can help you remember it! (hold down on items to arrange your list!).
+      </p>
       <div>
         <TodoList />
       </div>
-      <p className="py-4">
-        Add Memory Modal: List of What you want
-        to save * This is where ChatGPT and
-        Dall-E come in
-      </p>
 
       <div className="modal-action">
         <button
@@ -35,13 +46,11 @@ const AddMemory = () => {
       </div>
 
       <div>
+
         <button
           className="btn"
-          onClick={() => {
-            window.add_memory_view.close();
-            window.reg_view.showModal();
-          }}
-        >Save Memory (doesnt save yet)</button>
+          onClick={handleSaveMemory}
+        >Save Memory</button>
       </div>
     </div>
   </dialog>

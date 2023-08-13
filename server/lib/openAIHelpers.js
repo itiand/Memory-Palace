@@ -5,8 +5,6 @@ import { Configuration, OpenAIApi } from 'openai';
 dotenv.config();
 
 const { GPT_API_KEY } = process.env;
-
-
 const openai = new OpenAIApi(new Configuration({
   apiKey: GPT_API_KEY
 }));
@@ -31,7 +29,7 @@ export async function getImage(promptText) {
       n: 3,
       size: "256x256",
     });
-    return response.data;
+    return response.data.data[0].url ;
   } catch (error) {
     console.error("Error in getImage helper:", error);
     throw error;

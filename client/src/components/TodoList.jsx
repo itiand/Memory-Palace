@@ -1,7 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
+import { PalaceContext } from '../providers/palaceProvider';
 
 const TodoList = () => {
-  const [tasks, setTasks] = useState([]);
+  const {
+    tasks, 
+    setTasks,
+    
+  } = useContext( PalaceContext );
+  
   const [newKeyword, setNewKeyword] = useState('');
   const [showDefinitionInput, setShowDefinitionInput] = useState(false);
   const [newDefinition, setNewDefinition] = useState('');
@@ -44,7 +50,18 @@ const TodoList = () => {
         id: Date.now(),
         keyword: newKeyword,
         definition,
-        option: showDefinitionInput ? 'custom' : 'notDefine', // Store the selected option with the task
+        
+        // Store the selected option with the task
+        option: showDefinitionInput ? 'custom' : 'notDefine', 
+        DrawDescription: "",
+        DalleChosenImage: "",
+        DalleImages: {
+          aiImage1: "",
+          aiImage4: "", 
+          aiImage2: "",
+          aiImage3: "",
+        },
+        NarratorDescription: "",
       };
       setTasks([...tasks, newTask]);
       setNewKeyword('');

@@ -6,7 +6,9 @@ import RoomView from "./RoomView";
 
 
 function RegularPalaceView() {
+
   const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom } = useContext(PalaceContext);
+
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
@@ -124,11 +126,17 @@ function RegularPalaceView() {
             <button className="btn" onClick={() => {
               window.reg_view.close();
             }} > Story-Mode </button>
+
             <button className="btn" onClick={() => {
               window.reg_view.close();
               window.add_room_view.showModal();
             }}> Add New Room </button>
-            <button className="btn" onClick={() => window.reg_view.close()}  >Close</button>
+         
+            <button className="btn" onClick={() => {
+              window.reg_view.close();
+              window.add_memory_view.showModal();
+            }}> Add New Memory</button>
+          
             {/****TONY END*****/}
 
           </div>

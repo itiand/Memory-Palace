@@ -8,6 +8,7 @@ const useApplicationData = () => {
 
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
+  const [tasks, setTasks] = useState([]);
 
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
@@ -195,20 +196,19 @@ const useApplicationData = () => {
     }
   };
 
-  // Create New Palace (with basic frame)
-  const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg
-  ) => {
-    console.log("createNewPalace(f)");
-    const newPalaceData = {
-      PalaceName: PalaceName,
-      PalaceDescription: PalaceDescription,
-      PalaceCoverImg: PalaceCoverImg,
-      PalaceToDoList: {},
-      Rooms: [],
-    };
-    initAndFetchNewMemoryPalace(newPalaceData);
-  };
-
+    // Create New Palace (with basic frame)
+    // $$$ consider adding random background generator for cover and to save time $$$
+    const createNewPalace = (PalaceName, PalaceDescription) => {
+      console.log("createNewPalace(f)")
+      const newPalaceData = {
+        PalaceName: PalaceName,
+        PalaceDescription: PalaceDescription,
+        PalaceCoverImg: "https://www.richardtmoore.co.uk/wp-content/uploads/2016/10/btx-placeholder-04-2-1024x683.jpg",
+        PalaceToDoList:{},
+        Rooms:[],
+      };
+      initAndFetchNewMemoryPalace(newPalaceData);
+    }
 
   // Set selectPalace by ID
   const switchSelectPalaceById = (id) => {
@@ -245,7 +245,11 @@ const useApplicationData = () => {
     } catch (_) {
       return false;
     }
+
   };
+
+
+      
 
   const isImageUrl = (url) => {
     return new Promise((resolve, reject) => {
@@ -254,6 +258,46 @@ const useApplicationData = () => {
       img.onerror = () => reject(false);
       img.src = url;
     });
+  }
+
+
+   // Function to call the server-side getChatResponse endpoint
+   const getChatResponseFromServer = async (content) => {
+    try {
+      const response = await fetch('api/getChatResponse', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }), // Send the content as a JSON payload
+      });
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.log('error useApplication ln227-ish');
+      console.error('Error fetching chat response:', error);
+      return 'An error occurred';
+    }
+  };
+
+   // Function to call the server-side getChatResponse endpoint
+   const getImageResponseFromServer = async (content) => {
+    try {
+      const response = await fetch('api/getImageResponse', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }), // Send the content as a JSON payload
+      });
+      const data = await response.json();
+      changePalaceEntry("NewImage", data.response)
+      // return data.response;
+    } catch (error) {
+      console.error('Error fetching image response:', error);
+      return 'An error occurred';
+    }
+
   };
 
 
@@ -283,10 +327,20 @@ const useApplicationData = () => {
     deleteCurrentSelectedPalace,
     isValidUrl,
     isImageUrl,
+    tasks,
+    setTasks,
+
+    getChatResponseFromServer,
+    getImageResponseFromServer,
+
+    onCloseModal,
+    setIsEditMode,
+    isEditMode,
     newImageURL,
     setNewImageURL,
     selectRoom,
     selectedRoom
+
   };
 };
 
