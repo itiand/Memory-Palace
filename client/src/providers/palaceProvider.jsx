@@ -27,7 +27,7 @@ const PalaceProvider = (props) => {
       deleteCurrentSelectedPalace,
       isValidUrl,
       isImageUrl,
-      resetTemporaryStates,
+      onCloseModal,
       newImageURL,
       setNewImageURL
 
@@ -58,7 +58,7 @@ const PalaceProvider = (props) => {
       deleteCurrentSelectedPalace,
       isValidUrl,
       isImageUrl,
-      resetTemporaryStates,
+      onCloseModal,
       setIsEditMode,
       isEditMode,
       newImageURL,

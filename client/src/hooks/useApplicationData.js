@@ -12,7 +12,7 @@ const useApplicationData = () => {
   const [newImageURL, setNewImageURL] = useState('');
 
 
-  const resetTemporaryStates = () => {
+  const onCloseModal = () => {
     setSelectedPalace({});
     setIsEditMode(false);
     setNewImageURL('');
@@ -234,7 +234,7 @@ const useApplicationData = () => {
     setSelectedPalace,
     setIsEditMode,
     isEditMode,
-    resetTemporaryStates,
+    onCloseModal,
 
 
     changePalaceEntry,

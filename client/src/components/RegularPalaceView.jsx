@@ -6,7 +6,7 @@ import RoomView from "./RoomView";
 
 
 function RegularPalaceView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, resetTemporaryStates, isEditMode, setIsEditMode, newImageURL, setNewImageURL } = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
@@ -50,7 +50,7 @@ function RegularPalaceView() {
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={resetTemporaryStates}>✕</button>
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
