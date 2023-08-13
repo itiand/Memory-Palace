@@ -88,7 +88,7 @@
       console.log("chatResponse", chatResponse)
       console.log("wordForDrawer" ,wordForDrawer)
       console.log("drawImage" ,drawImage)
-      // res.json({ response: drawImage.data[0] });
+      res.json({ response: drawImage.data[0] });
     } catch (error) {
       res.status(500).json({ error: 'An error occurred.' });
     }
