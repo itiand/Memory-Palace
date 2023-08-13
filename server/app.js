@@ -140,6 +140,16 @@
   });
 
   // UPDATE: Existing Memory Palace
+  // app.get('/DrawGptAi', (req, res) => {
+  //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
+  //   memoryPalaceCollection.find({}).toArray()
+  //     .then(palaces => {
+  //       res.json(palaces);
+  //     })
+  //     .catch(error => {
+  //       res.status(500).json({ success: false, message: "Failed to fetch memory palaces." });
+  //     });
+  // })
   app.put('/update', (req, res) => {
     console.log('reqbodydata', req.body.data)
     const palaceId = new ObjectId(req.body.id);
