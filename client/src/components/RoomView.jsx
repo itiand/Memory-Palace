@@ -5,10 +5,9 @@ import ImageWithIcons from "./ImageWithIcons";
 
 
 function RoomView() {
-  const [icons, setIcons] = useState([]);
-
   const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom} = useContext(PalaceContext);
-
+  const [icons, setIcons] = useState(selectedRoom.roomPins);
+  console.log('ICONS', selectRoom.pins)
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   const { roomImg, name } = selectedRoom;
