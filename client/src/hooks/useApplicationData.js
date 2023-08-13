@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import tailwindConfig from '../../tailwind.config.js';
+import { v4 as uuidv4 } from 'uuid';
 const { themes } = tailwindConfig;
 
 
@@ -30,7 +31,10 @@ const useApplicationData = () => {
   };
 
   const createNewRoom = () => {
+    const newRoomId = uuidv4();
+
     const newRoomObject = {
+      id: newRoomId,
       roomImg: roomUrl,
       name: roomName,
       roomDescription: roomDescription,
@@ -42,10 +46,9 @@ const useApplicationData = () => {
         }
       ]
     };
-    const newArray = selectedPalace["Rooms"];
-    newArray.push((newRoomObject));
-
-    changePalaceEntry("Rooms", newArray);
+    
+    const updatedRooms = [...selectedPalace["Rooms"], newRoomObject];
+    changePalaceEntry("Rooms", updatedRooms);
   };
 
   // Create a New Memory Palace 
