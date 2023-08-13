@@ -26,7 +26,7 @@ export async function getImage(promptText) {
   try {
     const response = await openai.createImage({
       prompt: promptText,
-      n: 3,
+      n: 1,
       size: "256x256",
     });
     return response.data.data[0].url ;

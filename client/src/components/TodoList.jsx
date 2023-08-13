@@ -5,13 +5,15 @@ const TodoList = () => {
   const {
     tasks, 
     setTasks,
-    
+    getChatResponseFromServer,
+
   } = useContext( PalaceContext );
   
   const [newKeyword, setNewKeyword] = useState('');
   const [showDefinitionInput, setShowDefinitionInput] = useState(false);
   const [newDefinition, setNewDefinition] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showImage, setShowImage] =useState('');
 
   const keywordInputRef = useRef(null); // Ref for the keyword input
   const definitionInputRef = useRef(null); // Ref for the definition input
@@ -77,6 +79,8 @@ const TodoList = () => {
 
   const handleAddTask = () => {
     addTask();
+    getChatResponseFromServer(newKeyword);
+ 
   };
 
   const handleKeyPress = (event) => {
@@ -147,6 +151,7 @@ const TodoList = () => {
         <button onClick={handleAddTask} className="btn btn-outline btn-accent btn-xs m-3">
           +
         </button>
+          <a href={showImage}>URL</a>
       </div>
       <div style={{ color: 'red' }}>{errorMessage}</div>
       <ul style={{ listStyleType: 'none', padding: 0 }}>

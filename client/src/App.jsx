@@ -83,9 +83,10 @@ function App() {
     // switchToLastPalace();
     // switchSelectPalaceById("");
     // createNewPalace("Start", "Here", "https://i.imgur.com/rxWrRvs.jpeg");
+    // getChatResponseFromServer('fat cat playing game');
+    
     // getChatResponseFromServer('what is the conversion rate of human years to cat years?');
    
-
   };
   const handleTestClick2 = () => {
     // switchToLastPalace();
