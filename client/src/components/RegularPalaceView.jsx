@@ -2,38 +2,27 @@ import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 import { FaRegEye, FaEdit, FaPlus, FaCheck, FaTimes } from 'react-icons/fa';
 import AlertMessage from "./AlertMessage";
+import RoomView from "./RoomView";
 
 
 function RegularPalaceView() {
+
   const { 
     selectedPalace, 
     updateMemoryPalace, 
     changePalaceEntry, 
     savePalaceState, 
     fetchMemoryPalaces } = useContext(PalaceContext);
+
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
 
-  //for edit mode
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [newImageURL, setNewImageURL] = useState('');
-
   //states for alert messages
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
-  // useEffect(() => {
-  //   if (selectedPalace) {
-  //     console.log("savePalaceState WALDO");
-  //     updateMemoryPalace(selectedPalace._id, selectedPalace);
-  //   }
-  // }, [selectedPalace])
-
-  //////
-  //helpers 
-  ///
   useEffect(() => {
     if (Rooms) {
       const roomArray = Object.values(Rooms);
@@ -41,30 +30,9 @@ function RegularPalaceView() {
     }
   }, [Rooms]);
 
-  const isValidUrl = (url) => { // checks if it's a valid url
-    try {
-      new URL(url);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  };
-
-  // const isImageUrl = (url) => { //checks if the url is actually an img url
-  //   return new Promise((resolve, reject) => {
-  //     const img = new Image();
-  //     img.onload = () => resolve(true);
-  //     img.onerror = () => reject(false);
-  //     img.src = url;
-  //   });
-  // };
-  ////
-  //helpers END//
-  /////
 
   //on submit update
   const handleImageSubmit = () => {
-    console.log('TRUEEEE', selectedPalace);
     if (!isValidUrl(newImageURL)) {
       setAlertMessage('Please enter a valid URL.');
       setShowAlert(true);
@@ -74,20 +42,23 @@ function RegularPalaceView() {
 
     changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUGHERE
     setIsEditMode(false);  // exit edit mode after submitting.
-
-    // .catch(() => {
-    //   setAlertMessage('This URL does not point to a valid image.');
-    //   setShowAlert(true);
-    //   setTimeout(() => setShowAlert(false), 3000);
-    // });
   };
+
+  const handleRoomView = () => {
+    setIsEditMode(false)
+    setNewImageURL('')
+    window.room_view.showModal()
+    window.reg_view.close()
+  }
+
+
 
   return (
     <>
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
@@ -113,7 +84,7 @@ function RegularPalaceView() {
                       className="text-xs py-1 px-2 cursor-pointer text-white hover:text-xl hover:ease-in-out duration-200"
                       onClick={() => {
                         setIsEditMode(false);
-                        // setNewImageURL(PalaceCoverImg); // Reset the newImageURL to the original URL
+                        setNewImageURL(""); // Reset the newImageURL to the original URL
                       }}
                     >
                       <FaTimes />
@@ -145,7 +116,7 @@ function RegularPalaceView() {
                     <img src={room.roomImg} alt={room.description} className="w-full" />
                     <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
                       <span className="mb-1 text-white text-xs">{room.name}</span>
-                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200"><FaRegEye /></span>
+                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={handleRoomView}><FaRegEye /></span>
                     </div>
                   </div>
                 );
@@ -171,21 +142,9 @@ function RegularPalaceView() {
           </div>
         </form>
       </dialog>
+      <RoomView/>
     </>
   );
 }
-
-
-// {/* Regular Palace Modal: * Clicking Main Photo to Edit
-//           Cover * Hover for Descriptions * Click Rooms to Edit
-//           Rooms{" "} */}
-
-// {/* <div className="regular-modal-rooms w-full flex">
-//             <img src="https://i.imgur.com/EdZmnSg.jpeg" alt="Room 1" />
-//             <img src="https://i.imgur.com/rXkxaAo.jpeg" alt="Room 2" />
-//             <img src="https://i.imgur.com/gNoTLLj.jpeg" alt="Room 3" />
-//             <img src="https://i.imgur.com/NIYnoFP.jpeg" alt="Room 4" />
-//             <img src="https://i.imgur.com/QokO0HE.jpeg" alt="Room 5" />
-//           </div> */}
 
 export default RegularPalaceView;
