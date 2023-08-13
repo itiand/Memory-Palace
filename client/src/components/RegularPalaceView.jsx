@@ -6,7 +6,14 @@ import RoomView from "./RoomView";
 
 
 function RegularPalaceView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL } = useContext(PalaceContext);
+
+  const { 
+    selectedPalace, 
+    updateMemoryPalace, 
+    changePalaceEntry, 
+    savePalaceState, 
+    fetchMemoryPalaces } = useContext(PalaceContext);
+
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
   //rooms object into an array
@@ -51,9 +58,10 @@ function RegularPalaceView() {
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" >✕</button>
+          {/* onClick={onCloseModal} */}
           <h3 className="font-bold text-lg">{PalaceName}</h3>
-          <div className="relative">
+          {/* <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
             <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
               <span className="text-white p-2">{PalaceDescription}</span>
@@ -93,8 +101,8 @@ function RegularPalaceView() {
                   </span>
                 )
               }
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
           <div className="reg_view-rooms pt-3">
             <div className="text-sm flex items-center pb-1">
               <h4 className="mr-1 text-gray-700">Your rooms</h4>

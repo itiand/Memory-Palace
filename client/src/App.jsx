@@ -20,10 +20,10 @@ function App() {
     //   deleteAndSwitchToLastPalace,
     //   updateMemoryPalace,
     //   fetchMemoryPalaces,
+    // setMemoryPalaces,
       
       themes,
       memoryPalaces, 
-      // setMemoryPalaces,
       selectedPalace, 
       setSelectedPalace,
   
@@ -36,6 +36,8 @@ function App() {
       deletePalaceEntry, 
       savePalaceState,
       createPalaceExample,
+      getChatResponseFromServer,
+
   } = useContext( PalaceContext );
 
 
@@ -62,11 +64,13 @@ function App() {
   const handleTestClick1 = () => {
     // switchToLastPalace();
     // switchSelectPalaceById("");
-    createNewPalace("Start", "Here", "https://i.imgur.com/rxWrRvs.jpeg");
+    // createNewPalace("Start", "Here", "https://i.imgur.com/rxWrRvs.jpeg");
+    getChatResponseFromServer('fat cat playing game');
+    
   };
   const handleTestClick2 = () => {
     // switchToLastPalace();
-    console.log(selectedPalace.Rooms);
+    // console.log(selectedPalace.Rooms);
     // deletePalaceEntry("@@@Random@@@");
   };
   const handleTestClick3 = () => {
@@ -75,7 +79,7 @@ function App() {
     // savePalaceState();
     // createPalaceExample();
     // deleteCurrentSelectedPalace();
-    console.log(selectedPalace.Rooms);
+    // console.log(selectedPalace.Rooms);
   
   };
 

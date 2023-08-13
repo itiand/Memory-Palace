@@ -5,6 +5,7 @@
   import bodyParser from 'body-parser';
   import { getImage, getChatResponse } from './lib/openAIHelpers.js';
   import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
+  import { aiDrawThePicture } from './helper/filterUserWords.js'
 
 
   // import { termForAiDrawer, termForAiDrawer1 } from './helper/filterUserWords.js';
@@ -76,6 +77,24 @@
       });
   });
 
+  app.post('/getChatResponse', async (req, res) => {
+    const content = req.body.content;
+    console.log(content);
+    try {
+      const chatResponse = await getChatResponse(content); // Call the helper function
+      const wordForDrawer = await aiDrawThePicture(content);
+      // const wordForDrawer = await aiDrawThePicture(chatResponse);
+      const drawImage = getImage(wordForDrawer)
+      console.log("chatResponse", chatResponse)
+      console.log("wordForDrawer" ,wordForDrawer)
+
+      // res.json({ response: chatResponse });
+      res.json({ response: wordForDrawer });
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred.' });
+    }
+  });
+  
 
   // app.post('/initMemoryPalace', (req, res) => {
   //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection

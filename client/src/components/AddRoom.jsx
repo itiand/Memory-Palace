@@ -15,14 +15,16 @@ const AddRoom = () => {
     selectedPalace,
     savePalaceState,
     changePalaceEntry,
-
+    tasks,
+    setTasks,
+    
   } = useContext(PalaceContext);
   const [roomName, setRoomName] = useState("");
   const [roomDescription, setRoomDescription] = useState("");
   const [roomUrl, setRoomUrl] = useState("");
   const [errors, setErrors] = useState({});
 
-    // Async Version
+   // Async Version
   // const createNewRoom = async () => {
   //   try {
   //     // make name = roomName etc
