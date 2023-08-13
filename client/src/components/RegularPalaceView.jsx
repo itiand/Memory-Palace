@@ -12,7 +12,10 @@ function RegularPalaceView() {
     updateMemoryPalace, 
     changePalaceEntry, 
     savePalaceState, 
-    fetchMemoryPalaces } = useContext(PalaceContext);
+    fetchMemoryPalaces,
+    onCloseModal,
+    isEditMode,
+   } = useContext(PalaceContext);
 
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 

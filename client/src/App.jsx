@@ -14,6 +14,9 @@ import AddRoom from "./components/AddRoom";
 import AddMemory from "./components/AddMemory";
 
 
+// Import speech synthesis
+const speechSynthesis = window.speechSynthesis;
+
 function App() {
   const { 
     // initAndFetchNewMemoryPalace,
@@ -37,12 +40,25 @@ function App() {
       savePalaceState,
       createPalaceExample,
       getChatResponseFromServer,
+      getImageResponseFromServer,
 
   } = useContext( PalaceContext );
 
 
   useEffect(() => {
     themeChange(false);
+  }, []);
+
+    // Add text-to-speech functionality
+    const textToSpeak = "Suddenly you see a small giraffe, eating a zucchini. My, how positively odd."; // Replace with your desired text
+
+  useEffect(() => {
+    // Listen for the voices to be loaded
+    speechSynthesis.addEventListener("voiceschanged", () => {
+      // Once the voices are available, get them
+      const voices = speechSynthesis.getVoices();
+      // Now you can use the voices list in your handleTestClick3 function
+    });
   }, []);
 
 
@@ -61,18 +77,54 @@ function App() {
     );
   });
 
+
+
   const handleTestClick1 = () => {
     // switchToLastPalace();
     // switchSelectPalaceById("");
     // createNewPalace("Start", "Here", "https://i.imgur.com/rxWrRvs.jpeg");
-    getChatResponseFromServer('hello?');
+    // getChatResponseFromServer('what is the conversion rate of human years to cat years?');
+   
+
   };
   const handleTestClick2 = () => {
     // switchToLastPalace();
     // console.log(selectedPalace.Rooms);
     // deletePalaceEntry("@@@Random@@@");
+    console.log('drawing image');
+    getImageResponseFromServer("realistic giraffe eating a zucchini");
   };
+  
+
+  // const voices = speechSynthesis.getVoices();
+  
   const handleTestClick3 = () => {
+      
+      console.log('speaking');
+      console.log(speechSynthesis.getVoices())
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      const voices = speechSynthesis.getVoices();
+      utterance.voice = voices[50]; // Use the first available voice
+      // 50, 49, 51, 11
+      // 11, 50, 51 57
+      // 54 55 60 61
+      // voice 0 aint bad
+      // voice 10, 11{stephen}
+      // utterance.pitch = voices[0];
+      // Configure speech parameters if needed (e.g., rate, pitch)
+      // utterance.rate = ...;
+      // utterance.pitch = ...;
+  
+      // Speak the text
+      speechSynthesis.speak(utterance);
+  //     const utterance = new SpeechSynthesisUtterance(textToSpeak);
+  //     utterance.voice = voices[0]; // Use the first available voice
+  //     // Configure speech parameters if needed (e.g., voice, rate, pitch)
+  // // utterance.voice = ...; // Choose a specific voice
+  // // utterance.rate = ...;  // Adjust the speech rate
+  // // utterance.pitch = ...; // Adjust the speech pitch
+
+
     // changePalaceEntry("PalaceName", "My Awesome Palace");
     // changePalaceEntry("@@@Random@@@", "Bruce");
     // savePalaceState();
@@ -106,6 +158,7 @@ function App() {
 
           <button className="btn" onClick={handleTestClick3}>Click 3</button>
       </div>
+      <img src={selectedPalace.NewImage}></img>
     </>
   );
 }
