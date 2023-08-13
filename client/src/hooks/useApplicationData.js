@@ -227,14 +227,21 @@ const useApplicationData = () => {
    const getChatResponseFromServer = async (content) => {
     try {
       const response = await fetch('api/getChatResponse', {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ content }), // Send the content as a JSON payload
       });
-      const data = await response.json();
-      return data.response;
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+
+      console.log(response)
+      // const data = await response.json();
+      // console.log(data)
+      // return data.response;
     } catch (error) {
       console.log('error useApplication ln227-ish');
       console.error('Error fetching chat response:', error);

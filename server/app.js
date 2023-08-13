@@ -1,4 +1,3 @@
-
   // Declarations
   import dotenv from 'dotenv';
   import express, { response } from 'express';
@@ -40,7 +39,6 @@
     }
   }
 
-
   run().catch(console.dir);
   ///
   //END MONGO
@@ -77,19 +75,6 @@
 
       });
   });
-
-
-  //Get Chat GPT Response
-  app.get('/getChatResponse', async (req, res) => {
-    const content = req.body.content;
-    try {
-      const chatResponse = await getChatResponse(content); // Call the helper function
-      res.json({ response: chatResponse });
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred.' });
-    }
-  });
-
 
 
   // app.post('/initMemoryPalace', (req, res) => {
@@ -156,11 +141,10 @@
 
   // UPDATE: Existing Memory Palace
   app.put('/update', (req, res) => {
+    console.log('reqbodydata', req.body.data)
     const palaceId = new ObjectId(req.body.id);
     const updatedData = req.body.data;
     updatedData._id = palaceId;
-    // console.log(palaceId);
-    // console.log(updatedData);
     const memoryPalaceCollection = db.collection('Palaces');
     memoryPalaceCollection.find({_id: new ObjectId(palaceId) }).toArray().then(palaces => {
       console.log(palaces);
@@ -170,7 +154,7 @@
         {  _id: palaceId }, // Query for the specific palace using _id
           updatedData // Update specific fields using $set
           ).then(result => {
-          // console.log(result);
+          console.log('result count', result.matchedCount);
         if (result.matchedCount > 0) {
           console.log("*** object update success ***");
           res.json({
@@ -178,6 +162,7 @@
             message: 'Palace updated successfully.',
           });
         } else {
+          console.log('CALLED!!')
           res.status(404).json({
             success: false,
             message: 'Palace not found.',
@@ -226,4 +211,5 @@
 });
 
 
-app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
+
+  app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
