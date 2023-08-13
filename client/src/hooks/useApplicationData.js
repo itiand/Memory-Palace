@@ -233,13 +233,18 @@ const useApplicationData = () => {
         },
         body: JSON.stringify({ content }), // Send the content as a JSON payload
       });
-      
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
     }
 
-      console.log(response)
-      // const data = await response.json();
+      const data = await response.json();
+      console.log(data)
+        // if (data.success) {
+        //   setMemoryPalaces(prevState => [...prevState, data.palaceData]);
+        //   setSelectedPalace(data.palaceData);
+        //   return (data.palaceData);
+        // }
       // console.log(data)
       // return data.response;
     } catch (error) {
