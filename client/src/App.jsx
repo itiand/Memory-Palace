@@ -24,7 +24,7 @@ function App() {
       themes,
       memoryPalaces, 
       // setMemoryPalaces,
-      // selectedPalace, 
+      selectedPalace, 
       setSelectedPalace,
   
       findPalaceById,
@@ -62,10 +62,11 @@ function App() {
   const handleTestClick1 = () => {
     // switchToLastPalace();
     // switchSelectPalaceById("");
-    createNewPalace("Wonderful", "A place to chill out");
+    createNewPalace("Start", "Here", "https://i.imgur.com/rxWrRvs.jpeg");
   };
   const handleTestClick2 = () => {
-    switchToLastPalace();
+    // switchToLastPalace();
+    console.log(selectedPalace.Rooms);
     // deletePalaceEntry("@@@Random@@@");
   };
   const handleTestClick3 = () => {
@@ -74,6 +75,8 @@ function App() {
     // savePalaceState();
     // createPalaceExample();
     // deleteCurrentSelectedPalace();
+    console.log(selectedPalace.Rooms);
+  
   };
 
   return (
@@ -96,6 +99,8 @@ function App() {
         <h2>Tester Buttons</h2>
           <button className="btn" onClick={handleTestClick1}>Click 1</button>
           <button className="btn" onClick={handleTestClick2}>Click 2</button>
+
+
           <button className="btn" onClick={handleTestClick3}>Click 3</button>
       </div>
     </>

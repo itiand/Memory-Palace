@@ -4,7 +4,6 @@ import { PalaceContext } from "../providers/palaceProvider";
 
 const AddRoom = () => {
   const {
-    selectedPalace,
     findPalaceById,
     switchSelectPalaceById,  
     switchToLastPalace,
@@ -12,6 +11,8 @@ const AddRoom = () => {
     deleteCurrentSelectedPalace,  
     deletePalaceEntry, 
     createPalaceExample,
+    
+    selectedPalace,
     savePalaceState,
     changePalaceEntry,
 
@@ -20,6 +21,62 @@ const AddRoom = () => {
   const [roomDescription, setRoomDescription] = useState("");
   const [roomUrl, setRoomUrl] = useState("");
   const [errors, setErrors] = useState({});
+
+    // Async Version
+  // const createNewRoom = async () => {
+  //   try {
+  //     // make name = roomName etc
+  //     const newRoomObject = {
+  //       roomImg: roomUrl,
+  //         name: roomName,
+  //         roomdescription: roomDescription,
+  //         Pins: [
+  //           {
+  //             x: null,
+  //             y: null,
+  //             toDoItem: null,
+  //           }
+  //         ]
+  //       }
+  
+  //     console.log(selectedPalace.Rooms);
+  //     const newArray = selectedPalace["Rooms"];
+  //     newArray.push((newRoomObject))
+  //     console.log(selectedPalace["Rooms"])
+  //     console.log(newArray);
+  //     // console.log(newRoomArray);
+  //     // const newRoomArray = selectedPalace.Rooms
+  //     // console.log(selectedPalace.Rooms);
+  //     // selectedPalace.Rooms.push(newRoomObject);
+  //     // Wait for changePalaceEntry to complete
+      
+  //     // Now call savePalaceState
+  //     await changePalaceEntry("Rooms", newArray);
+  //     // await savePalaceState();
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
+  // Creating New Room (with basic frame)
+  const createNewRoom = () => {
+    const newRoomObject = {
+      roomImg: roomUrl,
+        name: roomName,
+        roomDescription: roomDescription,
+        Pins: [
+          {
+            x: null,
+            y: null,
+            toDoItem: null,
+          }
+        ]
+      };
+    const newArray = selectedPalace["Rooms"];
+    newArray.push((newRoomObject))
+
+    changePalaceEntry("Rooms", newArray);
+};
+
 
   const handleRoomNameChange = (event) => {
     setRoomName(event.target.value);
@@ -33,39 +90,8 @@ const AddRoom = () => {
     setRoomUrl(event.target.value);
   };
 
-  const createNewRoom = async () => {
-    try {
-    
-      const newRoomObject = {
-        roomName: roomName,
-          roomDescription: roomDescription,
-          roomImage: roomUrl,
-          Pins: [
-            {
-              x: null,
-              y: null,
-              toDoItem: null,
-            }
-          ]
-        }
-  
-      // console.log(newRoomObject);
-  
-      // Wait for changePalaceEntry to complete
-      await changePalaceEntry("Rooms", newRoomObject);
-  
-      // Now call savePalaceState
-      console.log('savePal');
-      await savePalaceState;
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
-
-
   const handleSave = () => {
     const newErrors = {};
-
     if (!roomName.trim()) {
       newErrors.roomName = "Room Name is required.";
     }
@@ -95,7 +121,7 @@ const AddRoom = () => {
       <div className="modal-box w-11/12 max-w-5xl">
         <h3 className="font-bold text-lg">Add Room Modal</h3>
         <img
-          src="https://i.imgur.com/ZEpq5CO.jpeg"
+          src="https://media.tenor.com/tvFWFDXRrmMAAAAd/blow-mind-mind-blown.gif"
           className="image-box w-60 mx-auto"
           alt="Room Image"
         />
