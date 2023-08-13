@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 import { FaRegEye, FaEdit, FaPlus, FaCheck, FaTimes } from 'react-icons/fa';
 import AlertMessage from "./AlertMessage";
+import RoomView from "./RoomView";
 
 
 function RegularPalaceView() {
@@ -25,7 +26,6 @@ function RegularPalaceView() {
 
   //on submit update
   const handleImageSubmit = () => {
-    console.log('TRUEEEE', selectedPalace);
     if (!isValidUrl(newImageURL)) {
       setAlertMessage('Please enter a valid URL.');
       setShowAlert(true);
@@ -36,6 +36,11 @@ function RegularPalaceView() {
     changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUGHERE
     setIsEditMode(false);  // exit edit mode after submitting.
   };
+
+  const handleRoomView = () => {
+    window.room_view.showModal()
+    window.reg_view.close()
+  }
 
 
 
@@ -102,7 +107,7 @@ function RegularPalaceView() {
                     <img src={room.roomImg} alt={room.description} className="w-full" />
                     <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
                       <span className="mb-1 text-white text-xs">{room.name}</span>
-                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200"><FaRegEye /></span>
+                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={handleRoomView}><FaRegEye /></span>
                     </div>
                   </div>
                 );
@@ -122,6 +127,7 @@ function RegularPalaceView() {
           </div>
         </form>
       </dialog>
+      <RoomView/>
     </>
   );
 }
