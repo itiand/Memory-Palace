@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import tailwindConfig from '../../tailwind.config.js';
+import { v4 as uuidv4 } from 'uuid';
 const { themes } = tailwindConfig;
 
 
@@ -9,17 +10,50 @@ const useApplicationData = () => {
   const [selectedPalace, setSelectedPalace] = useState({});
   const [tasks, setTasks] = useState([]);
 
-  
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
   const [newImageURL, setNewImageURL] = useState('');
 
+  
+  const [selectedRoom, setSelectedRoom] = useState({});
 
   const onCloseModal = () => {
+    setSelectedRoom({})
     setSelectedPalace({});
     setIsEditMode(false);
     setNewImageURL('');
-  }
+  };
+
+  const selectRoom = (roomId) => {
+    const room = selectedPalace.Rooms.find(r => r.id === roomId);
+    if (room) {
+      console.log('Room found:', room);
+        setSelectedRoom(room);
+    } else {
+        // Handle error - room not found
+        console.error("Room not found with ID:", roomId);
+    }
+};
+
+  const createNewRoom = () => {
+    const newRoomId = uuidv4();
+    const newRoomObject = {
+      id: newRoomId,
+      roomImg: roomUrl,
+      name: roomName,
+      roomDescription: roomDescription,
+      Pins: [
+        {
+          x: null,
+          y: null,
+          toDoItem: null,
+        }
+      ]
+    };
+
+    const updatedRooms = [...selectedPalace["Rooms"], newRoomObject];
+    changePalaceEntry("Rooms", updatedRooms);
+  };
 
   // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
@@ -121,7 +155,7 @@ const useApplicationData = () => {
       .then(handleResponse)
       .then(data => {
         console.log('DATA', data);
-        fetchMemoryPalaces()
+        fetchMemoryPalaces();
       })
       .catch(handleError);
   }
@@ -130,21 +164,21 @@ const useApplicationData = () => {
     fetchMemoryPalaces();
   }, []);
 
-  
+
 
   // Helper Methods
   // Update Single Entry in selectedPalace Object
   const changePalaceEntry = async (key, value) => {
     console.log("changePalaceEntry");
     if (selectedPalace) {
-      const newSelectedPalace = {...selectedPalace, [key] : value}
-      await setSelectedPalace(newSelectedPalace)
-      console.log('selectedPalace', selectedPalace)
+      const newSelectedPalace = { ...selectedPalace, [key]: value };
+      await setSelectedPalace(newSelectedPalace);
+      console.log('selectedPalace', selectedPalace);
       await updateMemoryPalace(newSelectedPalace._id, newSelectedPalace);
     }
   };
 
-  
+
   // Delete an Entry by its Key from selectedPalace
   const deletePalaceEntry = (key) => {
     console.log('deletePalaceEntry');
@@ -203,16 +237,20 @@ const useApplicationData = () => {
     console.log(selectedPalace._id);
     deleteAndSwitchToLastPalace(selectedPalace._id);
   };
-  
+
   const isValidUrl = (url) => {
     try {
       new URL(url);
       return true;
     } catch (_) {
-        return false;
+      return false;
     }
-  }
+
+  };
+
+
       
+
   const isImageUrl = (url) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -259,6 +297,7 @@ const useApplicationData = () => {
       console.error('Error fetching image response:', error);
       return 'An error occurred';
     }
+
   };
 
 
@@ -269,20 +308,21 @@ const useApplicationData = () => {
     updateMemoryPalace,
     fetchMemoryPalaces,
     themes,
-    memoryPalaces, 
-    selectedPalace, 
+    memoryPalaces,
+    selectedPalace,
     setMemoryPalaces,
     setSelectedPalace,
     setIsEditMode,
     isEditMode,
     onCloseModal,
-
+    selectRoom,
 
     changePalaceEntry,
     switchSelectPalaceById,
     switchToLastPalace,
     savePalaceState,
     createNewPalace,
+    createNewRoom,
     deletePalaceEntry,
     deleteCurrentSelectedPalace,
     isValidUrl,
@@ -298,7 +338,8 @@ const useApplicationData = () => {
     isEditMode,
     newImageURL,
     setNewImageURL,
-
+    selectRoom,
+    selectedRoom
 
   };
 };
