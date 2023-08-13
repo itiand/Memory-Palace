@@ -38,6 +38,7 @@ function RegularPalaceView() {
   };
 
   const handleRoomView = () => {
+    
     window.room_view.showModal()
     window.reg_view.close()
   }
