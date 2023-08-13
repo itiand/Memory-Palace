@@ -28,6 +28,7 @@ const PalaceProvider = (props) => {
       tasks,
       setTasks,
       getChatResponseFromServer,
+      getImageResponseFromServer,
 
   } = useApplicationData();
 
@@ -59,6 +60,7 @@ const PalaceProvider = (props) => {
       tasks,
       setTasks,
       getChatResponseFromServer,
+      getImageResponseFromServer,
 
     }}>
       {props.children}

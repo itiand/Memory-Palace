@@ -216,7 +216,7 @@ const useApplicationData = () => {
    const getChatResponseFromServer = async (content) => {
     try {
       const response = await fetch('api/getChatResponse', {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -227,6 +227,25 @@ const useApplicationData = () => {
     } catch (error) {
       console.log('error useApplication ln227-ish');
       console.error('Error fetching chat response:', error);
+      return 'An error occurred';
+    }
+  };
+
+   // Function to call the server-side getChatResponse endpoint
+   const getImageResponseFromServer = async (content) => {
+    try {
+      const response = await fetch('api/getImageResponse', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }), // Send the content as a JSON payload
+      });
+      const data = await response.json();
+      changePalaceEntry("NewImage", data.response)
+      // return data.response;
+    } catch (error) {
+      console.error('Error fetching image response:', error);
       return 'An error occurred';
     }
   };
@@ -258,6 +277,7 @@ const useApplicationData = () => {
     setTasks,
 
     getChatResponseFromServer,
+    getImageResponseFromServer,
   };
 };
 
