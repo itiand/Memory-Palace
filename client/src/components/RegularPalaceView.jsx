@@ -38,7 +38,8 @@ function RegularPalaceView() {
   };
 
   const handleRoomView = () => {
-    
+    setIsEditMode(false)
+    setNewImageURL('')
     window.room_view.showModal()
     window.reg_view.close()
   }

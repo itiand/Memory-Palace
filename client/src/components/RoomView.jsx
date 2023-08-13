@@ -9,10 +9,11 @@ function RoomView() {
     <>
       <dialog id="room_view" className="modal">
         <form method="dialog" className="modal-box">
+          <h3 className="font-bold text-lg"></h3>
         </form>
       </dialog>
     </>
   );
 }
 
-export default RoomView
+export default RoomView;
