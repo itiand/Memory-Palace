@@ -75,6 +75,7 @@ app.post('/getImageResponse', async (req, res) => {
   const content = req.body.content;
   try {
     const imageResponse = await getImage(content); // Call the helper function
+    console.log('BACK', imageResponse)
     res.json({ response: imageResponse });
   } catch (error) {
     res.status(500).json({ error: 'An error occurred.' });

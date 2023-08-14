@@ -7,7 +7,7 @@ const TodoList = ({ randomOddState }) => {
     tasks,
     setTasks,
     getChatResponseFromServer,
-
+    getImageResponseFromServer
   } = useContext(PalaceContext);
 
   const [newKeyword, setNewKeyword] = useState('');
@@ -118,24 +118,27 @@ const TodoList = ({ randomOddState }) => {
 
   const handleGenerate = async (e, keyword, definition) => {
     e.preventDefault();
-    const content = `${keyword}: ${definition} - For a memory palace. Give me a simple and tangible noun, that's easy to draw, to help me remember ${keyword}. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word, do not include a period.`
+    const content = `${keyword}: ${definition} - For a memory palace. Give me a simple and tangible noun, that's easy to draw, to help me remember ${keyword}. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word, do not include a period.`;
 
-    const response = await getChatResponseFromServer(content) //response = get chat gpt to give a symbol 
-    console.log(response)
-    const responseWithAction = await randomOddState(response)  //attach a action --> anthony's method
-
+    const response = await getChatResponseFromServer(content); //response = get chat gpt to give a symbol 
+    console.log(response);
+    const responseWithAction = await randomOddState(response);  //attach a action --> anthony's method
+    const imageUrl = await getImageResponseFromServer(responseWithAction);
+    console.log('IMAGEURL', imageUrl);
     const updatedTasks = tasks.map(task => {
       if (task.keyword === keyword) {
-          return {
-              ...task,
-              drawDescription: responseWithAction
-          };
+        return {
+          ...task,
+          drawDescription: responseWithAction,
+          generatedImage: imageUrl
+        };
       }
       return task;
-  });
-  setTasks(updatedTasks);
+    });
+    setTasks(updatedTasks);
 
     //aiImage = getImage(symbol + action)
+    //
     //return Aimage
 
     // {
@@ -203,8 +206,8 @@ const TodoList = ({ randomOddState }) => {
               <strong>{task.keyword}:</strong>
               {task.option === 'define' && <span> will return definition</span>}
               {task.option === 'custom' && <span> {task.definition}</span>}
-              {task.drawDescription && <span className="text-green-800"><em>{task.drawDescription}</em></span>} 
-              <img className="w-40 border-2 border-neutral-500 rounded-lg" src="https://openailabsprodscus.blob.core.windows.net/private/user-osAbBO59ww5BxmQOppRnsyp7/generations/generation-I7319XV2C4HqL4ucWE8csKVG/image.webp?st=2023-08-14T21%3A00%3A07Z&se=2023-08-14T22%3A58%3A07Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/webp&skoid=15f0b47b-a152-4599-9e98-9cb4a58269f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-14T14%3A51%3A43Z&ske=2023-08-21T14%3A51%3A43Z&sks=b&skv=2021-08-06&sig=JnYu2nsjEu2kDFAWxXvE6QL/L5xNF5dBU7MkT0Cyy60%3D"></img>
+              {task.drawDescription && <span className="text-green-800"><em>{task.drawDescription}</em></span>}
+              {task.dalleImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={task.dalleImage}></img>}
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
