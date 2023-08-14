@@ -58,35 +58,17 @@ app.use(morgan(ENVIROMENT));
 //
 // app.use('/cats', exampleRoutes);
 
-// For Later ChatGPT integration
-app.get('/phrases', (req, res) => {
-  const ChatGptWord = WordtermForAiDrawer(req);
-  const result = getChatResponse(`${ChatGptWord}`)
-    .then(response => {
-      res.json(response);
-
-      const img_url = getImage(result);
-      console.log(img_url);
-      db.Palace.insertOne({
-        "name": `${item}`,
-        "Palace Description": `${result}`,
-        "front_img_url": `${img_url}`,
-        "room": `${roomID}`
-      });
-
-    });
-});
-
 
 //Get Chat GPT Response
 app.post('/getChatResponse', async (req, res) => {
   const content = req.body.content.response;
-  try {
-    const chatResponse = await getChatResponse(content); // Call the helper function
-    res.json({ response: chatResponse });
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred.' });
-  }
+  console.log('CONTENT', content)
+  // try {
+  //   const chatResponse = await getChatResponse(content); // Call the helper function
+  //   res.json({ response: chatResponse });
+  // } catch (error) {
+  //   res.status(500).json({ error: 'An error occurred.' });
+  // }
 });
 
 app.post('/getImageResponse', async (req, res) => {
