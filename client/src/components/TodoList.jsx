@@ -118,11 +118,23 @@ const TodoList = ({ randomOddState }) => {
 
   const handleGenerate = async (e, keyword, definition) => {
     e.preventDefault();
-    const content = `${keyword}: ${definition} - Give me a simple and tangible noun p;us a simple action, to help me remember this. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word.`
+    const content = `${keyword}: ${definition} - For a memory palace. Give me a simple and tangible noun, that's easy to draw, to help me remember ${keyword}. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word, do not include a period.`
 
     const response = await getChatResponseFromServer(content) //response = get chat gpt to give a symbol 
+    console.log(response)
     const responseWithAction = await randomOddState(response)
-    console.log(responseWithAction)
+
+    const updatedTasks = tasks.map(task => {
+      if (task.keyword === keyword) {
+          return {
+              ...task,
+              drawDescription: responseWithAction
+          };
+      }
+      return task;
+  });
+  setTasks(updatedTasks);
+    //
 
     //attach a action --> anthony's method
     //aiImage = getImage(symbol + action)
@@ -188,11 +200,12 @@ const TodoList = ({ randomOddState }) => {
             onDrop={(e) => handleSortOver(e, task.id)}
             onDragEnd={handleSortEnd}
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex text-sm items-center space-x-2">
               <span style={{ marginRight: '10px', fontSize: '1.2rem' }}>{index + 1}.</span>
               <strong>{task.keyword}:</strong>
               {task.option === 'define' && <span> will return definition</span>}
               {task.option === 'custom' && <span> {task.definition}</span>}
+              {task.drawDescription && <span> {task.drawDescription}</span>} 
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
