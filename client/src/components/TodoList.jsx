@@ -26,14 +26,18 @@ const TodoList = () => {
   };
 
   const handleToggleDefinition = (e) => {
-    e.preventDefault()
-    setShowDefinitionInput(!showDefinitionInput);
-    setNewDefinition(''); // Clear the definition input when toggling
-    if (!showDefinitionInput) {
-      definitionInputRef.current.focus(); // Focus the definition input if toggling to show
-    } else {
-      keywordInputRef.current.focus(); // Focus the keyword input if toggling to hide
-    }
+    e.preventDefault();
+    setShowDefinitionInput((prevShowDefinitionInput) => {
+      if (!prevShowDefinitionInput) {
+        // Schedule the focus to occur after the component rerenders with the input displayed
+        setTimeout(() => {
+          definitionInputRef.current && definitionInputRef.current.focus();
+        }, 0);
+      } else {
+        keywordInputRef.current && keywordInputRef.current.focus();
+      }
+      return !prevShowDefinitionInput;
+    });
   };
 
   const addTask = () => {
@@ -52,7 +56,7 @@ const TodoList = () => {
         id: Date.now(),
         keyword: newKeyword,
         definition,
-        
+        option: showDefinitionInput ? 'custom' : 'notDefine',
         // Store the selected option with the task
         DrawDescription: "",
         generatedImage: "",
