@@ -52,19 +52,17 @@ const TodoList = () => {
         id: Date.now(),
         keyword: newKeyword,
         definition,
-        
         // Store the selected option with the task
         option: showDefinitionInput ? 'custom' : 'notDefine', 
         DrawDescription: "",
-        DalleChosenImage: "",
-        DalleImages: {
-          aiImage1: "",
-          aiImage4: "", 
-          aiImage2: "",
-          aiImage3: "",
-        },
+        DalleImage: "",
         NarratorDescription: "",
+        Pins: {
+          x: 2,
+          y: 2,
+        }
       };
+        
       setTasks([...tasks, newTask]);
       setNewKeyword('');
       setNewDefinition('');
@@ -77,10 +75,11 @@ const TodoList = () => {
     }
   };
 
+
+
+
   const handleAddTask = () => {
     addTask();
-    getChatResponseFromServer(newKeyword);
- 
   };
 
   const handleKeyPress = (event) => {

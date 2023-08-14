@@ -1,3 +1,4 @@
+
   // Declarations
   import dotenv from 'dotenv';
   import express, { response } from 'express';
@@ -5,7 +6,6 @@
   import bodyParser from 'body-parser';
   import { getImage, getChatResponse } from './lib/openAIHelpers.js';
   import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
-  import { aiDrawThePicture } from './helper/filterUserWords.js'
 
 
   // import { termForAiDrawer, termForAiDrawer1 } from './helper/filterUserWords.js';
@@ -39,6 +39,7 @@
       process.exit(1);
     }
   }
+
 
   run().catch(console.dir);
   ///
@@ -78,34 +79,26 @@
   });
 
 
-
-  //Get Chat GPT Response
-  app.post('/getChatResponse', async (req, res) => {
-    const content = req.body.content.response;
-    try {
-      const chatResponse = await getChatResponse(content); // Call the helper function
-      const wordForDrawer = await aiDrawThePicture(content);
-      // const wordForDrawer = await aiDrawThePicture(chatResponse);
-      const drawImage = await getImage(wordForDrawer)
-      console.log("chatResponse", chatResponse)
-      console.log("wordForDrawer" ,wordForDrawer)
-      console.log("drawImage" ,drawImage)
-      res.json({ response: drawImage.data[0] });
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred.' });
-    }
-  });
-
-
-  app.post('/getImageResponse', async (req, res) => {
-    const content = req.body.content;
-    try {
-      const imageResponse = await getImage(content); // Call the helper function
-      res.json({ response: imageResponse });
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred.' });
-    }
-  });
+    //Get Chat GPT Response
+    app.post('/getChatResponse', async (req, res) => {
+      const content = req.body.content.response;
+      try {
+        const chatResponse = await getChatResponse(content); // Call the helper function
+        res.json({ response: chatResponse });
+      } catch (error) {
+        res.status(500).json({ error: 'An error occurred.' });
+      }
+    });
+  
+    app.post('/getImageResponse', async (req, res) => {
+      const content = req.body.content;
+      try {
+        const imageResponse = await getImage(content); // Call the helper function
+        res.json({ response: imageResponse });
+      } catch (error) {
+        res.status(500).json({ error: 'An error occurred.' });
+      }
+    });
 
 
   // app.post('/initMemoryPalace', (req, res) => {
@@ -170,22 +163,52 @@
       });
   });
 
-  // UPDATE: Existing Memory Palace
-  // app.get('/DrawGptAi', (req, res) => {
-  //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
-  //   memoryPalaceCollection.find({}).toArray()
-  //     .then(palaces => {
-  //       res.json(palaces);
+  // // UPDATE: Existing Memory Palace
+  // app.put('/update', (req, res) => {
+  //   const palaceId = new ObjectId(req.body.id);
+  //   const updatedData = req.body.data;
+  //   updatedData._id = palaceId;
+  //   // console.log(palaceId);
+  //   // console.log(updatedData);
+  //   const memoryPalaceCollection = db.collection('Palaces');
+  //   memoryPalaceCollection.find({_id: new ObjectId(palaceId) }).toArray().then(palaces => {
+  //     console.log(palaces);
+  //   });
+  //   memoryPalaceCollection
+  //     .replaceOne(
+  //       {  _id: palaceId }, // Query for the specific palace using _id
+  //         updatedData // Update specific fields using $set
+  //         ).then(result => {
+  //         // console.log(result);
+  //       if (result.matchedCount > 0) {
+  //         console.log("*** object update success ***");
+  //         res.json({
+  //           success: true,
+  //           message: 'Palace updated successfully.',
+  //         });
+  //       } else {
+  //         res.status(404).json({
+  //           success: false,
+  //           message: 'Palace not found.',
+  //         });
+  //       }
   //     })
   //     .catch(error => {
-  //       res.status(500).json({ success: false, message: "Failed to fetch memory palaces." });
+  //       res.status(500).json({
+  //         success: false,
+  //         message: 'Failed to update palace.',
+  //         error: error,
+  //       });
   //     });
-  // })
+  // });
+
+  // UPDATE: Existing Memory Palace
   app.put('/update', (req, res) => {
-    console.log('reqbodydata', req.body.data)
     const palaceId = new ObjectId(req.body.id);
     const updatedData = req.body.data;
     updatedData._id = palaceId;
+    // console.log(palaceId);
+    // console.log(updatedData);
     const memoryPalaceCollection = db.collection('Palaces');
     memoryPalaceCollection.find({_id: new ObjectId(palaceId) }).toArray().then(palaces => {
       console.log(palaces);
@@ -195,7 +218,7 @@
         {  _id: palaceId }, // Query for the specific palace using _id
           updatedData // Update specific fields using $set
           ).then(result => {
-          console.log('result count', result.matchedCount);
+          // console.log(result);
         if (result.matchedCount > 0) {
           console.log("*** object update success ***");
           res.json({
@@ -203,7 +226,6 @@
             message: 'Palace updated successfully.',
           });
         } else {
-          console.log('CALLED!!')
           res.status(404).json({
             success: false,
             message: 'Palace not found.',
@@ -250,7 +272,6 @@
     });
   }
 });
-
 
 
   app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

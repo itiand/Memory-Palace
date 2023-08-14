@@ -13,6 +13,7 @@ const AddRoom = () => {
     createPalaceExample,
     
     selectedPalace,
+    setSelectedRoom,
     savePalaceState,
     changePalaceEntry,
     tasks,
@@ -62,21 +63,16 @@ const AddRoom = () => {
   // Creating New Room (with basic frame)
   const createNewRoom = () => {
     const newRoomObject = {
+      _id: Date.now(),
       roomImg: roomUrl,
-        name: roomName,
+        roomName: roomName,
         roomDescription: roomDescription,
-        Pins: [
-          {
-            x: null,
-            y: null,
-            toDoItem: null,
-          }
-        ]
+        ToDoList: [],
       };
     const newArray = selectedPalace["Rooms"];
-    newArray.push((newRoomObject))
-
+    newArray.push(newRoomObject);
     changePalaceEntry("Rooms", newArray);
+    
 };
 
 
@@ -106,7 +102,8 @@ const AddRoom = () => {
 
     if (Object.keys(newErrors).length === 0) {
       createNewRoom();
-      window.add_memory_view.showModal();
+      // setSelectedRoom(selectedPalace.Rooms);
+      window.reg_view.showModal();
       window.add_room_view.close();
     } else {
       setErrors(newErrors);

@@ -31,6 +31,7 @@ const PalaceProvider = (props) => {
       setTasks,
       getChatResponseFromServer,
       getImageResponseFromServer,
+      changeRoomEntry,
 
       onCloseModal,
       // setIsEditMode,
@@ -40,7 +41,8 @@ const PalaceProvider = (props) => {
 
       createNewRoom,
       selectRoom,
-      selectedRoom
+      selectedRoom,
+      setSelectedRoom,
 
 
   } = useApplicationData();
@@ -84,7 +86,9 @@ const PalaceProvider = (props) => {
 
       createNewRoom,
       selectRoom,
-      selectedRoom
+      selectedRoom,
+      changeRoomEntry,
+      setSelectedRoom,
 
     }}>
       {props.children}

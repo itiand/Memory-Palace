@@ -13,8 +13,10 @@ function RoomView() {
   const { roomImg, name } = selectedRoom;
 
   const handleRoomClose = () => {
-    setSelectedRoom({})
+  //   setSelectedRoom({}) $$$
+  window.reg_view.showModal();
   }
+
   return (
     <>
       <dialog id="room_view" className="modal">

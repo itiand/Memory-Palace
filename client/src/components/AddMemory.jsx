@@ -7,14 +7,29 @@ const AddMemory = () => {
 const { 
   tasks,
   changePalaceEntry,
+  changeRoomEntry,
+  setSelectedRoom,
+  selectedPalace,
+  savePalaceState,
+  selectedRoom
  } = useContext(PalaceContext);
 
 
-  const handleSaveMemory = () => {
-    changePalaceEntry("PalaceToDoList", tasks);
+//  
+ const updateRoomToDo = async () => {
+  setSelectedRoom[0].ToDoList(tasks);
+  await savePalaceState;
+ }
+// 
+
+// 
+  const handleSaveMemory = async () => {
+    // changeRoomEntry("ToDoList", tasks);
+    updateRoomToDo(tasks);
     window.add_memory_view.close();
     window.reg_view.showModal();
   }
+// 
 
   return (
     <dialog id="add_memory_view" className="modal">
