@@ -14,7 +14,7 @@ function PalaceCarouselItem(props) {
       <div className="cover h-96 flex items-center justify-center overflow-hidden items-center opacity-100 hover:opacity-80 text-2xl">
         <img src={palace.PalaceCoverImg} className="object-cover" />
         <div className="EditImage">
-        Edit
+        Click To Edit
         </div>
       <div className='carousel-body bg-neutral/50 py-1 px-4 -mt-8 text-gray-200 self-start rounded-br'>
         <p className='text-m'>{palace.PalaceName}</p>
