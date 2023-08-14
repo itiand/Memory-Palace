@@ -1,6 +1,6 @@
 import "./App.scss";
 
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState} from "react";
 import { themeChange } from "theme-change";
 import { PalaceContext } from "./providers/palaceProvider";
 
@@ -14,135 +14,310 @@ import AddRoom from "./components/AddRoom";
 import AddMemory from "./components/AddMemory";
 
 
-// Import speech synthesis
-const speechSynthesis = window.speechSynthesis;
 
-function App() {
+
+const App = () => {
+  
   const {
     // initAndFetchNewMemoryPalace,
     //   deleteAndSwitchToLastPalace,
     //   updateMemoryPalace,
     //   fetchMemoryPalaces,
     // setMemoryPalaces,
+    themes,
+    memoryPalaces, 
+    selectedPalace, 
+    setSelectedPalace,
+    findPalaceById,
+  switchSelectPalaceById,  
+  switchToLastPalace,
+  createNewPalace,
+  deleteCurrentSelectedPalace,  
+  changePalaceEntry,
+  deletePalaceEntry, 
+  savePalaceState,
+  createPalaceExample,
+  getChatResponseFromServer,
+  getImageResponseFromServer,
+  setSelectedRoom,
+  tasks,
+} = useContext( PalaceContext );
 
-      
-      themes,
-      memoryPalaces, 
-      selectedPalace, 
-      setSelectedPalace,
-  
-      findPalaceById,
-      switchSelectPalaceById,  
-      switchToLastPalace,
-      createNewPalace,
-      deleteCurrentSelectedPalace,  
-      changePalaceEntry,
-      deletePalaceEntry, 
-      savePalaceState,
-      createPalaceExample,
-      getChatResponseFromServer,
-      getImageResponseFromServer,
-      setSelectedRoom,
-      tasks,
+const speechSynthesis = window.speechSynthesis;
+const [voices, setVoices] = useState([]);
 
-  } = useContext( PalaceContext );
-
-
-  useEffect(() => {
+useEffect(() => {
     themeChange(false);
   }, []);
+  
+  
+  const ToDoList = [
+    {
+      keyword: "Panda",
+      definition: "defintion 1",
+      dalleImage: "",
+      narraration: "narration 1",
+      drawDescription: "drawDescription 1",
+      x : 2,
+      y : 2,
+    },
+    {
+      keyword: "Racoon",
+      definition: "defintion 2",
+      dalleImage: "",
+      narraration: "narration 2",
+      drawDescription: "drawDescription 2",
+      x : 2,
+      y : 2,
+    },
+    {
+      keyword: "Bear",
+      definition: "defintion 3",
+      dalleImage: "",
+      narraration: "narration 3",
+      drawDescription: "drawDescription 3",
+      x : 2,
+      y : 2,
+    },
+    {
+      
+      keyword: "Beaver",
+      definition: "defintion 4",
+      dalleImage: "",
+      narraration: "narration 4",
+      drawDescription: "drawDescription 4",
+      x : 2,
+      y : 2,
+    },
+    {
+      keyword: "Aardvark",
+      definition: "defintion 5",
+      dalleImage: "",
+      narraration: "narration 5",
+      drawDescription: "drawDescription 5",
+      x : 2,
+      y : 2,
+    },
 
-  // Add text-to-speech functionality
-  const textToSpeak = "Suddenly you see a small giraffe, eating a zucchini. My, how positively odd."; // Replace with your desired text
+    {
+      keyword: "Aardvark",
+      definition: "defintion 5",
+      dalleImage: "",
+      narraration: "narration 5",
+      drawDescription: "drawDescription 5",
+      x : 2,
+      y : 2,
+    },
 
-  useEffect(() => {
-    // Listen for the voices to be loaded
-    speechSynthesis.addEventListener("voiceschanged", () => {
-      // Once the voices are available, get them
-      const voices = speechSynthesis.getVoices();
-      // Now you can use the voices list in your handleTestClick3 function
-    });
-  }, []);
+    {
+      keyword: "Aardvark",
+      definition: "defintion 5",
+      dalleImage: "",
+      narraration: "narration 5",
+      drawDescription: "drawDescription 5",
+      x : 2,
+      y : 2,
+    },
 
+    {
+      keyword: "Aardvark",
+      definition: "defintion 5",
+      dalleImage: "",
+      narraration: "narration 5",
+      drawDescription: "drawDescription 5",
+      x : 2,
+      y : 2,
+    },
+  ];
+ 
 
-  const handlePalaceClick = (selected) => {
-    setSelectedPalace(selected); // clicked palace as the selected palace state
-    window.reg_view.showModal();
-  };
+const randomOddState = (keyword) => {
+  // takes in keyword and returns "keyword + funny string"
+  const odd = [
+    "...playing poker...",
+    "...juggling chainsaws...",
+    "...on fire...",
+    "...skydiving...",
+    "...wearing scuba gear...",
+    "...doing taxes...",
+    "...playing the xylophone...",
+    "...doing yoga...",
+    "...bungie jumping...",
+    "...surfing a wave...",
+    "...programming on a laptop...",
+    "...staging a sit-in...",
+    "...holding a lightsaber...",
+    "...riding a unicycle...", 
+    "...riding a hot air balloon...",
+    "...riding a roller-coaster...",
+    "...ice skating...", 
+    "...playing chess...",
+    "...wearing a ski-mask...",
+    "...reading a newspaper...",
+    "...eating tacos...",
+  ];
+  const randomIndex = Math.floor(Math.random() * odd.length);
+  const randomAction = odd[randomIndex];
+  return `${keyword}${randomAction}`;
+};
 
-  const memoryPalaceCarousel = memoryPalaces.map((palace) => {
-    return (
-      <PalaceCarouselItem
-        key={palace._id}
-        palace={palace}
-        onPalaceClick={handlePalaceClick}
-      />
-    );
-  });
+const randomSaying = (mode) => {
+  // depending on mode, "return intro, phrase, lol string"
+  if (mode === "intro") {
+  const intro = [
+    "...Welcome to your Memory Palace...",
+    "...Hello There!...",
+    "...Are you ready to begin your Memory Journey?...",
+    "...Let's see what we can remember today!...",
+    "...Hello there!...Welcome to your inner mind. Let me show you around...",
+  ];
+  const randomIndex = Math.floor(Math.random() * intro.length);
+  const randomIntro = `${intro[randomIndex]}... Let's begin shall we?... Your journey begins in the Kitchen...`;
+  return randomIntro;
+}
+  if (mode === "bridge") {
+    const bridge = [
+      "Next you see a",
+      "Your eyes drift towards a",
+      "You casually glance at a",
+      "Your focus and see a",
+      "Next you notice a",
+      "Suddenly, you see a",
+      "Next item on your journey is a",
+      "Next ticket on the agenda is a",
+    ];
+    const randomIndex = Math.floor(Math.random() * bridge.length);
+    const randomPhrase = bridge[randomIndex];
+    return randomPhrase;
+  }
+  if (mode === "lol") {
+    const lol = [
+      "How odd!",
+      "Facinating!",
+      "What fun!",
+      "Golly!",
+      "Hehehehehehe!",
+      "Muahahaha!",
+      "You don't see that everyday!",
+      "Oh my!",
+      "Even I think that's hard to forget!",
+      "You're sure to remember that one!!",
+      "Buy this app!",
+      "That's adorable!",
+      "Whoever designed this, deserves an A!",
+      "Remembering isn't everything...It's the only thing!",
+      "Lock that memory in!",
+      "I wonder if I turned off my oven!",
+      "How positively drole!",
+      "All work and no play, makes Jack a dull boy!",
+      "They originally wanted Morgan Freeman for this job!",
+      "lol lol lol lol lol!",
+    ];
+    const randomIndex = Math.floor(Math.random() * lol.length);
+    const randomLol = lol[randomIndex];
+    return randomLol;
+  }
+};
 
-
-
-  const handleTestClick1 = () => {
-    // switchToLastPalace();
-    // switchSelectPalaceById("");
-    // createNewPalace("Start", "Here", "https://i.imgur.com/rxWrRvs.jpeg");
-    // getChatResponseFromServer('fat cat playing game');
-
-    // getChatResponseFromServer('what is the conversion rate of human years to cat years?');
-
-    () => setSelectedRoom.ToDoList = tasks;
-
-  };
-
-  const handleTestClick2 = () => {
-    // switchToLastPalace();
-    // console.log(selectedPalace.Rooms);
-    // deletePalaceEntry("@@@Random@@@");
-    console.log('drawing image');
-    getImageResponseFromServer("realistic giraffe eating a zucchini");
-  };
-
-
-  // const voices = speechSynthesis.getVoices();
-
-  const handleTestClick3 = () => {
-
-    console.log('speaking');
+// Set up a function to read text out loud
+const speakText = (text) => {
+  const speak = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
     console.log(speechSynthesis.getVoices());
-    const utterance = new SpeechSynthesisUtterance(textToSpeak);
-    const voices = speechSynthesis.getVoices();
-    utterance.voice = voices[50]; // Use the first available voice
-    // 50, 49, 51, 11
-    // 11, 50, 51 57
-    // 54 55 60 61
-    // voice 0 aint bad
-    // voice 10, 11{stephen}
-    // utterance.pitch = voices[0];
-    // Configure speech parameters if needed (e.g., rate, pitch)
-    // utterance.rate = ...;
-    // utterance.pitch = ...;
-
-    // Speak the text
+    utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === "Google UK English Female");
+    
+    // Fred, Karen,Google UK English Male, Google UK English Female,
+    utterance.rate = 1;
+    utterance.pitch = 1;
     speechSynthesis.speak(utterance);
-    //     const utterance = new SpeechSynthesisUtterance(textToSpeak);
-    //     utterance.voice = voices[0]; // Use the first available voice
-    //     // Configure speech parameters if needed (e.g., voice, rate, pitch)
-    // // utterance.voice = ...; // Choose a specific voice
-    // // utterance.rate = ...;  // Adjust the speech rate
-    // // utterance.pitch = ...; // Adjust the speech pitch
-
-
-    // changePalaceEntry("PalaceName", "My Awesome Palace");
-    // changePalaceEntry("@@@Random@@@", "Bruce");
-    // savePalaceState();
-    // createPalaceExample();
-    // deleteCurrentSelectedPalace();
-    // console.log(selectedPalace.Rooms);
-
   };
+  return speak;
+};
 
+
+
+const generateFakeArray = () => {
+  const fakeArray = [
+    `Welcome to your very own Mind Palace...There's a lot to learn, so let's get started!...The first item on our journey involves a ${randomOddState(ToDoList[0].keyword)}`,
+  ];
+
+  for (let i = 1; i < ToDoList.length; i++) {
+    fakeArray.push(
+      randomSaying('lol'),
+      randomSaying('bridge'),
+      randomOddState(`${ToDoList[i].keyword}`),
+    );
+  }
+  fakeArray.push("Well that's everything for now!...Till next time!...Bye-Bye!");
+  console.log(fakeArray);
+  return fakeArray;
+};
+
+const startReadingAndActions = () => {
+  const fakeArray = generateFakeArray(ToDoList);
+
+  let currentIndex = 0;
+  const performAction = () => {
+    if (currentIndex < fakeArray.length) {
+      const arrayElement = fakeArray[currentIndex];
+      const speakFunction = speakText(arrayElement);
+      speakFunction();
+
+      if (arrayElement.includes('randomOddState')) {
+        const matchResult = arrayElement.match(/randomOddState\('([^']*)'\)/);
+        const keyword = matchResult ? matchResult[1] : '';
+
+        if (keyword === '') {
+          currentIndex = fakeArray.length - 1; // Skip to the last element
+        } else {
+          const oddStateResult = randomOddState(keyword);
+          // Perform actions with oddStateResult
+          console.log("Odd State Result:", oddStateResult);
+        }
+      } else if (arrayElement.includes('randomSaying')) {
+        const sayingMode = arrayElement.match(/randomSaying\('([^']+)'\)/)[1];
+        const randomSayingResult = randomSaying(sayingMode);
+        // Perform actions with randomSayingResult
+        console.log("Random Saying Result:", randomSayingResult);
+      }
+
+      currentIndex++;
+      setTimeout(performAction, 2000); // Continue after 1 second
+    }
+  };
+  setTimeout(performAction, 1000); // Start after a delay of 5 seconds
+};
+
+
+
+
+
+const handlePalaceClick = (selected) => {
+  setSelectedPalace(selected); // clicked palace as the selected palace state
+  window.reg_view.showModal();
+};
+
+const memoryPalaceCarousel = memoryPalaces.map((palace) => {
   return (
-    <>
+    <PalaceCarouselItem
+      key={palace._id}
+      palace={palace}
+      onPalaceClick={handlePalaceClick}
+    />
+  );
+});
+
+// const handleTestClick1 = () => {
+//   speakText('hello');
+// };
+const handleTestClick2 = () => {
+};
+const handleTestClick3 = () => {
+};
+
+
+return (
+  <>
       <Navbar themes={themes} />
       <RegularPalaceView />
       <AddNewPalace />
@@ -159,7 +334,7 @@ function App() {
         <br></br>
         <div>
           <h2>Tester Buttons</h2>
-          <button className="btn" onClick={handleTestClick1}>Click 1</button>
+          <button className="btn" onClick={startReadingAndActions}>Click 1</button>
           <button className="btn" onClick={handleTestClick2}>Click 2</button>
           <button className="btn" onClick={handleTestClick3}>Click 3</button>
         </div>
@@ -168,6 +343,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;
