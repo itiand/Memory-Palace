@@ -16,7 +16,7 @@ const ImageWithIcons = ({ imageUrl, icons, setIcons }) => {
   };
 
   return (
-    <div className='relative'>
+    <div className='relative mb-4'>
       <img src={imageUrl} alt='Clickable' onClick={handleImageClick} className='w-full' ref={imageRef} />
       {icons && icons.map((icon, index) => (
         <span onClick={() => {console.log('pin click')}}>

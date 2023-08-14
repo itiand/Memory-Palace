@@ -10,7 +10,7 @@ function PalaceCarouselItem(props) {
       key={palace._id}
       onClick={() => onPalaceClick(palace)}
     >
-      <div className="h-64 flex items-center justify-center overflow-hidden">
+      <div className="h-96 flex items-center justify-center overflow-hidden">
         <img src={palace.PalaceCoverImg} className="object-cover" alt="" />
       </div>
       <div className='carousel-body bg-neutral/50 py-1 px-4 -mt-8 text-gray-200 self-start rounded-br'>

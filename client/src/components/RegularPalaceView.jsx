@@ -7,7 +7,7 @@ import RoomView from "./RoomView";
 
 function RegularPalaceView() {
 
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom } = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, isValidUrl } = useContext(PalaceContext);
 
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
@@ -43,13 +43,18 @@ function RegularPalaceView() {
   };
 
   const handleRoomClick = (roomId) => {
-    console.log('roomId', roomId);
     selectRoom(roomId);
     setIsEditMode(false);
     setNewImageURL('');
     window.room_view.showModal();
     window.reg_view.close();
   };
+
+  const handleNewRoomClick = () => {
+    setNewImageURL('')
+    window.reg_view.close();
+    window.add_room_view.showModal();
+  }
 
 
 
@@ -59,7 +64,6 @@ function RegularPalaceView() {
         <form method="dialog" className="modal-box">
           {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
-          
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <div className="relative">
             <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto" />
@@ -106,7 +110,7 @@ function RegularPalaceView() {
           <div className="reg_view-rooms pt-3">
             <div className="text-sm flex items-center pb-1">
               <h4 className="mr-1 text-gray-700">Your rooms</h4>
-              <span className="cursor-pointer text-gray-300 hover:text-black hover:ease-in-out duration-200" >
+              <span className="cursor-pointer text-gray-300 hover:text-black hover:ease-in-out duration-200" onClick={handleNewRoomClick} >
                 <FaPlus />
               </span>
             </div>
@@ -114,10 +118,10 @@ function RegularPalaceView() {
               {rooms.map((room, index) => {
                 return (
                   <div key={index} className="carousel-item w-1/2 relative">
-                    <img src={room.roomImg} alt={room.description} className="w-full" />
+                    <img src={room.roomImg} alt={room.roomDescription} className="w-full" />
                     <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
-                      <span className="mb-1 text-white text-xs">{room.name}</span>
-                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={() => { handleRoomClick(room.id); }}><FaRegEye /></span>
+                      <span className="mb-1 text-white text-xs">{room.roomName}</span>
+                      <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={() => { handleRoomClick(room._id); }}><FaRegEye /></span>
                     </div>
                   </div>
                 );
@@ -127,17 +131,12 @@ function RegularPalaceView() {
             <button className="btn" onClick={() => {
               window.reg_view.close();
             }} > Story-Mode </button>
-
-            <button className="btn" onClick={() => {
-              window.reg_view.close();
-              window.add_room_view.showModal();
-            }}> Add New Room </button>
-         
+ 
             <button className="btn" onClick={() => {
               window.reg_view.close();
               window.add_memory_view.showModal();
             }}> Add New Memory</button>
-          
+
             {/****TONY END*****/}
 
           </div>
