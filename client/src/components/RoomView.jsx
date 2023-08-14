@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { BsFillPinFill } from 'react-icons/Bs';
+import { BsFillPinFill } from 'react-icons/bs';
 import ImageWithIcons from "./ImageWithIcons";
 import TodoList from "./TodoList";
 
