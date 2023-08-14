@@ -16,21 +16,28 @@ const AddMemory = () => {
 
   const {
     tasks,
-    changePalaceEntry,
+    changeRoomEntry,
+    updateToDoList,
+    selectedRoom,
+    // changePalaceEntry,
   } = useContext(PalaceContext);
 
 
 //  
- const updateRoomToDo = async () => {
-  setSelectedRoom[0].ToDoList(tasks);
-  await savePalaceState;
- }
+//  const updateRoomToDo = async () => {
+//   setSelectedRoom[0].ToDoList(tasks);
+//   await savePalaceState;
+//  }
 // 
+
+
 
 // 
   const handleSaveMemory = async () => {
-    // changeRoomEntry("ToDoList", tasks);
-    updateRoomToDo(tasks);
+    console.log(selectedRoom._id);
+    updateToDoList(selectedRoom._id, tasks);
+    // updateRoomToDo(tasks);
+    
     window.add_memory_view.close();
     window.reg_view.showModal();
   };

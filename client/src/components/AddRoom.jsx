@@ -18,6 +18,7 @@ const AddRoom = () => {
     changePalaceEntry,
     tasks,
     setTasks,
+    createNewRoom,
     
   } = useContext(PalaceContext);
   const [roomName, setRoomName] = useState("");
@@ -60,20 +61,22 @@ const AddRoom = () => {
   //     console.error("An error occurred:", error);
   //   }
   // };
+
+
   // Creating New Room (with basic frame)
-  const createNewRoom = () => {
-    const newRoomObject = {
-      _id: Date.now(),
-      roomImg: roomUrl,
-        roomName: roomName,
-        roomDescription: roomDescription,
-        ToDoList: [],
-      };
-    const newArray = selectedPalace["Rooms"];
-    newArray.push(newRoomObject);
-    changePalaceEntry("Rooms", newArray);
+//   const createNewRoom = () => {
+//     const newRoomObject = {
+//       _id: Date.now(),
+//         roomImg: roomUrl,
+//         roomName: roomName,
+//         roomDescription: roomDescription,
+//         ToDoList: null,
+//       };
+//     const newArray = selectedPalace["Rooms"];
+//     newArray.push(newRoomObject);
+//     changePalaceEntry("Rooms", newArray);
     
-};
+// };
 
 
   const handleRoomNameChange = (event) => {
@@ -101,7 +104,7 @@ const AddRoom = () => {
     }
 
     if (Object.keys(newErrors).length === 0) {
-      createNewRoom();
+      createNewRoom(roomUrl, roomName, roomDescription);
       // setSelectedRoom(selectedPalace.Rooms);
       window.reg_view.showModal();
       window.add_room_view.close();

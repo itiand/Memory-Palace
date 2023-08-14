@@ -24,36 +24,58 @@ const useApplicationData = () => {
     setNewImageURL('');
   };
 
-  const selectRoom = (roomId) => {
-    const room = selectedPalace.Rooms.find(r => r.id === roomId);
-    if (room) {
-      console.log('Room found:', room);
-        setSelectedRoom(room);
-    } else {
-        // Handle error - room not found
-        console.error("Room not found with ID:", roomId);
-    }
+//   const selectRoom = (roomId) => {
+//     const room = selectedPalace.Rooms.find(r => r.id === roomId);
+//     if (room) {
+//       console.log('Room found:', room);
+//         setSelectedRoom(room);
+//     } else {
+//         // Handle error - room not found
+//         console.error("Room not found with ID:", roomId);
+//     }
+// };
+
+const selectRoom = (roomId) => {
+  const roomIds = Object.keys(selectedPalace.Rooms); // Get an array of room IDs
+
+  if (roomIds.includes(roomId)) {
+    const room = selectedPalace.Rooms[roomId];
+    console.log('Room found:', room);
+    setSelectedRoom(room);
+  } else {
+    // Handle error - room not found
+    console.error("Room not found with ID:", roomId);
+  }
 };
 
-  // const createNewRoom = () => {
-  //   const newRoomId = uuidv4();
-  //   const newRoomObject = {
-  //     id: newRoomId,
-  //     roomImg: roomUrl,
-  //     roomName: roomName,
-  //     roomDescription: roomDescription,
-  //     roomPins: [
-  //       {
-  //         x: null,
-  //         y: null,
-  //         toDoItem: null,
-  //       }
-  //     ]
-  //   };
+  const createNewRoom = async (roomUrl, roomName, roomDescription) => {
+    const newRoomId = uuidv4();
+    const newRoomObject = {
+      _id: newRoomId,
+      roomImg: roomUrl,
+      roomName: roomName,
+      roomDescription: roomDescription,
+      ToDoList: [
+        // {
+        //   _id : uuidv4(),
+        //   keyword: "",
+        //   definition: "",
+        //   dalleImage: "",
+        //   narraration: "",
+        //   drawDescription: "",
+        //   x : 2,
+        //   y : 2,
+        // },
+      ]
+    };
+    
+    const updatedRooms = {
+      ...selectedPalace.Rooms,
+      [newRoomId]: newRoomObject
+    }
+    await changePalaceEntry("Rooms", updatedRooms);
+  };
 
-  //   const updatedRooms = [...selectedPalace["Rooms"], newRoomObject];
-  //   changePalaceEntry("Rooms", updatedRooms);
-  // };
 
   // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
@@ -178,6 +200,17 @@ const useApplicationData = () => {
     }
   };
 
+  const changeRoomEntry = async (key, value) => {
+    console.log("changeRoomEntry");
+    if (selectedRoom) {
+      const newSelectedRoom = { ...selectedRoom, [key]: value };
+      await setSelectedRoom(newSelectedRoom);
+      console.log('selectedRoom', selectedRoom);
+      // await updateMemoryRoom(selectedRoom._id, newSelectedRoom);
+      await changePalaceEntry("Rooms", selectedRoom);
+    }
+  };
+  
   // const changeRoomEntry = async (key, value) => {
   //   console.log("changeRoomEntry");
   //   if (selectedRoom) {
@@ -188,24 +221,42 @@ const useApplicationData = () => {
   //   }
 
   // };  
-  const changeRoomEntry = async (key, value) => {
-    console.log("changeRoomEntry");
-    if (selectedRoom) {
-      // const newSelectedRoom = { ...selectedPalace.Rooms, [key]: value };
-      // await setSelectedRoom(newSelectedRoom);
-      // console.log('selectedRoom', selectedRoom);
-      // await updateMemoryPalace(selectedPalace._id, selectedPalace);
-      // selectedRoom[key][0] = value 
-      let newSelectedRoom = new selectedRoom;
-      newSelectedRoom[key] = value;
-      let newSelectedPalace = selectedPalace;
-      newSelectedPalace.Rooms = newSelectedRoom;
-      await setSelectedPalace(newSelectedPalace);
-      await savePalaceState();
+  // const changeRoomEntry = async (key, value) => {
+  //   console.log("changeRoomEntry");
+  //   if (selectedRoom) {
+  //     // const newSelectedRoom = { ...selectedPalace.Rooms, [key]: value };
+  //     // await setSelectedRoom(newSelectedRoom);
+  //     // console.log('selectedRoom', selectedRoom);
+  //     // await updateMemoryPalace(selectedPalace._id, selectedPalace);
+  //     // selectedRoom[key][0] = value 
+  //     let newSelectedRoom = new selectedRoom;
+  //     newSelectedRoom[key] = value;
+  //     let newSelectedPalace = selectedPalace;
+  //     newSelectedPalace.Rooms = newSelectedRoom;
+  //     await setSelectedPalace(newSelectedPalace);
+  //     await savePalaceState();
+  //   }
+  // };
+
+
+  const updateToDoList = async (roomId, newToDoList) => {
+    try {
+      const response = await YourRoomModel.updateOne(
+        { "Rooms._id": roomId },
+        { $set: { "Rooms.$.ToDoList": newToDoList } }
+      );
+  
+      if (response.nModified === 1) {
+        console.log("ToDoList updated successfully");
+      } else {
+        console.log("Failed to update ToDoList");
+      }
+    } catch (error) {
+      console.error("Error updating ToDoList:", error);
     }
+    await savePalaceState;
+    console.log("PalaceStateSaved");
   };
-
-
 
 
 
@@ -235,7 +286,7 @@ const useApplicationData = () => {
         PalaceName: PalaceName,
         PalaceDescription: PalaceDescription,
         PalaceCoverImg: "https://www.richardtmoore.co.uk/wp-content/uploads/2016/10/btx-placeholder-04-2-1024x683.jpg",
-        Rooms:[],
+        Rooms:{},
       };
       initAndFetchNewMemoryPalace(newPalaceData);
     }
@@ -382,6 +433,8 @@ const useApplicationData = () => {
     setSelectedRoom,
     selectedRoom,
     changeRoomEntry,
+    updateToDoList,
+    createNewRoom,
 
   };
 };

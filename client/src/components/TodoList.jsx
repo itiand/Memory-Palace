@@ -57,10 +57,6 @@ const TodoList = () => {
         DrawDescription: "",
         DalleImage: "",
         NarratorDescription: "",
-        Pins: {
-          x: 2,
-          y: 2,
-        }
       };
         
       setTasks([...tasks, newTask]);
