@@ -70,7 +70,7 @@ const handleMyPalaces = (e) => {
       <a className="btn btn-ghost normal-case text-xl">Pensieve</a>
     </div>
 
-    <div className="navbar-center hidden lg:flex">
+    {/* <div className="navbar-center hidden lg:flex">
       <ul className="menu menu-horizontal px-1">
         <li>
           <a>Item 1</a>
@@ -92,7 +92,7 @@ const handleMyPalaces = (e) => {
           <a>Item 3</a>
         </li>
       </ul>
-    </div>
+    </div> */}
     <div>
       <button className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>My Palaces</button>
     </div>

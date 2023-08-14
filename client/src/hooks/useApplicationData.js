@@ -278,13 +278,13 @@ const useApplicationData = () => {
 
       const data = await response.json();
       console.log(data)
-        // if (data.success) {
-        //   setMemoryPalaces(prevState => [...prevState, data.palaceData]);
-        //   setSelectedPalace(data.palaceData);
-        //   return (data.palaceData);
-        // }
-      // console.log(data)
-      // return data.response;
+        if (data.success) {
+          setMemoryPalaces(prevState => [...prevState, data.palaceData]);
+          setSelectedPalace(data.palaceData);
+          return (data.palaceData);
+        }
+      console.log(data)
+      return data.response;
     } catch (error) {
       console.log('error useApplication ln227-ish');
       console.error('Error fetching chat response:', error);
