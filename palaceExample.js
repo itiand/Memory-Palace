@@ -11,8 +11,8 @@ const palaceExample = {
       roomImg: "https://media.timeout.com/images/105824238/750/422/image.jpg",
       toDoLists: [
         {
-          x: null,
-          y: null,
+          x: 0,
+          y: 0,
           toDoItem: null,
         }
       ],
@@ -24,8 +24,8 @@ const palaceExample = {
       roomImg: "https://media.timeout.com/images/105824267/image.jpg",
       toDoLists: [
         {
-          x: null,
-          y: null,
+          x: 0,
+          y: 0,
           toDoItem: null,
         }
       ]
@@ -36,8 +36,8 @@ const palaceExample = {
       roomImg: "https://virtual-bg.com/wp-content/uploads/2020/06/the-office-2-background-for-teams-or-zoom-1536x864.jpg",
       toDoLists: [
         {
-          x: null,
-          y: null,
+          x: 0,
+          y: 0,
           toDoItem: null,
         }
       ]

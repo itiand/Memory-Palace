@@ -50,6 +50,12 @@ function RegularPalaceView() {
     window.reg_view.close();
   };
 
+  const handleNewRoomClick = () => {
+    setNewImageURL('')
+    window.reg_view.close();
+    window.add_room_view.showModal();
+  }
+
 
 
   return (
@@ -125,12 +131,7 @@ function RegularPalaceView() {
             <button className="btn" onClick={() => {
               window.reg_view.close();
             }} > Story-Mode </button>
-
-            <button className="btn" onClick={() => {
-              window.reg_view.close();
-              window.add_room_view.showModal();
-            }}> Add New Room </button>
-
+ 
             <button className="btn" onClick={() => {
               window.reg_view.close();
               window.add_memory_view.showModal();
