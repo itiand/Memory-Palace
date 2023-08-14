@@ -2,7 +2,7 @@ import { useState, useRef, useContext } from 'react';
 import { PalaceContext } from '../providers/palaceProvider';
 import { v4 as uuidv4 } from 'uuid';
 
-const TodoList = () => {
+const TodoList = ({ randomOddState }) => {
   const {
     tasks,
     setTasks,
@@ -118,11 +118,12 @@ const TodoList = () => {
 
   const handleGenerate = async (e, keyword, definition) => {
     e.preventDefault();
-    const content = `${keyword}: ${definition} - Give me a simple metaphor/symbol to help me remember this. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word.`
+    const content = `${keyword}: ${definition} - Give me a simple and tangible noun p;us a simple action, to help me remember this. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word.`
 
-    const resonse = await getChatResponseFromServer(content)
-    console.log('WALDO', resonse)
-    //response = get chat gpt to give a symbol 
+    const response = await getChatResponseFromServer(content) //response = get chat gpt to give a symbol 
+    const responseWithAction = await randomOddState(response)
+    console.log(responseWithAction)
+
     //attach a action --> anthony's method
     //aiImage = getImage(symbol + action)
     //return Aimage
