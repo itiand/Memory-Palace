@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext } from 'react';
-import { BsFillPinFill } from 'react-icons/Bs';
+import { BsFillPinFill } from 'react-icons/bs';
 import { PalaceContext } from '../providers/palaceProvider';
 
 

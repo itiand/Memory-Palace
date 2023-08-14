@@ -1,5 +1,6 @@
 import { useState, useRef, useContext } from 'react';
 import { PalaceContext } from '../providers/palaceProvider';
+import { v4 as uuidv4 } from 'uuid';
 
 const TodoList = () => {
   const {
@@ -53,16 +54,14 @@ const TodoList = () => {
       }
 
       const newTask = {
-        id: Date.now(),
+        id: uuidv4(),
         keyword: newKeyword,
         definition,
-
         option: showDefinitionInput ? 'custom' : 'notDefine',
-
         // Store the selected option with the task
-        DrawDescription: "",
+        drawDescription: "",
         generatedImage: "",
-        NarratorDescription: "",
+        narratorDescription: "",
       };
         
       setTasks([...tasks, newTask]);
