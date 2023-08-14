@@ -13,7 +13,6 @@ const TodoList = () => {
   const [showDefinitionInput, setShowDefinitionInput] = useState(false);
   const [newDefinition, setNewDefinition] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [showImage, setShowImage] =useState('');
 
   const keywordInputRef = useRef(null); // Ref for the keyword input
   const definitionInputRef = useRef(null); // Ref for the definition input
@@ -26,14 +25,19 @@ const TodoList = () => {
     setNewDefinition(event.target.value);
   };
 
-  const handleToggleDefinition = () => {
-    setShowDefinitionInput(!showDefinitionInput);
-    setNewDefinition(''); // Clear the definition input when toggling
-    if (!showDefinitionInput) {
-      definitionInputRef.current.focus(); // Focus the definition input if toggling to show
-    } else {
-      keywordInputRef.current.focus(); // Focus the keyword input if toggling to hide
-    }
+  const handleToggleDefinition = (e) => {
+    e.preventDefault();
+    setShowDefinitionInput((prevShowDefinitionInput) => {
+      if (!prevShowDefinitionInput) {
+        // Schedule the focus to occur after the component rerenders with the input displayed
+        setTimeout(() => {
+          definitionInputRef.current && definitionInputRef.current.focus();
+        }, 0);
+      } else {
+        keywordInputRef.current && keywordInputRef.current.focus();
+      }
+      return !prevShowDefinitionInput;
+    });
   };
 
   const addTask = () => {
@@ -52,17 +56,10 @@ const TodoList = () => {
         id: Date.now(),
         keyword: newKeyword,
         definition,
-        
+        option: showDefinitionInput ? 'custom' : 'notDefine',
         // Store the selected option with the task
-        option: showDefinitionInput ? 'custom' : 'notDefine', 
         DrawDescription: "",
-        DalleChosenImage: "",
-        DalleImages: {
-          aiImage1: "",
-          aiImage4: "", 
-          aiImage2: "",
-          aiImage3: "",
-        },
+        generatedImage: "",
         NarratorDescription: "",
       };
       setTasks([...tasks, newTask]);
@@ -77,13 +74,14 @@ const TodoList = () => {
     }
   };
 
-  const handleAddTask = () => {
+  const handleAddTask = (e) => {
+    e.preventDefault()
     addTask();
-    getChatResponseFromServer(newKeyword);
   };
-
+  
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
+      event.preventDefault();  // Prevent the default form submission
       addTask();
     }
   };
@@ -150,7 +148,6 @@ const TodoList = () => {
         <button onClick={handleAddTask} className="btn btn-outline btn-accent btn-xs m-3">
           +
         </button>
-          <a href={showImage}>URL</a>
       </div>
       <div style={{ color: 'red' }}>{errorMessage}</div>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
