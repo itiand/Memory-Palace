@@ -41,6 +41,8 @@ function App() {
       createPalaceExample,
       getChatResponseFromServer,
       getImageResponseFromServer,
+      setSelectedRoom,
+      tasks,
 
   } = useContext( PalaceContext );
 
@@ -84,6 +86,7 @@ function App() {
     // switchSelectPalaceById("");
     // createNewPalace("Start", "Here", "https://i.imgur.com/rxWrRvs.jpeg");
     // getChatResponseFromServer('what is the conversion rate of human years to cat years?');
+    () => setSelectedRoom.ToDoList = tasks;
    
 
   };
