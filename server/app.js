@@ -1,4 +1,3 @@
-
   // Declarations
   import dotenv from 'dotenv';
   import express, { response } from 'express';
@@ -6,6 +5,7 @@
   import bodyParser from 'body-parser';
   import { getImage, getChatResponse } from './lib/openAIHelpers.js';
   import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
+  import { aiDrawThePicture } from './helper/filterUserWords.js'
 
 
   // import { termForAiDrawer, termForAiDrawer1 } from './helper/filterUserWords.js';
@@ -39,7 +39,6 @@
       process.exit(1);
     }
   }
-
 
   run().catch(console.dir);
   ///
@@ -79,16 +78,24 @@
   });
 
 
+
   //Get Chat GPT Response
   app.post('/getChatResponse', async (req, res) => {
     const content = req.body.content.response;
     try {
       const chatResponse = await getChatResponse(content); // Call the helper function
-      res.json({ response: chatResponse });
+      const wordForDrawer = await aiDrawThePicture(content);
+      // const wordForDrawer = await aiDrawThePicture(chatResponse);
+      const drawImage = await getImage(wordForDrawer)
+      console.log("chatResponse", chatResponse)
+      console.log("wordForDrawer" ,wordForDrawer)
+      console.log("drawImage" ,drawImage)
+      res.json({ response: drawImage.data[0] });
     } catch (error) {
       res.status(500).json({ error: 'An error occurred.' });
     }
   });
+
 
   app.post('/getImageResponse', async (req, res) => {
     const content = req.body.content;
@@ -99,7 +106,6 @@
       res.status(500).json({ error: 'An error occurred.' });
     }
   });
-
 
 
   // app.post('/initMemoryPalace', (req, res) => {
@@ -126,6 +132,53 @@
   //     });
   // });
   
+
+const palaceExample = {
+  PalaceName: "The Office", // NEEDED,
+  PalaceDescription: "Where paper business thrives.",
+  PalaceCoverImg: "https://i0.wp.com/lokagraph.com/wp-content/uploads/2018/05/dunder-Mifflin-building-the-office-where-location.jpg?fit=2048%2C1280", //NEEDED
+  Rooms: [
+    { 
+      id: "23jJ39",
+      roomName: "Main Office",
+      roomDescription: "where paper magic happens",
+      roomImg: "https://media.timeout.com/images/105824238/750/422/image.jpg",
+      toDoLists: [
+        {
+          x: 0,
+          y: 0,
+          toDoItem: null,
+        }
+      ],
+    },
+    {
+      id: "dsdse2d",
+      roomName: "lunch room",
+      roomDescription: "place to eat - has vending machine, microwave, and fridge",
+      roomImg: "https://media.timeout.com/images/105824267/image.jpg",
+      toDoLists: [
+        {
+          x: 0,
+          y: 0,
+          toDoItem: null,
+        }
+      ]
+    },
+    {
+      roomName: "michael's office",
+      roomDescription: "lots of items on desk as reference point",
+      roomImg: "https://virtual-bg.com/wp-content/uploads/2020/06/the-office-2-background-for-teams-or-zoom-1536x864.jpg",
+      toDoLists: [
+        {
+          x: 0,
+          y: 0,
+          toDoItem: null,
+        }
+      ]
+    },
+  ] 
+};
+
   
   // CREATE: New Memory Palace
   app.post('/initMemoryPalace', async (req, res) => {
@@ -165,12 +218,21 @@
   });
 
   // UPDATE: Existing Memory Palace
+  // app.get('/DrawGptAi', (req, res) => {
+  //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
+  //   memoryPalaceCollection.find({}).toArray()
+  //     .then(palaces => {
+  //       res.json(palaces);
+  //     })
+  //     .catch(error => {
+  //       res.status(500).json({ success: false, message: "Failed to fetch memory palaces." });
+  //     });
+  // })
   app.put('/update', (req, res) => {
+    console.log('reqbodydata', req.body.data)
     const palaceId = new ObjectId(req.body.id);
     const updatedData = req.body.data;
     updatedData._id = palaceId;
-    // console.log(palaceId);
-    // console.log(updatedData);
     const memoryPalaceCollection = db.collection('Palaces');
     memoryPalaceCollection.find({_id: new ObjectId(palaceId) }).toArray().then(palaces => {
       console.log(palaces);
@@ -180,7 +242,7 @@
         {  _id: palaceId }, // Query for the specific palace using _id
           updatedData // Update specific fields using $set
           ).then(result => {
-          // console.log(result);
+          console.log('result count', result.matchedCount);
         if (result.matchedCount > 0) {
           console.log("*** object update success ***");
           res.json({
@@ -188,6 +250,7 @@
             message: 'Palace updated successfully.',
           });
         } else {
+          console.log('CALLED!!')
           res.status(404).json({
             success: false,
             message: 'Palace not found.',
@@ -236,4 +299,5 @@
 });
 
 
-app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
+
+  app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
