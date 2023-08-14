@@ -93,6 +93,7 @@ function App() {
     () => setSelectedRoom.ToDoList = tasks;
 
   };
+
   const handleTestClick2 = () => {
     // switchToLastPalace();
     // console.log(selectedPalace.Rooms);

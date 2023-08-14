@@ -6,17 +6,28 @@ import TodoList from "./TodoList";
 
 
 function RoomView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom} = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks} = useContext(PalaceContext);
   const [icons, setIcons] = useState(selectedRoom.roomPins);
-  console.log('ICONS', selectRoom.pins)
-  const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
+
+  const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
   const { roomImg, name } = selectedRoom;
+
 
   const handleRoomClose = () => {
   //   setSelectedRoom({}) $$$
   window.reg_view.showModal();
   }
+
+  const handleSaveMemory = () => {
+    changePalaceEntry("PalaceToDoList", tasks);
+    window.add_memory_view.close();
+    window.reg_view.showModal();
+  };
+  
+  // const handleRoomClose = () => {
+  //   setSelectedRoom({})
+  // }
 
   return (
     <>
@@ -28,6 +39,10 @@ function RoomView() {
           <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons>
           <section id="to_memorize">
             <TodoList/>
+            {/* <button
+            className="btn"
+            onClick={handleSaveMemory}
+          >Save Memory</button> */}
           </section>
         </form>
       </dialog>
