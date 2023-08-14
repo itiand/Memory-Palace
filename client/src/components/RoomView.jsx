@@ -20,9 +20,10 @@ function RoomView() {
   }
 
   const handleSaveMemory = () => {
-    changePalaceEntry("PalaceToDoList", tasks);
-    window.add_memory_view.close();
-    window.reg_view.showModal();
+    console.log(tasks)
+    // changePalaceEntry(Rooms, tasks);
+    // window.add_memory_view.close();
+    // window.reg_view.showModal();
   };
   
   // const handleRoomClose = () => {
@@ -39,10 +40,10 @@ function RoomView() {
           <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons>
           <section id="to_memorize">
             <TodoList/>
-            {/* <button
+            <button
             className="btn"
             onClick={handleSaveMemory}
-          >Save Memory</button> */}
+          >Save Memory</button>
           </section>
         </form>
       </dialog>
