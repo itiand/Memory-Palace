@@ -3,20 +3,48 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  visibility: hidden;
 }
 
-.visible:hover + .invisible{
+.cover:hover .EditImage{
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: none;
+  visibility: visible;
 }
-// .hide {
+
+.carousel-body{
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+}
+
+.cover:hover .carousel-body{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: visible;
+}
+// .EditText:hover {
 //   display: none;
 // }
 
-// .myDIV:hover + .hide {
-//   display: block;
-//   color: red;
+
+
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+// @layer components {
+//   .btn-primary {
+//     @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+//   }
 // }
+
+// <button class="btn-primary">
+// Next
+// </button>
