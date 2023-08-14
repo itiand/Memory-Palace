@@ -19,8 +19,10 @@ function RoomView() {
   window.reg_view.showModal();
   }
 
-  const handleSaveMemory = () => {
+  const handleSaveMemory = (e) => {
+    e.preventDefault()
     console.log(tasks)
+    
     // changePalaceEntry(Rooms, tasks);
     // window.add_memory_view.close();
     // window.reg_view.showModal();

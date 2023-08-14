@@ -136,22 +136,6 @@ const TodoList = ({ randomOddState }) => {
       return task;
     });
     setTasks(updatedTasks);
-
-    //aiImage = getImage(symbol + action)
-    //
-    //return Aimage
-
-    // {
-    //   _id : uuidv4(),
-    //   keyword: "flexbox",
-    //   definition: "css methood",
-    //   dalleImage: "true",
-    //   narraration: "",
-    //   drawDescription: "resonse",
-    //   x : 2,
-    //   y : 2,
-    // },
-
   };
 
   return (

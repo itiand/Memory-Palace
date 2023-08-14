@@ -218,4 +218,61 @@ try {
 });
 
 
+// UPDATE: ToDoList of a Specific Room in a Memory Palace
+app.put('/updateToDoList', async (req, res) => {
+  const { palaceId, roomId, tasksState } = req.body; // Now tasksState is the new ToDoList
+
+  if (!Array.isArray(tasksState)) {
+    return res.status(400).json({
+      success: false,
+      message: 'tasksState should be an array.',
+    });
+  }
+
+  try {
+    const memoryPalaceCollection = db.collection('Palaces');
+
+    // Find the current palace
+    const palace = await memoryPalaceCollection.findOne({ _id: new ObjectId(palaceId) });
+
+    if (!palace || !palace.Rooms || !palace.Rooms[roomId]) {
+      return res.status(404).json({
+        success: false,
+        message: 'Palace or Room not found.',
+      });
+    }
+
+    // Replace ToDoList with the new tasksState
+    palace.Rooms[roomId].ToDoList = tasksState;
+
+    // Update the palace
+    const updateResult = await memoryPalaceCollection.replaceOne(
+      { _id: new ObjectId(palaceId) },
+      palace
+    );
+
+    if (updateResult.matchedCount > 0) {
+      res.json({
+        success: true,
+        message: 'ToDoList updated successfully.',
+        updatedToDoList: palace.Rooms[roomId].ToDoList
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'Failed to update ToDoList.'
+      });
+    }
+  } catch (error) {
+    console.error("Error updating ToDoList:", error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update ToDoList.',
+      error: error
+    });
+  }
+});
+
+
+
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
