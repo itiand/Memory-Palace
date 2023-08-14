@@ -13,6 +13,12 @@ function RoomView() {
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
   const { roomImg, name } = selectedRoom;
 
+
+  const handleRoomClose = () => {
+  //   setSelectedRoom({}) $$$
+  window.reg_view.showModal();
+  }
+
   const handleSaveMemory = () => {
     changePalaceEntry("PalaceToDoList", tasks);
     window.add_memory_view.close();

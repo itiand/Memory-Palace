@@ -56,12 +56,15 @@ const TodoList = () => {
         id: Date.now(),
         keyword: newKeyword,
         definition,
+
         option: showDefinitionInput ? 'custom' : 'notDefine',
+
         // Store the selected option with the task
         DrawDescription: "",
         generatedImage: "",
         NarratorDescription: "",
       };
+        
       setTasks([...tasks, newTask]);
       setNewKeyword('');
       setNewDefinition('');
@@ -73,6 +76,7 @@ const TodoList = () => {
       setErrorMessage('Keyword field must be filled.');
     }
   };
+
 
   const handleAddTask = (e) => {
     e.preventDefault()
