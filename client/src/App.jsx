@@ -151,7 +151,7 @@ function App() {
       <AddMemory />
       <div className="-mt-8 flex flex-col items-center justify-around h-5/6">
         <h1 className="mt-6 text-center text-5xl">My Palaces</h1>
-        <div className="container carousel-container mx-auto">
+        <div className="container  text-center carousel-container mx-auto">
           <div className="carousel mx-auto mt-7 rounded-lg">
             {memoryPalaceCarousel}
           </div>
