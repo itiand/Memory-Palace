@@ -80,7 +80,6 @@ const TodoList = () => {
   const handleAddTask = () => {
     addTask();
     getChatResponseFromServer(newKeyword);
- 
   };
 
   const handleKeyPress = (event) => {
