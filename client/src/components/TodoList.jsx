@@ -116,11 +116,12 @@ const TodoList = () => {
   };
 
 
-  const handleGenerate = (e, keyword, definition) => {
+  const handleGenerate = async (e, keyword, definition) => {
     e.preventDefault();
     const content = `${keyword}: ${definition} - Give me a simple metaphor/symbol to help me remember this. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word.`
 
-    const resonse = getChatResponseFromServer(content)
+    const resonse = await getChatResponseFromServer(content)
+    console.log('WALDO', resonse)
     //response = get chat gpt to give a symbol 
     //attach a action --> anthony's method
     //aiImage = getImage(symbol + action)
