@@ -125,6 +125,53 @@
   //     });
   // });
   
+
+const palaceExample = {
+  PalaceName: "The Office", // NEEDED,
+  PalaceDescription: "Where paper business thrives.",
+  PalaceCoverImg: "https://i0.wp.com/lokagraph.com/wp-content/uploads/2018/05/dunder-Mifflin-building-the-office-where-location.jpg?fit=2048%2C1280", //NEEDED
+  Rooms: [
+    { 
+      id: "23jJ39",
+      roomName: "Main Office",
+      roomDescription: "where paper magic happens",
+      roomImg: "https://media.timeout.com/images/105824238/750/422/image.jpg",
+      toDoLists: [
+        {
+          x: 0,
+          y: 0,
+          toDoItem: null,
+        }
+      ],
+    },
+    {
+      id: "dsdse2d",
+      roomName: "lunch room",
+      roomDescription: "place to eat - has vending machine, microwave, and fridge",
+      roomImg: "https://media.timeout.com/images/105824267/image.jpg",
+      toDoLists: [
+        {
+          x: 0,
+          y: 0,
+          toDoItem: null,
+        }
+      ]
+    },
+    {
+      roomName: "michael's office",
+      roomDescription: "lots of items on desk as reference point",
+      roomImg: "https://virtual-bg.com/wp-content/uploads/2020/06/the-office-2-background-for-teams-or-zoom-1536x864.jpg",
+      toDoLists: [
+        {
+          x: 0,
+          y: 0,
+          toDoItem: null,
+        }
+      ]
+    },
+  ] 
+};
+
   
   // CREATE: New Memory Palace
   app.post('/initMemoryPalace', async (req, res) => {

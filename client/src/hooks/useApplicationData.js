@@ -40,9 +40,9 @@ const useApplicationData = () => {
   //   const newRoomObject = {
   //     id: newRoomId,
   //     roomImg: roomUrl,
-  //     name: roomName,
+  //     roomName: roomName,
   //     roomDescription: roomDescription,
-  //     Pins: [
+  //     roomPins: [
   //       {
   //         x: null,
   //         y: null,
