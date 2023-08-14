@@ -382,8 +382,8 @@ const selectRoom = (roomId) => {
         body: JSON.stringify({ content }), // Send the content as a JSON payload
       });
       const data = await response.json();
-      changePalaceEntry("NewImage", data.response);
-      // return data.response;
+      // changePalaceEntry("NewImage", data.response);
+      return data.response;
     } catch (error) {
       console.error('Error fetching image response:', error);
       return 'An error occurred';

@@ -122,7 +122,7 @@ const TodoList = ({ randomOddState }) => {
 
     const response = await getChatResponseFromServer(content) //response = get chat gpt to give a symbol 
     console.log(response)
-    const responseWithAction = await randomOddState(response)
+    const responseWithAction = await randomOddState(response)  //attach a action --> anthony's method
 
     const updatedTasks = tasks.map(task => {
       if (task.keyword === keyword) {
@@ -134,9 +134,7 @@ const TodoList = ({ randomOddState }) => {
       return task;
   });
   setTasks(updatedTasks);
-    //
 
-    //attach a action --> anthony's method
     //aiImage = getImage(symbol + action)
     //return Aimage
 
@@ -200,12 +198,13 @@ const TodoList = ({ randomOddState }) => {
             onDrop={(e) => handleSortOver(e, task.id)}
             onDragEnd={handleSortEnd}
           >
-            <div className="flex text-sm items-center space-x-2">
+            <div className="flex text-sm items-center space-x-2 mb-2">
               <span style={{ marginRight: '10px', fontSize: '1.2rem' }}>{index + 1}.</span>
               <strong>{task.keyword}:</strong>
               {task.option === 'define' && <span> will return definition</span>}
               {task.option === 'custom' && <span> {task.definition}</span>}
-              {task.drawDescription && <span> {task.drawDescription}</span>} 
+              {task.drawDescription && <span className="text-green-800"><em>{task.drawDescription}</em></span>} 
+              <img className="w-40 border-2 border-neutral-500 rounded-lg" src="https://openailabsprodscus.blob.core.windows.net/private/user-osAbBO59ww5BxmQOppRnsyp7/generations/generation-I7319XV2C4HqL4ucWE8csKVG/image.webp?st=2023-08-14T21%3A00%3A07Z&se=2023-08-14T22%3A58%3A07Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/webp&skoid=15f0b47b-a152-4599-9e98-9cb4a58269f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-14T14%3A51%3A43Z&ske=2023-08-21T14%3A51%3A43Z&sks=b&skv=2021-08-06&sig=JnYu2nsjEu2kDFAWxXvE6QL/L5xNF5dBU7MkT0Cyy60%3D"></img>
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
