@@ -25,24 +25,27 @@ function App() {
     //   fetchMemoryPalaces,
     // setMemoryPalaces,
 
-    themes,
-    memoryPalaces,
-    selectedPalace,
-    setSelectedPalace,
+      
+      themes,
+      memoryPalaces, 
+      selectedPalace, 
+      setSelectedPalace,
+  
+      findPalaceById,
+      switchSelectPalaceById,  
+      switchToLastPalace,
+      createNewPalace,
+      deleteCurrentSelectedPalace,  
+      changePalaceEntry,
+      deletePalaceEntry, 
+      savePalaceState,
+      createPalaceExample,
+      getChatResponseFromServer,
+      getImageResponseFromServer,
+      setSelectedRoom,
+      tasks,
 
-    findPalaceById,
-    switchSelectPalaceById,
-    switchToLastPalace,
-    createNewPalace,
-    deleteCurrentSelectedPalace,
-    changePalaceEntry,
-    deletePalaceEntry,
-    savePalaceState,
-    createPalaceExample,
-    getChatResponseFromServer,
-    getImageResponseFromServer,
-
-  } = useContext(PalaceContext);
+  } = useContext( PalaceContext );
 
 
   useEffect(() => {
@@ -86,6 +89,8 @@ function App() {
     // getChatResponseFromServer('fat cat playing game');
 
     // getChatResponseFromServer('what is the conversion rate of human years to cat years?');
+
+    () => setSelectedRoom.ToDoList = tasks;
 
   };
   const handleTestClick2 = () => {
