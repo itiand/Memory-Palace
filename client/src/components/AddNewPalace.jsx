@@ -44,8 +44,12 @@ const AddNewPalace = () => {
 
   return (
     <dialog id="add_palace_view" className="modal">
-      <div className="modal-box w-11/12 max-w-5xl">
+      <div className="modal-box add-palace-modal-box w-11/12 max-w-5xl">
         <h3 className="font-bold text-lg">New Palace:</h3>
+
+        <div className="textInput">
+
+
         <div className="input-section">
           <label>Add Palace Name: </label>
           <input
@@ -56,8 +60,8 @@ const AddNewPalace = () => {
             className="input input-bordered input-info input-xs w-full max-w-xs"
           />
         </div>
-        {/* <div className="input-section">
-          <label>Add Palace Cover Photo</label>
+        <div className="input-section">
+          <label>Add Palace Cover Photo:</label>
           <input
             type="text"
             placeholder="Palace Cover Image Url"
@@ -65,21 +69,23 @@ const AddNewPalace = () => {
             onChange={handleNewPalaceUrl}
             className="input input-bordered input-info input-xs w-full max-w-xs"
           />
-        </div> */}
-        <div className="input-section">
-          <label>Add Palace Description </label>
+        </div>
+        <div className="input-section-Description">
+          <label className="Palace Description">Add Palace Description: </label> 
           <textarea
-            placeholder="Palace Description"
+            placeholder="PalaceDescription"
             value={newPalaceDescription}
             onChange={handleNewPalaceDescriptionChange}
             className="textarea textarea-info"
           />
         </div>
+        
         <img
           src="https://images.pexels.com/photos/277559/pexels-photo-277559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           className="image-box w-60 mx-auto"
           alt="Palace Image"
         />
+        </div>
         <div className="modal-action">
           <button
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"

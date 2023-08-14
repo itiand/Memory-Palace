@@ -2,3 +2,22 @@
 display:flex;
 justify-content: space-around;
 }
+
+.add-palace-modal-box{
+  height: 60vh;
+}
+.textInput {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  justify-content: space-between;
+}
+.input-section-Description{
+  display: flex;
+  flex-direction: column;
+}
+
+// .PalaceDescription{
+//   display: flex;
+//   align-items: center;
+// }
