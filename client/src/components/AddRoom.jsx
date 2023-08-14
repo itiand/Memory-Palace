@@ -17,6 +17,7 @@ const AddRoom = () => {
     changePalaceEntry,
     tasks,
     setTasks,
+    createNewRoom
     
   } = useContext(PalaceContext);
   const [roomName, setRoomName] = useState("");
@@ -59,25 +60,6 @@ const AddRoom = () => {
   //     console.error("An error occurred:", error);
   //   }
   // };
-  // Creating New Room (with basic frame)
-  const createNewRoom = () => {
-    const newRoomObject = {
-      roomImg: roomUrl,
-        name: roomName,
-        roomDescription: roomDescription,
-        Pins: [
-          {
-            x: null,
-            y: null,
-            toDoItem: null,
-          }
-        ]
-      };
-    const newArray = selectedPalace["Rooms"];
-    newArray.push((newRoomObject))
-
-    changePalaceEntry("Rooms", newArray);
-};
 
 
   const handleRoomNameChange = (event) => {

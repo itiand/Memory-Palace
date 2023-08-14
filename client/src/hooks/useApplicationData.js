@@ -204,7 +204,6 @@ const useApplicationData = () => {
         PalaceName: PalaceName,
         PalaceDescription: PalaceDescription,
         PalaceCoverImg: "https://www.richardtmoore.co.uk/wp-content/uploads/2016/10/btx-placeholder-04-2-1024x683.jpg",
-        PalaceToDoList:{},
         Rooms:[],
       };
       initAndFetchNewMemoryPalace(newPalaceData);
