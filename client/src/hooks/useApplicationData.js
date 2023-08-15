@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const { themes } = tailwindConfig;
 
 
+
 const useApplicationData = () => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
@@ -382,8 +383,117 @@ const createNewPalace = (PalaceName, PalaceDescription) => {
   }
   
 
+const speechSynthesis = window.speechSynthesis;
+const randomSaying = (mode) => {
+  // depending on mode, "return intro, phrase, lol string"
+  if (mode === "intro") {
+  const intro = [
+    // "...Welcome to your Memory Palace...",
+    // "...Hello There!...",
+    // "...Are you ready to begin your Memory Journey?...",
+    // "...Let's see what we can remember today!...",
+    // "Welcome to MovieRecapped...oh wait, I meant welcome to your Mind Palace.",
+    "Welcome to your very own Mind Palace. It's my pleasure to help you remember everything! Let's get started!",
+  ];
+  const randomIndex = Math.floor(Math.random() * intro.length);
+  const randomIntro = `${intro[randomIndex]}...Your journey begins in the ${selectedRoom.roomName}...The first item on your journey is`;
+  
+  return randomIntro;
+}
+  if (mode === "bridge") {
+    const bridge = [
+      "Next you see",
+      "Your eyes drift towards",
+      "Moving on. Now you find yourself standing in front of.",
+      "What do we have next? Oh!, it's",
+      "Next you notice",
+      "Suddenly, you see",
+      "Next item on your journey is",
+      "After that we arrive at",
+      "Next stop on the tour is",
+      "On with the tour. No dawdling. Next we have",
+    ];
+    const randomIndex = Math.floor(Math.random() * bridge.length);
+    const randomPhrase = bridge[randomIndex];
+    return randomPhrase;
+  }
+  if (mode === "lol") {
+    const lol = [
+      "How odd! But still, splendid!",
+      "Facinating!...Marvelous...Bravo!",
+      "What fun! I can't wait to see what's next!",
+      "Very interesting isn't it!",
+      "Reminds me of when I was just a wee babe.",
+      "You don't see that everyday!",
+      "Oh my, how wonderful!",
+      "Even I think that will be hard to forget!",
+      "You're sure to remember that one, wont you?",
+      "Just remember, if she doesn't find you handsome, she should at least find you handy.",
+      "That's adorable!",
+      "Remembering isn't everything...It's the only thing.",
+      "Lock in that memory! Splendid!",
+      "I wonder. I'm 90 percent sure I turned off my stove before coming here!",
+      "How positively drole!",
+      "They originally wanted Morgan Freeman for this job!",
+    ];
+  
+    const randomIndex = Math.floor(Math.random() * lol.length);
+    const randomLol = lol[randomIndex];
+    return randomLol;
+  }
+};
+const scream = () => {
+  alert('Scream function executed');
+}
+// Set up a function to read text out loud
+const speakText = (text) => {
+  const speak = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    console.log(speechSynthesis.getVoices());
+    utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === "Google UK English Male"); // Fred, Karen,Google UK English Male, Google UK English Female,
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    speechSynthesis.speak(utterance);
+  };
+  return speak;
+};
+const generateNarrateArray = () => {
+  const ToDoList = selectedRoom.ToDoList;
+  const array = [
+    scream,
+    randomSaying('intro'),
+    scream,
+    `${ToDoList[0].keyword}.Defined as ${ToDoList[0].definition}. You're memory cue is ${ToDoList[0].drawDescription}`,
+  ];
+  for (let i = 1; i < ToDoList.length; i++) {array.push(
+      scream,
+      randomSaying('lol'),
+      randomSaying('bridge'),
+      `${ToDoList[i].keyword}.Defined as ${ToDoList[i].definition}. Your memory cue prompt is ${ToDoList[i].drawDescription}`,
+    );
+  }
+  array.push("Well that's everything for now!...Till next time!...Bye for now!");
+  return array;
+};
+const startReadingAndActions = () => {
+  const array = generateNarrateArray(selectedRoom.ToDoList);
+  for (let currentIndex = 0; currentIndex < array.length; currentIndex++) {
+    const arrayElement = array[currentIndex];
+    if (typeof arrayElement === 'string') {
+      const speakFunction = speakText(arrayElement);
+      speakFunction();
+      console.log(arrayElement);
+    } else if (typeof arrayElement === 'function') {
+      arrayElement(); // Execute the function
+    } else {
+      console.log("Unknown array element type:", arrayElement);
+    }
+  }
+};
+
 
   return {
+    startReadingAndActions,
     initAndFetchNewMemoryPalace,
     fetchMemoryPalaces,
     getImageResponseFromServer,
@@ -415,7 +525,7 @@ const createNewPalace = (PalaceName, PalaceDescription) => {
     isValidUrl,
     isImageUrl,
     onCloseModal,
-    selectRoom,
+    selectRoom, 
   };
 };
 
