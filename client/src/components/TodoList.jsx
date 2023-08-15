@@ -15,6 +15,7 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
   const [showDefinitionInput, setShowDefinitionInput] = useState(false);
   const [newDefinition, setNewDefinition] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [generating, setGenerating] = useState(false);
 
   const keywordInputRef = useRef(null); // Ref for the keyword input
   const definitionInputRef = useRef(null); // Ref for the definition input
@@ -64,9 +65,9 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
         narratorDescription: "",
         x: 2,
         y: 2,
-        isDragging: false, 
-        }
-      
+        isDragging: false,
+      }
+
 
       setTasks([...tasks, newTask]);
       setNewKeyword('');
@@ -75,8 +76,8 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
       setErrorMessage('');
 
       keywordInputRef.current.focus(); // Focus the keyword input again
-      } else {
-        setErrorMessage('Keyword field must be filled.');
+    } else {
+      setErrorMessage('Keyword field must be filled.');
     }
   };
 
@@ -122,8 +123,9 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
 
   const handleGenerate = async (e, keyword, definition) => {
     e.preventDefault();
+    setGenerating(true)
     const content = `${keyword}: ${definition} - For a memory palace. Give me a simple and tangible noun, that's easy to draw, to help me remember ${keyword}. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word, do not include a period.`;
-
+    
     const response = await getChatResponseFromServer(content); //response = get chat gpt to give a symbol 
     console.log(response);
     const responseWithAction = await randomOddState(response);  //attach a action --> anthony's method
@@ -140,6 +142,7 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
       return task;
     });
     setTasks(updatedTasks);
+    await setGenerating(false)
   };
 
 
@@ -199,6 +202,11 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
+              {generating === true &&
+              <button type="button" disabled>
+                Processing...
+              <span className="loading loading-spinner text-info"></span>
+              </button>}
               <button
                 onClick={() => handleDeleteTask(task.id)}
                 className="btn btn-outline btn-error btn-xs m-3"
