@@ -7,7 +7,7 @@ const { themes } = tailwindConfig;
 const useApplicationData = () => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
-
+  const [tasks, setTasks] = useState([]);
 
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
@@ -357,6 +357,7 @@ const createNewPalace = (PalaceName, PalaceDescription) => {
     selectedPalace, setSelectedPalace,
     isEditMode, setIsEditMode,
     selectedRoom,setSelectedRoom,
+    tasks, setTasks,
     newImageURL, setNewImageURL,
     
     deleteAndSwitchToLastPalace,
@@ -368,6 +369,7 @@ const createNewPalace = (PalaceName, PalaceDescription) => {
     savePalaceState,
     updateMemoryPalace,
     updateToDoList,
+
     changePalaceEntry,
     switchToLastPalace,
     switchSelectPalaceById,
