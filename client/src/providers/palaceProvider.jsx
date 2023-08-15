@@ -3,11 +3,13 @@ import { createContext } from "react";
 import useApplicationData from "../hooks/useApplicationData";
 
 
+
 export const PalaceContext = createContext();
 
 const PalaceProvider = (props) => {
   const { 
-    initAndFetchNewMemoryPalace,
+      startReadingAndActions,
+      initAndFetchNewMemoryPalace,
       deleteAndSwitchToLastPalace,
       updateMemoryPalace,
       fetchMemoryPalaces,
@@ -56,6 +58,7 @@ const PalaceProvider = (props) => {
 
   return (
     <PalaceContext.Provider value={{ 
+      startReadingAndActions,
       initAndFetchNewMemoryPalace,
       deleteAndSwitchToLastPalace,
       updateMemoryPalace,
@@ -87,12 +90,10 @@ const PalaceProvider = (props) => {
       newImageURL,
       setNewImageURL,
 
-      createNewRoom,
       selectRoom,
       selectedRoom,
       changeRoomEntry,
       setSelectedRoom,
-      createNewRoom,
       updateToDoList,
 
     }}>

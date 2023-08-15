@@ -6,12 +6,12 @@ import TodoList from "./TodoList";
 
 
 function RoomView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList} = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions,} = useContext(PalaceContext);
   const [icons, setIcons] = useState(selectedRoom.roomPins);
 
 
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
-  const { roomImg, roomName } = selectedRoom;
+  const { roomImg, roomName} = selectedRoom;
 
 
   const handleRoomClose = () => {
@@ -22,13 +22,17 @@ function RoomView() {
   const handleSaveMemory = (e, palaceId, roomId, tasksState) => {
     e.preventDefault()
     console.log('RIGHT HERE', palaceId, roomId, tasksState)
-
     updateToDoList(palaceId, roomId, tasksState)
-
     // changePalaceEntry(Rooms, tasks);
     // window.add_memory_view.close();
     // window.reg_view.showModal();
   };
+
+  const handleStoryMode = (e) => {
+    e.preventDefault()
+    startReadingAndActions();
+
+  }
   
   // const handleRoomClose = () => {
   //   setSelectedRoom({})
@@ -111,6 +115,7 @@ function RoomView() {
             onClick={(e) => {handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks)}}
           >Save Memory</button>
           </section>
+          <button className="btn" onClick={handleStoryMode}>StoryMode</button>
         </form>
       </dialog>
     </>
