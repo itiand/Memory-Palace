@@ -6,8 +6,8 @@ import TodoList from "./TodoList";
 
 
 function RoomView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList } = useContext(PalaceContext);
-
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, updateToDoList } = useContext(PalaceContext);
+  const [tasks, setTasks] = useState([])
   const [isEditRoomMode, setIsEditRoomMode] = useState(false);
   const [icons, setIcons] = useState(selectedRoom.roomPins);
 
@@ -119,7 +119,7 @@ function RoomView() {
           <section className="mt-4">
             <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
             {isEditRoomMode && <section id="to_make_list">
-              <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} />
+              <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} tasks={tasks} setTasks={setTasks}/>
               <button
                 className="btn"
                 onClick={(e) => { handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks); }}

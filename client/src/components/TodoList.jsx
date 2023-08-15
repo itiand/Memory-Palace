@@ -2,13 +2,14 @@ import { useState, useRef, useContext } from 'react';
 import { PalaceContext } from '../providers/palaceProvider';
 import { v4 as uuidv4 } from 'uuid';
 
-const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
+const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode, tasks, setTasks }) => {
+  
   const {
     getChatResponseFromServer,
     getImageResponseFromServer
   } = useContext(PalaceContext);
 
-  const [tasks, setTasks] = useState([]);
+;
 
   const [newKeyword, setNewKeyword] = useState('');
   const [showDefinitionInput, setShowDefinitionInput] = useState(false);
@@ -176,7 +177,7 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
       </div>
       <div style={{ color: 'red' }}>{errorMessage}</div>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {tasks.map((task, index) => (
+        {tasks && tasks.map((task, index) => (
           <li
             key={task.id}
             draggable
