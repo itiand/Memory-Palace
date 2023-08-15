@@ -24,6 +24,7 @@ function RoomView() {
 
   const handleSaveMemory = async (e, palaceId, roomId, tasksState) => {
     e.preventDefault();
+  
     console.log('RIGHT HERE', palaceId, roomId, tasksState);
 
     const updateResponse = await updateToDoList(palaceId, roomId, tasksState);
@@ -33,9 +34,13 @@ function RoomView() {
       setSelectedRoom(updateResponse.updatedRoom)
       alert("Save Successful!")
       setIsEditRoomMode(false)
+      const newId = selectedRoom._id;
+      selectedPalace.Rooms[newId].ToDoList = tasks;
+      savePalaceState();
     } else {
       alert("Failed to save! " + (updateResponse.message || ""));
     }
+    
     // window.add_memory_view.close();
     // window.reg_view.showModal();
   };
