@@ -228,25 +228,27 @@ const selectRoom = (roomId) => {
   //   }
   // };
 
-  const updateToDoList = async (roomId, newToDoList) => {
-    // $$$
-    try {
-      const response = await YourRoomModel.updateOne(
-        { "Rooms._id": roomId },
-        { $set: { "Rooms.$.ToDoList": newToDoList } }
-      );
+
+
+  // const updateToDoList = async (roomId, newToDoList) => {
+  //   try {
+  //     const response = await YourRoomModel.updateOne(
+  //       { "Rooms._id": roomId },
+  //       { $set: { "Rooms.$.ToDoList": newToDoList } }
+  //     );
+
   
-      if (response.nModified === 1) {
-        console.log("ToDoList updated successfully");
-      } else {
-        console.log("Failed to update ToDoList");
-      }
-    } catch (error) {
-      console.error("Error updating ToDoList:", error);
-    }
-    await savePalaceState;
-    console.log("PalaceStateSaved");
-  };
+  //     if (response.nModified === 1) {
+  //       console.log("ToDoList updated successfully");
+  //     } else {
+  //       console.log("Failed to update ToDoList");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating ToDoList:", error);
+  //   }
+  //   await savePalaceState;
+  //   console.log("PalaceStateSaved");
+  // };
 
   const deletePalaceEntry = (key) => {
     // Delete an Entry by its Key from selectedPalace
@@ -365,14 +367,42 @@ const createNewPalace = (PalaceName, PalaceDescription) => {
         body: JSON.stringify({ content }), // Send the content as a JSON payload
       });
       const data = await response.json();
-      changePalaceEntry("NewImage", data.response);
-      // return data.response;
+      // changePalaceEntry("NewImage", data.response);
+      return data.response;
     } catch (error) {
       console.error('Error fetching image response:', error);
       return 'An error occurred';
     }
 
   };
+
+  async function updateToDoList(palaceId, roomId, tasksState) {
+    try {
+      const response = await fetch('api/updateToDoList', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          palaceId: palaceId,
+          roomId: roomId,
+          tasksState: tasksState
+        })
+      });
+  
+      // Check if the request was successful
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+      }
+  
+      // Parse and return the JSON response from the server
+      return await response.json();
+    } catch (error) {
+      console.error('Error updating ToDoList:', error);
+      throw error;
+    }
+  }
+  
 
 
   return {
