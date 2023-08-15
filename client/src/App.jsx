@@ -14,8 +14,6 @@ import AddRoom from "./components/AddRoom";
 import AddMemory from "./components/AddMemory";
 
 
-
-
 const App = () => {
   
   const {
@@ -28,6 +26,7 @@ const App = () => {
     memoryPalaces, 
     selectedPalace, 
     setSelectedPalace,
+    selectedRoom,
     findPalaceById,
   switchSelectPalaceById,  
   switchToLastPalace,
@@ -46,91 +45,90 @@ const App = () => {
 const speechSynthesis = window.speechSynthesis;
 const [voices, setVoices] = useState([]);
 
+
 useEffect(() => {
     themeChange(false);
   }, []);
   
-  
-  const ToDoList = [
-    {
-      keyword: "Panda",
-      definition: "defintion 1",
-      dalleImage: "",
-      narraration: "narration 1",
-      drawDescription: "drawDescription 1",
-      x : 2,
-      y : 2,
-    },
-    {
-      keyword: "Racoon",
-      definition: "defintion 2",
-      dalleImage: "",
-      narraration: "narration 2",
-      drawDescription: "drawDescription 2",
-      x : 2,
-      y : 2,
-    },
-    {
-      keyword: "Bear",
-      definition: "defintion 3",
-      dalleImage: "",
-      narraration: "narration 3",
-      drawDescription: "drawDescription 3",
-      x : 2,
-      y : 2,
-    },
-    {
+  // const ToDoList = [
+  //   {
+  //     keyword: "Panda",
+  //     definition: "defintion 1",
+  //     dalleImage: "",
+  //     narraration: "narration 1",
+  //     drawDescription: "drawDescription 1",
+  //     x : 2,
+  //     y : 2,
+  //   },
+  //   {
+  //     keyword: "Racoon",
+  //     definition: "defintion 2",
+  //     dalleImage: "",
+  //     narraration: "narration 2",
+  //     drawDescription: "drawDescription 2",
+  //     x : 2,
+  //     y : 2,
+  //   },
+  //   {
+  //     keyword: "Bear",
+  //     definition: "defintion 3",
+  //     dalleImage: "",
+  //     narraration: "narration 3",
+  //     drawDescription: "drawDescription 3",
+  //     x : 2,
+  //     y : 2,
+  //   },
+  //   {
       
-      keyword: "Beaver",
-      definition: "defintion 4",
-      dalleImage: "",
-      narraration: "narration 4",
-      drawDescription: "drawDescription 4",
-      x : 2,
-      y : 2,
-    },
-    {
-      keyword: "Aardvark",
-      definition: "defintion 5",
-      dalleImage: "",
-      narraration: "narration 5",
-      drawDescription: "drawDescription 5",
-      x : 2,
-      y : 2,
-    },
+  //     keyword: "Beaver",
+  //     definition: "defintion 4",
+  //     dalleImage: "",
+  //     narraration: "narration 4",
+  //     drawDescription: "drawDescription 4",
+  //     x : 2,
+  //     y : 2,
+  //   },
+  //   {
+  //     keyword: "Aardvark",
+  //     definition: "defintion 5",
+  //     dalleImage: "",
+  //     narraration: "narration 5",
+  //     drawDescription: "drawDescription 5",
+  //     x : 2,
+  //     y : 2,
+  //   },
 
-    {
-      keyword: "Aardvark",
-      definition: "defintion 5",
-      dalleImage: "",
-      narraration: "narration 5",
-      drawDescription: "drawDescription 5",
-      x : 2,
-      y : 2,
-    },
+  //   {
+  //     keyword: "Aardvark",
+  //     definition: "defintion 5",
+  //     dalleImage: "",
+  //     narraration: "narration 5",
+  //     drawDescription: "drawDescription 5",
+  //     x : 2,
+  //     y : 2,
+  //   },
 
-    {
-      keyword: "Aardvark",
-      definition: "defintion 5",
-      dalleImage: "",
-      narraration: "narration 5",
-      drawDescription: "drawDescription 5",
-      x : 2,
-      y : 2,
-    },
+  //   {
+  //     keyword: "Aardvark",
+  //     definition: "defintion 5",
+  //     dalleImage: "",
+  //     narraration: "narration 5",
+  //     drawDescription: "drawDescription 5",
+  //     x : 2,
+  //     y : 2,
+  //   },
 
-    {
-      keyword: "Aardvark",
-      definition: "defintion 5",
-      dalleImage: "",
-      narraration: "narration 5",
-      drawDescription: "drawDescription 5",
-      x : 2,
-      y : 2,
-    },
-  ];
+  //   {
+  //     keyword: "Aardvark",
+  //     definition: "defintion 5",
+  //     dalleImage: "",
+  //     narraration: "narration 5",
+  //     drawDescription: "drawDescription 5",
+  //     x : 2,
+  //     y : 2,
+  //   },
+  // ];
  
-
 const randomOddState = (keyword) => {
   // takes in keyword and returns "keyword + funny string"
   const odd = [
@@ -165,14 +163,15 @@ const randomSaying = (mode) => {
   // depending on mode, "return intro, phrase, lol string"
   if (mode === "intro") {
   const intro = [
-    "...Welcome to your Memory Palace...",
-    "...Hello There!...",
-    "...Are you ready to begin your Memory Journey?...",
-    "...Let's see what we can remember today!...",
-    "...Hello there!...Welcome to your inner mind. Let me show you around...",
+    // "...Welcome to your Memory Palace...",
+    // "...Hello There!...",
+    // "...Are you ready to begin your Memory Journey?...",
+    // "...Let's see what we can remember today!...",
+    "Welcome to your very own Mind Palace...There's a lot to learn, so let's get started!",
   ];
   const randomIndex = Math.floor(Math.random() * intro.length);
-  const randomIntro = `${intro[randomIndex]}... Let's begin shall we?... Your journey begins in the Kitchen...`;
+  const randomIntro = `${intro[randomIndex]}...Let's begin shall we?...Your journey begins in the ${selectedRoom.roomName}...The first item on your journey is a`;
+  
   return randomIntro;
 }
   if (mode === "bridge") {
@@ -219,13 +218,13 @@ const randomSaying = (mode) => {
   }
 };
 
+
 // Set up a function to read text out loud
 const speakText = (text) => {
   const speak = () => {
     const utterance = new SpeechSynthesisUtterance(text);
     console.log(speechSynthesis.getVoices());
     utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === "Google UK English Female");
-    
     // Fred, Karen,Google UK English Male, Google UK English Female,
     utterance.rate = 1;
     utterance.pitch = 1;
@@ -234,27 +233,26 @@ const speakText = (text) => {
   return speak;
 };
 
-
-
-const generateFakeArray = () => {
-  const fakeArray = [
-    `Welcome to your very own Mind Palace...There's a lot to learn, so let's get started!...The first item on our journey involves a ${randomOddState(ToDoList[0].keyword)}`,
+const generateNarrateArray = () => {
+  const ToDoList = selectedRoom.ToDoList;
+  const array = [
+    randomSaying('intro'),
+    randomOddState(ToDoList[0].keyword),
   ];
-
-  for (let i = 1; i < ToDoList.length; i++) {
-    fakeArray.push(
+  // $$$ add pin interactions
+  for (let i = 1; i < ToDoList.length; i++) {array.push(
       randomSaying('lol'),
       randomSaying('bridge'),
       randomOddState(`${ToDoList[i].keyword}`),
     );
   }
-  fakeArray.push("Well that's everything for now!...Till next time!...Bye-Bye!");
-  console.log(fakeArray);
-  return fakeArray;
+  array.push("Well that's everything for now!...Till next time!...Bye-Bye!");
+  console.log(array);
+  return array;
 };
 
 const startReadingAndActions = () => {
-  const fakeArray = generateFakeArray(ToDoList);
+  const fakeArray = generateNarrateArray(selectedRoom.ToDoList);
 
   let currentIndex = 0;
   const performAction = () => {
@@ -290,8 +288,6 @@ const startReadingAndActions = () => {
 
 
 
-
-
 const handlePalaceClick = (selected) => {
   setSelectedPalace(selected); // clicked palace as the selected palace state
   window.reg_view.showModal();
@@ -308,7 +304,6 @@ const memoryPalaceCarousel = memoryPalaces.map((palace) => {
 });
 
 // const handleTestClick1 = () => {
-//   speakText('hello');
 // };
 const handleTestClick2 = () => {
 };
