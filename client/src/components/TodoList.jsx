@@ -201,11 +201,11 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
+              {generating === true &&
               <button type="button" disabled>
                 Processing...
               <span className="loading loading-spinner text-info"></span>
-              </button>
-
+              </button>}
               <button
                 onClick={() => handleDeleteTask(task.id)}
                 className="btn btn-outline btn-error btn-xs m-3"
