@@ -19,6 +19,7 @@ const useApplicationData = () => {
   const onCloseModal = () => {
     // setSelectedRoom({})
     // setSelectedPalace({});
+    savePalaceState();
     setIsEditMode(false);
     setNewImageURL('');
   };

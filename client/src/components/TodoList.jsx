@@ -7,7 +7,8 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
     tasks,
     setTasks,
     getChatResponseFromServer,
-    getImageResponseFromServer
+    getImageResponseFromServer,
+    selectedRoom,
   } = useContext(PalaceContext);
 
   const [newKeyword, setNewKeyword] = useState('');
@@ -205,6 +206,41 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
                 -
               </button>
             </div>
+
+            {/* <div className="flex text-sm items-center space-x-2 mb-2">
+  {selectedRoom.ToDoList.length > 0 ? (
+    <>
+      <span style={{ marginRight: '10px', fontSize: '1.2rem' }}>{index + 1}.</span>
+      <strong>{task.keyword}:</strong>
+      {task.option === 'define' && <span> will return definition</span>}
+      {task.option === 'custom' && <span> {task.definition}</span>}
+      {task.drawDescription && <span className="text-green-800"><em>{task.drawDescription}</em></span>}
+      {task.generatedImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={task.generatedImage}></img>}
+      <button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
+        generate
+      </button>
+      <button onClick={() => handleDeleteTask(task.id)} className="btn btn-outline btn-error btn-xs m-3">
+        -
+      </button>
+    </>
+  ) : (
+    <>
+      <span style={{ marginRight: '10px', fontSize: '1.2rem' }}>{index + 1}.</span>
+      <strong>{selectedRoom.ToDoList.keyword}:</strong>
+      {selectedRoom.ToDoList.option === 'define' && <span> will return definition</span>}
+      {selectedRoom.ToDoList.option === 'custom' && <span> {selectedRoom.ToDoList.definition}</span>}
+      {selectedRoom.ToDoList.drawDescription && <span className="text-green-800"><em>{selectedRoom.ToDoList.drawDescription}</em></span>}
+      {selectedRoom.ToDoList.generatedImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={selectedRoom.ToDoList.generatedImage}></img>}
+      <button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, selectedRoom.ToDoList.keyword, selectedRoom.ToDoList.definition); }}>
+        generate
+      </button>
+      <button onClick={() => handleDeleteTask(selectedRoom.ToDoList._id)} className="btn btn-outline btn-error btn-xs m-3">
+        -
+      </button>
+    </>
+  )}
+</div> */}
+
           </li>
         ))}
       </ul>
