@@ -2,14 +2,14 @@ import { useState, useRef, useContext } from 'react';
 import { PalaceContext } from '../providers/palaceProvider';
 import { v4 as uuidv4 } from 'uuid';
 
-const TodoList = () => {
+const TodoList = ({ randomOddState }) => {
   const {
-    tasks, 
+    tasks,
     setTasks,
     getChatResponseFromServer,
+    getImageResponseFromServer
+  } = useContext(PalaceContext);
 
-  } = useContext( PalaceContext );
-  
   const [newKeyword, setNewKeyword] = useState('');
   const [showDefinitionInput, setShowDefinitionInput] = useState(false);
   const [newDefinition, setNewDefinition] = useState('');
@@ -63,7 +63,7 @@ const TodoList = () => {
         generatedImage: "",
         narratorDescription: "",
       };
-        
+
       setTasks([...tasks, newTask]);
       setNewKeyword('');
       setNewDefinition('');
@@ -78,10 +78,10 @@ const TodoList = () => {
 
 
   const handleAddTask = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     addTask();
   };
-  
+
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();  // Prevent the default form submission
@@ -115,7 +115,30 @@ const TodoList = () => {
     // Add any logic after the item has been sorted (if needed)
   };
 
-   return (
+
+  const handleGenerate = async (e, keyword, definition) => {
+    e.preventDefault();
+    const content = `${keyword}: ${definition} - For a memory palace. Give me a simple and tangible noun, that's easy to draw, to help me remember ${keyword}. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word, do not include a period.`;
+
+    const response = await getChatResponseFromServer(content); //response = get chat gpt to give a symbol 
+    console.log(response);
+    const responseWithAction = await randomOddState(response);  //attach a action --> anthony's method
+    const imageUrl = await getImageResponseFromServer(responseWithAction);
+    console.log('IMAGEURL', imageUrl);
+    const updatedTasks = tasks.map(task => {
+      if (task.keyword === keyword) {
+        return {
+          ...task,
+          drawDescription: responseWithAction,
+          generatedImage: imageUrl
+        };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+
+  return (
     <div>
       <h2>Memory List</h2>
       <div className="flex items-center space-x-2">
@@ -137,17 +160,16 @@ const TodoList = () => {
             placeholder="Enter a definition..."
           />
         )}
-        
-        
+
+
         <button
           onClick={handleToggleDefinition}
-          className={`btn btn-outline ${
-            showDefinitionInput ? 'btn-delete' : 'btn-accent'
-          } btn-xs m-3`}
+          className={`btn btn-outline ${showDefinitionInput ? 'btn-delete' : 'btn-accent'
+            } btn-xs m-3`}
         >
           {showDefinitionInput ? 'Cancel' : 'Definition'}
         </button>
-        
+
         <button onClick={handleAddTask} className="btn btn-outline btn-accent btn-xs m-3">
           +
         </button>
@@ -155,29 +177,34 @@ const TodoList = () => {
       <div style={{ color: 'red' }}>{errorMessage}</div>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
         {tasks.map((task, index) => (
-        <li
-        key={task.id}
-        draggable
-        onDragStart={(e) => handleSortStart(e, task.id)}
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={(e) => handleSortOver(e, task.id)}
-        onDragEnd={handleSortEnd}
-        >
-        <div className="flex items-center space-x-2">
-          <span style={{ marginRight: '10px', fontSize: '1.2rem' }}>{index + 1}.</span>
-          <strong>{task.keyword}:</strong>
-          {task.option === 'define' && <span> will return definition</span>}
-          {task.option === 'custom' && <span> {task.definition}</span>}
-          <button
-            onClick={() => handleDeleteTask(task.id)}
-            className="btn btn-outline btn-accent btn-xs m-3"
+          <li
+            key={task.id}
+            draggable
+            onDragStart={(e) => handleSortStart(e, task.id)}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => handleSortOver(e, task.id)}
+            onDragEnd={handleSortEnd}
           >
-            Delete
-          </button>
-        </div>
-      </li>
-    ))}
-  </ul>
+            <div className="flex text-sm items-center space-x-2 mb-2">
+              <span style={{ marginRight: '10px', fontSize: '1.2rem' }}>{index + 1}.</span>
+              <strong>{task.keyword}:</strong>
+              {task.option === 'define' && <span> will return definition</span>}
+              {task.option === 'custom' && <span> {task.definition}</span>}
+              {task.drawDescription && <span className="text-green-800"><em>{task.drawDescription}</em></span>}
+              {task.generatedImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={task.generatedImage}></img>}
+              < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
+                generate
+              </button>
+              <button
+                onClick={() => handleDeleteTask(task.id)}
+                className="btn btn-outline btn-error btn-xs m-3"
+              >
+                -
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
