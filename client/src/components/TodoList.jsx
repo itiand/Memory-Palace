@@ -2,7 +2,7 @@ import { useState, useRef, useContext } from 'react';
 import { PalaceContext } from '../providers/palaceProvider';
 import { v4 as uuidv4 } from 'uuid';
 
-const TodoList = ({ randomOddState }) => {
+const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
   const {
     tasks,
     setTasks,
@@ -138,9 +138,9 @@ const TodoList = ({ randomOddState }) => {
     setTasks(updatedTasks);
   };
 
+
   return (
-    <div>
-      <h2>Memory List</h2>
+    <div className='py-4'>
       <div className="flex items-center space-x-2">
         <input
           type="text"
