@@ -31,9 +31,15 @@ body {
 }
 
 .modal-box {
+  padding: 2rem 4rem;
   height: fit-content;
-  max-width: 80%;
+  max-width: 70%;
+
+  img {
+    max-width: 950px;
+  }
 }
+
 
 
 @keyframes fadeIn {
