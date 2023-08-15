@@ -29,8 +29,12 @@ function RoomView() {
     const updateResponse = await updateToDoList(palaceId, roomId, tasksState);
 
     if(updateResponse.success === true) {
+      console.log('updateResponse', updateResponse)
+      setSelectedRoom(updateResponse.updatedRoom)
       alert("Save Successful!")
       setIsEditRoomMode(false)
+    } else {
+      alert("Failed to save! " + (updateResponse.message || ""));
     }
     // window.add_memory_view.close();
     // window.reg_view.showModal();
