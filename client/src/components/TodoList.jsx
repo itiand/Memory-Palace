@@ -58,11 +58,14 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
         keyword: newKeyword,
         definition,
         option: showDefinitionInput ? 'custom' : 'notDefine',
-        // Store the selected option with the task
         drawDescription: "",
         generatedImage: "",
         narratorDescription: "",
-      };
+        x: 2,
+        y: 2,
+        isDragging: false, 
+        }
+      
 
       setTasks([...tasks, newTask]);
       setNewKeyword('');
@@ -71,8 +74,8 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
       setErrorMessage('');
 
       keywordInputRef.current.focus(); // Focus the keyword input again
-    } else {
-      setErrorMessage('Keyword field must be filled.');
+      } else {
+        setErrorMessage('Keyword field must be filled.');
     }
   };
 
