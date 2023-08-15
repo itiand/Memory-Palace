@@ -4,11 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
   const {
-    tasks,
-    setTasks,
     getChatResponseFromServer,
     getImageResponseFromServer
   } = useContext(PalaceContext);
+
+  const [tasks, setTasks] = useState([]);
 
   const [newKeyword, setNewKeyword] = useState('');
   const [showDefinitionInput, setShowDefinitionInput] = useState(false);

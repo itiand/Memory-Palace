@@ -7,7 +7,7 @@ const { themes } = tailwindConfig;
 const useApplicationData = () => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
-  const [tasks, setTasks] = useState([]);
+
 
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
@@ -190,43 +190,6 @@ const selectRoom = (roomId) => {
     }
   };
 
-  const changeRoomEntry = async (key, value) => {
-    // Update Single Entry in selectedRoom State
-    console.log("Change Room Entry");
-    if (selectedRoom) {
-      const newSelectedRoom = { ...selectedRoom, [key]: value };
-      await setSelectedRoom(newSelectedRoom);
-      console.log('selectedRoom', selectedRoom);
-      // await updateMemoryRoom(selectedRoom._id, newSelectedRoom);
-      await changePalaceEntry("Rooms", selectedRoom);
-    }
-  };
-  
-  // const changeRoomEntry = async (key, value) => {
-  //   console.log("changeRoomEntry");
-  //   if (selectedRoom) {
-  //     const newSelectedRoom = { ...selectedRoom, [key]: value };
-  //     await setSelectedPalace(newSelectedRoom);
-  //     // console.log('selectedPalace', selectedPalace);
-  //     await updateMemoryPalace(newSelectedPalace._id, newSelectedRoom);
-  //   }
-  // };  
-  // const changeRoomEntry = async (key, value) => {
-  //   console.log("changeRoomEntry");
-  //   if (selectedRoom) {
-  //     // const newSelectedRoom = { ...selectedPalace.Rooms, [key]: value };
-  //     // await setSelectedRoom(newSelectedRoom);
-  //     // console.log('selectedRoom', selectedRoom);
-  //     // await updateMemoryPalace(selectedPalace._id, selectedPalace);
-  //     // selectedRoom[key][0] = value 
-  //     let newSelectedRoom = new selectedRoom;
-  //     newSelectedRoom[key] = value;
-  //     let newSelectedPalace = selectedPalace;
-  //     newSelectedPalace.Rooms = newSelectedRoom;
-  //     await setSelectedPalace(newSelectedPalace);
-  //     await savePalaceState();
-  //   }
-  // };
 
   const deletePalaceEntry = (key) => {
     // Delete an Entry by its Key from selectedPalace
@@ -394,7 +357,6 @@ const createNewPalace = (PalaceName, PalaceDescription) => {
     selectedPalace, setSelectedPalace,
     isEditMode, setIsEditMode,
     selectedRoom,setSelectedRoom,
-    tasks, setTasks,
     newImageURL, setNewImageURL,
     
     deleteAndSwitchToLastPalace,
@@ -406,7 +368,6 @@ const createNewPalace = (PalaceName, PalaceDescription) => {
     savePalaceState,
     updateMemoryPalace,
     updateToDoList,
-    changeRoomEntry,
     changePalaceEntry,
     switchToLastPalace,
     switchSelectPalaceById,

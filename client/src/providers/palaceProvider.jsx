@@ -27,11 +27,9 @@ const PalaceProvider = (props) => {
       deleteCurrentSelectedPalace,
       isValidUrl,
       isImageUrl,
-      tasks,
-      setTasks,
       getChatResponseFromServer,
       getImageResponseFromServer,
-      changeRoomEntry,
+
       
 
       onCloseModal,
@@ -76,8 +74,6 @@ const PalaceProvider = (props) => {
       isImageUrl,
       createNewRoom,
     
-      tasks,
-      setTasks,
       getChatResponseFromServer,
       getImageResponseFromServer,
     
@@ -90,7 +86,6 @@ const PalaceProvider = (props) => {
       createNewRoom,
       selectRoom,
       selectedRoom,
-      changeRoomEntry,
       setSelectedRoom,
       createNewRoom,
       updateToDoList,

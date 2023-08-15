@@ -7,7 +7,6 @@ const AddMemory = () => {
 // const { 
 //   tasks,
 //   changePalaceEntry,
-//   changeRoomEntry,
 //   setSelectedRoom,
 //   selectedPalace,
 //   savePalaceState,
@@ -16,7 +15,6 @@ const AddMemory = () => {
 
   const {
     tasks,
-    changeRoomEntry,
     updateToDoList,
     selectedRoom,
     // changePalaceEntry,
