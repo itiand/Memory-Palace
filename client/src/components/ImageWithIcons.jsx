@@ -1,13 +1,32 @@
 import React, { useState, useRef, useContext } from 'react';
 import { BsFillPinFill } from 'react-icons/bs';
 import { PalaceContext } from '../providers/palaceProvider';
+import PropTypes from 'prop-types';
+
 
 
 // const ImageWithIcons = ({ imageUrl, icons, setIcons }) => {
 //   const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom } = useContext(PalaceContext);
 
-  const ImageWithIcons = ({ imageUrl, icons, setIcons }) => {
+  const ImageWithIcons = (props) => {
+
+    const { imageUrl, setIcons, icons } = props;
+
     const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom } = useContext(PalaceContext);
+
+ 
+    // ImageWithIcons.propTypes = {
+    //   imageUrl: PropTypes.string.isRequired,
+    //   icons: PropTypes.arrayOf(
+    //     PropTypes.shape({
+    //       x: PropTypes.number.isRequired,
+    //       y: PropTypes.number.isRequired,
+    //       isDragging: PropTypes.bool,
+    //     })
+    //   ).isRequired,
+    //   setIcons: PropTypes.func.isRequired,
+    // };
+    
 
   // const imageRef = useRef(null);
   const imageRef = useRef(null);
@@ -42,6 +61,7 @@ import { PalaceContext } from '../providers/palaceProvider';
   };
 
   const togglePinsVisibility = () => {
+    console.log(icons);
     setPinsVisible(prevVisible => !prevVisible);
   };
 
@@ -83,6 +103,7 @@ import { PalaceContext } from '../providers/palaceProvider';
           cursor: 'grab',
           animation: 'pop-in 0.1s ease-out',
           color: 'red',
+          fontSize: '40px',
           boxShadow: '2px 10px 15px -3px rgba(0,0,0,0.8)',
           ...(icon.isDragging && {
             boxShadow: '2px 10px 15px -3px rgba(0,0,0,0.4)',

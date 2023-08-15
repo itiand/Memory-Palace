@@ -7,7 +7,7 @@ import TodoList from "./TodoList";
 
 function RoomView() {
   const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions,} = useContext(PalaceContext);
-  const [icons, setIcons] = useState(selectedRoom.roomPins);
+  const [icons, setIcons] = useState(selectedRoom.TodoList);
 
 
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
@@ -107,7 +107,8 @@ function RoomView() {
           <h4 className="text-sm"><em>{PalaceName}</em></h4>
           <h3 className="font-bold text-lg">{roomName}</h3>
           {/* <img src={roomImg} className="m-auto" alt="" /> */}
-          <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
+          {/* <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons> */}
+             <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
           <section id="to_memorize">
             <TodoList randomOddState={randomOddState} />
             <button
@@ -117,6 +118,7 @@ function RoomView() {
           </section>
           <button className="btn" onClick={handleStoryMode}>StoryMode</button>
         </form>
+
       </dialog>
     </>
   );

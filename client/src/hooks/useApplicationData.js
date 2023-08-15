@@ -547,7 +547,7 @@ const startReadingAndActions = () => {
     isValidUrl,
     isImageUrl,
     onCloseModal,
-    selectRoom,
+    selectRoom, 
   };
 };
 

@@ -51,26 +51,21 @@ const TodoList = ({ randomOddState }) => {
           setErrorMessage('Custom definition cannot be empty.');
           return;
         }
+      }
 
       const newTask = {
         id: uuidv4(),
         keyword: newKeyword,
         definition,
         option: showDefinitionInput ? 'custom' : 'notDefine',
-        // Store the selected option with the task
         drawDescription: "",
         generatedImage: "",
         narratorDescription: "",
-        roomPin: {
-          x: 2,
-          y: 2,
-          isDragging: false, 
+        x: 2,
+        y: 2,
+        isDragging: false, 
         }
-        }
-      }
-      // selectedRoom.roomPin.x
-      // selectedRoom.roomPin.y
-      // selectedRoom.roomPin.isDragging
+      
 
       setTasks([...tasks, newTask]);
       setNewKeyword('');
