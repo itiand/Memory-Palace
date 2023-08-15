@@ -220,7 +220,7 @@ try {
 // UPDATE: ToDoList of a Specific Room in a Memory Palace
 app.put('/updateToDoList', async (req, res) => {
   const { palaceId, roomId, tasksState } = req.body; // Now tasksState is the new ToDoList
-
+  console.log('reqBODY', req.body )
   if (!Array.isArray(tasksState)) {
     return res.status(400).json({
       success: false,
@@ -254,7 +254,8 @@ app.put('/updateToDoList', async (req, res) => {
       res.json({
         success: true,
         message: 'ToDoList updated successfully.',
-        updatedToDoList: palace.Rooms[roomId].ToDoList
+        updatedRoom: palace.Rooms[roomId],
+        updatedToDoList: palace.Rooms[roomId].ToDoList,
       });
     } else {
       res.status(500).json({
