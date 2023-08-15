@@ -5,7 +5,6 @@ const { themes } = tailwindConfig;
 
 
 const useApplicationData = () => {
-
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
   const [tasks, setTasks] = useState([]);
@@ -14,7 +13,6 @@ const useApplicationData = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [newImageURL, setNewImageURL] = useState('');
 
-  
   const [selectedRoom, setSelectedRoom] = useState({});
 
   const onCloseModal = () => {
@@ -24,6 +22,7 @@ const useApplicationData = () => {
     setNewImageURL('');
   };
 
+// $$$
 //   const selectRoom = (roomId) => {
 //     const room = selectedPalace.Rooms.find(r => r.id === roomId);
 //     if (room) {
@@ -56,6 +55,7 @@ const selectRoom = (roomId) => {
       roomName: roomName,
       roomDescription: roomDescription,
       ToDoList: [
+        // Object example, Do Not Delete
         // {
         //   _id : uuidv4(),
         //   keyword: "",
@@ -68,7 +68,6 @@ const selectRoom = (roomId) => {
         // },
       ]
     };
-    
     const updatedRooms = {
       ...selectedPalace.Rooms,
       [newRoomId]: newRoomObject
@@ -76,9 +75,8 @@ const selectRoom = (roomId) => {
     await changePalaceEntry("Rooms", updatedRooms);
   };
 
-
-  // Create a New Memory Palace 
   function initAndFetchNewMemoryPalace(newPalace) {
+    // Create a New Memory Palace 
     fetch("api/initMemoryPalace", {
       method: 'POST',
       headers: {
@@ -106,8 +104,8 @@ const selectRoom = (roomId) => {
       });
   }
 
-  // Fetch All Memory Palaces
   function fetchMemoryPalaces() {
+    // Fetch All Memory Palaces
     fetch("/api/getMemoryPalaces")
       .then(response => {
         if (!response.ok) {
@@ -123,15 +121,13 @@ const selectRoom = (roomId) => {
       });
   }
 
-  // Update Existing Memory Palace
   function updateMemoryPalace(palaceId, updatedData) {
+    // Update Existing Memory Palace
     sendRequest(`/api/update`, 'PUT', { id: palaceId, data: updatedData });
-
   }
 
-  // Delete Palace By ID
-  // delete from Mongo by ID and setSelectedPalace to next on list.
   const deleteAndSwitchToLastPalace = async (idToDelete) => {
+    // Delete Palace from Mongo by ID and setSelectedPalace to next on list.
     try {
       // Send delete request to server
       await fetch(`api/deleteMemoryPalace/${idToDelete}`, {
@@ -151,20 +147,16 @@ const selectRoom = (roomId) => {
     }
   };
 
-
-  // Fetch Response Functions
-  // Utility function to handle fetch responses
+  // Utility Functions to handle Fetch Responses
   function handleResponse(response) {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     return response.json();
   }
-  // Utility function to handle errors
   function handleError(error) {
     console.error("There was a problem:", error.message);
   }
-  // Utility function to send requests
   function sendRequest(url, method, body = null) {
     const options = {
       method,
@@ -186,12 +178,10 @@ const selectRoom = (roomId) => {
     fetchMemoryPalaces();
   }, []);
 
-
-
   // Helper Methods
-  // Update Single Entry in selectedPalace Object
   const changePalaceEntry = async (key, value) => {
-    console.log("changePalaceEntry");
+    // Update Single Entry in selectedPalace State
+    console.log("Change Palace Entry");
     if (selectedPalace) {
       const newSelectedPalace = { ...selectedPalace, [key]: value };
       await setSelectedPalace(newSelectedPalace);
@@ -201,7 +191,8 @@ const selectRoom = (roomId) => {
   };
 
   const changeRoomEntry = async (key, value) => {
-    console.log("changeRoomEntry");
+    // Update Single Entry in selectedRoom State
+    console.log("Change Room Entry");
     if (selectedRoom) {
       const newSelectedRoom = { ...selectedRoom, [key]: value };
       await setSelectedRoom(newSelectedRoom);
@@ -219,7 +210,6 @@ const selectRoom = (roomId) => {
   //     // console.log('selectedPalace', selectedPalace);
   //     await updateMemoryPalace(newSelectedPalace._id, newSelectedRoom);
   //   }
-
   // };  
   // const changeRoomEntry = async (key, value) => {
   //   console.log("changeRoomEntry");
@@ -239,12 +229,14 @@ const selectRoom = (roomId) => {
   // };
 
 
+
   // const updateToDoList = async (roomId, newToDoList) => {
   //   try {
   //     const response = await YourRoomModel.updateOne(
   //       { "Rooms._id": roomId },
   //       { $set: { "Rooms.$.ToDoList": newToDoList } }
   //     );
+
   
   //     if (response.nModified === 1) {
   //       console.log("ToDoList updated successfully");
@@ -258,41 +250,38 @@ const selectRoom = (roomId) => {
   //   console.log("PalaceStateSaved");
   // };
 
-
-
-
-  // Delete an Entry by its Key from selectedPalace
   const deletePalaceEntry = (key) => {
-    console.log('deletePalaceEntry');
+    // Delete an Entry by its Key from selectedPalace
+    console.log('Delete Palace Entry');
     if (selectedPalace) {
       const { [key]: deletedKey, ...updatedPalace } = selectedPalace;
       setSelectedPalace(updatedPalace);
     }
   };
 
+const savePalaceState = () => {
   //Save selectedPalace to MongoDb
-  const savePalaceState = () => {
-    console.log("savePalaceState");
-    if (selectedPalace) {
-      updateMemoryPalace(selectedPalace._id, selectedPalace);
-    }
+  console.log("Save Selected Palace State to Mongo");
+  if (selectedPalace) {
+    updateMemoryPalace(selectedPalace._id, selectedPalace);
+  }
+};
+
+const createNewPalace = (PalaceName, PalaceDescription) => {
+  // Create New Palace (with basic frame)
+  // $$$ consider adding random background generator for cover and to save time $$$
+  console.log("createNewPalace(f)");
+  const newPalaceData = {
+    PalaceName: PalaceName,
+    PalaceDescription: PalaceDescription,
+    PalaceCoverImg: "https://www.richardtmoore.co.uk/wp-content/uploads/2016/10/btx-placeholder-04-2-1024x683.jpg",
+    Rooms:{},
   };
+  initAndFetchNewMemoryPalace(newPalaceData);
+};
 
-    // Create New Palace (with basic frame)
-    // $$$ consider adding random background generator for cover and to save time $$$
-    const createNewPalace = (PalaceName, PalaceDescription) => {
-      console.log("createNewPalace(f)")
-      const newPalaceData = {
-        PalaceName: PalaceName,
-        PalaceDescription: PalaceDescription,
-        PalaceCoverImg: "https://www.richardtmoore.co.uk/wp-content/uploads/2016/10/btx-placeholder-04-2-1024x683.jpg",
-        Rooms:{},
-      };
-      initAndFetchNewMemoryPalace(newPalaceData);
-    }
-
-  // Set selectPalace by ID
   const switchSelectPalaceById = (id) => {
+    // Set selectPalace by ID
     const palaceToSelect = memoryPalaces.find(palace => palace._id === id);
     if (palaceToSelect) {
       console.log("Set Palace by Id", palaceToSelect);
@@ -300,8 +289,8 @@ const selectRoom = (roomId) => {
     }
   };
 
-  // Set selectPalace to last item of memoryPalace
   const switchToLastPalace = () => {
+    // Set selectPalace to last item of memoryPalace
     console.log("switchToLastPalace");
     if (memoryPalaces.length > 0) {
       const lastPalace = memoryPalaces[memoryPalaces.length - 1];
@@ -311,9 +300,8 @@ const selectRoom = (roomId) => {
     }
   };
 
-  // Delete selectedPalace from MongoDb
-  // Whichever is the current selectedPalace will be deleted from MongoDb
   const deleteCurrentSelectedPalace = () => {
+    // Delete currently selectedPalace from MongoDb
     console.log("Deleted current selectPalace from Mongo and switch selectedPalace to last memoryPalace item");
     console.log(selectedPalace._id);
     deleteAndSwitchToLastPalace(selectedPalace._id);
@@ -329,7 +317,6 @@ const selectRoom = (roomId) => {
 
   };
 
-
   const isImageUrl = (url) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -339,9 +326,8 @@ const selectRoom = (roomId) => {
     });
   }
 
-
-   // Function to call the server-side getChatResponse endpoint
-   const getChatResponseFromServer = async (content) => {
+  const getChatResponseFromServer = async (content) => {
+     // Function to call the server-side getChatResponse endpoint
     try {
       const response = await fetch('api/getChatResponse', {
         method: 'POST',
@@ -354,7 +340,6 @@ const selectRoom = (roomId) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
     }
-
       const data = await response.json();
       console.log(data)
         // if (data.success) {
@@ -371,8 +356,8 @@ const selectRoom = (roomId) => {
     }
   };
 
-   // Function to call the server-side getChatResponse endpoint
-   const getImageResponseFromServer = async (content) => {
+  const getImageResponseFromServer = async (content) => {
+     // Function to call the server-side getChatResponse endpoint
     try {
       const response = await fetch('api/getImageResponse', {
         method: 'POST',
@@ -420,50 +405,39 @@ const selectRoom = (roomId) => {
   
 
 
-
   return {
     initAndFetchNewMemoryPalace,
-    deleteAndSwitchToLastPalace,
-    updateMemoryPalace,
     fetchMemoryPalaces,
+    getImageResponseFromServer,
+    getChatResponseFromServer,
+    
     themes,
-    memoryPalaces,
-    selectedPalace,
-    setMemoryPalaces,
-    setSelectedPalace,
-    setIsEditMode,
-    isEditMode,
-    // onCloseModal,
-    selectRoom,
-
-    changePalaceEntry,
-    switchSelectPalaceById,
-    switchToLastPalace,
-    savePalaceState,
-    createNewPalace,
-    // createNewRoom,
-    deletePalaceEntry,
+    memoryPalaces, setMemoryPalaces,
+    selectedPalace, setSelectedPalace,
+    isEditMode, setIsEditMode,
+    selectedRoom,setSelectedRoom,
+    tasks, setTasks,
+    newImageURL, setNewImageURL,
+    
+    deleteAndSwitchToLastPalace,
     deleteCurrentSelectedPalace,
+    deletePalaceEntry,
+    
+    createNewPalace,
+    createNewRoom,
+    savePalaceState,
+    updateMemoryPalace,
+    updateToDoList,
+    changeRoomEntry,
+    changePalaceEntry,
+    switchToLastPalace,
+    switchSelectPalaceById,
+    
+    
     isValidUrl,
     isImageUrl,
-    tasks,
-    setTasks,
-
-    getChatResponseFromServer,
-    getImageResponseFromServer,
-
     onCloseModal,
-    setIsEditMode,
-    isEditMode,
-    newImageURL,
-    setNewImageURL,
     selectRoom,
-    setSelectedRoom,
-    selectedRoom,
-    changeRoomEntry,
-    updateToDoList,
-    createNewRoom,
-
   };
 };
 
