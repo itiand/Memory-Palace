@@ -126,6 +126,8 @@ function RoomView() {
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h4 className="text-sm"><em>{PalaceName}</em></h4>
           <h3 className="font-bold text-lg">{roomName}</h3>
+           {/* <img src={roomImg} className="m-auto shadow-lg rounded" alt="" /> */}
+          {/* <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons> */}
           <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
           <section className="mt-4">
             <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active' }`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
@@ -138,6 +140,7 @@ function RoomView() {
             </section>}
           </section>
           <button className="btn" onClick={handleStoryMode}>StoryMode</button>
+          
         </form>
 
       </dialog>
