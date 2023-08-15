@@ -63,9 +63,9 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
         narratorDescription: "",
         x: 2,
         y: 2,
-        isDragging: false, 
-        }
-      
+        isDragging: false,
+      }
+
 
       setTasks([...tasks, newTask]);
       setNewKeyword('');
@@ -74,8 +74,8 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
       setErrorMessage('');
 
       keywordInputRef.current.focus(); // Focus the keyword input again
-      } else {
-        setErrorMessage('Keyword field must be filled.');
+    } else {
+      setErrorMessage('Keyword field must be filled.');
     }
   };
 
@@ -198,6 +198,11 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
+              <button type="button" disabled>
+                Processing...
+              <span className="loading loading-spinner text-info"></span>
+              </button>
+
               <button
                 onClick={() => handleDeleteTask(task.id)}
                 className="btn btn-outline btn-error btn-xs m-3"
