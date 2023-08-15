@@ -6,7 +6,7 @@ import TodoList from "./TodoList";
 
 
 function RoomView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks} = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList} = useContext(PalaceContext);
   const [icons, setIcons] = useState(selectedRoom.roomPins);
 
 
@@ -19,10 +19,12 @@ function RoomView() {
   window.reg_view.showModal();
   }
 
-  const handleSaveMemory = (e) => {
+  const handleSaveMemory = (e, palaceId, roomId, tasksState) => {
     e.preventDefault()
-    console.log(tasks)
-    
+    console.log('RIGHT HERE', palaceId, roomId, tasksState)
+
+    updateToDoList(palaceId, roomId, tasksState)
+
     // changePalaceEntry(Rooms, tasks);
     // window.add_memory_view.close();
     // window.reg_view.showModal();
@@ -106,7 +108,7 @@ function RoomView() {
             <TodoList randomOddState={randomOddState} />
             <button
             className="btn"
-            onClick={handleSaveMemory}
+            onClick={(e) => {handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks)}}
           >Save Memory</button>
           </section>
         </form>

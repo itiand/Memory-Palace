@@ -191,7 +191,7 @@ const TodoList = ({ randomOddState }) => {
               {task.option === 'define' && <span> will return definition</span>}
               {task.option === 'custom' && <span> {task.definition}</span>}
               {task.drawDescription && <span className="text-green-800"><em>{task.drawDescription}</em></span>}
-              {task.dalleImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={task.dalleImage}></img>}
+              {task.generatedImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={task.generatedImage}></img>}
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
