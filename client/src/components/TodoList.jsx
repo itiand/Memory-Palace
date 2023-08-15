@@ -51,7 +51,6 @@ const TodoList = ({ randomOddState }) => {
           setErrorMessage('Custom definition cannot be empty.');
           return;
         }
-      }
 
       const newTask = {
         id: uuidv4(),
@@ -62,7 +61,16 @@ const TodoList = ({ randomOddState }) => {
         drawDescription: "",
         generatedImage: "",
         narratorDescription: "",
-      };
+        roomPin: {
+          x: 2,
+          y: 2,
+          isDragging: false, 
+        }
+        }
+      }
+      // selectedRoom.roomPin.x
+      // selectedRoom.roomPin.y
+      // selectedRoom.roomPin.isDragging
 
       setTasks([...tasks, newTask]);
       setNewKeyword('');
@@ -71,8 +79,8 @@ const TodoList = ({ randomOddState }) => {
       setErrorMessage('');
 
       keywordInputRef.current.focus(); // Focus the keyword input again
-    } else {
-      setErrorMessage('Keyword field must be filled.');
+      } else {
+        setErrorMessage('Keyword field must be filled.');
     }
   };
 
