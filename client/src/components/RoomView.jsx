@@ -26,7 +26,6 @@ function RoomView() {
     console.log('RIGHT HERE', palaceId, roomId, tasksState);
 
     const updateResponse = await updateToDoList(palaceId, roomId, tasksState);
-    setIsEditRoomMode(false);
 
     if(updateResponse.success === true) {
       alert("Save Successful!")
