@@ -21,12 +21,17 @@ function RoomView() {
     window.reg_view.showModal();
   };
 
-  const handleSaveMemory = (e, palaceId, roomId, tasksState) => {
+  const handleSaveMemory = async (e, palaceId, roomId, tasksState) => {
     e.preventDefault();
     console.log('RIGHT HERE', palaceId, roomId, tasksState);
 
-    updateToDoList(palaceId, roomId, tasksState);
+    const updateResponse = await updateToDoList(palaceId, roomId, tasksState);
     setIsEditRoomMode(false);
+
+    if(updateResponse.success === true) {
+      alert("Save Successful!")
+      setIsEditRoomMode(false)
+    }
     // window.add_memory_view.close();
     // window.reg_view.showModal();
   };
@@ -114,7 +119,7 @@ function RoomView() {
           <h3 className="font-bold text-lg">{roomName}</h3>
           <img src={roomImg} className="m-auto shadow-lg rounded" alt="" />
           {/* <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons> */}
-          <section>
+          <section className="mt-4">
             <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active' }`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
             {isEditRoomMode && <section id="to_make_list">
               <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} />
