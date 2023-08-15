@@ -6,8 +6,11 @@ import TodoList from "./TodoList";
 
 
 function RoomView() {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions,} = useContext(PalaceContext);
-  const [icons, setIcons] = useState(selectedRoom.TodoList);
+
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList } = useContext(PalaceContext);
+
+  const [isEditRoomMode, setIsEditRoomMode] = useState(false);
+  const [icons, setIcons] = useState(selectedRoom.roomPins);
 
 
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
@@ -15,25 +18,29 @@ function RoomView() {
 
 
   const handleRoomClose = () => {
-  //   setSelectedRoom({}) $$$
-  window.reg_view.showModal();
-  }
+    //   setSelectedRoom({}) $$$
+    window.reg_view.showModal();
+  };
 
-  const handleSaveMemory = (e, palaceId, roomId, tasksState) => {
-    e.preventDefault()
-    console.log('RIGHT HERE', palaceId, roomId, tasksState)
-    updateToDoList(palaceId, roomId, tasksState)
-    // changePalaceEntry(Rooms, tasks);
+  const handleSaveMemory = async (e, palaceId, roomId, tasksState) => {
+    e.preventDefault();
+    console.log('RIGHT HERE', palaceId, roomId, tasksState);
+
+    const updateResponse = await updateToDoList(palaceId, roomId, tasksState);
+
+    if(updateResponse.success === true) {
+      alert("Save Successful!")
+      setIsEditRoomMode(false)
+    }
     // window.add_memory_view.close();
     // window.reg_view.showModal();
   };
 
+
   const handleStoryMode = (e) => {
     e.preventDefault()
     startReadingAndActions();
-
   }
-  
   // const handleRoomClose = () => {
   //   setSelectedRoom({})
   // }
@@ -54,10 +61,10 @@ function RoomView() {
       " programming on a laptop.",
       " staging a sit-in.",
       " holding a lightsaber.",
-      " riding a unicycle.", 
+      " riding a unicycle.",
       " riding a hot air balloon.",
       " riding a roller-coaster.",
-      " ice skating.", 
+      " ice skating.",
       " playing chess.",
       " wearing a ski-mask.",
       " reading a newspaper.",
@@ -99,6 +106,15 @@ function RoomView() {
     return `${keyword}${randomAction}`;
   };
 
+  const toggleIsEditRoomMode = (e) => {
+    e.preventDefault();
+    if (isEditRoomMode) {
+      setIsEditRoomMode(false);
+    } else {
+      setIsEditRoomMode(true);
+    }
+  };
+
   return (
     <>
       <dialog id="room_view" className="modal">
@@ -106,15 +122,18 @@ function RoomView() {
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h4 className="text-sm"><em>{PalaceName}</em></h4>
           <h3 className="font-bold text-lg">{roomName}</h3>
-          {/* <img src={roomImg} className="m-auto" alt="" /> */}
+//           <img src={roomImg} className="m-auto shadow-lg rounded" alt="" />
           {/* <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons> */}
-             <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
-          <section id="to_memorize">
-            <TodoList randomOddState={randomOddState} />
-            <button
-            className="btn"
-            onClick={(e) => {handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks)}}
-          >Save Memory</button>
+          <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
+          <section className="mt-4">
+            <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active' }`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
+            {isEditRoomMode && <section id="to_make_list">
+              <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} />
+              <button
+                className="btn"
+                onClick={(e) => { handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks); }}
+              >Save Memory</button>
+            </section>}
           </section>
           <button className="btn" onClick={handleStoryMode}>StoryMode</button>
         </form>

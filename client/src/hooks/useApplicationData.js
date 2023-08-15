@@ -229,28 +229,6 @@ const selectRoom = (roomId) => {
   //   }
   // };
 
-
-
-  // const updateToDoList = async (roomId, newToDoList) => {
-  //   try {
-  //     const response = await YourRoomModel.updateOne(
-  //       { "Rooms._id": roomId },
-  //       { $set: { "Rooms.$.ToDoList": newToDoList } }
-  //     );
-
-  
-  //     if (response.nModified === 1) {
-  //       console.log("ToDoList updated successfully");
-  //     } else {
-  //       console.log("Failed to update ToDoList");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error updating ToDoList:", error);
-  //   }
-  //   await savePalaceState;
-  //   console.log("PalaceStateSaved");
-  // };
-
   const deletePalaceEntry = (key) => {
     // Delete an Entry by its Key from selectedPalace
     console.log('Delete Palace Entry');
