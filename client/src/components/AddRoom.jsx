@@ -153,7 +153,7 @@ const AddRoom = () => {
                 placeholder="Room Description"
                 value={roomDescription}
                 onChange={handleRoomDescriptionChange}
-                className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none border-none overflow-hidden"
+                className="input-section textarea input-xs textarea-info max-h-20 w-full input-field  border-none overflow-hidden"
               />
               {errors.roomDescription && <p className="text-red-500">{errors.roomDescription}</p>}
             </div>
@@ -164,8 +164,9 @@ const AddRoom = () => {
               </label>
               <input
                 type="text"
+                placeholder="URL"
                 id="roomUrl"
-                className="input-box"
+                className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none border-none overflow-hidden"
                 value={roomUrl}
                 onChange={handleRoomUrlChange}
               />
@@ -180,11 +181,11 @@ const AddRoom = () => {
               ✕
             </button>
           </div>
-          <div className="flex justify-end mt-4">
-            <button className="btn btn-secondary mr-2" onClick={handleCancel}>
+          <div className="flex justify-start mt-4">
+            <button className="btn btn-default mr-2" onClick={handleCancel}>
               Cancel
             </button>
-            <button className="btn" onClick={handleSave}>
+            <button className="btn btn-success" onClick={handleSave}>
               Save
             </button>
           </div>

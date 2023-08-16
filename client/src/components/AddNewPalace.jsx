@@ -63,7 +63,7 @@ const AddNewPalace = () => {
                 placeholder="Palace Description"
                 value={newPalaceDescription}
                 onChange={(e) => setNewPalaceDescription(e.target.value)}
-                className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none border-none overflow-hidden"
+                className="input-section textarea input-xs textarea-info max-h-20 w-full input-field  border-none overflow-hidden"
               />
             </div>
             <div className="input-section mb-6 flex justify-center">
