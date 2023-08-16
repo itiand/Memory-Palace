@@ -1,11 +1,40 @@
 import React, { useState, useRef } from 'react';
 import { BsFillPinFill } from 'react-icons/bs';
+import InfoCard from './InfoCard';
 
 const ImageWithIcons = (props) => {
   const { imageUrl, icons, setIcons } = props;
 
   const imageRef = useRef(null);
   const [pinsVisible, setPinsVisible] = useState(true);
+  const [infoCardsVisble, setInfoCardsVisible] = useState(true);
+  const [showAllInfoCards, setShowAllInfoCards] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(-1); // Track hovered index
+  const [clickedIndex, setClickedIndex] = useState(-1); // Track clicked index
+  
+  
+  let hoverTimeout; // Variable to store the timeout
+  const handleMouseEnter = (index) => {
+    hoverTimeout = setTimeout(() => {
+      if (!icons[index].isDragging) {
+        setHoveredIndex(index);
+      }
+    }, 2000); // 2000 milliseconds (2 seconds)
+  };
+
+  const handleMouseLeave = () => {
+    clearTimeout(hoverTimeout); // Clear the timeout when leaving the element
+    setHoveredIndex(null);
+    setClickedIndex(null);
+  };
+  // const handleHeartHover = (index) => {
+  //   setHoveredIndex(index);
+  //   console.log(icons[index].generatedImage);
+  // };
+
+  const handleHeartClick = (index) => {
+    setClickedIndex(index);
+  };
 
   const handleImageClick = (e) => {
     e.stopPropagation(); // Prevent the click event from propagating
@@ -38,25 +67,63 @@ const ImageWithIcons = (props) => {
   };
 
   const togglePinsVisibility = () => {
-    setPinsVisible(prevVisible => !prevVisible);
+    if (pinsVisible) {
+      setPinsVisible(false);
+      setShowAllInfoCards(true);
+    } 
+    if (showAllInfoCards) {
+      setShowAllInfoCards(false);
+    } else {
+      setPinsVisible(true);
+    }
   };
+
+  // const toggleInfoCardsVisibility = () => {
+  //   setInfoCardsVisible(prevInfoCardsVisible => !prevInfoCardsVisible);
+  // };
+
+  // const toggleViewMode = () => {
+  //   let count = 0;
+  //   if (count === 0) {
+  //     count = 1;
+  //     setPinsVisible(true);
+  //   }
+  //   if (count === 1) {
+  //     count = 2;
+  //     setPinsVisible(false);
+  //     setInfoCardsVisible(true);
+  //   }
+  //   if (count === 2) {
+  //     count = 0;
+  //     setPinsVisible(false);
+  //     setInfoCardsVisible(false);
+  //   }
+  // }
 
   return (
     <div className='relative mb-4'>
-    <img src={imageUrl} alt='Clickable' onClick={handleImageClick} className='w-full' ref={imageRef} />
-    {icons && pinsVisible && icons.map((icon, index) => (
-      <span
-        key={index}
-        draggable={!icon.isDragging}
-        onDragStart={(event) => handleDragStart(event, index)}
-        onDragEnd={handleDragEnd(index)}
-        style={{
+      <img src={imageUrl} alt='Clickable' onClick={handleImageClick} className='w-full' ref={imageRef} />
+      {icons && pinsVisible && icons.map((icon, index) => (
+  <span
+    key={index}
+    draggable={!icon.isDragging}
+    onDragStart={(event) => handleDragStart(event, index)}
+    onDragEnd={handleDragEnd(index)}
+    onMouseEnter={() => handleMouseEnter(index)}
+    onMouseLeave={handleMouseLeave}
+    onClick={() => handleHeartClick(index)}
+    style={{
+      position: 'relative', // Set position to relative for the container
+            top: `calc(${icon.y}% - 30px)`,
+            left: `calc(${icon.x}% - 30px)`,
+            cursor: 'pointer',
           position: 'absolute',
           top: `calc(${icon.y}% - 30px)`,
           left: `calc(${icon.x}% - 30px)`,
           cursor: 'grab',
           animation: 'pop-in 0.1s ease-out',
-          transition: 'top 0.2s ease-out, left 0.2s ease-out',
+          zIndex: icons.length - index, 
+          transition: 'top 0s ease-out, left 0.0s ease-out',
           ...(icon.isDragging && {
             boxShadow: '2px 10px 15px -3px rgba(0,0,0,0.4)',
           }),
@@ -87,22 +154,29 @@ const ImageWithIcons = (props) => {
             fontSize: '21px', // Make the number smaller
             color: 'white', // Change color to black
             position: 'absolute',
-            // top: '50%', // Adjust vertical position
-            // left: '50%',
             transform: 'rotate(45deg)',
-            // transform: 'translate(-50%, -50%) scale(1.5)', // Enlarge the number
             zIndex: 3,
           }}
           >
             {index + 1}
           </span>
         </div>
-      </span>
-    ))}
-    <button type="button" onClick={togglePinsVisibility}>
-      {pinsVisible ? 'Hide Pins' : 'Show Pins'}
-    </button>
-  </div>
+       {/* ... Heart icon ... */}
+       {infoCardsVisble && (showAllInfoCards || hoveredIndex === index || clickedIndex === index) && (
+            <InfoCard
+              keyword={icons[index].keyword}
+              definition={icons[index].definition}
+              image={icons[index].generatedImage}
+              positionX={icons[index].x}
+              positionY={icons[index].y}
+            />
+          )}
+        </span>
+      ))}
+      <button type="button" onClick={togglePinsVisibility}>
+        Toggle View
+      </button>
+    </div>
   );
 };
 

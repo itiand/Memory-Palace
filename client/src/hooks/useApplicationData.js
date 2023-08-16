@@ -148,7 +148,6 @@ const selectRoom = (roomId) => {
       console.error("Error deleting memory palace:", error);
     }
   };
-
   // Utility Functions to handle Fetch Responses
   function handleResponse(response) {
     if (!response.ok) {
@@ -175,7 +174,6 @@ const selectRoom = (roomId) => {
       })
       .catch(handleError);
   }
-
   useEffect(() => {
     fetchMemoryPalaces();
   }, []);
@@ -204,31 +202,6 @@ const selectRoom = (roomId) => {
     }
   };
   
-  // const changeRoomEntry = async (key, value) => {
-  //   console.log("changeRoomEntry");
-  //   if (selectedRoom) {
-  //     const newSelectedRoom = { ...selectedRoom, [key]: value };
-  //     await setSelectedPalace(newSelectedRoom);
-  //     // console.log('selectedPalace', selectedPalace);
-  //     await updateMemoryPalace(newSelectedPalace._id, newSelectedRoom);
-  //   }
-  // };  
-  // const changeRoomEntry = async (key, value) => {
-  //   console.log("changeRoomEntry");
-  //   if (selectedRoom) {
-  //     // const newSelectedRoom = { ...selectedPalace.Rooms, [key]: value };
-  //     // await setSelectedRoom(newSelectedRoom);
-  //     // console.log('selectedRoom', selectedRoom);
-  //     // await updateMemoryPalace(selectedPalace._id, selectedPalace);
-  //     // selectedRoom[key][0] = value 
-  //     let newSelectedRoom = new selectedRoom;
-  //     newSelectedRoom[key] = value;
-  //     let newSelectedPalace = selectedPalace;
-  //     newSelectedPalace.Rooms = newSelectedRoom;
-  //     await setSelectedPalace(newSelectedPalace);
-  //     await savePalaceState();
-  //   }
-  // };
 
   const deletePalaceEntry = (key) => {
     // Delete an Entry by its Key from selectedPalace
