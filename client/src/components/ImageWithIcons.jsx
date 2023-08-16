@@ -104,7 +104,7 @@ const ImageWithIcons = (props) => {
 
   return (
     <div className='relative mb-4'>
-      <img src={imageUrl} alt='Clickable' onClick={handleImageClick} className='w-full' ref={imageRef} />
+      <img src={imageUrl} alt='Clickable' onClick={handleImageClick} className='w-full rounded drop-shadow-xl' ref={imageRef} />
       {icons && pinsVisible && icons.map((icon, index) => (
   <span
     key={index}

@@ -48,10 +48,10 @@ function RoomView() {
     const updateResponse = await updateToDoList(palaceId, roomId, tasksState);
 
     if (updateResponse.success === true) {
-      console.log('updateResponse', updateResponse)
+      console.log('updateResponse', updateResponse);
       // setSelectedRoom(updateResponse.updatedRoom)
-      alert("Save Successful!")
-      setIsEditRoomMode(false)
+      alert("Save Successful!");
+      setIsEditRoomMode(false);
       const newId = selectedRoom._id;
       selectedPalace.Rooms[newId].ToDoList = tasks;
       savePalaceState();
@@ -65,9 +65,9 @@ function RoomView() {
 
 
   const handleStoryMode = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     startReadingAndActions();
-  }
+  };
 
 
 
@@ -166,13 +166,13 @@ function RoomView() {
               >Save Memory</button>
 
               {isEditRoomMode === false &&
-              <section>
-                {selectedRoom &&
-                  <div>
-                    <p>{selectedRoom.ToDoList[0].keyword}</p>
-                  </div>
-                }
-              </section>}
+                <section>
+                  {selectedRoom &&
+                    <div>
+                      <p>{selectedRoom.ToDoList[0].keyword}</p>
+                    </div>
+                  }
+                </section>}
 
             </section>}
             {
@@ -186,13 +186,11 @@ function RoomView() {
                         <span className="text-green-800">
                           <em>{item.drawDescription}</em>
                         </span>
-                        {item.roomImg &&
-                          <img
-                            className="w-40 border-2 border-neutral-500 rounded-lg"
-                            src={item.roomImg}
-                            alt={item.keyword}
-                          />
-                        }
+
+                        <img
+                          className="w-40 border-2 border-neutral-500 rounded-lg hidden hover:display"
+                          src={item.generatedImage}
+                        />
                       </li>
                     ))}
                   </ul>
