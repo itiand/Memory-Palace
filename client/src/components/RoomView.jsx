@@ -162,28 +162,34 @@ function RoomView() {
               >Save Memory</button>
 
             </section>}
-            {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
-              <ul>
-                {selectedPalace.Rooms[selectedRoomId].ToDoList.map(item => (
-                  <li key={item.id}>
-                    <strong>{item.keyword}</strong>
-                    <span>{item.definition}</span>
-                    <span className="text-green-800">
-                      <em>{item.drawDescription}</em>
-                    </span>
-                    {item.roomImg &&
-                      <img
-                        className="w-40 border-2 border-neutral-500 rounded-lg"
-                        src={item.roomImg}
-                        alt={item.keyword}
-                      />
-                    }
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No ToDoList data available.</p>
-            )}
+            {
+              isEditRoomMode === false && <div>
+                {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
+                  <ul>
+                    {selectedPalace.Rooms[selectedRoomId].ToDoList.map(item => (
+                      <li key={item.id}>
+                        <strong>{item.keyword}:</strong>
+                        <span>{item.definition}</span>
+                        <span className="text-green-800">
+                          <em>{item.drawDescription}</em>
+                        </span>
+                        {item.roomImg &&
+                          <img
+                            className="w-40 border-2 border-neutral-500 rounded-lg"
+                            src={item.roomImg}
+                            alt={item.keyword}
+                          />
+                        }
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No ToDoList data available.</p>
+                )}
+
+              </div>
+
+            }
           </section>
 
           <button className="btn" onClick={handleStoryMode}>StoryMode</button>
