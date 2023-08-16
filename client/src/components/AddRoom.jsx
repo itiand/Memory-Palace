@@ -125,8 +125,8 @@ const AddRoom = () => {
         <h3 className="font-bold text-3xl text-center mb-4">Add Room</h3>
         <div className="max-w-9/12">
           <img
-            src="https://media.tenor.com/tvFWFDXRrmMAAAAd/blow-mind-mind-blown.gif"
-            className="image-box w-60 mx-auto rounded drop-shadow-lg"
+            src="https://media.giphy.com/media/fxLFhcMtyGDL4k7kXA/giphy.gif"
+            className="image-box w-64 mx-auto rounded drop-shadow-lg"
             alt="Room Image"
           />
           <div className="py-4">

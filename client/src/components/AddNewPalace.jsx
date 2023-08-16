@@ -45,6 +45,11 @@ const AddNewPalace = () => {
         </div>
         <h3 className="font-bold text-3xl text-center mb-4">New Palace</h3>
         <div className="max-w-9/12">
+        <img
+            src="https://media.tenor.com/tvFWFDXRrmMAAAAd/blow-mind-mind-blown.gif"
+            className="image-box w-60 mx-auto rounded drop-shadow-lg"
+            alt="Room Image"
+          />
           <div className="textInput">
             <div className="input-section pb-3">
               <label className="block font-semibold mt-4">Palace Name: </label>
