@@ -1,0 +1,28 @@
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+.pinImage{
+  // position: absolute;
+  // top: 55%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  // visibility: hidden;
+  
+  width: 2px;
+  visibility: visible;
+  // opacity: 0; // Hidden by default
+  // transition: opacity 0.3s, transform 0.3s; // Transition effect for smoothness
+}
+
+.hoverArea{
+  display: flex;
+}
+.hoverArea:hover .pinImage{
+  // top: 37%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  visibility: visible;
+  width: 10%
+  // opacity: 10; // Show on hover
+}
