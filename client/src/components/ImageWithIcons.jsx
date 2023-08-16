@@ -102,6 +102,8 @@ const ImageWithIcons = (props) => {
   //     setInfoCardsVisible(false);
   //   }
   // }
+
+  ///TO PREVENT JERKING BACK ON DRAG
   const handleDragOver = (event) => {
     event.preventDefault(); // Allow drops
   };
