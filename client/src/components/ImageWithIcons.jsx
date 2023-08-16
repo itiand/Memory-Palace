@@ -5,7 +5,7 @@ import { PalaceContext } from '../providers/palaceProvider';
 
 const ImageWithIcons = (props) => {
   const { imageUrl, icons, setIcons } = props;
-  const {hoveredIndex, setHoveredIndex } = useContext(PalaceContext);
+  const { hoveredIndex, setHoveredIndex } = useContext(PalaceContext);
 
   const imageRef = useRef(null);
   const [pinsVisible, setPinsVisible] = useState(true);
@@ -13,8 +13,8 @@ const ImageWithIcons = (props) => {
   const [showAllInfoCards, setShowAllInfoCards] = useState(false);
 
   const [clickedIndex, setClickedIndex] = useState(-1); // Track clicked index
-  
-  
+
+
   let hoverTimeout; // Variable to store the timeout
   const handleMouseEnter = (index) => {
     hoverTimeout = setTimeout(() => {
@@ -38,13 +38,13 @@ const ImageWithIcons = (props) => {
     setClickedIndex(index);
   };
 
-  const handleImageClick = (e) => {
-    e.stopPropagation(); // Prevent the click event from propagating
-    const rect = imageRef.current.getBoundingClientRect();
-    const xPercentage = ((e.clientX - rect.left) / rect.width) * 100;
-    const yPercentage = ((e.clientY - rect.top) / rect.height) * 100;
-    setIcons(oldIcons => [...oldIcons, { x: xPercentage, y: yPercentage }]);
-  };
+  // const handleImageClick = (e) => { ///CHRISTIAN's
+  //   e.stopPropagation(); // Prevent the click event from propagating
+  //   const rect = imageRef.current.getBoundingClientRect();
+  //   const xPercentage = ((e.clientX - rect.left) / rect.width) * 100;
+  //   const yPercentage = ((e.clientY - rect.top) / rect.height) * 100;
+  //   setIcons(oldIcons => [...oldIcons, { x: xPercentage, y: yPercentage }]);
+  // };
 
   const handleDragStart = (event, index) => {
     const updatedIcons = [...icons];
@@ -72,7 +72,7 @@ const ImageWithIcons = (props) => {
     if (pinsVisible) {
       setPinsVisible(false);
       setShowAllInfoCards(true);
-    } 
+    }
     if (showAllInfoCards) {
       setShowAllInfoCards(false);
     } else {
@@ -104,67 +104,67 @@ const ImageWithIcons = (props) => {
 
   return (
     <div className='relative mb-4'>
-      <img src={imageUrl} alt='Clickable' onClick={handleImageClick} className='w-full rounded drop-shadow-xl' ref={imageRef} />
+      <img src={imageUrl} alt='Clickable' /*onClick={handleImageClick}*/ className='w-full rounded drop-shadow-xl' ref={imageRef} />
       {icons && pinsVisible && icons.map((icon, index) => (
-  <span
-    key={index}
-    draggable={!icon.isDragging}
-    onDragStart={(event) => handleDragStart(event, index)}
-    onDragEnd={handleDragEnd(index)}
-    onMouseEnter={() => handleMouseEnter(index)}
-    onMouseLeave={handleMouseLeave}
-    onClick={() => handleHeartClick(index)}
-    style={{
-      position: 'relative', // Set position to relative for the container
+        <span
+          key={index}
+          draggable={!icon.isDragging}
+          onDragStart={(event) => handleDragStart(event, index)}
+          onDragEnd={handleDragEnd(index)}
+          onMouseEnter={() => handleMouseEnter(index)}
+          onMouseLeave={handleMouseLeave}
+          onClick={() => handleHeartClick(index)}
+          style={{
+            position: 'relative', // Set position to relative for the container
             top: `calc(${icon.y}% - 30px)`,
             left: `calc(${icon.x}% - 30px)`,
             cursor: 'pointer',
-          position: 'absolute',
-          top: `calc(${icon.y}% - 30px)`,
-          left: `calc(${icon.x}% - 30px)`,
-          cursor: 'grab',
-          animation: 'pop-in 0.1s ease-out',
-          zIndex: icons.length - index, 
-          transition: 'top 0s ease-out, left 0.0s ease-out',
-          ...(icon.isDragging && {
-            boxShadow: '2px 10px 15px -3px rgba(0,0,0,0.4)',
-          }),
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '25px',
-            height: '40px',
-            borderRadius: '50%',
-            background: 'red', // Heart color
-            color: 'red',
-            fontSize: '60px',
-            position: 'relative',
-            boxShadow: '2px 10px 15px -3px rgba(0,0,0,0.8)',
-            transform: 'rotate(-45deg)', // Rotate to make it heart-shaped
+            position: 'absolute',
+            top: `calc(${icon.y}% - 30px)`,
+            left: `calc(${icon.x}% - 30px)`,
+            cursor: 'grab',
+            animation: 'pop-in 0.1s ease-out',
+            zIndex: icons.length - index,
+            transition: 'top 0s ease-out, left 0.0s ease-out',
+            ...(icon.isDragging && {
+              boxShadow: '2px 10px 15px -3px rgba(0,0,0,0.4)',
+            }),
           }}
         >
-          <div style={{ transform: 'rotate(45deg)' }}>
-            &hearts;
-          </div>
-          <span
-           style={{
-            fontWeight: 'bold', // Make the number bolder
-            fontSize: '21px', // Make the number smaller
-            color: 'white', // Change color to black
-            position: 'absolute',
-            transform: 'rotate(45deg)',
-            zIndex: 3,
-          }}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '25px',
+              height: '40px',
+              borderRadius: '50%',
+              background: 'red', // Heart color
+              color: 'red',
+              fontSize: '60px',
+              position: 'relative',
+              boxShadow: '2px 10px 15px -3px rgba(0,0,0,0.8)',
+              transform: 'rotate(-45deg)', // Rotate to make it heart-shaped
+            }}
           >
-            {index + 1}
-          </span>
-        </div>
-       {/* ... Heart icon ... */}
-       {infoCardsVisble && (showAllInfoCards || hoveredIndex === index || clickedIndex === index) && (
+            <div style={{ transform: 'rotate(45deg)' }}>
+              &hearts;
+            </div>
+            <span
+              style={{
+                fontWeight: 'bold', // Make the number bolder
+                fontSize: '21px', // Make the number smaller
+                color: 'white', // Change color to black
+                position: 'absolute',
+                transform: 'rotate(45deg)',
+                zIndex: 3,
+              }}
+            >
+              {index + 1}
+            </span>
+          </div>
+          {/* ... Heart icon ... */}
+          {infoCardsVisble && (showAllInfoCards || hoveredIndex === index || clickedIndex === index) && (
             <InfoCard
               keyword={icons[index].keyword}
               definition={icons[index].definition}
