@@ -48,10 +48,10 @@ function RoomView() {
     const updateResponse = await updateToDoList(palaceId, roomId, tasksState);
 
     if (updateResponse.success === true) {
-      console.log('updateResponse', updateResponse)
+      console.log('updateResponse', updateResponse);
       // setSelectedRoom(updateResponse.updatedRoom)
-      alert("Save Successful!")
-      setIsEditRoomMode(false)
+      alert("Save Successful!");
+      setIsEditRoomMode(false);
       const newId = selectedRoom._id;
       selectedPalace.Rooms[newId].ToDoList = tasks;
       savePalaceState();
@@ -65,9 +65,9 @@ function RoomView() {
 
 
   const handleStoryMode = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     startReadingAndActions();
-  }
+  };
 
 
 
@@ -181,6 +181,7 @@ function RoomView() {
                   <ul>
                     {selectedPalace.Rooms[selectedRoomId].ToDoList.map(item => (
                       <li key={item.id}>
+
                         <strong>{item.keyword}: </strong>
                         <span>{item.definition} </span>
                         <div className="hoverArea">
@@ -193,6 +194,7 @@ function RoomView() {
                             alt={item.keyword}
                           />
                         </div>
+
                       </li>
                     ))}
                   </ul>

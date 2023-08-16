@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import "../view/addNewPalace.scss"; // Make sure to import your stylesheet
+import "../view/addNewPalace.scss";
 import PalaceCoverImageNew from "./PalaceCoverImageNew";
 
 const AddNewPalace = () => {
@@ -34,7 +34,7 @@ const AddNewPalace = () => {
 
   return (
     <dialog id="add_palace_view" className="modal">
-      <div className="modal-box add-palace-modal-box w-4/12 max-w-5xl">
+      <div className="modal-box add-palace-modal-box w-4/12 max-w-5xl h-5/12">
         <div className="modal-action">
           <button
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -45,9 +45,14 @@ const AddNewPalace = () => {
         </div>
         <h3 className="font-bold text-3xl text-center mb-4">New Palace</h3>
         <div className="max-w-9/12">
+        <img
+            src="https://media.tenor.com/tvFWFDXRrmMAAAAd/blow-mind-mind-blown.gif"
+            className="image-box w-60 mx-auto rounded drop-shadow-lg"
+            alt="Room Image"
+          />
           <div className="textInput">
             <div className="input-section pb-3">
-              <label className="text-sm">Add Palace Name: </label>
+              <label className="block font-semibold mt-4">Palace Name: </label>
               <input
                 type="text"
                 placeholder="Palace Name"
@@ -58,12 +63,12 @@ const AddNewPalace = () => {
             </div>
 
             <div className="input-section pb-3">
-              <label className="text-sm palace-description">Add Palace Description: </label>
+              <label className="block font-semibold mt-4 palace-description">Palace Description: </label>
               <textarea
                 placeholder="Palace Description"
                 value={newPalaceDescription}
                 onChange={(e) => setNewPalaceDescription(e.target.value)}
-                className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none"
+                className="input-section textarea input-xs textarea-info max-h-20 w-full input-field  border-none overflow-hidden"
               />
             </div>
             <div className="input-section mb-6 flex justify-center">

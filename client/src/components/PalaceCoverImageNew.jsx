@@ -34,7 +34,7 @@ const PalaceCoverImageNew = ({ newPalaceUrl, setNewPalaceUrl }) => {
     <div className="relative w-72 rounded">
       <img src={newPalaceUrl ? newPalaceUrl : 'https://www.vinebrookhomes.com/img/default.png'} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto rounded" />
       <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black rounded">
-        <span className="text-white p-2">{""}</span>
+        <span className="text-white p-2">...cover image for your palace</span>
         {isEditMode ?
           (
             <div className="flex flex-col items-center space-y-2">
