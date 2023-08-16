@@ -55,6 +55,7 @@ const ImageWithIcons = (props) => {
   };
 
   const handleDragEnd = (index) => (event) => {
+    event.preventDefault();
     const updatedIcons = [...icons];
     updatedIcons[index].isDragging = false;
 
@@ -101,9 +102,16 @@ const ImageWithIcons = (props) => {
   //     setInfoCardsVisible(false);
   //   }
   // }
+  const handleDragOver = (event) => {
+    event.preventDefault(); // Allow drops
+  };
+  const handleDrop = (event) => {
+    event.preventDefault();
+  };
 
   return (
-    <div className='relative mb-4'>
+    <div className='relative mb-4' onDragOver={handleDragOver}
+      onDrop={handleDrop}>
       <img src={imageUrl} alt='Clickable' /*onClick={handleImageClick}*/ className='w-full rounded drop-shadow-xl' ref={imageRef} />
       {icons && pinsVisible && icons.map((icon, index) => (
         <span

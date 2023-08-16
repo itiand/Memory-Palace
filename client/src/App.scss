@@ -65,13 +65,11 @@ body {
 
 
 /// info card section
-/// 
-/// 
-/// 
+/// animation on hover
 .info-card {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.8);
-  transition: opacity 0.3s, transform 0.3s
+  transition: opacity 0.4s, transform 0.3s
 }
 
  .info-card:hover {
