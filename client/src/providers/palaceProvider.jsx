@@ -51,8 +51,9 @@ const PalaceProvider = (props) => {
       showAlert,
       setShowAlert,
       alertMessage, 
-      setAlertMessage
-
+      setAlertMessage,
+      isEditRoomMode,
+      setIsEditRoomMode,
 
   } = useApplicationData();
 
@@ -104,7 +105,9 @@ const PalaceProvider = (props) => {
       showAlert,
       setShowAlert,
       alertMessage, 
-      setAlertMessage
+      setAlertMessage,
+      isEditRoomMode,
+      setIsEditRoomMode,
 
     }}>
       {props.children}

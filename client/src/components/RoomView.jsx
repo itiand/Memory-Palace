@@ -7,9 +7,7 @@ import '../view/RoomView.scss'
 
 function RoomView() {
 
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions } = useContext(PalaceContext);
-
-  const [isEditRoomMode, setIsEditRoomMode] = useState(false);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions, isEditRoomMode, setIsEditRoomMode } = useContext(PalaceContext);
   const [icons, setIcons] = useState(selectedRoom.roomPins);
 
 
@@ -158,6 +156,23 @@ function RoomView() {
           <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
           <section className="mt-4">
             <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
+            {/* {
+              isEditRoomMode === false && <div>
+                {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
+                  <ul>
+                    {selectedPalace.Rooms[selectedRoomId].ToDoList !== []
+                      &&
+                      <button className="btn" onClick={handleStoryMode}>StoryMode</button>
+                    }
+
+                  </ul>
+                ) : (
+                  <p>No ToDoList data available.</p>
+                )}
+
+              </div>
+
+            } */}
             {isEditRoomMode && <section id="to_make_list">
               <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} />
               <button
@@ -175,10 +190,14 @@ function RoomView() {
                 </section>}
 
             </section>}
+
             {
               isEditRoomMode === false && <div>
                 {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
                   <ul>
+                    {selectedPalace.Rooms[selectedRoomId].ToDoList.length > 0 &&
+                      <button className="btn" onClick={handleStoryMode}>StoryMode</button>
+                    }
                     {selectedPalace.Rooms[selectedRoomId].ToDoList.map(item => (
                       <li key={item.id}>
 
@@ -207,7 +226,7 @@ function RoomView() {
             }
           </section>
 
-          <button className="btn" onClick={handleStoryMode}>StoryMode</button>
+
         </form>
 
       </dialog>
