@@ -23,14 +23,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   visibility: hidden;
+  opacity: 0; // Hidden by default
+  transition: opacity 0.3s, transform 0.3s; // Transition effect for smoothness
 }
 
 .cover:hover .carousel-body{
-  position: absolute;
-  top: 43%;
+  top: 37%;
   left: 50%;
   transform: translate(-50%, -50%);
   visibility: visible;
+  opacity: 1; // Show on hover
 }
 
 // .EditText:hover {
