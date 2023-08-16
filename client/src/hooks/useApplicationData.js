@@ -372,7 +372,7 @@ const randomSaying = (mode) => {
     // "...Hello There!...",
     // "...Are you ready to begin your Memory Journey?...",
     // "...Let's see what we can remember today!...",
-    // "Welcome to MovieRecapped...oh wait, I meant welcome to your Mind Palace.",
+    // "Welcome to MovieRecapped...oh wait, I meane welcome to your Mind Palace.",
     "Welcome to your very own Mind Palace. It's my pleasure to help you remember everything! Let's get started!",
   ];
   const randomIndex = Math.floor(Math.random() * intro.length);
@@ -402,7 +402,7 @@ const randomSaying = (mode) => {
       "How odd! But still, splendid!",
       "Facinating!...Marvelous...Bravo!",
       "What fun! I can't wait to see what's next!",
-      "Very interesting isn't it!",
+      "Very interesting, isn't it!",
       "Reminds me of when I was just a wee babe.",
       "You don't see that everyday!",
       "Oh my, how wonderful!",
@@ -415,6 +415,10 @@ const randomSaying = (mode) => {
       "I wonder. I'm 90 percent sure I turned off my stove before coming here!",
       "How positively drole!",
       "They originally wanted Morgan Freeman for this job!",
+      "I don't think I'll forget this one either.",
+      "I can already feel you getting smarter.",
+      "Existential question, how is a raven like a writing desk?",
+      "Sorry, I got distracted, did you get that?"
     ];
   
     const randomIndex = Math.floor(Math.random() * lol.length);
@@ -446,14 +450,14 @@ const speakText = (text) => {
 const generateNarrateArray = () => {
   const ToDoList = selectedRoom.ToDoList;
   const array = [
-    () => scream(-1), // Use -1 to indicate no specific InfoCard
-    randomSaying('intro'),
-    () => scream(-1), // Use -1 to indicate no specific InfoCard
-    `${ToDoList[0].keyword}. ${ToDoList[0].definition} Your memory cue is a ${ToDoList[0].symbol} ${ToDoList[0].drawDescription}`,
+    // () => scream(-1), // Use -1 to indicate no specific InfoCard
+    // randomSaying('intro'),
+    // () => scream(-1), // Use -1 to indicate no specific InfoCard
+    `${ToDoList[0].keyword}. ${ToDoList[0].definition} Your memory cue is a ${ToDoList[0].symbol} ${ToDoList[0].drawDescription} ${scream(-1)}`,
   ];
   for (let i = 1; i < ToDoList.length; i++) {
     array.push(
-      () => scream(i), // Pass the index to show the related InfoCard
+      // () => scream(i), // Pass the index to show the related InfoCard
       randomSaying('lol'),
       randomSaying('bridge'),
       `${ToDoList[i].keyword}.${ToDoList[i].definition} Your memory cue prompt is ${ToDoList[i].drawDescription}`,

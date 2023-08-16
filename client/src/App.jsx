@@ -64,6 +64,7 @@ const App = () => {
 
   return (
     <>
+    
       <Navbar themes={themes} />
       <RegularPalaceView />
       <AddNewPalace />

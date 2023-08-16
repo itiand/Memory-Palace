@@ -3,7 +3,7 @@ import { PalaceContext } from "../providers/palaceProvider";
 import { BsFillPinFill } from 'react-icons/bs';
 import ImageWithIcons from "./ImageWithIcons";
 import TodoList from "./TodoList";
-
+import '../view/RoomView.scss'
 
 function RoomView() {
 
@@ -181,16 +181,20 @@ function RoomView() {
                   <ul>
                     {selectedPalace.Rooms[selectedRoomId].ToDoList.map(item => (
                       <li key={item.id}>
-                        <strong>{item.keyword}:</strong>
-                        <span>{item.definition}</span>
-                        <span className="text-green-800">
-                          <em>{item.drawDescription}</em>
-                        </span>
 
-                        <img
-                          className="w-40 border-2 border-neutral-500 rounded-lg hidden hover:display"
-                          src={item.generatedImage}
-                        />
+                        <strong>{item.keyword}: </strong>
+                        <span>{item.definition} </span>
+                        <div className="hoverArea">
+                          <span className="text-green-800">
+                            <em>{item.drawDescription}</em>
+                          </span>
+                          <img
+                            className="pinImage w-24 border-2 border-neutral-500 rounded-lg"
+                            src={item.generatedImage}
+                            alt={item.keyword}
+                          />
+                        </div>
+
                       </li>
                     ))}
                   </ul>

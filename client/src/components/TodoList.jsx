@@ -131,7 +131,7 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
     setGenerating(true)
     // const content = `${keyword}: ${definition} - For a memory palace. Give me a simple and tangible noun, that's easy to draw, to help me remember ${keyword}. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word, do not include a period.`;
     // user inputs keyword and their best guess of the definition, chat gpt will return a good definition.
-    const content = `Keyword = ${keyword}, Context = ${definition} - Use the context to provide a simple brief clear explanation of the keyword. Keep the new definition to less than one sentence. Provide a metaphor/symbol that best represents this concept. The symbol/metaphor should be a singlular concrete noun without any abstraction that best respresents the original keyword. Explain your metaphor briefly in 6 wors or less and return it under symbolExplanation. If the keyword is already a concrete noun, return the original keyword. If you plan on returning a symbol that is the same category as the original keyword, or if the symbol and symbol explanation are less known/recognizeable/cool, just return the original keyword, and original definition under "symbolic concrete noun" and "symbol explanation". If no context is provided, define it yourself. If you intent to return "n/a", or "N/A", then just return "". Return in the format of: ["keyword", "new better definition", "symbolic concrete noun", "symbol explanation"].`;
+    const content = `Keyword = ${keyword}, Context = ${definition} - Use the context to provide a simple brief clear explanation of the keyword. Keep the new definition to less than one sentence. Provide a metaphor/symbol that best represents this concept. The symbol/metaphor should be a singlular concrete noun without any abstraction that best respresents the original keyword. Explain your metaphor briefly in 6 wors or less and return it under symbolExplanation. If the keyword is already a concrete noun, return the original keyword. If you plan on returning a symbol that is the same category as the original keyword, or if the symbol and symbol explanation are less known/recognizeable/cool, just return the original keyword, and original definition under "symbolic concrete noun" and "symbol explanation". If no context is provided, define it yourself. If you intent to return "n/a", or "N/A", then just return an empty javascript string "". Return in the format of: ["keyword", "new better definition", "symbolic concrete noun", "symbol explanation"].`;
   
 
     const response = await getChatResponseFromServer(content); //response = get chat gpt to give a symbol 
@@ -224,11 +224,6 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
-              {generating === true &&
-              <button type="button" disabled>
-                Processing...
-              <span className="loading loading-spinner text-info"></span>
-              </button>}
 
               <button
                 onClick={() => handleDeleteTask(task.id)}
@@ -240,6 +235,11 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
           </li>
         ))}
       </ul>
+      {generating === true && 
+      <button type="button" disabled>
+        Processing...
+      <span className="loading loading-spinner text-info"></span>
+      </button>}
     </div>
   );
 };
