@@ -48,6 +48,10 @@ const PalaceProvider = (props) => {
       selectedRoom,
       setSelectedRoom,
       updateToDoList,
+      showAlert,
+      setShowAlert,
+      alertMessage, 
+      setAlertMessage
 
 
   } = useApplicationData();
@@ -97,6 +101,10 @@ const PalaceProvider = (props) => {
       changeRoomEntry,
       setSelectedRoom,
       updateToDoList,
+      showAlert,
+      setShowAlert,
+      alertMessage, 
+      setAlertMessage
 
     }}>
       {props.children}

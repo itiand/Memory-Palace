@@ -12,6 +12,9 @@ const useApplicationData = () => {
   const [hoveredIndex, setHoveredIndex] = useState(-1); // Track hovered index
 
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
   const [newImageURL, setNewImageURL] = useState('');
@@ -223,14 +226,14 @@ const savePalaceState = () => {
   }
 };
 
-const createNewPalace = (PalaceName, PalaceDescription) => {
+const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg) => {
   // Create New Palace (with basic frame)
   // $$$ consider adding random background generator for cover and to save time $$$
   console.log("createNewPalace(f)");
   const newPalaceData = {
     PalaceName: PalaceName,
     PalaceDescription: PalaceDescription,
-    PalaceCoverImg: "https://www.richardtmoore.co.uk/wp-content/uploads/2016/10/btx-placeholder-04-2-1024x683.jpg",
+    PalaceCoverImg: PalaceCoverImg,
     Rooms:{},
   };
   initAndFetchNewMemoryPalace(newPalaceData);
@@ -511,6 +514,10 @@ const startReadingAndActions = () => {
     isImageUrl,
     onCloseModal,
     selectRoom, 
+    showAlert,
+    setShowAlert,
+    alertMessage, 
+    setAlertMessage
   };
 };
 
