@@ -1,6 +1,8 @@
 // import React from "react";
 // import AddNewPalace from "./AddNewPalace";
 import PropTypes from "prop-types";
+import { BsHouseAdd } from 'react-icons/bs';
+
 
 function Navbar(props) {
 
@@ -97,7 +99,8 @@ function Navbar(props) {
         <button className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>My Palaces</button>
       </div>
       <div className="navbar-end">
-        <button className="btn" onClick={() => window.add_palace_view.showModal()}> Add New Palace </button>
+        <button className="btn text-2xl" onClick={() => window.add_palace_view.showModal()}><BsHouseAdd></BsHouseAdd>
+        </button>
       </div>
     </div>
   );
