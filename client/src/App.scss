@@ -62,3 +62,20 @@ body {
 .add-palace {
   font-size: 150px;
 }
+
+
+/// info card section
+/// 
+/// 
+/// 
+.info-card {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: opacity 0.3s, transform 0.3s
+}
+
+ .info-card:hover {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+

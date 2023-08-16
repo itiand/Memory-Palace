@@ -17,7 +17,7 @@ const InfoCard = ({ keyword, definition, image, positionY, positionX }) => {
         // fontSize: '100px',
       }}
     >
-      <img src={image} alt="generatedImage" className="w-full rounded-full  drop-shadow-2xl" />
+      <img src={image} alt="generatedImage" className="img-icon w-full rounded-full  drop-shadow-2xl" />
     </div>
   );
 };
