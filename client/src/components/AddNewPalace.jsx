@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 import "../view/addNewPalace.scss"; // Make sure to import your stylesheet
+import PalaceCoverImageNew from "./PalaceCoverImageNew";
 
 const AddNewPalace = () => {
   const {
@@ -79,7 +80,7 @@ const AddNewPalace = () => {
             className="textarea textarea-info"
           />
         </div>
-        
+        <PalaceCoverImageNew />
         <img
           src="https://images.pexels.com/photos/277559/pexels-photo-277559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           className="image-box w-60 mx-auto"
