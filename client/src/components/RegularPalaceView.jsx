@@ -49,14 +49,14 @@ function RegularPalaceView() {
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
           <PalaceCoverImage ></PalaceCoverImage>
-          <div className="reg_view-rooms pt-3">
-            <div className="text-sm flex items-center pb-1">
+          <div className="reg_view-rooms mt-5">
+            <div className="text-lg flex items-center pb-1">
               <h4 className="mr-1 text-gray-700">Your rooms</h4>
               <span className="cursor-pointer text-gray-300 hover:text-black hover:ease-in-out duration-200" onClick={handleNewRoomClick} >
                 <FaPlus />
               </span>
             </div>
-            <div className="carousel rounded-box w-full gap-x-1 cursor-pointer">
+            <div className="carousel rounded-box w-full gap-x-1 cursor-pointer max-h-80">
               {rooms.map((room, index) => {
                 return (
                   <div key={index} className="carousel-item w-1/2 relative">
