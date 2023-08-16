@@ -1,23 +1,25 @@
 .EditAndSubmitButton {
 display:flex;
-justify-content: space-around;
+justify-content: start;
 }
 
 .add-palace-modal-box{
   height: 60vh;
 }
 .textInput {
-  display: flex;
-  flex-direction: column;
-  height: 50vh;
-  justify-content: space-between;
-}
-.input-section-Description{
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  // height: 50vh;
+  // justify-content: start;
 }
 
 // .PalaceDescription{
 //   display: flex;
 //   align-items: center;
 // }
+
+.input-field {
+  border-radius: 0.25rem;
+  background-color: rgb(249, 250, 251);
+  padding: 1rem 0.5rem;
+}
