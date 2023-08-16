@@ -7,8 +7,10 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
     tasks,
     setTasks,
     getChatResponseFromServer,
+
     getImageResponseFromServer,
     selectedRoom,
+    savePalaceState,
   } = useContext(PalaceContext);
 
   const [newKeyword, setNewKeyword] = useState('');
@@ -59,8 +61,10 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
         id: uuidv4(),
         keyword: newKeyword,
         definition,
-        option: showDefinitionInput ? 'custom' : 'notDefine',
+        symbol: "",
+        symbolExplanation: "",
         drawDescription: "",
+        option: showDefinitionInput ? 'custom' : 'notDefine',
         generatedImage: "",
         narratorDescription: "",
         x: 2,
@@ -120,16 +124,33 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
     // Add any logic after the item has been sorted (if needed)
   };
 
+ 
 
   const handleGenerate = async (e, keyword, definition) => {
     e.preventDefault();
     setGenerating(true)
-    const content = `${keyword}: ${definition} - For a memory palace. Give me a simple and tangible noun, that's easy to draw, to help me remember ${keyword}. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word, do not include a period.`;
-    
+    // const content = `${keyword}: ${definition} - For a memory palace. Give me a simple and tangible noun, that's easy to draw, to help me remember ${keyword}. Do not over explain, do not correct. Just follow the format no matter what. Reply with one word, do not include a period.`;
+    // user inputs keyword and their best guess of the definition, chat gpt will return a good definition.
+    const content = `Keyword = ${keyword}, Context = ${definition} - Use the context to provide a simple brief clear explanation of the keyword. Keep the new definition to less than one sentence. Provide a metaphor/symbol that best represents this concept. The symbol/metaphor should be a singlular concrete noun without any abstraction that best respresents the original keyword. Explain your metaphor briefly in 6 wors or less and return it under symbolExplanation. If the keyword is already a concrete noun, return the original keyword. If you plan on returning a symbol that is the same category as the original keyword, or if the symbol and symbol explanation are less known/recognizeable/cool, just return the original keyword, and original definition under "symbolic concrete noun" and "symbol explanation". If no context is provided, define it yourself. If you intent to return "n/a", or "N/A", then just return "". Return in the format of: ["keyword", "new better definition", "symbolic concrete noun", "symbol explanation"].`;
+  
+
     const response = await getChatResponseFromServer(content); //response = get chat gpt to give a symbol 
     console.log(response);
-    const responseWithAction = await randomOddState(response);  //attach a action --> anthony's method
-    const imageUrl = await getImageResponseFromServer(responseWithAction);
+    const newResponse = JSON.parse(response);
+    const addGptArray = () => {
+      tasks.definition = newResponse[1];
+      tasks.symbol = newResponse[2];
+      tasks.symbolExplanation = newResponse[3];
+      selectedRoom[tasks._id] = tasks;
+      savePalaceState();
+    };
+   
+    // make tasks === selectedRoom
+    const responseWithAction = await randomOddState(newResponse[3]);  //attach a action --> anthony's method
+
+
+    // store into tasks
+    const imageUrl = await getImageResponseFromServer(`${newResponse[0]} ${responseWithAction}`);
     console.log('IMAGEURL', imageUrl);
     const updatedTasks = tasks.map(task => {
       if (task.keyword === keyword) {
@@ -142,7 +163,8 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
       return task;
     });
     setTasks(updatedTasks);
-    await setGenerating(false)
+    await setGenerating(false);
+    addGptArray();
   };
 
 
@@ -207,6 +229,7 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
                 Processing...
               <span className="loading loading-spinner text-info"></span>
               </button>}
+
               <button
                 onClick={() => handleDeleteTask(task.id)}
                 className="btn btn-outline btn-error btn-xs m-3"
@@ -214,41 +237,6 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
                 -
               </button>
             </div>
-
-            {/* <div className="flex text-sm items-center space-x-2 mb-2">
-  {selectedRoom.ToDoList.length > 0 ? (
-    <>
-      <span style={{ marginRight: '10px', fontSize: '1.2rem' }}>{index + 1}.</span>
-      <strong>{task.keyword}:</strong>
-      {task.option === 'define' && <span> will return definition</span>}
-      {task.option === 'custom' && <span> {task.definition}</span>}
-      {task.drawDescription && <span className="text-green-800"><em>{task.drawDescription}</em></span>}
-      {task.generatedImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={task.generatedImage}></img>}
-      <button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
-        generate
-      </button>
-      <button onClick={() => handleDeleteTask(task.id)} className="btn btn-outline btn-error btn-xs m-3">
-        -
-      </button>
-    </>
-  ) : (
-    <>
-      <span style={{ marginRight: '10px', fontSize: '1.2rem' }}>{index + 1}.</span>
-      <strong>{selectedRoom.ToDoList.keyword}:</strong>
-      {selectedRoom.ToDoList.option === 'define' && <span> will return definition</span>}
-      {selectedRoom.ToDoList.option === 'custom' && <span> {selectedRoom.ToDoList.definition}</span>}
-      {selectedRoom.ToDoList.drawDescription && <span className="text-green-800"><em>{selectedRoom.ToDoList.drawDescription}</em></span>}
-      {selectedRoom.ToDoList.generatedImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={selectedRoom.ToDoList.generatedImage}></img>}
-      <button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, selectedRoom.ToDoList.keyword, selectedRoom.ToDoList.definition); }}>
-        generate
-      </button>
-      <button onClick={() => handleDeleteTask(selectedRoom.ToDoList._id)} className="btn btn-outline btn-error btn-xs m-3">
-        -
-      </button>
-    </>
-  )}
-</div> */}
-
           </li>
         ))}
       </ul>

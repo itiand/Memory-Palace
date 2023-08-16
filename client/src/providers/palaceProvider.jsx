@@ -34,6 +34,7 @@ const PalaceProvider = (props) => {
       getChatResponseFromServer,
       getImageResponseFromServer,
       changeRoomEntry,
+      hoveredIndex, setHoveredIndex,
       
 
       onCloseModal,
@@ -82,6 +83,7 @@ const PalaceProvider = (props) => {
       isValidUrl,
       isImageUrl,
       createNewRoom,
+      hoveredIndex, setHoveredIndex,
     
       tasks,
       setTasks,
