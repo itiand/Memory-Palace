@@ -99,7 +99,7 @@ function Navbar(props) {
         <button className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>My Palaces</button>
       </div>
       <div className="navbar-end">
-        <button className="btn text-2xl" onClick={() => window.add_palace_view.showModal()}><BsHouseAdd></BsHouseAdd>
+        <button className="btn text-3xl" onClick={() => window.add_palace_view.showModal()}><BsHouseAdd></BsHouseAdd>
         </button>
       </div>
     </div>
