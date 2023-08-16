@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import AddMemory from "./AddMemory";
 import { PalaceContext } from "../providers/palaceProvider";
+import '../view/addNewPalace.scss';
 
 const AddRoom = () => {
   const {
@@ -129,40 +130,47 @@ const AddRoom = () => {
             alt="Room Image"
           />
           <div className="py-4">
-            <label htmlFor="roomName" className="block font-semibold">
-              Room Name:
-            </label>
-            <input
-              type="text"
-              id="roomName"
-              className="input-box"
-              value={roomName}
-              onChange={handleRoomNameChange}
-            />
-            {errors.roomName && <p className="text-red-500">{errors.roomName}</p>}
+            <div className="input-section pb-3">
+              <label htmlFor="roomName" className="block font-semibold">
+                Room Name:
+              </label>
+              <input
+                type="text"
+                id="roomName"
+                placeholder="Room Name"
+                value={roomName}
+                onChange={handleRoomNameChange}
+                className="input border-none input-info input-xs w-full max-w-xs input-field"
+              />
+              {errors.roomName && <p className="text-red-500">{errors.roomName}</p>}
+            </div>
+            <div className="input-section pb-3">
+              <label htmlFor="roomDescription" className="block font-semibold mt-4">
+                Room Description:
+              </label>
+              <textarea
+                id="roomDescription"
+                placeholder="Room Description"
+                value={roomDescription}
+                onChange={handleRoomDescriptionChange}
+                className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none border-none overflow-hidden"
+              />
+              {errors.roomDescription && <p className="text-red-500">{errors.roomDescription}</p>}
+            </div>
 
-            <label htmlFor="roomDescription" className="block font-semibold mt-4">
-              Room Description:
-            </label>
-            <textarea
-              id="roomDescription"
-              className="input-box"
-              value={roomDescription}
-              onChange={handleRoomDescriptionChange}
-            />
-            {errors.roomDescription && <p className="text-red-500">{errors.roomDescription}</p>}
-
-            <label htmlFor="roomUrl" className="block font-semibold mt-4">
-              Add URL:
-            </label>
-            <input
-              type="text"
-              id="roomUrl"
-              className="input-box"
-              value={roomUrl}
-              onChange={handleRoomUrlChange}
-            />
-            {errors.roomUrl && <p className="text-red-500">{errors.roomUrl}</p>}
+            <div className="input-section pb-3">
+              <label htmlFor="roomUrl" className="block font-semibold mt-4">
+                Add URL:
+              </label>
+              <input
+                type="text"
+                id="roomUrl"
+                className="input-box"
+                value={roomUrl}
+                onChange={handleRoomUrlChange}
+              />
+              {errors.roomUrl && <p className="text-red-500">{errors.roomUrl}</p>}
+            </div>
           </div>
           <div className="modal-action">
             <button

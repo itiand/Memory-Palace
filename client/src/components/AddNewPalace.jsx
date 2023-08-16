@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import "../view/addNewPalace.scss"; // Make sure to import your stylesheet
+import "../view/addNewPalace.scss";
 import PalaceCoverImageNew from "./PalaceCoverImageNew";
 
 const AddNewPalace = () => {
@@ -47,7 +47,7 @@ const AddNewPalace = () => {
         <div className="max-w-9/12">
           <div className="textInput">
             <div className="input-section pb-3">
-              <label className="text-sm">Add Palace Name: </label>
+              <label className="block font-semibold mt-4">Palace Name: </label>
               <input
                 type="text"
                 placeholder="Palace Name"
@@ -58,12 +58,12 @@ const AddNewPalace = () => {
             </div>
 
             <div className="input-section pb-3">
-              <label className="text-sm palace-description">Add Palace Description: </label>
+              <label className="block font-semibold mt-4 palace-description">Palace Description: </label>
               <textarea
                 placeholder="Palace Description"
                 value={newPalaceDescription}
                 onChange={(e) => setNewPalaceDescription(e.target.value)}
-                className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none"
+                className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none border-none overflow-hidden"
               />
             </div>
             <div className="input-section mb-6 flex justify-center">
