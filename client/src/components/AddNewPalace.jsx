@@ -34,7 +34,7 @@ const AddNewPalace = () => {
 
   return (
     <dialog id="add_palace_view" className="modal">
-      <div className="modal-box add-palace-modal-box w-4/12 max-w-5xl">
+      <div className="modal-box add-palace-modal-box w-4/12 max-w-5xl h-5/12">
         <div className="modal-action">
           <button
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"

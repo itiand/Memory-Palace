@@ -62,7 +62,7 @@ function RegularPalaceView() {
                   <div key={index} className="carousel-item w-1/2 relative">
                     <img src={room.roomImg} alt={room.roomDescription} className="w-full" />
                     <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
-                      <span className="mb-1 text-white text-xs">{room.roomName}</span>
+                      <span className="mb-1 text-white text-lg">{room.roomName}</span>
                       <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={() => { handleRoomClick(room._id); }}><FaRegEye /></span>
                     </div>
                   </div>
