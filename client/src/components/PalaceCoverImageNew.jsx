@@ -4,7 +4,7 @@ import { FaCheck, FaTimes, FaEdit } from 'react-icons/fa';
 
 
 /// FOR ADDING MEW PALACE
-const PalaceCoverImageNew = ({ newPalaceUrl, handleNewPalaceUrl, setNewPalaceUrl }) => {
+const PalaceCoverImageNew = ({ newPalaceUrl, setNewPalaceUrl }) => {
   const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, isValidUrl, setShowAlert, showAlert, setAlertMessage, alertMessage } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
 
@@ -32,7 +32,7 @@ const PalaceCoverImageNew = ({ newPalaceUrl, handleNewPalaceUrl, setNewPalaceUrl
 
   return (
     <div className="relative w-72">
-      <img src={newPalaceUrl ? newPalaceUrl : 'https://akns-images.eonline.com/eol_images/Entire_Site/2017327/rs_1024x759-170427124536-1024-buckinham-palace-front.jpg?fit=around%7C1024:759&output-quality=90&crop=1024:759;center,top'} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto rounded" />
+      <img src={newPalaceUrl ? newPalaceUrl : 'https://www.vinebrookhomes.com/img/default.png'} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto rounded" />
       <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
         <span className="text-white p-2">{""}</span>
         {isEditMode ?

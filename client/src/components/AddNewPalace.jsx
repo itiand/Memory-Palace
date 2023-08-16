@@ -23,23 +23,11 @@ const AddNewPalace = () => {
   const [newPalaceDescription, setNewPalaceDescription] = useState("");
   const [newPalaceUrl, setNewPalaceUrl] = useState("");
 
-  const handleNewPalaceNameChange = (event) => {
-    setNewPalaceName(event.target.value);
-  };
-
-  const handleNewPalaceDescriptionChange = (event) => {
-    setNewPalaceDescription(event.target.value);
-  };
-
-  const handleNewPalaceUrl = (e) => {
-    setNewPalaceUrl(e.target.value);
-  };
-
   const handleSave = async (e) => {
     e.preventDefault();
     isValidUrl(newPalaceUrl);
     isImageUrl(newPalaceUrl);
-    createNewPalace(newPalaceName, newPalaceDescription, newImageURL);
+    createNewPalace(newPalaceName, newPalaceDescription, newPalaceUrl);
     window.add_palace_view.close();
     window.reg_view.showModal();
   };
@@ -68,12 +56,12 @@ const AddNewPalace = () => {
             <textarea
               placeholder="PalaceDescription"
               value={newPalaceDescription}
-              onChange={handleNewPalaceDescriptionChange}
+              onChange={(e) => setNewPalaceDescription(e.target.value)}
               className="textarea textarea-info"
             />
           </div>
           <div className="input-section">
-            <PalaceCoverImageNew newPalaceUrl={newPalaceUrl} handleNewPalaceUrl={handleNewPalaceUrl} setNewPalaceUrl={setNewPalaceUrl} />
+            <PalaceCoverImageNew newPalaceUrl={newPalaceUrl} setNewPalaceUrl={setNewPalaceUrl} />
           </div>
           <div className="EditAndSubmitButton">
           <button
