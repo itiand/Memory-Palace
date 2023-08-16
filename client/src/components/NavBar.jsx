@@ -69,7 +69,7 @@ function Navbar(props) {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">Pensieve</a>
+        <a className="btn btn-ghost normal-case text-xl">ELIFINT</a>
       </div>
 
       {/* <div className="navbar-center hidden lg:flex">
