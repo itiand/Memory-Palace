@@ -34,6 +34,7 @@ const PalaceProvider = (props) => {
       getChatResponseFromServer,
       getImageResponseFromServer,
       changeRoomEntry,
+      hoveredIndex, setHoveredIndex,
       
 
       onCloseModal,
@@ -47,6 +48,10 @@ const PalaceProvider = (props) => {
       selectedRoom,
       setSelectedRoom,
       updateToDoList,
+      showAlert,
+      setShowAlert,
+      alertMessage, 
+      setAlertMessage
 
 
   } = useApplicationData();
@@ -78,6 +83,7 @@ const PalaceProvider = (props) => {
       isValidUrl,
       isImageUrl,
       createNewRoom,
+      hoveredIndex, setHoveredIndex,
     
       tasks,
       setTasks,
@@ -95,6 +101,10 @@ const PalaceProvider = (props) => {
       changeRoomEntry,
       setSelectedRoom,
       updateToDoList,
+      showAlert,
+      setShowAlert,
+      alertMessage, 
+      setAlertMessage
 
     }}>
       {props.children}

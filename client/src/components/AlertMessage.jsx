@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useEffect, useContext} from 'react';
+import { PalaceContext } from "../providers/palaceProvider";
 
-function AlertMessage({ alertMessage, isVisible }) {
-  if (!isVisible) return null;
+
+function AlertMessage() {
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, isValidUrl, showAlert, setShowAlert,  setAlertMessage, alertMessage } = useContext(PalaceContext);
+
+  if (!showAlert) return null;
 
   return (
     <div className="alert alert-warning">

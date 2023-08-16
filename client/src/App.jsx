@@ -1,8 +1,9 @@
 import "./App.scss";
 
-import { useEffect, useContext, useState} from "react";
+import { useEffect, useContext, useState } from "react";
 import { themeChange } from "theme-change";
 import { PalaceContext } from "./providers/palaceProvider";
+import { BsHouseAdd } from 'react-icons/bs';
 
 // Components
 import Navbar from "./components/NavBar";
@@ -15,67 +16,54 @@ import AddMemory from "./components/AddMemory";
 
 
 const App = () => {
-  
+
   const {
-    // initAndFetchNewMemoryPalace,
-    //   deleteAndSwitchToLastPalace,
-    //   updateMemoryPalace,
-    //   fetchMemoryPalaces,
-    // setMemoryPalaces,
     themes,
-    memoryPalaces, 
-    selectedPalace, 
+    memoryPalaces,
+    selectedPalace,
     setSelectedPalace,
     selectedRoom,
     findPalaceById,
-  switchSelectPalaceById,  
-  switchToLastPalace,
-  createNewPalace,
-  deleteCurrentSelectedPalace,  
-  changePalaceEntry,
-  deletePalaceEntry, 
-  savePalaceState,
-  createPalaceExample,
-  getChatResponseFromServer,
-  getImageResponseFromServer,
-  setSelectedRoom,
-  tasks,
-  startReadingAndActions,
-} = useContext( PalaceContext );
+
+    switchSelectPalaceById,
+    switchToLastPalace,
+    createNewPalace,
+    deleteCurrentSelectedPalace,
+    changePalaceEntry,
+    deletePalaceEntry,
+    savePalaceState,
+    createPalaceExample,
+    getChatResponseFromServer,
+    getImageResponseFromServer,
+    setSelectedRoom,
+    tasks,
+  } = useContext(PalaceContext);
+
+  
+  useEffect(() => {
+    themeChange(false);
+  }, []);
 
 
-useEffect(() => {
-  themeChange(false);
-}, []);
 
 
-const handlePalaceClick = (selected) => {
-  setSelectedPalace(selected); // clicked palace as the selected palace state
-  window.reg_view.showModal();
-};
+  const handlePalaceClick = (selected) => {
+    setSelectedPalace(selected); // clicked palace as the selected palace state
+    window.reg_view.showModal();
+  };
 
-const memoryPalaceCarousel = memoryPalaces.map((palace) => {
+  const memoryPalaceCarousel = memoryPalaces.map((palace) => {
+    return (
+      <PalaceCarouselItem
+        key={palace._id}
+        palace={palace}
+        onPalaceClick={handlePalaceClick}
+      />
+    );
+  });
+
   return (
-    <PalaceCarouselItem
-      key={palace._id}
-      palace={palace}
-      onPalaceClick={handlePalaceClick}
-    />
-  );
-});
-
-
-
-// const handleTestClick1 = () => {
-// };
-const handleTestClick2 = () => {
-};
-const handleTestClick3 = () => {
-};
-
-
-return (
-  <>
+    <>
       <Navbar themes={themes} />
       <RegularPalaceView />
       <AddNewPalace />
@@ -83,21 +71,18 @@ return (
       <AddRoom />
       <AddMemory />
       <div className="-mt-8 flex flex-col items-center justify-around h-5/6">
-        <h1 className="mt-6 text-center text-5xl">My Palaces</h1>
-        <div className="container  text-center carousel-container mx-auto">
-          <div className="carousel mx-auto mt-7 rounded-lg">
-            {memoryPalaceCarousel}
+        <div>
+          <h1 className="mt-6 text-center text-5xl">My Palaces</h1>
+          <div className="container  text-center carousel-container mx-auto">
+            <div className="carousel mx-auto mt-7 rounded-lg">
+              {memoryPalaceCarousel}
+            </div>
           </div>
         </div>
-        <br></br>
-        <div>
-          <h2>Tester Buttons</h2>
-          <button className="btn" onClick={startReadingAndActions}>Click 1</button>
-          <button className="btn" onClick={handleTestClick2}>Click 2</button>
-          <button className="btn" onClick={handleTestClick3}>Click 3</button>
+        <div className=" text-gray-400 bg-base-200 py-3 px-5 rounded-xl hover:bg-base-300 cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
+          <BsHouseAdd></BsHouseAdd>
         </div>
-        <img src={selectedPalace.NewImage}></img>
-
+        <br></br>
       </div>
     </>
   );

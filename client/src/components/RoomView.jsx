@@ -7,15 +7,33 @@ import TodoList from "./TodoList";
 
 function RoomView() {
 
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions} = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions } = useContext(PalaceContext);
 
   const [isEditRoomMode, setIsEditRoomMode] = useState(false);
   const [icons, setIcons] = useState(selectedRoom.roomPins);
 
 
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
-  const { roomImg, roomName} = selectedRoom;
+  const { roomImg, roomName, ToDoList } = selectedRoom;
+  const selectedRoomId = selectedRoom._id;
+  //   if(isEditRoomMode === false)  
+  //     {
+  //       const h2 = selectedPalace.Rooms[selectedRoomId].ToDoList.map((item) => 
+  //       (
+  //         <div key={item.id}>
+  //         {<strong>{item.keyword}</strong>}
+  //         {<span> {item.definition}</span>}
+  //         </div>
 
+  //         )
+  // )
+  //       console.log(h2)
+  //   }
+  // console.log("selectedPalace", selectedPalace.Rooms[selectedRoomId].ToDoList[0].keyword)
+  // console.log("selectedroom", selectedRoom)
+  // selectedRoom.map(task => {
+  //   console.log(task)
+  // })
 
   const handleRoomClose = () => {
     //   setSelectedRoom({}) $$$
@@ -24,18 +42,23 @@ function RoomView() {
 
   const handleSaveMemory = async (e, palaceId, roomId, tasksState) => {
     e.preventDefault();
+
     console.log('RIGHT HERE', palaceId, roomId, tasksState);
 
     const updateResponse = await updateToDoList(palaceId, roomId, tasksState);
 
-    if(updateResponse.success === true) {
+    if (updateResponse.success === true) {
       console.log('updateResponse', updateResponse)
-      setSelectedRoom(updateResponse.updatedRoom)
+      // setSelectedRoom(updateResponse.updatedRoom)
       alert("Save Successful!")
       setIsEditRoomMode(false)
+      const newId = selectedRoom._id;
+      selectedPalace.Rooms[newId].ToDoList = tasks;
+      savePalaceState();
     } else {
       alert("Failed to save! " + (updateResponse.message || ""));
     }
+
     // window.add_memory_view.close();
     // window.reg_view.showModal();
   };
@@ -45,12 +68,15 @@ function RoomView() {
     e.preventDefault()
     startReadingAndActions();
   }
-  // const handleRoomClose = () => {
-  //   setSelectedRoom({})
-  // }
+
+
 
   const randomOddState = (keyword) => {
-    // takes in keyword and returns "keyword + funny string"
+    // 50% chance to return the original keyword
+    if (Math.random() < 0.5) {
+      return keyword;
+    }
+    // 50% chance to modify the keyword
     const odd = [
       " playing poker.",
       " juggling chainsaws.",
@@ -104,6 +130,7 @@ function RoomView() {
       " wearing 3D glasses.",
       " gazing through a telescope.",
       " in a chef's hat.",
+      // ... (your existing array of funny strings)
     ];
     const randomIndex = Math.floor(Math.random() * odd.length);
     const randomAction = odd[randomIndex];
@@ -126,21 +153,59 @@ function RoomView() {
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h4 className="text-sm"><em>{PalaceName}</em></h4>
           <h3 className="font-bold text-lg">{roomName}</h3>
-           {/* <img src={roomImg} className="m-auto shadow-lg rounded" alt="" /> */}
+          {/* <img src={roomImg} className="m-auto shadow-lg rounded" alt="" /> */}
           {/* <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons> */}
           <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
           <section className="mt-4">
-            <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active' }`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
+            <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
             {isEditRoomMode && <section id="to_make_list">
               <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} />
               <button
                 className="btn"
                 onClick={(e) => { handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks); }}
               >Save Memory</button>
+
+              {isEditRoomMode === false &&
+              <section>
+                {selectedRoom &&
+                  <div>
+                    <p>{selectedRoom.ToDoList[0].keyword}</p>
+                  </div>
+                }
+              </section>}
+
             </section>}
+            {
+              isEditRoomMode === false && <div>
+                {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
+                  <ul>
+                    {selectedPalace.Rooms[selectedRoomId].ToDoList.map(item => (
+                      <li key={item.id}>
+                        <strong>{item.keyword}:</strong>
+                        <span>{item.definition}</span>
+                        <span className="text-green-800">
+                          <em>{item.drawDescription}</em>
+                        </span>
+                        {item.roomImg &&
+                          <img
+                            className="w-40 border-2 border-neutral-500 rounded-lg"
+                            src={item.roomImg}
+                            alt={item.keyword}
+                          />
+                        }
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No ToDoList data available.</p>
+                )}
+
+              </div>
+
+            }
           </section>
+
           <button className="btn" onClick={handleStoryMode}>StoryMode</button>
-          
         </form>
 
       </dialog>
