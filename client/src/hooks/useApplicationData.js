@@ -10,6 +10,9 @@ const useApplicationData = () => {
   const [selectedPalace, setSelectedPalace] = useState({});
   const [tasks, setTasks] = useState([]);
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
   const [newImageURL, setNewImageURL] = useState('');
@@ -527,6 +530,10 @@ const startReadingAndActions = () => {
     isImageUrl,
     onCloseModal,
     selectRoom, 
+    showAlert,
+    setShowAlert,
+    alertMessage, 
+    setAlertMessage
   };
 };
 

@@ -8,16 +8,13 @@ import PalaceCoverImage from "./PalaceCoverImage";
 
 function RegularPalaceView() {
 
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, isValidUrl } = useContext(PalaceContext);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, isValidUrl, showAlert, setShowAlert } = useContext(PalaceContext);
 
   const { PalaceName, Rooms, } = selectedPalace;
 
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
 
-  //states for alert messages
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     if (Rooms) {
@@ -44,27 +41,14 @@ function RegularPalaceView() {
     window.add_room_view.showModal();
   };
 
-  //on submit update
-  const handleCoverImageSubmit = () => {
-    if (!isValidUrl(newImageURL)) {
-      setAlertMessage('Please enter a valid URL.');
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 3000);
-      return;
-    }
-
-    changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUGHERE
-    setIsEditMode(false);  // exit edit mode after submitting.
-  };
-
   return (
     <>
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
-          {<AlertMessage alertMessage={alertMessage} isVisible={showAlert} />}
+          <AlertMessage />
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onCloseModal}>✕</button>
           <h3 className="font-bold text-lg">{PalaceName}</h3>
-          <PalaceCoverImage handleCoverImageSubmit={handleCoverImageSubmit}></PalaceCoverImage>
+          <PalaceCoverImage ></PalaceCoverImage>
           <div className="reg_view-rooms pt-3">
             <div className="text-sm flex items-center pb-1">
               <h4 className="mr-1 text-gray-700">Your rooms</h4>

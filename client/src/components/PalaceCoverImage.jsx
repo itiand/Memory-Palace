@@ -2,9 +2,23 @@ import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 import { FaCheck, FaTimes, FaEdit } from 'react-icons/fa';
 
-const PalaceCoverImage = ({handleCoverImageSubmit}) => {
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, isValidUrl } = useContext(PalaceContext);
+const PalaceCoverImage = () => {
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, isValidUrl, setShowAlert, showAlert, setAlertMessage, alertMessage } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
+
+  //on submit update
+  const handleCoverImageSubmit = () => {
+    if (!isValidUrl(newImageURL)) {
+      setAlertMessage('Please enter a valid URL.');
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return;
+    }
+
+    changePalaceEntry('PalaceCoverImg', newImageURL);  // changes the state. //WALDO: BUGHERE
+    setIsEditMode(false);  // exit edit mode after submitting.
+  };
+
 
   return (
     <div className="relative">
