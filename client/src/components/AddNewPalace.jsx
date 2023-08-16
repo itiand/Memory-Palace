@@ -16,6 +16,7 @@ const AddNewPalace = () => {
     createNewPalace,
     isValidUrl,
     isImageUrl,
+    newImageURL,
   } = useContext(PalaceContext);
 
   const [newPalaceName, setNewPalaceName] = useState("");
@@ -37,10 +38,10 @@ const AddNewPalace = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     isValidUrl(newPalaceUrl);
-    isImageUrl(newPalaceUrl);    
+    isImageUrl(newPalaceUrl);
+    createNewPalace(newPalaceName, newPalaceDescription, newImageURL);
     window.add_palace_view.close();
     window.reg_view.showModal();
-    createNewPalace(newPalaceName, newPalaceDescription, newPalaceUrl);
   };
 
   return (
@@ -51,41 +52,37 @@ const AddNewPalace = () => {
         <div className="textInput">
 
 
-        <div className="input-section">
-          <label>Add Palace Name: </label>
-          <input
-            type="text"
-            placeholder="Palace Name"
-            value={newPalaceName}
-            onChange={handleNewPalaceNameChange}
-            className="input input-bordered input-info input-xs w-full max-w-xs"
-          />
+          <div className="input-section">
+            <label>Add Palace Name: </label>
+            <input
+              type="text"
+              placeholder="Palace Name"
+              value={newPalaceName}
+              onChange={(e) => setNewPalaceName(e.target.value)}
+              className="input input-bordered input-info input-xs w-full max-w-xs"
+            />
+          </div>
+
+          <div className="input-section-Description">
+            <label className="Palace Description">Add Palace Description: </label>
+            <textarea
+              placeholder="PalaceDescription"
+              value={newPalaceDescription}
+              onChange={handleNewPalaceDescriptionChange}
+              className="textarea textarea-info"
+            />
+          </div>
+          <div className="input-section">
+            <PalaceCoverImageNew newPalaceUrl={newPalaceUrl} handleNewPalaceUrl={handleNewPalaceUrl} setNewPalaceUrl={setNewPalaceUrl} />
+          </div>
+          <div className="EditAndSubmitButton">
+          <button
+            className="btn btn-success"
+            onClick={handleSave}
+          >
+            Continue
+          </button>
         </div>
-        <div className="input-section">
-          <label>Add Palace Cover Photo:</label>
-          <input
-            type="text"
-            placeholder="Palace Cover Image Url"
-            value={newPalaceUrl}
-            onChange={handleNewPalaceUrl}
-            className="input input-bordered input-info input-xs w-full max-w-xs"
-          />
-        </div>
-        <div className="input-section-Description">
-          <label className="Palace Description">Add Palace Description: </label> 
-          <textarea
-            placeholder="PalaceDescription"
-            value={newPalaceDescription}
-            onChange={handleNewPalaceDescriptionChange}
-            className="textarea textarea-info"
-          />
-        </div>
-        <PalaceCoverImageNew />
-        <img
-          src="https://images.pexels.com/photos/277559/pexels-photo-277559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          className="image-box w-60 mx-auto"
-          alt="Palace Image"
-        />
         </div>
         <div className="modal-action">
           <button
@@ -93,14 +90,6 @@ const AddNewPalace = () => {
             onClick={() => window.add_palace_view.close()}
           >
             ✕
-          </button>
-        </div>
-        <div className="EditAndSubmitButton">
-          <button
-            className="btn btn-success"
-            onClick={handleSave}
-          >
-            Continue
           </button>
         </div>
       </div>
