@@ -79,7 +79,7 @@ const App = () => {
             </div>
           </div>
         </div>
-        <div className="text-gray-400 hover:text-gray-700 text-4xl cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
+        <div className=" text-gray-400 bg-base-200 py-3 px-5 rounded-xl hover:bg-base-300 cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
           <BsHouseAdd></BsHouseAdd>
         </div>
         <br></br>
