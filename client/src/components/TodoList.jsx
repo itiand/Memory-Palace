@@ -224,6 +224,7 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
                 generate
               </button>
+
               {generating === true &&
               <button type="button" disabled>
                 Processing...
@@ -240,6 +241,11 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
           </li>
         ))}
       </ul>
+      {generating === true && 
+      <button type="button" disabled>
+        Processing...
+      <span className="loading loading-spinner text-info"></span>
+      </button>}
     </div>
   );
 };
