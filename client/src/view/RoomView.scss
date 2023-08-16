@@ -3,12 +3,6 @@
 // @tailwind utilities;
 
 .pinImage{
-  // position: absolute;
-  // top: 55%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
-  // visibility: hidden;
-  
   width: 2px;
   visibility: hidden;
   // opacity: 0; // Hidden by default
@@ -19,6 +13,7 @@
   display: flex;
 }
 .hoverArea:hover .pinImage{
+  transform: translate(-50%, -50%);
   visibility: visible;
   width: 10%;
   position: absolute;

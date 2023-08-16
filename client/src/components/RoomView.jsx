@@ -155,28 +155,11 @@ function RoomView() {
           {/* <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons> */}
           <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
           <section className="mt-4">
-            <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
-            {/* {
-              isEditRoomMode === false && <div>
-                {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
-                  <ul>
-                    {selectedPalace.Rooms[selectedRoomId].ToDoList !== []
-                      &&
-                      <button className="btn" onClick={handleStoryMode}>StoryMode</button>
-                    }
-
-                  </ul>
-                ) : (
-                  <p>No ToDoList data available.</p>
-                )}
-
-              </div>
-
-            } */}
+            <button className={`btn btn-accent btn-sm rounded-full ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
             {isEditRoomMode && <section id="to_make_list">
               <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} />
               <button
-                className="btn"
+                className="btn btn-outline btn-info rounded-full"
                 onClick={(e) => { handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks); }}
               >Save Memory</button>
 
@@ -196,7 +179,7 @@ function RoomView() {
                 {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
                   <ul>
                     {selectedPalace.Rooms[selectedRoomId].ToDoList.length > 0 &&
-                      <button className="btn" onClick={handleStoryMode}>StoryMode</button>
+                      <button className="mt-4 btn btn-accent btn-sm rounded-full" onClick={handleStoryMode}>StoryMode</button>
                     }
                     {selectedPalace.Rooms[selectedRoomId].ToDoList.map(item => (
                       <li key={item.id}>
