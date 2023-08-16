@@ -4,21 +4,13 @@ import { useContext } from "react";
 
 
 const AddMemory = () => {
-// const { 
-//   tasks,
-//   changePalaceEntry,
-//   changeRoomEntry,
-//   setSelectedRoom,
-//   selectedPalace,
-//   savePalaceState,
-//   selectedRoom
-//  } = useContext(PalaceContext);
-
   const {
     tasks,
     changeRoomEntry,
     updateToDoList,
     selectedRoom,
+    savePalaceState,
+    selectedPalace,
     // changePalaceEntry,
   } = useContext(PalaceContext);
 
@@ -35,11 +27,12 @@ const AddMemory = () => {
 // 
   const handleSaveMemory = async () => {
     console.log(selectedRoom._id);
-    updateToDoList(selectedRoom._id, tasks);
+    // updateToDoList(selectedRoom._id, tasks);
     // updateRoomToDo(tasks);
-    
-    window.add_memory_view.close();
+    selectedPalace.Rooms[tasks._id].ToDoList = tasks;
+    savePalaceState();
     window.reg_view.showModal();
+    window.add_memory_view.close();
   };
 
   return (

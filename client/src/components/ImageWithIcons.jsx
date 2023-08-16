@@ -1,15 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { BsFillPinFill } from 'react-icons/bs';
 import InfoCard from './InfoCard';
+import { PalaceContext } from '../providers/palaceProvider';
 
 const ImageWithIcons = (props) => {
   const { imageUrl, icons, setIcons } = props;
+  const {hoveredIndex, setHoveredIndex } = useContext(PalaceContext);
 
   const imageRef = useRef(null);
   const [pinsVisible, setPinsVisible] = useState(true);
   const [infoCardsVisble, setInfoCardsVisible] = useState(true);
   const [showAllInfoCards, setShowAllInfoCards] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState(-1); // Track hovered index
+
   const [clickedIndex, setClickedIndex] = useState(-1); // Track clicked index
   
   

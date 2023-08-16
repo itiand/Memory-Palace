@@ -31,7 +31,7 @@ function RoomView() {
 
     if(updateResponse.success === true) {
       console.log('updateResponse', updateResponse)
-      setSelectedRoom(updateResponse.updatedRoom)
+      // setSelectedRoom(updateResponse.updatedRoom)
       alert("Save Successful!")
       setIsEditRoomMode(false)
       const newId = selectedRoom._id;
@@ -53,11 +53,11 @@ function RoomView() {
 
 
   const randomOddState = (keyword) => {
-    // 70% chance to return the original keyword
-    if (Math.random() < 0.7) {
+    // 50% chance to return the original keyword
+    if (Math.random() < 0.5) {
       return keyword;
     }
-    // 30% chance to modify the keyword
+    // 50% chance to modify the keyword
     const odd = [
       " playing poker.",
       " juggling chainsaws.",
