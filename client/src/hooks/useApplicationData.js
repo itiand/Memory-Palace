@@ -123,6 +123,7 @@ const selectRoom = (roomId) => {
       });
   }
 
+
   function updateMemoryPalace(palaceId, updatedData) {
     // Update Existing Memory Palace
     sendRequest(`/api/update`, 'PUT', { id: palaceId, data: updatedData });
