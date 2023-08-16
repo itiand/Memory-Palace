@@ -49,7 +49,7 @@ function RoomView() {
 
     if (updateResponse.success === true) {
       console.log('updateResponse', updateResponse)
-      setSelectedRoom(updateResponse.updatedRoom)
+      // setSelectedRoom(updateResponse.updatedRoom)
       alert("Save Successful!")
       setIsEditRoomMode(false)
       const newId = selectedRoom._id;
@@ -68,12 +68,15 @@ function RoomView() {
     e.preventDefault()
     startReadingAndActions();
   }
-  // const handleRoomClose = () => {
-  //   setSelectedRoom({})
-  // }
+
+
 
   const randomOddState = (keyword) => {
-    // takes in keyword and returns "keyword + funny string"
+    // 50% chance to return the original keyword
+    if (Math.random() < 0.5) {
+      return keyword;
+    }
+    // 50% chance to modify the keyword
     const odd = [
       " playing poker.",
       " juggling chainsaws.",
@@ -127,6 +130,7 @@ function RoomView() {
       " wearing 3D glasses.",
       " gazing through a telescope.",
       " in a chef's hat.",
+      // ... (your existing array of funny strings)
     ];
     const randomIndex = Math.floor(Math.random() * odd.length);
     const randomAction = odd[randomIndex];
@@ -160,6 +164,15 @@ function RoomView() {
                 className="btn"
                 onClick={(e) => { handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks); }}
               >Save Memory</button>
+
+              {isEditRoomMode === false &&
+              <section>
+                {selectedRoom &&
+                  <div>
+                    <p>{selectedRoom.ToDoList[0].keyword}</p>
+                  </div>
+                }
+              </section>}
 
             </section>}
             {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (

@@ -9,6 +9,8 @@ const useApplicationData = () => {
   const [memoryPalaces, setMemoryPalaces] = useState([]);
   const [selectedPalace, setSelectedPalace] = useState({});
   const [tasks, setTasks] = useState([]);
+  const [hoveredIndex, setHoveredIndex] = useState(-1); // Track hovered index
+
 
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
@@ -149,7 +151,6 @@ const selectRoom = (roomId) => {
       console.error("Error deleting memory palace:", error);
     }
   };
-
   // Utility Functions to handle Fetch Responses
   function handleResponse(response) {
     if (!response.ok) {
@@ -176,7 +177,6 @@ const selectRoom = (roomId) => {
       })
       .catch(handleError);
   }
-
   useEffect(() => {
     fetchMemoryPalaces();
   }, []);
@@ -205,31 +205,6 @@ const selectRoom = (roomId) => {
     }
   };
   
-  // const changeRoomEntry = async (key, value) => {
-  //   console.log("changeRoomEntry");
-  //   if (selectedRoom) {
-  //     const newSelectedRoom = { ...selectedRoom, [key]: value };
-  //     await setSelectedPalace(newSelectedRoom);
-  //     // console.log('selectedPalace', selectedPalace);
-  //     await updateMemoryPalace(newSelectedPalace._id, newSelectedRoom);
-  //   }
-  // };  
-  // const changeRoomEntry = async (key, value) => {
-  //   console.log("changeRoomEntry");
-  //   if (selectedRoom) {
-  //     // const newSelectedRoom = { ...selectedPalace.Rooms, [key]: value };
-  //     // await setSelectedRoom(newSelectedRoom);
-  //     // console.log('selectedRoom', selectedRoom);
-  //     // await updateMemoryPalace(selectedPalace._id, selectedPalace);
-  //     // selectedRoom[key][0] = value 
-  //     let newSelectedRoom = new selectedRoom;
-  //     newSelectedRoom[key] = value;
-  //     let newSelectedPalace = selectedPalace;
-  //     newSelectedPalace.Rooms = newSelectedRoom;
-  //     await setSelectedPalace(newSelectedPalace);
-  //     await savePalaceState();
-  //   }
-  // };
 
   const deletePalaceEntry = (key) => {
     // Delete an Entry by its Key from selectedPalace
@@ -444,8 +419,14 @@ const randomSaying = (mode) => {
     return randomLol;
   }
 };
+
+const showInfoCard = (index) => {
+  // Set the index as the hovered index to display the InfoCard
+  setHoveredIndex(1);
+};
 const scream = () => {
   alert('Scream function executed');
+  showInfoCard(selectedRoom.ToDoList[0]);
 }
 // Set up a function to read text out loud
 const speakText = (text) => {
@@ -462,19 +443,20 @@ const speakText = (text) => {
 const generateNarrateArray = () => {
   const ToDoList = selectedRoom.ToDoList;
   const array = [
-    scream,
+    () => scream(-1), // Use -1 to indicate no specific InfoCard
     randomSaying('intro'),
-    scream,
-    `${ToDoList[0].keyword}.Defined as ${ToDoList[0].definition}. You're memory cue is ${ToDoList[0].drawDescription}`,
+    () => scream(-1), // Use -1 to indicate no specific InfoCard
+    `${ToDoList[0].keyword}. ${ToDoList[0].definition} Your memory cue is a ${ToDoList[0].symbol} ${ToDoList[0].drawDescription}`,
   ];
-  for (let i = 1; i < ToDoList.length; i++) {array.push(
-      scream,
+  for (let i = 1; i < ToDoList.length; i++) {
+    array.push(
+      () => scream(i), // Pass the index to show the related InfoCard
       randomSaying('lol'),
       randomSaying('bridge'),
-      `${ToDoList[i].keyword}.Defined as ${ToDoList[i].definition}. Your memory cue prompt is ${ToDoList[i].drawDescription}`,
+      `${ToDoList[i].keyword}.${ToDoList[i].definition} Your memory cue prompt is ${ToDoList[i].drawDescription}`,
     );
   }
-  array.push("Well that's everything for now!...Till next time!...Bye for now!");
+  array.push("Well that's everything for now!... Till next time!... Bye for now!");
   return array;
 };
 const startReadingAndActions = () => {
@@ -508,6 +490,7 @@ const startReadingAndActions = () => {
     selectedRoom,setSelectedRoom,
     tasks, setTasks,
     newImageURL, setNewImageURL,
+    hoveredIndex, setHoveredIndex,
     
     deleteAndSwitchToLastPalace,
     deleteCurrentSelectedPalace,
