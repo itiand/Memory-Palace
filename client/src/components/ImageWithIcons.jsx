@@ -52,6 +52,8 @@ const ImageWithIcons = (props) => {
     setIcons(updatedIcons);
 
     event.dataTransfer.setData("text/plain", JSON.stringify({ index }));
+
+    
   };
 
   const handleDragEnd = (index) => (event) => {

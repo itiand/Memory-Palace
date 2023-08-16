@@ -73,7 +73,7 @@ const App = () => {
       <AddMemory />
       <div className="-mt-8 flex flex-col items-center justify-around h-5/6">
         <div>
-          <h1 className="mt-6 text-center text-neutral text-3xl">Your Collection</h1>
+          <h1 className="mt-6 text-center text-neutral text-5xl">Palace Collection</h1>
           <div className="container  text-center carousel-container mx-auto">
             <div className="carousel mx-auto mt-7 rounded-lg">
               {memoryPalaceCarousel}
