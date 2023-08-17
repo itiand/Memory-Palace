@@ -373,7 +373,7 @@ const randomSaying = (mode) => {
     "Welcome to your very own Mind Palace. It's my pleasure to help you remember! Let's get started!",
   ];
   const randomIndex = Math.floor(Math.random() * intro.length);
-  const randomIntro = `${intro[randomIndex]}. Your journey begins in the ${selectedRoom.roomName}. Your first memory cue is`;
+  const randomIntro = `${intro[randomIndex]}. Your journey begins in ${selectedRoom.roomName}. Your first memory cue is`;
   return randomIntro;
 }
   if (mode === "bridge") {
@@ -420,12 +420,12 @@ const randomSaying = (mode) => {
       "That's adorable!",
       "Remembering isn't everything...It's the only thing.",
       "Lock in that memory! Splendid!",
-      "I'm 90 percent sure I turned off my stove before coming here!",
+      // "I'm 90 percent sure I turned off my stove before coming here!",
       "How positively drole!",
       "They originally wanted Morgan Freeman for this job!",
       "I don't think I'll forget this one either.",
       "I can already feel you getting smarter.",
-      "Existential question, how is a raven like a writing desk?",
+      // "Existential question, how is a raven like a writing desk?",
       "Sorry. I got distracted. did you get that?"
     ];
     const randomIndex = Math.floor(Math.random() * lol.length);
