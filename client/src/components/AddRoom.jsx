@@ -160,11 +160,11 @@ const AddRoom = () => {
 
             <div className="input-section pb-3">
               <label htmlFor="roomUrl" className="block font-semibold mt-4">
-                Add URL:
+                Cover Image:
               </label>
               <input
                 type="text"
-                placeholder="Cover image for your room"
+                placeholder="Enter new image URL"
                 id="roomUrl"
                 className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none border-none overflow-hidden"
                 value={roomUrl}

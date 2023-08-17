@@ -21,7 +21,7 @@ function Navbar(props) {
   };
 
   return (
-    <div className="outer-nav bg-primary">
+    <div className="outer-nav bg-primary text-primary-content">
       <div className="navbar nav-container pt-4">
         <div className="navbar-start">
           <select className="px-2 py-3" data-choose-theme>
@@ -38,7 +38,7 @@ function Navbar(props) {
           </a>
         </div>
         <div className="navbar-center">
-          <button className="btn text-3xl" onClick={() => window.add_palace_view.showModal()}><BsHouseAdd></BsHouseAdd>
+          <button className="btn text-white bg-accent border-none text-3xl rounded" onClick={() => window.add_palace_view.showModal()}><BsHouseAdd></BsHouseAdd>
           </button>
         </div>
         <div className="navbar-end">

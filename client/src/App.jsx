@@ -81,13 +81,8 @@ const App = () => {
         </div>
       </div>
       <div className="grid grid-cols-4 gap-4 w-4/6 m-auto">
-        <div className="flex items-center justify-center">
-          <div className="text-gray-400 bg-base-200 py-3 px-5 rounded-xl hover:bg-base-300 cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
-            <BsHouseAdd></BsHouseAdd>
-          </div>
-        </div>
         <div className="col-span-3">
-          <h1 className="mt-6 text-center text-neutral text-3xl">Favorite Palaces</h1>
+          <h1 className="mt-6 mb-2 text-center text-neutral text-3xl">Favorite Palaces</h1>
 
           <div className="carousel rounded-box w-full gap-x-1 cursor-pointer max-h-80">
             {memoryPalaces.map((palace, index) => {
@@ -101,6 +96,11 @@ const App = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <div className="text-white bg-accent py-3 px-5 rounded-xl hover:bg-accent-focus cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
+            <BsHouseAdd></BsHouseAdd>
           </div>
         </div>
       </div>
