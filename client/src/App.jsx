@@ -81,11 +81,6 @@ const App = () => {
         </div>
       </div>
       <div className="grid grid-cols-4 gap-4 w-4/6 m-auto">
-        <div className="flex items-center justify-center">
-          <div className="text-white bg-accent py-3 px-5 rounded-xl hover:bg-accent-focus cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
-            <BsHouseAdd></BsHouseAdd>
-          </div>
-        </div>
         <div className="col-span-3">
           <h1 className="mt-6 mb-2 text-center text-neutral text-3xl">Favorite Palaces</h1>
 
@@ -101,6 +96,11 @@ const App = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <div className="text-white bg-accent py-3 px-5 rounded-xl hover:bg-accent-focus cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
+            <BsHouseAdd ></BsHouseAdd>
           </div>
         </div>
       </div>
