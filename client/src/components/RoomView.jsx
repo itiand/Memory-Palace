@@ -159,7 +159,7 @@ function RoomView() {
           {/* <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons> */}
           <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
           <section className="mt-4">
-            <button className={`btn btn-accent btn-sm rounded-full ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
+            <button className={`btn btn-accent btn-sm rounded-full ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>Memorize</em></button>
             {isEditRoomMode && <section id="to_make_list">
               <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} />
               <button
@@ -209,7 +209,6 @@ function RoomView() {
                 )}
 
               </div>
-
             }
           </section>
 

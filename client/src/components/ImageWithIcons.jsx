@@ -195,7 +195,7 @@ const ImageWithIcons = (props) => {
             {
               selectedPalace.Rooms[selectedRoomId].ToDoList.length > 0 &&
               < button className="mt-4 btn btn-accent btn-sm rounded-full" type="button" onClick={togglePinsVisibility}>
-              Pin View Mode
+              View Mode
 
             </button>
             }
