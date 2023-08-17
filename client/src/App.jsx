@@ -87,7 +87,7 @@ const App = () => {
           </div>
         </div>
         <div className="col-span-3">
-          <h1 className="mt-6 text-center text-neutral text-3xl">Favorites</h1>
+          <h1 className="mt-6 text-center text-neutral text-3xl">Favorite Palaces</h1>
 
           <div className="carousel rounded-box w-full gap-x-1 cursor-pointer max-h-80">
             {memoryPalaces.map((palace, index) => {
@@ -96,7 +96,7 @@ const App = () => {
                   <img src={palace.PalaceCoverImg} className="w-full" />
                   <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
                     <span className="mb-1 text-white text-2xl">{palace.PalaceName}</span>
-                    <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={() => window.add_palace_view.showModal()}><FaRegEye /></span>
+                    <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={() => handlePalaceClick(palace)}><FaRegEye /></span>
                   </div>
                 </div>
               );

@@ -164,7 +164,7 @@ const AddRoom = () => {
               </label>
               <input
                 type="text"
-                placeholder="URL"
+                placeholder="Cover image for your room"
                 id="roomUrl"
                 className="input-section textarea input-xs textarea-info h-4 w-full input-field resize-none border-none overflow-hidden"
                 value={roomUrl}
