@@ -100,7 +100,7 @@ const App = () => {
         </div>
         <div className="flex items-center justify-center">
           <div className="text-white bg-accent py-3 px-5 rounded-xl hover:bg-accent-focus cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
-            <BsHouseAdd ></BsHouseAdd>
+            <BsHouseAdd></BsHouseAdd>
           </div>
         </div>
       </div>
