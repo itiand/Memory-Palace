@@ -82,7 +82,7 @@ const App = () => {
       </div>
       <div className="grid grid-cols-4 gap-4 w-4/6 m-auto">
         <div className="flex items-center justify-center">
-          <div className="text-gray-400 bg-base-200 py-3 px-5 rounded-xl hover:bg-base-300 cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
+          <div className="text-white bg-accent py-3 px-5 rounded-xl hover:bg-accent-focus cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
             <BsHouseAdd></BsHouseAdd>
           </div>
         </div>
