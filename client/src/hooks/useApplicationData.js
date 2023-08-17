@@ -348,12 +348,10 @@ const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg) => {
           tasksState: tasksState
         })
       });
-  
       // Check if the request was successful
       if (!response.ok) {
         throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
       }
-  
       // Parse and return the JSON response from the server
       return await response.json();
     } catch (error) {
@@ -362,10 +360,8 @@ const createNewPalace = (PalaceName, PalaceDescription, PalaceCoverImg) => {
     }
   }
   
-
 const speechSynthesis = window.speechSynthesis;
 const randomSaying = (mode) => {
-  // depending on mode, "return intro, phrase, lol string"
   if (mode === "intro") {
   const intro = [
     // "...Welcome to your Memory Palace...",
@@ -373,25 +369,36 @@ const randomSaying = (mode) => {
     // "...Are you ready to begin your Memory Journey?...",
     // "...Let's see what we can remember today!...",
     // "Welcome to MovieRecapped...oh wait, I meane welcome to your Mind Palace.",
-    "Welcome to your very own Mind Palace. It's my pleasure to help you remember everything! Let's get started!",
+    "Welcome to your very own Mind Palace. It's my pleasure to help you remember! Let's get started!",
   ];
   const randomIndex = Math.floor(Math.random() * intro.length);
-  const randomIntro = `${intro[randomIndex]}...Your journey begins in the ${selectedRoom.roomName}...The first item on your journey is`;
-  
+  const randomIntro = `${intro[randomIndex]}. Your journey begins in the ${selectedRoom.roomName}. Your first memory cue is`;
   return randomIntro;
 }
   if (mode === "bridge") {
     const bridge = [
       "Next you see",
       "Your eyes drift towards",
-      "Moving on. Now you find yourself standing in front of.",
-      "What do we have next? Oh!, it's",
+      "Moving on. Now you find yourself standing in front of",
+      "What do we have next? Oh!, that's right!. It's ",
       "Next you notice",
       "Suddenly, you see",
       "Next item on your journey is",
       "After that we arrive at",
       "Next stop on the tour is",
-      "On with the tour. No dawdling. Next we have",
+      "On with the tour. No dawdling. Next is ",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
     ];
     const randomIndex = Math.floor(Math.random() * bridge.length);
     const randomPhrase = bridge[randomIndex];
@@ -407,81 +414,61 @@ const randomSaying = (mode) => {
       "You don't see that everyday!",
       "Oh my, how wonderful!",
       "Even I think that will be hard to forget!",
-      "You're sure to remember that one, wont you?",
+      "You're sure to remember that one, won't you?",
       "Just remember, if she doesn't find you handsome, she should at least find you handy.",
       "That's adorable!",
       "Remembering isn't everything...It's the only thing.",
       "Lock in that memory! Splendid!",
-      "I wonder. I'm 90 percent sure I turned off my stove before coming here!",
+      "I'm 90 percent sure I turned off my stove before coming here!",
       "How positively drole!",
       "They originally wanted Morgan Freeman for this job!",
       "I don't think I'll forget this one either.",
       "I can already feel you getting smarter.",
       "Existential question, how is a raven like a writing desk?",
-      "Sorry, I got distracted, did you get that?"
+      "Sorry. I got distracted. did you get that?"
     ];
-  
     const randomIndex = Math.floor(Math.random() * lol.length);
     const randomLol = lol[randomIndex];
     return randomLol;
   }
 };
 
-const showInfoCard = (index) => {
-  // Set the index as the hovered index to display the InfoCard
-  setHoveredIndex(1);
-};
-const scream = () => {
-  alert('Scream function executed');
-  showInfoCard(selectedRoom.ToDoList[0]);
-}
-// Set up a function to read text out loud
 const speakText = (text) => {
   const speak = () => {
     const utterance = new SpeechSynthesisUtterance(text);
-    console.log(speechSynthesis.getVoices());
-    utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === "Google UK English Male"); // Fred, Karen,Google UK English Male, Google UK English Female,
+    utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === "Google UK English Female"); // Fred, Karen, Google UK English Fe/male,
     utterance.rate = 1;
     utterance.pitch = 1;
     speechSynthesis.speak(utterance);
   };
   return speak;
 };
-const generateNarrateArray = () => {
+
+const geNarrateArray = () => {
   const ToDoList = selectedRoom.ToDoList;
   const array = [
-    // () => scream(-1), // Use -1 to indicate no specific InfoCard
-    // randomSaying('intro'),
-    // () => scream(-1), // Use -1 to indicate no specific InfoCard
-    `${ToDoList[0].keyword}. ${ToDoList[0].definition} Your memory cue is a ${ToDoList[0].symbol} ${ToDoList[0].drawDescription} ${scream(-1)}`,
+    randomSaying('intro'),
+    `${ToDoList[0].keyword}. ${ToDoList[0].definition} ${ToDoList[0].drawDescription}`,
   ];
   for (let i = 1; i < ToDoList.length; i++) {
+    const cue = i + 1
     array.push(
-      // () => scream(i), // Pass the index to show the related InfoCard
       randomSaying('lol'),
       randomSaying('bridge'),
-      `${ToDoList[i].keyword}.${ToDoList[i].definition} Your memory cue prompt is ${ToDoList[i].drawDescription}`,
+      `Memory cue number ${[cue]}. ${ToDoList[i].keyword}. ${ToDoList[i].drawDescription}`,
     );
   }
-  array.push("Well that's everything for now!... Till next time!... Bye for now!");
+  array.push("Well that's everything for now!... Till next time!... Bye!");
   return array;
 };
 const startReadingAndActions = () => {
-  const array = generateNarrateArray(selectedRoom.ToDoList);
-  for (let currentIndex = 0; currentIndex < array.length; currentIndex++) {
-    const arrayElement = array[currentIndex];
-    if (typeof arrayElement === 'string') {
-      const speakFunction = speakText(arrayElement);
+  const array = geNarrateArray(selectedRoom.ToDoList);
+  for (let i = 0; i < array.length; i++) {
+      const speakFunction = speakText(array[i]);
+      console.log(array[i]);
       speakFunction();
-      console.log(arrayElement);
-    } else if (typeof arrayElement === 'function') {
-      arrayElement(); // Execute the function
-    } else {
-      console.log("Unknown array element type:", arrayElement);
-    }
   }
 };
-
 
   return {
     startReadingAndActions,

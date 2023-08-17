@@ -3,6 +3,7 @@ import { PalaceContext } from "../providers/palaceProvider";
 import { BsFillPinFill } from 'react-icons/bs';
 import ImageWithIcons from "./ImageWithIcons";
 import TodoList from "./TodoList";
+import { themeChange } from "theme-change";
 import '../view/RoomView.scss'
 
 function RoomView() {
@@ -16,6 +17,8 @@ function RoomView() {
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } = selectedPalace;
   const { roomImg, roomName, ToDoList } = selectedRoom;
   const selectedRoomId = selectedRoom._id;
+
+
   //   if(isEditRoomMode === false)  
   //     {
   //       const h2 = selectedPalace.Rooms[selectedRoomId].ToDoList.map((item) => 
@@ -66,6 +69,7 @@ function RoomView() {
 
   const handleStoryMode = (e) => {
     e.preventDefault();
+
     startReadingAndActions();
   };
 
