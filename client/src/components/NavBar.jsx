@@ -21,7 +21,7 @@ function Navbar(props) {
   };
 
   return (
-    <div className="bg-primary">
+    <div className="outer-nav bg-primary">
       <div className="navbar nav-container pt-4">
         <div className="navbar-start">
           <select className="px-2 py-3" data-choose-theme>
