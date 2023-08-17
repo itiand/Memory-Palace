@@ -67,8 +67,8 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
         option: showDefinitionInput ? 'custom' : 'notDefine',
         generatedImage: "",
         narratorDescription: "",
-        x: 2,
-        y: 2,
+        x: 6,
+        y: 94,
         isDragging: false,
       }
 
@@ -137,13 +137,27 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
     const response = await getChatResponseFromServer(content); //response = get chat gpt to give a symbol 
     console.log(response);
     const newResponse = JSON.parse(response);
-    const addGptArray = () => {
-      tasks.definition = newResponse[1];
-      tasks.symbol = newResponse[2];
-      tasks.symbolExplanation = newResponse[3];
+    const addGptArray = (newResponse) => {
+      console.log(newResponse);
+      // let newestResponse = [];
+
+      const newestResponse = newResponse.map(response => {
+        console.log('response', response);
+        if (response === 'n/a' || response === "N/A") {
+          return("");
+        } else {
+          return response;
+        }
+      });
+      
+      tasks.definition = newestResponse[1];
+      tasks.symbol = newestResponse[2];
+      tasks.symbolExplanation = newestResponse[3];
       selectedRoom[tasks._id] = tasks;
       savePalaceState();
     };
+
+    addGptArray(newResponse);
    
     // make tasks === selectedRoom
     const responseWithAction = await randomOddState(newResponse[3]);  //attach a action --> anthony's method
@@ -222,7 +236,7 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
               {task.drawDescription && <span className="text-green-800"><em>{task.drawDescription}</em></span>}
               {task.generatedImage && <img className="w-40 border-2 border-neutral-500 rounded-lg" src={task.generatedImage}></img>}
               < button className="btn btn-outline btn-accent btn-xs m-3" onClick={(e) => { handleGenerate(e, task.keyword, task.definition); }}>
-                generate
+                Draw
               </button>
 
               <button
@@ -237,7 +251,7 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
       </ul>
       {generating === true && 
       <button type="button" disabled>
-        Processing...
+        Generating Image...
       <span className="loading loading-spinner text-info"></span>
       </button>}
     </div>

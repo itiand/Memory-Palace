@@ -5,6 +5,7 @@ import { themeChange } from "theme-change";
 import { PalaceContext } from "./providers/palaceProvider";
 import { BsHouseAdd } from 'react-icons/bs';
 
+
 // Components
 import Navbar from "./components/NavBar";
 import PalaceCarouselItem from "./components/PalaceCarouselItem";
@@ -43,9 +44,6 @@ const App = () => {
   useEffect(() => {
     themeChange(false);
   }, []);
-
-
-
 
   const handlePalaceClick = (selected) => {
     setSelectedPalace(selected); // clicked palace as the selected palace state
