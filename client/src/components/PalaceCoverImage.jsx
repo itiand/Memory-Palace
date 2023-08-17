@@ -24,7 +24,7 @@ const PalaceCoverImage = () => {
     <div className="relative">
       <img src={PalaceCoverImg} alt={`Cover of ${PalaceName}`} className="image-box w-70 mx-auto rounded" />
       <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black rounded">
-        <span className="text-white p-2 text-4xl">{PalaceDescription}</span>
+        <span className="text-white p-10 text-4xl text-center">{PalaceDescription}</span>
         {isEditMode ?
           (
             <div className="flex flex-col items-center space-y-2">

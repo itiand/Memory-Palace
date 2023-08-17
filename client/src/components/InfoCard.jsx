@@ -7,7 +7,7 @@ const InfoCard = ({ keyword, definition, image, positionY, positionX }) => {
       <p>{definition}</p> */}
 
   return (
-    <div className="info-card w-20"
+    <div className="info-card w-28"
       style={{
         position: 'absolute',
         top: `${positionY}%`, // Use percentage for positioning
