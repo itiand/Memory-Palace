@@ -37,36 +37,12 @@ function Navbar(props) {
             ELIFINT
           </a>
         </div>
-
-        {/* <div className="navbar-center hidden lg:flex">
-      <ul className="menu menu-horizontal px-1">
-        <li>
-          <a>Item 1</a>
-        </li>
-        <li tabIndex={0}>
-          <details>
-            <summary>Parent</summary>
-            <ul className="p-2">
-              <li>
-                <a>Submenu 1</a>
-              </li>
-              <li>
-                <a>Submenu 2</a>
-              </li>
-            </ul>
-          </details>
-        </li>
-        <li>
-          <a>Item 3</a>
-        </li>
-      </ul>
-    </div> */}
-        <div>
-          <button className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>My Palaces</button>
-        </div>
-        <div className="navbar-end">
+        <div className="navbar-center">
           <button className="btn text-3xl" onClick={() => window.add_palace_view.showModal()}><BsHouseAdd></BsHouseAdd>
           </button>
+        </div>
+        <div className="navbar-end">
+          <button className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>Welcome: Sherlock!</button>
         </div>
       </div>
     </div>
