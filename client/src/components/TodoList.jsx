@@ -67,8 +67,8 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
         option: showDefinitionInput ? 'custom' : 'notDefine',
         generatedImage: "",
         narratorDescription: "",
-        x: 6,
-        y: 94,
+        x: 87.2,
+        y: 50,
         isDragging: false,
       }
 
@@ -137,27 +137,13 @@ const TodoList = ({ randomOddState, isEditRoomMode, setIsEditRoomMode }) => {
     const response = await getChatResponseFromServer(content); //response = get chat gpt to give a symbol 
     console.log(response);
     const newResponse = JSON.parse(response);
-    const addGptArray = (newResponse) => {
-      console.log(newResponse);
-      // let newestResponse = [];
-
-      const newestResponse = newResponse.map(response => {
-        console.log('response', response);
-        if (response === 'n/a' || response === "N/A") {
-          return("");
-        } else {
-          return response;
-        }
-      });
-      
-      tasks.definition = newestResponse[1];
-      tasks.symbol = newestResponse[2];
-      tasks.symbolExplanation = newestResponse[3];
+    const addGptArray = () => {
+      tasks.definition = newResponse[1];
+      tasks.symbol = newResponse[2];
+      tasks.symbolExplanation = newResponse[3];
       selectedRoom[tasks._id] = tasks;
       savePalaceState();
     };
-
-    addGptArray(newResponse);
    
     // make tasks === selectedRoom
     const responseWithAction = await randomOddState(newResponse[3]);  //attach a action --> anthony's method
