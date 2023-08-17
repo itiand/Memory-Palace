@@ -5,7 +5,7 @@ import { PalaceContext } from '../providers/palaceProvider';
 
 const ImageWithIcons = (props) => {
   const { imageUrl, icons, setIcons } = props;
-  const { hoveredIndex, setHoveredIndex } = useContext(PalaceContext);
+  const { hoveredIndex, setHoveredIndex, isEditRoomMode, selectedPalace, selectedRoom } = useContext(PalaceContext);
 
   const imageRef = useRef(null);
   const [pinsVisible, setPinsVisible] = useState(true);
@@ -13,7 +13,7 @@ const ImageWithIcons = (props) => {
   const [showAllInfoCards, setShowAllInfoCards] = useState(false);
 
   const [clickedIndex, setClickedIndex] = useState(-1); // Track clicked index
-
+  const selectedRoomId = selectedRoom._id;
 
   let hoverTimeout; // Variable to store the timeout
   const handleMouseEnter = (index) => {
@@ -187,10 +187,25 @@ const ImageWithIcons = (props) => {
           )}
         </span>
       ))}
-      <button type="button" onClick={togglePinsVisibility}>
-        Toggle View
-      </button>
+
+      {
+        isEditRoomMode === false && <div>
+          {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
+            <div>
+            {
+              selectedPalace.Rooms[selectedRoomId].ToDoList.length > 0 &&
+              < button className="mt-4 btn btn-accent btn-sm rounded-full" type="button" onClick={togglePinsVisibility}>
+              Pin View Mode
+
+            </button>
+            }
+  </div>
+          ) : (
+      <p>No ToDoList data available.</p>
+          )}
     </div>
+      }
+    </div >
   );
 };
 

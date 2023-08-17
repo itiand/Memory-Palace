@@ -20,6 +20,7 @@ const useApplicationData = () => {
   const [newImageURL, setNewImageURL] = useState('');
 
   const [selectedRoom, setSelectedRoom] = useState({});
+  const [isEditRoomMode, setIsEditRoomMode] = useState(false);
 
   const onCloseModal = () => {
     // setSelectedRoom({})
@@ -508,7 +509,9 @@ const startReadingAndActions = () => {
     showAlert,
     setShowAlert,
     alertMessage, 
-    setAlertMessage
+    setAlertMessage,
+    isEditRoomMode,
+    setIsEditRoomMode,
   };
 };
 

@@ -8,9 +8,7 @@ import '../view/RoomView.scss'
 
 function RoomView() {
 
-  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions } = useContext(PalaceContext);
-
-  const [isEditRoomMode, setIsEditRoomMode] = useState(false);
+  const { selectedPalace, updateMemoryPalace, changePalaceEntry, savePalaceState, fetchMemoryPalaces, setSelectedPalace, onCloseModal, isEditMode, setIsEditMode, newImageURL, setNewImageURL, selectRoom, selectedRoom, setSelectedRoom, tasks, updateToDoList, startReadingAndActions, isEditRoomMode, setIsEditRoomMode } = useContext(PalaceContext);
   const [icons, setIcons] = useState(selectedRoom.roomPins);
 
 
@@ -161,11 +159,11 @@ function RoomView() {
           {/* <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.roomPins} setIcons={setIcons}></ImageWithIcons> */}
           <ImageWithIcons imageUrl={roomImg} icons={selectedRoom.ToDoList} setIcons={setIcons}></ImageWithIcons>
           <section className="mt-4">
-            <button className={`btn btn-accent btn-sm ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
+            <button className={`btn btn-accent btn-sm rounded-full ${isEditRoomMode ? 'btn-outline' : 'btn-active'}`} onClick={(e) => { toggleIsEditRoomMode(e); }}><em>To memorize</em></button>
             {isEditRoomMode && <section id="to_make_list">
               <TodoList randomOddState={randomOddState} isEditRoomMode={isEditRoomMode} setIsEditRoomMode={setIsEditRoomMode} />
               <button
-                className="btn"
+                className="btn btn-outline btn-info rounded-full"
                 onClick={(e) => { handleSaveMemory(e, selectedPalace._id, selectedRoom._id, tasks); }}
               >Save Memory</button>
 
@@ -179,10 +177,14 @@ function RoomView() {
                 </section>}
 
             </section>}
+
             {
               isEditRoomMode === false && <div>
                 {selectedPalace && selectedRoomId && selectedPalace.Rooms[selectedRoomId] ? (
                   <ul>
+                    {selectedPalace.Rooms[selectedRoomId].ToDoList.length > 0 &&
+                      <button className="mt-4 btn btn-accent btn-sm rounded-full" onClick={handleStoryMode}>StoryMode</button>
+                    }
                     {selectedPalace.Rooms[selectedRoomId].ToDoList.map(item => (
                       <li key={item.id}>
 
@@ -211,7 +213,7 @@ function RoomView() {
             }
           </section>
 
-          <button className="btn" onClick={handleStoryMode}>StoryMode</button>
+
         </form>
 
       </dialog>
