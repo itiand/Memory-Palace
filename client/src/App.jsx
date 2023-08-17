@@ -87,7 +87,7 @@ const App = () => {
           </div>
         </div>
         <div className="col-span-3">
-          <h1 className="mt-6 text-center text-neutral text-3xl">Favorite Palaces</h1>
+          <h1 className="mt-6 mb-2 text-center text-neutral text-3xl">Favorite Palaces</h1>
 
           <div className="carousel rounded-box w-full gap-x-1 cursor-pointer max-h-80">
             {memoryPalaces.map((palace, index) => {
