@@ -67,11 +67,11 @@ const App = () => {
       <AddMemory />
       <div className="mb-4">
         <div>
-          {/* <h1 className="mt-6 text-center text-5xl font-light text-gray-600">
-            Palace Collection
-          </h1> */}
-          <div className="carousel-container container mx-auto -mt-4 text-center">
-            <div className="carousel mx-auto mt-7 rounded-lg">
+          <div className="carousel-container container mx-auto text-center">
+            <h1 className="mt-6 text-left text-lg  text-gray-600">
+              Palace Collection
+            </h1>
+            <div className="carousel mx-auto rounded-lg">
               {memoryPalaceCarousel}
             </div>
           </div>
