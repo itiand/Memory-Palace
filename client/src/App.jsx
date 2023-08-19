@@ -65,7 +65,7 @@ const App = () => {
       <AddPalaceImage />
       <AddRoom />
       <AddMemory />
-      <div className="mb-4">
+      <div className="container m-auto mb-4">
         <div>
           <div className="carousel-container container mx-auto text-center">
             <h1 className="mt-6 text-left text-lg  text-gray-600">
@@ -77,11 +77,11 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className="m-auto grid w-4/6 grid-cols-4 gap-4">
+      <div className="container m-auto grid w-4/6 grid-cols-4 gap-4">
         <div className="col-span-3">
-          {/* <h1 className="mb-2 mt-6 text-center text-3xl font-light text-gray-600">
+          <h1 className="mb-2 mt-6 text-left text-lg font-light text-gray-600">
             Favorite Palaces
-          </h1> */}
+          </h1>
 
           <div className="carousel rounded-box max-h-80 w-full cursor-pointer gap-x-1">
             {memoryPalaces.map((palace, index) => {
