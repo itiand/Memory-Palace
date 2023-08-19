@@ -7,7 +7,6 @@ body {
   background-color: #ffffff;
 }
 
-
 @keyframes pop-in {
   0% {
     transform: scale(0);
@@ -25,9 +24,9 @@ body {
   }
 }
 
-.-mt-8 {
-  margin: auto;
-}
+// .-mt-8 {
+//   margin: auto;
+// }
 
 outer-nav {
   box-shadow: 0px 17px 15px -3px rgba(0, 0, 0, 0.1);
@@ -41,10 +40,7 @@ outer-nav {
   padding: 2rem 4rem;
   height: fit-content;
   max-width: 1200px;
-
 }
-
-
 
 @keyframes fadeIn {
   from {
@@ -62,26 +58,24 @@ outer-nav {
   animation: fadeIn 0.5s forwards;
 }
 
-
 .add-palace {
   font-size: 125px;
 }
-
 
 /// info card section
 /// animation on hover
 .info-card {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.8);
-  transition: opacity 0.4s, transform 0.3s
+  transition:
+    opacity 0.4s,
+    transform 0.3s;
 }
 
 .info-card:hover {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
-
-
 
 .nav-container {
   width: 85%;

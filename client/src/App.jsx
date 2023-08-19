@@ -65,10 +65,10 @@ const App = () => {
       <AddPalaceImage />
       <AddRoom />
       <AddMemory />
-      <div className="container m-auto mb-4">
+      <div className="container m-auto mb-4 ">
         <div>
           <div className="carousel-container container mx-auto text-center">
-            <h1 className="mt-6 text-left text-lg  text-gray-600">
+            <h1 className="mt-6 text-left text-lg text-gray-600">
               Palace Collection
             </h1>
             <div className="carousel mx-auto rounded-lg">
@@ -79,7 +79,7 @@ const App = () => {
       </div>
       <div className="container m-auto grid w-4/6 grid-cols-4 gap-4">
         <div className="col-span-3">
-          <h1 className="mb-2 mt-6 text-left text-lg font-light text-gray-600">
+          <h1 className="mt-6 text-left text-lg text-gray-600">
             Favorite Palaces
           </h1>
 
