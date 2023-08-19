@@ -17,10 +17,13 @@ function Navbar(props) {
   };
 
   return (
-    <div className="outer-nav bg-indigo-500 text-primary-content">
+    <div className="outer-nav bg-indigo-500 text-white">
       <div className="nav-container navbar pt-4">
         <div className="navbar-start">
-          <select className="px-2 py-3" data-choose-theme>
+          <select
+            className="bg-indigo-100 px-2 py-3 text-gray-500"
+            data-choose-theme
+          >
             <option value="">default</option>
             {props.themes.map((value) => (
               <option key={value.toLowerCase()} value={value.toLowerCase()}>
@@ -29,17 +32,12 @@ function Navbar(props) {
             ))}
           </select>
           <a className="flex-start btn btn-ghost text-2xl normal-case">
-            <img
-              src={postgresLogoURL}
-              alt="Postgres Logo"
-              className="h-12 w-12"
-            />
             ELIFINT
           </a>
         </div>
         <div className="navbar-center">
           <button
-            className="btn rounded border-none bg-accent text-3xl text-white"
+            className="btn rounded border-none bg-indigo-600  text-3xl text-white hover:bg-indigo-700"
             onClick={() => window.add_palace_view.showModal()}
           >
             <BsHouseAdd></BsHouseAdd>
@@ -47,12 +45,12 @@ function Navbar(props) {
         </div>
         <div className="navbar-end">
           <button
-            className="btn btn-ghost text-xl normal-case"
+            className="text-md  btn border-none bg-indigo-600 font-light normal-case text-white hover:bg-indigo-700"
             onClick={() => {
               console.log("open user modal");
             }}
           >
-            Welcome: Sherlock!
+            Welcome Sherlock!
           </button>
         </div>
       </div>
