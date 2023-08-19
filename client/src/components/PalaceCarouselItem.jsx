@@ -1,26 +1,26 @@
-import React from 'react';
+import React from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import '../view/PalaceCarouselItem.scss';
+import "../view/PalaceCarouselItem.scss";
 
 function PalaceCarouselItem(props) {
   const { palace, onPalaceClick } = props;
   // const { palace } = PalaceContext;
   return (
     <div
-      className="carousel-item w-full flex flex-col items-center justify-center cursor-pointer"
+      className="carousel-item flex w-full cursor-pointer flex-col items-center justify-center"
       key={palace._id}
       onClick={() => onPalaceClick(palace)}
     >
-      <div className="cover h-96 flex items-center justify-center overflow-hidden opacity-100 hover:opacity-90 text-2xl">
+      <div className="cover flex h-96 items-center justify-center overflow-hidden text-2xl opacity-100 hover:opacity-90">
         <img src={palace.PalaceCoverImg} className="object-cover" />
-        <div className='carousel-body bg-neutral/50 py-1 px-4 -mt-8 text-gray-200 self-start rounded'>
-          <p className='text-6xl carousel-body-palace_name'>{palace.PalaceName}</p>
+        <div className="carousel-body -mt-8 self-start rounded bg-neutral/50 px-4 py-1 text-gray-200">
+          <p className="carousel-body-palace_name text-6xl">
+            {palace.PalaceName}
+          </p>
         </div>
       </div>
-
     </div>
   );
 }
-
 
 export default PalaceCarouselItem;

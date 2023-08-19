@@ -65,11 +65,11 @@ const App = () => {
       <AddPalaceImage />
       <AddRoom />
       <AddMemory />
-      <div className="-mt-8 flex flex-col items-center justify-start">
+      <div className="mb-4">
         <div>
-          <h1 className="mt-6 text-center text-5xl font-light text-gray-600">
+          {/* <h1 className="mt-6 text-center text-5xl font-light text-gray-600">
             Palace Collection
-          </h1>
+          </h1> */}
           <div className="carousel-container container mx-auto -mt-4 text-center">
             <div className="carousel mx-auto mt-7 rounded-lg">
               {memoryPalaceCarousel}
@@ -79,9 +79,9 @@ const App = () => {
       </div>
       <div className="m-auto grid w-4/6 grid-cols-4 gap-4">
         <div className="col-span-3">
-          <h1 className="mb-2 mt-6 text-center text-3xl font-light text-gray-600">
+          {/* <h1 className="mb-2 mt-6 text-center text-3xl font-light text-gray-600">
             Favorite Palaces
-          </h1>
+          </h1> */}
 
           <div className="carousel rounded-box max-h-80 w-full cursor-pointer gap-x-1">
             {memoryPalaces.map((palace, index) => {
@@ -106,7 +106,7 @@ const App = () => {
         </div>
         <div className="flex items-center justify-center">
           <div
-            className="add-palace cursor-pointer rounded-xl bg-accent px-5 py-3 text-white hover:bg-accent-focus"
+            className="add-palace cursor-pointer rounded-xl bg-green-500 px-5 py-3 text-white hover:bg-green-600"
             onClick={() => window.add_palace_view.showModal()}
           >
             <BsHouseAdd></BsHouseAdd>
