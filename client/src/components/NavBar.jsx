@@ -17,8 +17,8 @@ function Navbar(props) {
   };
 
   return (
-    <div className="outer-nav bg-indigo-500 text-white">
-      <div className="nav-container navbar pt-4">
+    <div className="outer-nav border-t-8 border-t-green-500 bg-indigo-500 pt-3 text-white">
+      <div className="nav-container navbar ">
         <div className="navbar-start">
           <select
             className="bg-indigo-100 px-2 py-3 text-gray-500"
@@ -31,7 +31,7 @@ function Navbar(props) {
               </option>
             ))}
           </select>
-          <a className="flex-start btn btn-ghost text-2xl normal-case">
+          <a className="flex-start btn btn-ghost text-4xl normal-case">
             ELIFINT
           </a>
         </div>
