@@ -42,7 +42,7 @@ function Navbar(props) {
           </button>
         </div>
         <div className="navbar-end">
-          <button className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>Welcome: Sherlock!</button>
+          <button className="btn btn-ghost normal-case text-xl" onClick={() => {console.log("open user modal")}}>Welcome: Sherlock!</button>
         </div>
       </div>
     </div>
