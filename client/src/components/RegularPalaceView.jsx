@@ -7,6 +7,7 @@ import {
   FaCheck,
   FaTimes,
   FaMinusCircle,
+  FaMinus,
 } from "react-icons/fa";
 import AlertMessage from "./AlertMessage";
 import RoomView from "./RoomView";
@@ -73,7 +74,12 @@ function RegularPalaceView() {
           >
             ✕
           </button>
-          <h3 className="pb-2 text-4xl font-bold">{PalaceName}</h3>
+          <h3 className="pb-2 text-4xl font-bold">
+            <span className=" inline-block cursor-pointer rounded-full bg-red-500 p-1 text-lg text-white hover:bg-red-600">
+              <FaMinus></FaMinus>
+            </span>
+            {PalaceName}
+          </h3>
           <PalaceCoverImage></PalaceCoverImage>
           <div className="reg_view-rooms mt-5">
             <div className="flex items-center pb-1 text-lg">

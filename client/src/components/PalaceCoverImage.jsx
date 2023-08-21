@@ -47,9 +47,9 @@ const PalaceCoverImage = () => {
 
   return (
     <div className="relative">
-      <div className="relative -left-3 top-6 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-xl text-white hover:bg-red-600">
+      {/* <div className="relative -left-2 top-5 z-30 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-lg text-white hover:bg-red-600">
         <FaMinus></FaMinus>
-      </div>
+      </div> */}
       <img
         src={PalaceCoverImg}
         alt={`Cover of ${PalaceName}`}
