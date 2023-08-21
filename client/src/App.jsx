@@ -66,14 +66,12 @@ const App = () => {
       <AddRoom />
       <AddMemory />
       <div className="container m-auto mb-4 ">
-        <div>
-          <div className="carousel-container container mx-auto text-center">
-            <h1 className="mt-6 text-left text-lg text-gray-600">
-              Palace Collection
-            </h1>
-            <div className="carousel mx-auto rounded-lg">
-              {memoryPalaceCarousel}
-            </div>
+        <div className="carousel-container container mx-auto text-center">
+          <h1 className="mt-6 text-left text-lg text-gray-600">
+            Palace Collection
+          </h1>
+          <div className="carousel mx-auto rounded-lg">
+            {memoryPalaceCarousel}
           </div>
         </div>
       </div>
@@ -106,7 +104,7 @@ const App = () => {
         </div>
         <div className="flex items-center justify-center">
           <div
-            className="add-palace cursor-pointer rounded-xl bg-green-500 px-5 py-3 text-white hover:bg-green-600"
+            className="add-palace cursor-pointer rounded-xl bg-indigo-500 px-5 py-3 text-white hover:bg-indigo-600"
             onClick={() => window.add_palace_view.showModal()}
           >
             <BsHouseAdd></BsHouseAdd>

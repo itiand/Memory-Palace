@@ -31,13 +31,13 @@ function Navbar(props) {
               </option>
             ))}
           </select>
-          <a className="flex-start btn btn-ghost text-4xl normal-case">
-            ELIFINT
+          <a className="flex-start btn btn-ghost  text-4xl normal-case">
+            <span className="border-b-4 border-b-green-500">ELIFINT</span>
           </a>
         </div>
         <div className="navbar-center">
           <button
-            className="btn rounded border-none bg-green-500  text-3xl text-white hover:bg-green-700"
+            className="btn rounded border-none bg-indigo-600  text-3xl text-white hover:bg-indigo-700"
             onClick={() => window.add_palace_view.showModal()}
           >
             <BsHouseAdd></BsHouseAdd>
