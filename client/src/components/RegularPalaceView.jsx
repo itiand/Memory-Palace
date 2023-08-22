@@ -73,15 +73,22 @@ function RegularPalaceView() {
   return (
     <>
       {/*delete confirm modal*/}
-      <dialog id="delete_confirm" className="modal m-auto w-1/4 min-w-fit">
+      <dialog
+        id="delete_confirm"
+        className="modal m-auto w-1/4 min-w-fit  text-gray-600"
+      >
         <form method="dialog" className="modal-box text-center">
           <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
             ✕
           </button>
-          <h3 className="text-lg font-bold">
+          <h3 className="mb-4 text-lg font-bold">
             Are you sure you want do delete this palace?
           </h3>
-          <div className="confirm-selection"></div>
+          <div className="confirm-selection">
+            <button class="btn bg-red-500 text-white hover:bg-red-600">
+              Delete
+            </button>
+          </div>
         </form>
       </dialog>
 
