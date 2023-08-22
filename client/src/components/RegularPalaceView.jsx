@@ -74,18 +74,21 @@ function RegularPalaceView() {
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          palaceId,
+        }),
       });
 
-      // const data = await response.json();
+      const data = await response.json();
 
-      // console.log("Response from backend deleteion: ", data);
+      console.log("Response from backend deletion: ", data);
 
-      // if (data.success) {
-      //   return true;
-      // } else {
-      //   console.error(data.message);
-      //   return false;
-      // }
+      if (data.success) {
+        return true;
+      } else {
+        console.error(data.message);
+        return false;
+      }
     } catch (error) {
       console.error("Error deleting palace:", error);
       return false;
@@ -94,13 +97,14 @@ function RegularPalaceView() {
 
   const handleConfirmDelete = async () => {
     window.delete_confirm.close();
+    window.reg_view.close();
 
     const success = await deletePalaceFromBackend(selectedPalace._id);
-    // console.log("success", success);
-    // if (success) {
-    //   console.log("successfully deleted");
-    //   fetchMemoryPalaces();
-    // }
+
+    if (success) {
+      console.log("successfully deleted");
+      fetchMemoryPalaces();
+    }
   };
 
   return (

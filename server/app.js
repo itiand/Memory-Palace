@@ -192,36 +192,38 @@ app.put("/update", (req, res) => {
 
 // DELETE: Memory Palace by ID
 app.delete("/deleteMemoryPalace/:id", async (req, res) => {
-  console.log("req params", req.params);
-  console.log("req body", req.body);
-  // const palaceId = new ObjectId(req.params.id);
-  // try {
-  //   const memoryPalaceCollection = db.collection('Palaces');
-  //   // Find the palace before deleting it (for logging or other purposes if needed)
-  //   const palaceToDelete = await memoryPalaceCollection.findOne({ _id: palaceId });
-  //   // Delete the palace
-  //   const deleteResult = await memoryPalaceCollection.deleteOne({ _id: palaceId });
-  //   if (deleteResult.deletedCount > 0) {
-  //     console.log(`Deleted palace with ID: ${palaceId}`);
-  //     res.json({
-  //       success: true,
-  //       message: 'Palace deleted successfully.',
-  //       deletedPalace: palaceToDelete
-  //     });
-  //   } else {
-  //     res.status(404).json({
-  //       success: false,
-  //       message: 'Palace not found for deletion.'
-  //     });
-  //   }
-  // } catch (error) {
-  //   console.error("Error deleting memory palace:", error);
-  //   res.status(500).json({
-  //     success: false,
-  //     message: 'Failed to delete palace.',
-  //     error: error
-  //   });
-  // }
+  const palaceId = new ObjectId(req.params.id);
+  try {
+    const memoryPalaceCollection = db.collection("Palaces");
+    // Find the palace before deleting it (for logging or other purposes if needed)
+    const palaceToDelete = await memoryPalaceCollection.findOne({
+      _id: palaceId,
+    });
+    // Delete the palace
+    const deleteResult = await memoryPalaceCollection.deleteOne({
+      _id: palaceId,
+    });
+    if (deleteResult.deletedCount > 0) {
+      console.log(`Deleted palace with ID: ${palaceId}`);
+      res.json({
+        success: true,
+        message: "Palace deleted successfully.",
+        deletedPalace: palaceToDelete,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Palace not found for deletion.",
+      });
+    }
+  } catch (error) {
+    console.error("Error deleting memory palace:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete palace.",
+      error: error,
+    });
+  }
 });
 
 // UPDATE: ToDoList of a Specific Room in a Memory Palace
