@@ -1,14 +1,12 @@
 // Declarations
-import dotenv from 'dotenv';
-import express, { response } from 'express';
-import morgan from 'morgan';
-import bodyParser from 'body-parser';
-import { getImage, getChatResponse } from './lib/openAIHelpers.js';
-import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
-
+import dotenv from "dotenv";
+import express, { response } from "express";
+import morgan from "morgan";
+import bodyParser from "body-parser";
+import { getImage, getChatResponse } from "./lib/openAIHelpers.js";
+import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
 
 // import { termForAiDrawer, termForAiDrawer1 } from './helper/filterUserWords.js';
-
 
 dotenv.config();
 const app = express();
@@ -24,7 +22,7 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
 
 let db;
@@ -39,49 +37,44 @@ async function run() {
   }
 }
 
-
 run().catch(console.dir);
 ///
 //END MONGO
 //
 
 //routes import
-import exampleRoutes from './routes/exampleRoutes.js';
+import exampleRoutes from "./routes/exampleRoutes.js";
 
 // middleware setup
 app.use(bodyParser.json());
 app.use(morgan(ENVIROMENT));
-
 
 //
 //ROUTES
 //
 // app.use('/cats', exampleRoutes);
 
-
 //Get Chat GPT Response
-app.post('/getChatResponse', async (req, res) => {
-  const content = req.body.content
+app.post("/getChatResponse", async (req, res) => {
+  const content = req.body.content;
 
   try {
     const chatResponse = await getChatResponse(content); // Call the helper function
     res.json({ response: chatResponse });
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred.' });
+    res.status(500).json({ error: "An error occurred." });
   }
 });
 
-app.post('/getImageResponse', async (req, res) => {
+app.post("/getImageResponse", async (req, res) => {
   const content = req.body.content;
   try {
     const imageResponse = await getImage(content); // Call the helper function
     res.json({ response: imageResponse });
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred.' });
+    res.status(500).json({ error: "An error occurred." });
   }
 });
-
-
 
 // app.post('/initMemoryPalace', (req, res) => {
 //   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
@@ -107,137 +100,153 @@ app.post('/getImageResponse', async (req, res) => {
 //     });
 // });
 
-
 // CREATE: New Memory Palace
-app.post('/initMemoryPalace', async (req, res) => {
+app.post("/initMemoryPalace", async (req, res) => {
   const memoryPalaceCollection = db.collection("Palaces");
 
   try {
     const result = await memoryPalaceCollection.insertOne(req.body);
-    const insertedDocument = await memoryPalaceCollection.findOne({ _id: result.insertedId });
+    const insertedDocument = await memoryPalaceCollection.findOne({
+      _id: result.insertedId,
+    });
     if (insertedDocument) {
       res.json({
         success: true,
         insertedCount: 1,
         insertedId: insertedDocument._id,
-        palaceData: insertedDocument
+        palaceData: insertedDocument,
       });
     } else {
       res.status(500).json({
         success: false,
-        message: "Inserted data is not available."
+        message: "Inserted data is not available.",
       });
     }
   } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to insert memory palaces.", error: error });
+    res.status(500).json({
+      success: false,
+      message: "Failed to insert memory palaces.",
+      error: error,
+    });
   }
 });
 
 // READ: All Memory Palaces
-app.get('/getMemoryPalaces', (req, res) => {
+app.get("/getMemoryPalaces", (req, res) => {
   const memoryPalaceCollection = db.collection("Palaces"); //name of collection
-  memoryPalaceCollection.find({}).toArray()
-    .then(palaces => {
+  memoryPalaceCollection
+    .find({})
+    .toArray()
+    .then((palaces) => {
       res.json(palaces);
     })
-    .catch(error => {
-      res.status(500).json({ success: false, message: "Failed to fetch memory palaces." });
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to fetch memory palaces." });
     });
 });
 
 // UPDATE: Existing Memory Palace
-app.put('/update', (req, res) => {
+app.put("/update", (req, res) => {
   const palaceId = new ObjectId(req.body.id);
   const updatedData = req.body.data;
   updatedData._id = palaceId;
   // console.log(palaceId);
   // console.log(updatedData);
-  const memoryPalaceCollection = db.collection('Palaces');
-  memoryPalaceCollection.find({_id: new ObjectId(palaceId) }).toArray().then(palaces => {
-    console.log(palaces);
-  });
+  const memoryPalaceCollection = db.collection("Palaces");
+  memoryPalaceCollection
+    .find({ _id: new ObjectId(palaceId) })
+    .toArray()
+    .then((palaces) => {
+      console.log(palaces);
+    });
   memoryPalaceCollection
     .replaceOne(
-      {  _id: palaceId }, // Query for the specific palace using _id
-        updatedData // Update specific fields using $set
-        ).then(result => {
-        // console.log(result);
+      { _id: palaceId }, // Query for the specific palace using _id
+      updatedData // Update specific fields using $set
+    )
+    .then((result) => {
+      // console.log(result);
       if (result.matchedCount > 0) {
         console.log("*** object update success ***");
         res.json({
           success: true,
-          message: 'Palace updated successfully.',
+          message: "Palace updated successfully.",
         });
       } else {
         res.status(404).json({
           success: false,
-          message: 'Palace not found.',
+          message: "Palace not found.",
         });
       }
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({
         success: false,
-        message: 'Failed to update palace.',
+        message: "Failed to update palace.",
         error: error,
       });
     });
 });
 
 // DELETE: Memory Palace by ID
-app.delete('/deleteMemoryPalace/:id', async (req, res) => {
-const palaceId = new ObjectId(req.params.id);
-try {
-  const memoryPalaceCollection = db.collection('Palaces');
-  // Find the palace before deleting it (for logging or other purposes if needed)
-  const palaceToDelete = await memoryPalaceCollection.findOne({ _id: palaceId });
-  // Delete the palace
-  const deleteResult = await memoryPalaceCollection.deleteOne({ _id: palaceId });
-  if (deleteResult.deletedCount > 0) {
-    console.log(`Deleted palace with ID: ${palaceId}`);
-    res.json({
-      success: true,
-      message: 'Palace deleted successfully.',
-      deletedPalace: palaceToDelete
-    });
-  } else {
-    res.status(404).json({
-      success: false,
-      message: 'Palace not found for deletion.'
-    });
-  }
-} catch (error) {
-  console.error("Error deleting memory palace:", error);
-  res.status(500).json({
-    success: false,
-    message: 'Failed to delete palace.',
-    error: error
-  });
-}
+app.delete("/deleteMemoryPalace/:id", async (req, res) => {
+  console.log("req params", req.params);
+  console.log("req body", req.body);
+  // const palaceId = new ObjectId(req.params.id);
+  // try {
+  //   const memoryPalaceCollection = db.collection('Palaces');
+  //   // Find the palace before deleting it (for logging or other purposes if needed)
+  //   const palaceToDelete = await memoryPalaceCollection.findOne({ _id: palaceId });
+  //   // Delete the palace
+  //   const deleteResult = await memoryPalaceCollection.deleteOne({ _id: palaceId });
+  //   if (deleteResult.deletedCount > 0) {
+  //     console.log(`Deleted palace with ID: ${palaceId}`);
+  //     res.json({
+  //       success: true,
+  //       message: 'Palace deleted successfully.',
+  //       deletedPalace: palaceToDelete
+  //     });
+  //   } else {
+  //     res.status(404).json({
+  //       success: false,
+  //       message: 'Palace not found for deletion.'
+  //     });
+  //   }
+  // } catch (error) {
+  //   console.error("Error deleting memory palace:", error);
+  //   res.status(500).json({
+  //     success: false,
+  //     message: 'Failed to delete palace.',
+  //     error: error
+  //   });
+  // }
 });
 
-
 // UPDATE: ToDoList of a Specific Room in a Memory Palace
-app.put('/updateToDoList', async (req, res) => {
+app.put("/updateToDoList", async (req, res) => {
   const { palaceId, roomId, tasksState } = req.body; // Now tasksState is the new ToDoList
-  console.log('reqBODY', req.body )
+  console.log("reqBODY", req.body);
   if (!Array.isArray(tasksState)) {
     return res.status(400).json({
       success: false,
-      message: 'tasksState should be an array.',
+      message: "tasksState should be an array.",
     });
   }
 
   try {
-    const memoryPalaceCollection = db.collection('Palaces');
+    const memoryPalaceCollection = db.collection("Palaces");
 
     // Find the current palace
-    const palace = await memoryPalaceCollection.findOne({ _id: new ObjectId(palaceId) });
+    const palace = await memoryPalaceCollection.findOne({
+      _id: new ObjectId(palaceId),
+    });
 
     if (!palace || !palace.Rooms || !palace.Rooms[roomId]) {
       return res.status(404).json({
         success: false,
-        message: 'Palace or Room not found.',
+        message: "Palace or Room not found.",
       });
     }
 
@@ -253,26 +262,24 @@ app.put('/updateToDoList', async (req, res) => {
     if (updateResult.matchedCount > 0) {
       res.json({
         success: true,
-        message: 'ToDoList updated successfully.',
+        message: "ToDoList updated successfully.",
         updatedRoom: palace.Rooms[roomId],
         updatedToDoList: palace.Rooms[roomId].ToDoList,
       });
     } else {
       res.status(500).json({
         success: false,
-        message: 'Failed to update ToDoList.'
+        message: "Failed to update ToDoList.",
       });
     }
   } catch (error) {
     console.error("Error updating ToDoList:", error);
     res.status(500).json({
       success: false,
-      message: 'Failed to update ToDoList.',
-      error: error
+      message: "Failed to update ToDoList.",
+      error: error,
     });
   }
 });
-
-
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

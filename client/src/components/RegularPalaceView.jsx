@@ -63,8 +63,45 @@ function RegularPalaceView() {
     window.add_room_view.showModal();
   };
 
-  const handleCancelDelete = () => {};
-  const handleConfirmDelete = () => {};
+  const handleCancelDelete = () => {
+    window.delete_confirm.close();
+  };
+
+  const deletePalaceFromBackend = async (palaceId) => {
+    try {
+      const response = await fetch(`api/deleteMemoryPalace/${palaceId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // const data = await response.json();
+
+      // console.log("Response from backend deleteion: ", data);
+
+      // if (data.success) {
+      //   return true;
+      // } else {
+      //   console.error(data.message);
+      //   return false;
+      // }
+    } catch (error) {
+      console.error("Error deleting palace:", error);
+      return false;
+    }
+  };
+
+  const handleConfirmDelete = async () => {
+    window.delete_confirm.close();
+
+    const success = await deletePalaceFromBackend(selectedPalace._id);
+    // console.log("success", success);
+    // if (success) {
+    //   console.log("successfully deleted");
+    //   fetchMemoryPalaces();
+    // }
+  };
 
   return (
     <>
@@ -88,7 +125,7 @@ function RegularPalaceView() {
               Cancel
             </button>
             <button
-              class="btn bg-red-500 text-white hover:bg-red-600"
+              className="btn bg-red-500 text-white hover:bg-red-600"
               onClick={handleConfirmDelete}
             >
               Delete
