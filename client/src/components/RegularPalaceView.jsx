@@ -63,13 +63,9 @@ function RegularPalaceView() {
     window.add_room_view.showModal();
   };
 
-  const handleDeletePalace = () => {
-    //make a request to the backend
-    //delete it in the database,
-    //respond with success
-    //update memoryPalaces state
-    window.delete_confirm.showModal();
-  };
+  const handleCancelDelete = () => {};
+  const handleConfirmDelete = () => {};
+
   return (
     <>
       {/*delete confirm modal*/}
@@ -77,7 +73,7 @@ function RegularPalaceView() {
         id="delete_confirm"
         className="modal m-auto w-1/4 min-w-fit  text-gray-600"
       >
-        <form method="dialog" className="modal-box text-center">
+        <form method="dialog" className="modal-box bg-gray-100 text-center">
           <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
             ✕
           </button>
@@ -85,7 +81,16 @@ function RegularPalaceView() {
             Are you sure you want do delete this palace?
           </h3>
           <div className="confirm-selection">
-            <button class="btn bg-red-500 text-white hover:bg-red-600">
+            <button
+              className="btn mr-2 bg-gray-200 hover:bg-gray-300"
+              onClick={handleCancelDelete}
+            >
+              Cancel
+            </button>
+            <button
+              class="btn bg-red-500 text-white hover:bg-red-600"
+              onClick={handleConfirmDelete}
+            >
               Delete
             </button>
           </div>
@@ -105,7 +110,9 @@ function RegularPalaceView() {
             {isEditMode && (
               <span
                 className="mr-1 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-lg text-white duration-200 hover:bg-red-600 hover:text-2xl hover:ease-in-out"
-                onClick={handleDeletePalace}
+                onClick={() => {
+                  window.delete_confirm.showModal();
+                }}
               >
                 <FaMinus></FaMinus>
               </span>
