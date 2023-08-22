@@ -68,9 +68,23 @@ function RegularPalaceView() {
     //delete it in the database,
     //respond with success
     //update memoryPalaces state
+    window.delete_confirm.showModal();
   };
   return (
     <>
+      {/*delete confirm modal*/}
+      <dialog id="delete_confirm" className="modal m-auto w-1/4 min-w-fit">
+        <form method="dialog" className="modal-box text-center">
+          <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+            ✕
+          </button>
+          <h3 className="text-lg font-bold">
+            Are you sure you want do delete this palace?
+          </h3>
+          <div className="confirm-selection"></div>
+        </form>
+      </dialog>
+
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           <AlertMessage />

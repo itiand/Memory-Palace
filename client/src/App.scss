@@ -42,6 +42,12 @@ outer-nav {
   max-width: 1200px;
 }
 
+#delete_confirm {
+  .modal-box {
+    padding: 2rem 1rem;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
