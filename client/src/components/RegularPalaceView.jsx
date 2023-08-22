@@ -63,6 +63,12 @@ function RegularPalaceView() {
     window.add_room_view.showModal();
   };
 
+  const handleDeletePalace = () => {
+    //make a request to the backend
+    //delete it in the database,
+    //respond with success
+    //update memoryPalaces state
+  };
   return (
     <>
       <dialog id="reg_view" className="modal">
@@ -75,9 +81,14 @@ function RegularPalaceView() {
             ✕
           </button>
           <h3 className="pb-2 text-4xl font-bold">
-            <span className=" inline-block cursor-pointer rounded-full bg-red-500 p-1 text-lg text-white hover:bg-red-600">
-              <FaMinus></FaMinus>
-            </span>
+            {isEditMode && (
+              <span
+                className="mr-1 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-lg text-white duration-200 hover:bg-red-600 hover:text-2xl hover:ease-in-out"
+                onClick={handleDeletePalace}
+              >
+                <FaMinus></FaMinus>
+              </span>
+            )}
             {PalaceName}
           </h3>
           <PalaceCoverImage></PalaceCoverImage>
