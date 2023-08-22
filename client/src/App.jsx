@@ -3,9 +3,8 @@ import "./App.scss";
 import { useEffect, useContext, useState } from "react";
 import { themeChange } from "theme-change";
 import { PalaceContext } from "./providers/palaceProvider";
-import { BsHouseAdd } from 'react-icons/bs';
-import { FaRegEye, FaEdit, FaPlus, FaCheck, FaTimes } from 'react-icons/fa';
-
+import { BsHouseAdd } from "react-icons/bs";
+import { FaRegEye, FaEdit, FaPlus, FaCheck, FaTimes } from "react-icons/fa";
 
 // Components
 import Navbar from "./components/NavBar";
@@ -16,9 +15,7 @@ import AddNewPalace from "./components/AddNewPalace";
 import AddRoom from "./components/AddRoom";
 import AddMemory from "./components/AddMemory";
 
-
 const App = () => {
-
   const {
     themes,
     memoryPalaces,
@@ -41,7 +38,6 @@ const App = () => {
     tasks,
   } = useContext(PalaceContext);
 
-
   useEffect(() => {
     themeChange(false);
   }, []);
@@ -63,44 +59,57 @@ const App = () => {
 
   return (
     <>
-
       <Navbar themes={themes} />
       <RegularPalaceView />
       <AddNewPalace />
       <AddPalaceImage />
       <AddRoom />
       <AddMemory />
-      <div className="-mt-8 flex flex-col items-center justify-start">
-        <div>
-          <h1 className="mt-6 text-center text-neutral text-5xl">Palace Collection</h1>
-          <div className="container  text-center carousel-container mx-auto">
-            <div className="carousel mx-auto mt-7 rounded-lg">
+      <div className="body -mt-6 pt-6">
+        <div className="container m-auto mb-4 ">
+          <div className="carousel-container container mx-auto text-center">
+            <h1 className="mt-6 text-left text-lg text-gray-600">
+              Palace Collection
+            </h1>
+            <div className="carousel mx-auto rounded-lg">
               {memoryPalaceCarousel}
             </div>
           </div>
         </div>
-      </div>
-      <div className="grid grid-cols-4 gap-4 w-4/6 m-auto">
-        <div className="col-span-3">
-          <h1 className="mt-6 mb-2 text-center text-neutral text-3xl">Favorite Palaces</h1>
+        <div className="container m-auto grid w-4/6 grid-cols-4 gap-4">
+          <div className="col-span-3">
+            <h1 className=" text-left text-lg text-gray-600">
+              Favorite Palaces
+            </h1>
 
-          <div className="carousel rounded-box w-full gap-x-1 cursor-pointer max-h-80">
-            {memoryPalaces.map((palace, index) => {
-              return (
-                <div key={index} className="carousel-item w-1/2 relative">
-                  <img src={palace.PalaceCoverImg} className="w-full" />
-                  <div className="overlay absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center opacity-0 hover:opacity-60 bg-black">
-                    <span className="mb-1 text-white text-2xl">{palace.PalaceName}</span>
-                    <span className="text-lg py-1 px-2 rounded text-white hover:text-2xl hover:ease-in-out duration-200" onClick={() => handlePalaceClick(palace)}><FaRegEye /></span>
+            <div className="carousel rounded-box max-h-80 w-full cursor-pointer gap-x-1">
+              {memoryPalaces.map((palace, index) => {
+                return (
+                  <div key={index} className="carousel-item relative w-1/2">
+                    <img src={palace.PalaceCoverImg} className="w-full" />
+                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:opacity-60">
+                      <span className="mb-1 text-2xl text-white">
+                        {palace.PalaceName}
+                      </span>
+                      <span
+                        className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
+                        onClick={() => handlePalaceClick(palace)}
+                      >
+                        <FaRegEye />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <div className="flex items-center justify-center">
-          <div className="text-white bg-accent py-3 px-5 rounded-xl hover:bg-accent-focus cursor-pointer add-palace" onClick={() => window.add_palace_view.showModal()}>
-            <BsHouseAdd></BsHouseAdd>
+          <div className="flex items-center justify-center">
+            <div
+              className="add-palace cursor-pointer rounded-xl bg-indigo-500 px-5 py-3 text-white hover:bg-indigo-600"
+              onClick={() => window.add_palace_view.showModal()}
+            >
+              <BsHouseAdd></BsHouseAdd>
+            </div>
           </div>
         </div>
       </div>

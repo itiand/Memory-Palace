@@ -1,14 +1,10 @@
 // import React from "react";
 // import AddNewPalace from "./AddNewPalace";
 import PropTypes from "prop-types";
-import { BsHouseAdd } from 'react-icons/bs';
-import postgresLogoURL from '../assets/postgres.svg';
-
-
+import { BsHouseAdd } from "react-icons/bs";
+import postgresLogoURL from "../assets/postgres.svg";
 
 function Navbar(props) {
-
-
   Navbar.propTypes = {
     themes: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
@@ -21,10 +17,13 @@ function Navbar(props) {
   };
 
   return (
-    <div className="outer-nav bg-primary text-primary-content">
-      <div className="navbar nav-container pt-4">
+    <div className="outer-nav border-t-8 border-t-green-500 bg-indigo-500 pt-3 text-white">
+      <div className="nav-container navbar ">
         <div className="navbar-start">
-          <select className="px-2 py-3" data-choose-theme>
+          <select
+            className="bg-indigo-100 px-2 py-3 text-gray-500"
+            data-choose-theme
+          >
             <option value="">default</option>
             {props.themes.map((value) => (
               <option key={value.toLowerCase()} value={value.toLowerCase()}>
@@ -32,17 +31,27 @@ function Navbar(props) {
               </option>
             ))}
           </select>
-          <a className="btn btn-ghost normal-case text-2xl flex-start">
-            <img src={postgresLogoURL} alt="Postgres Logo" className="h-12 w-12" />
-            ELIFINT
+          <a className="flex-start btn btn-ghost  text-4xl normal-case">
+            <span className="border-b-4 border-b-green-500">ELIFINT</span>
           </a>
         </div>
         <div className="navbar-center">
-          <button className="btn text-white bg-accent border-none text-3xl rounded" onClick={() => window.add_palace_view.showModal()}><BsHouseAdd></BsHouseAdd>
+          <button
+            className="btn rounded border-none bg-indigo-600  text-3xl text-white hover:bg-indigo-700"
+            onClick={() => window.add_palace_view.showModal()}
+          >
+            <BsHouseAdd></BsHouseAdd>
           </button>
         </div>
         <div className="navbar-end">
-          <button className="btn btn-ghost normal-case text-xl" onClick={handleMyPalaces}>Welcome: Sherlock!</button>
+          <button
+            className="text-md  btn border-none bg-indigo-600 font-light normal-case text-white hover:bg-indigo-700"
+            onClick={() => {
+              console.log("open user modal");
+            }}
+          >
+            Welcome Sherlock!
+          </button>
         </div>
       </div>
     </div>
