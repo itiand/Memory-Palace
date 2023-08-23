@@ -70,7 +70,7 @@ function RegularPalaceView({
     const success = await deletePalaceFromBackend(selectedPalace._id);
 
     if (success) {
-      //show success app alert
+      //show success alert on app component
       setShowAppAlert(true);
       setAppAlertType("success");
       setAppAlertMessage("Palace successfully deleted!");

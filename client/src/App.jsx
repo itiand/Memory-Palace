@@ -17,27 +17,8 @@ import AddMemory from "./components/AddMemory";
 import AlertMessage from "./components/AlertMessage";
 
 const App = () => {
-  const {
-    themes,
-    memoryPalaces,
-    selectedPalace,
-    setSelectedPalace,
-    selectedRoom,
-    findPalaceById,
-
-    switchSelectPalaceById,
-    switchToLastPalace,
-    createNewPalace,
-    deleteCurrentSelectedPalace,
-    changePalaceEntry,
-    deletePalaceEntry,
-    savePalaceState,
-    createPalaceExample,
-    getChatResponseFromServer,
-    getImageResponseFromServer,
-    setSelectedRoom,
-    tasks,
-  } = useContext(PalaceContext);
+  const { themes, memoryPalaces, setSelectedPalace } =
+    useContext(PalaceContext);
 
   const [showAppAlert, setShowAppAlert] = useState(false);
   const [appAlertMessage, setAppAlertMessage] = useState("");

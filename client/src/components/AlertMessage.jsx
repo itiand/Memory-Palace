@@ -5,7 +5,7 @@ function AlertMessage({ showLocalAlert, localAlertMessage, alertType }) {
   if (!showLocalAlert) return null;
 
   return (
-    <div className={`alert alert-${alertType}`}>
+    <div className={`alert my-2 alert-${alertType}`}>
       {alertType === "success" && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
