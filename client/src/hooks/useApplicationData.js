@@ -9,8 +9,8 @@ const useApplicationData = () => {
   const [tasks, setTasks] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(-1); // Track hovered index
 
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
+  // const [showAlert, setShowAlert] = useState(false);
+  // const [alertMessage, setAlertMessage] = useState("");
 
   //for edit mode
   const [isEditMode, setIsEditMode] = useState(false);
@@ -520,10 +520,10 @@ const useApplicationData = () => {
     isImageUrl,
     onCloseModal,
     selectRoom,
-    showAlert,
-    setShowAlert,
-    alertMessage,
-    setAlertMessage,
+    // showAlert,
+    // setShowAlert,
+    // alertMessage,
+    // setAlertMessage,
     isEditRoomMode,
     setIsEditRoomMode,
   };

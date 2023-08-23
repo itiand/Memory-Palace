@@ -14,6 +14,7 @@ import AddPalaceImage from "./components/AddPalaceImage";
 import AddNewPalace from "./components/AddNewPalace";
 import AddRoom from "./components/AddRoom";
 import AddMemory from "./components/AddMemory";
+import AlertMessage from "./components/AlertMessage";
 
 const App = () => {
   const {

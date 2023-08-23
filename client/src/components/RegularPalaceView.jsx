@@ -102,7 +102,8 @@ function RegularPalaceView() {
     const success = await deletePalaceFromBackend(selectedPalace._id);
 
     if (success) {
-      console.log("successfully deleted");
+      console.log("Palace successfully deleted!");
+      alert("Palace Deleted!");
       fetchMemoryPalaces();
     }
   };
