@@ -5,6 +5,15 @@
 body {
   height: 100%;
   background-color: #ffffff;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace;
 }
 
 @keyframes pop-in {
@@ -40,6 +49,12 @@ outer-nav {
   padding: 2rem 4rem;
   height: fit-content;
   max-width: 1200px;
+}
+
+#delete_confirm {
+  .modal-box {
+    padding: 2rem 1rem;
+  }
 }
 
 @keyframes fadeIn {

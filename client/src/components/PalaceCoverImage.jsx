@@ -1,8 +1,18 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { FaCheck, FaTimes, FaEdit, FaMinusCircle } from "react-icons/fa";
+import {
+  FaCheck,
+  FaTimes,
+  FaEdit,
+  FaMinusCircle,
+  FaMinus,
+} from "react-icons/fa";
 
-const PalaceCoverImage = () => {
+const PalaceCoverImage = ({
+  setAlertType,
+  setShowLocalAlert,
+  setLocalAlertMessage,
+}) => {
   const {
     selectedPalace,
     updateMemoryPalace,
@@ -18,10 +28,10 @@ const PalaceCoverImage = () => {
     selectRoom,
     selectedRoom,
     isValidUrl,
-    setShowAlert,
-    showAlert,
-    setAlertMessage,
-    alertMessage,
+    // setShowAlert,
+    // showAlert,
+    // setAlertMessage,
+    // alertMessage,
   } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } =
     selectedPalace;
@@ -29,9 +39,10 @@ const PalaceCoverImage = () => {
   //on submit update
   const handleCoverImageSubmit = () => {
     if (!isValidUrl(newImageURL)) {
-      setAlertMessage("Please enter a valid URL.");
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 3000);
+      setAlertType("warning");
+      setLocalAlertMessage("Please enter a valid URL.");
+      setShowLocalAlert(true);
+      setTimeout(() => setShowLocalAlert(false), 3000);
       return;
     }
 
@@ -41,9 +52,6 @@ const PalaceCoverImage = () => {
 
   return (
     <div className="relative">
-      <div className="relative -left-3 top-3 cursor-pointer text-3xl text-red-500 hover:text-red-600">
-        <FaMinusCircle></FaMinusCircle>
-      </div>
       <img
         src={PalaceCoverImg}
         alt={`Cover of ${PalaceName}`}

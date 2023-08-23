@@ -1,42 +1,35 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import {
-  FaRegEye,
-  FaEdit,
-  FaPlus,
-  FaCheck,
-  FaTimes,
-  FaMinusCircle,
-} from "react-icons/fa";
+import { FaRegEye, FaPlus, FaMinus } from "react-icons/fa";
 import AlertMessage from "./AlertMessage";
 import RoomView from "./RoomView";
 import PalaceCoverImage from "./PalaceCoverImage";
 
-function RegularPalaceView() {
+function RegularPalaceView({
+  setShowAppAlert,
+  setAppAlertMessage,
+  setAppAlertType,
+}) {
   const {
     selectedPalace,
-    updateMemoryPalace,
-    changePalaceEntry,
-    savePalaceState,
     fetchMemoryPalaces,
-    setSelectedPalace,
     onCloseModal,
     isEditMode,
     setIsEditMode,
-    newImageURL,
     setNewImageURL,
     selectRoom,
     selectedRoom,
-    isValidUrl,
-    showAlert,
-    setShowAlert,
+    deletePalaceFromBackend,
   } = useContext(PalaceContext);
 
-  const { PalaceName, Rooms } = selectedPalace;
+  //locat alert states
+  const [showPalaceViewAlert, setShowPalaceViewAlert] = useState(false);
+  const [palaceViewAlertMessage, setPalaceViewAlertMessage] = useState("");
+  const [palaceViewAlertType, setPalaceViewAlertType] = useState("");
 
+  const { PalaceName, Rooms } = selectedPalace;
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
-
   useEffect(() => {
     if (Rooms) {
       const roomArray = Object.values(Rooms);
@@ -48,6 +41,7 @@ function RegularPalaceView() {
     console.log("selectedRoom updated:", selectedRoom);
   }, [selectedRoom]);
 
+  //on room click
   const handleRoomClick = (roomId) => {
     selectRoom(roomId);
     setIsEditMode(false);
@@ -56,25 +50,108 @@ function RegularPalaceView() {
     window.reg_view.close();
   };
 
+  //add new room click
   const handleNewRoomClick = () => {
     setNewImageURL("");
     window.reg_view.close();
     window.add_room_view.showModal();
   };
 
+  //on palace delete cancel
+  const handleCancelDelete = () => {
+    window.delete_confirm.close();
+  };
+
+  //on palace delete confirm
+  const handleConfirmDelete = async () => {
+    window.delete_confirm.close();
+    window.reg_view.close();
+
+    const success = await deletePalaceFromBackend(selectedPalace._id);
+
+    if (success) {
+      //show success app alert
+      setShowAppAlert(true);
+      setAppAlertType("success");
+      setAppAlertMessage("Palace successfully deleted!");
+      setTimeout(() => {
+        setShowAppAlert(false);
+      }, 3000);
+
+      fetchMemoryPalaces();
+    } else {
+      // Show app alert for failure
+      setShowAppAlert(true);
+      setAppAlertType("error");
+      setAppAlertMessage("Error deleting palace!");
+      setTimeout(() => {
+        setShowAppAlert(false);
+      }, 3000);
+    }
+  };
+
   return (
     <>
+      {/*delete confirm modal*/}
+      <dialog
+        id="delete_confirm"
+        className="modal m-auto w-1/4 min-w-fit  text-gray-600"
+      >
+        <form method="dialog" className="modal-box bg-gray-100 text-center">
+          <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+            ✕
+          </button>
+          <h3 className="mb-4 text-lg font-bold">
+            Are you sure you want do delete this palace?
+          </h3>
+          <div className="confirm-selection">
+            <button
+              className="btn mr-2 bg-gray-200 hover:bg-gray-300"
+              onClick={handleCancelDelete}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn bg-red-500 text-white hover:bg-red-600"
+              onClick={handleConfirmDelete}
+            >
+              Delete
+            </button>
+          </div>
+        </form>
+      </dialog>
+
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
-          <AlertMessage />
+          <AlertMessage
+            showLocalAlert={showPalaceViewAlert}
+            localAlertMessage={palaceViewAlertMessage}
+            alertType={palaceViewAlertType}
+          />
           <button
             className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
             onClick={onCloseModal}
           >
             ✕
           </button>
-          <h3 className="pb-2 text-4xl font-bold">{PalaceName}</h3>
-          <PalaceCoverImage></PalaceCoverImage>
+          <h3 className="pb-2 text-4xl font-bold">
+            {isEditMode && (
+              <span
+                className="mr-1 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-lg text-white duration-200 hover:bg-red-600 hover:text-2xl hover:ease-in-out"
+                onClick={() => {
+                  window.delete_confirm.showModal();
+                }}
+              >
+                <FaMinus></FaMinus>
+              </span>
+            )}
+            {PalaceName}
+          </h3>
+          <PalaceCoverImage
+            setShowLocalAlert={setShowPalaceViewAlert}
+            setLocalAlertMessage={setPalaceViewAlertMessage}
+            setAlertType={setPalaceViewAlertType}
+          ></PalaceCoverImage>
           <div className="reg_view-rooms mt-5">
             <div className="flex items-center pb-1 text-lg">
               <h4 className="mr-1 text-gray-700">Your rooms</h4>
