@@ -8,7 +8,11 @@ import {
   FaMinus,
 } from "react-icons/fa";
 
-const PalaceCoverImage = () => {
+const PalaceCoverImage = ({
+  setAlertType,
+  setShowLocalAlert,
+  setLocalAlertMessage,
+}) => {
   const {
     selectedPalace,
     updateMemoryPalace,
@@ -24,10 +28,10 @@ const PalaceCoverImage = () => {
     selectRoom,
     selectedRoom,
     isValidUrl,
-    setShowAlert,
-    showAlert,
-    setAlertMessage,
-    alertMessage,
+    // setShowAlert,
+    // showAlert,
+    // setAlertMessage,
+    // alertMessage,
   } = useContext(PalaceContext);
   const { PalaceName, PalaceCoverImg, Rooms, PalaceDescription } =
     selectedPalace;
@@ -35,9 +39,10 @@ const PalaceCoverImage = () => {
   //on submit update
   const handleCoverImageSubmit = () => {
     if (!isValidUrl(newImageURL)) {
-      setAlertMessage("Please enter a valid URL.");
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 3000);
+      setAlertType("warning");
+      setLocalAlertMessage("Please enter a valid URL.");
+      setShowLocalAlert(true);
+      setTimeout(() => setShowLocalAlert(false), 3000);
       return;
     }
 

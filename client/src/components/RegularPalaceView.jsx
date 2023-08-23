@@ -29,9 +29,14 @@ function RegularPalaceView() {
     selectRoom,
     selectedRoom,
     isValidUrl,
-    showAlert,
-    setShowAlert,
+    // showAlert,
+    // setShowAlert,
   } = useContext(PalaceContext);
+
+  const [showLocalAlert, setShowLocalAlert] = useState(false);
+  const [localAlertMessage, setLocalAlertMessage] =
+    useState("Some alert message");
+  const [alertType, setAlertType] = useState("");
 
   const { PalaceName, Rooms } = selectedPalace;
 
@@ -141,7 +146,12 @@ function RegularPalaceView() {
 
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
-          <AlertMessage />
+          <AlertMessage
+            showLocalAlert={showLocalAlert}
+            localAlertMessage={localAlertMessage}
+            alertType={alertType}
+            setShowLocalAlert={setShowLocalAlert}
+          />
           <button
             className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
             onClick={onCloseModal}
@@ -161,7 +171,11 @@ function RegularPalaceView() {
             )}
             {PalaceName}
           </h3>
-          <PalaceCoverImage></PalaceCoverImage>
+          <PalaceCoverImage
+            setShowLocalAlert={setShowLocalAlert}
+            setLocalAlertMessage={setLocalAlertMessage}
+            setAlertType={setAlertType}
+          ></PalaceCoverImage>
           <div className="reg_view-rooms mt-5">
             <div className="flex items-center pb-1 text-lg">
               <h4 className="mr-1 text-gray-700">Your rooms</h4>
