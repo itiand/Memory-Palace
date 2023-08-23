@@ -43,6 +43,7 @@ const PalaceCoverImage = ({
       setLocalAlertMessage("Please enter a valid URL.");
       setShowLocalAlert(true);
       setTimeout(() => setShowLocalAlert(false), 3000);
+
       return;
     }
 

@@ -47,6 +47,7 @@ const PalaceCoverImageNew = ({ newPalaceUrl, setNewPalaceUrl }) => {
     }
 
     setNewPalaceUrl(newImageURL);
+    setIsEditMode(false);
   };
 
   return (
