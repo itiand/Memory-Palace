@@ -52,6 +52,7 @@ const PalaceProvider = (props) => {
     // setAlertMessage,
     isEditRoomMode,
     setIsEditRoomMode,
+    deletePalaceFromBackend,
   } = useApplicationData();
 
   // Validation for props.children
@@ -107,6 +108,7 @@ const PalaceProvider = (props) => {
         // setAlertMessage,
         isEditRoomMode,
         setIsEditRoomMode,
+        deletePalaceFromBackend,
       }}
     >
       {props.children}

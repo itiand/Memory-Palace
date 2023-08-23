@@ -108,6 +108,33 @@ const useApplicationData = () => {
         console.error("There was a problem:", error.message);
       });
   }
+  const deletePalaceFromBackend = async (palaceId) => {
+    try {
+      const response = await fetch(`api/deleteMemoryPalace/${palaceId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          palaceId,
+        }),
+      });
+
+      const data = await response.json();
+
+      console.log("Response from backend deletion: ", data);
+
+      if (data.success) {
+        return true;
+      } else {
+        console.error(data.message);
+        return false;
+      }
+    } catch (error) {
+      console.error("Error deleting palace:", error);
+      return false;
+    }
+  };
 
   function fetchMemoryPalaces() {
     // Fetch All Memory Palaces
@@ -526,6 +553,7 @@ const useApplicationData = () => {
     // setAlertMessage,
     isEditRoomMode,
     setIsEditRoomMode,
+    deletePalaceFromBackend,
   };
 };
 

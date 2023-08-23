@@ -1,14 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import {
-  FaRegEye,
-  FaEdit,
-  FaPlus,
-  FaCheck,
-  FaTimes,
-  FaMinusCircle,
-  FaMinus,
-} from "react-icons/fa";
+import { FaRegEye, FaPlus, FaMinus } from "react-icons/fa";
 import AlertMessage from "./AlertMessage";
 import RoomView from "./RoomView";
 import PalaceCoverImage from "./PalaceCoverImage";
@@ -20,32 +12,24 @@ function RegularPalaceView({
 }) {
   const {
     selectedPalace,
-    updateMemoryPalace,
-    changePalaceEntry,
-    savePalaceState,
     fetchMemoryPalaces,
-    setSelectedPalace,
     onCloseModal,
     isEditMode,
     setIsEditMode,
-    newImageURL,
     setNewImageURL,
     selectRoom,
     selectedRoom,
-    isValidUrl,
-    // showAlert,
-    // setShowAlert,
+    deletePalaceFromBackend,
   } = useContext(PalaceContext);
 
+  //locat alert states
   const [showPalaceViewAlert, setShowPalaceViewAlert] = useState(false);
   const [palaceViewAlertMessage, setPalaceViewAlertMessage] = useState("");
   const [palaceViewAlertType, setPalaceViewAlertType] = useState("");
 
   const { PalaceName, Rooms } = selectedPalace;
-
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
-
   useEffect(() => {
     if (Rooms) {
       const roomArray = Object.values(Rooms);
@@ -57,6 +41,7 @@ function RegularPalaceView({
     console.log("selectedRoom updated:", selectedRoom);
   }, [selectedRoom]);
 
+  //on room click
   const handleRoomClick = (roomId) => {
     selectRoom(roomId);
     setIsEditMode(false);
@@ -65,44 +50,19 @@ function RegularPalaceView({
     window.reg_view.close();
   };
 
+  //add new room click
   const handleNewRoomClick = () => {
     setNewImageURL("");
     window.reg_view.close();
     window.add_room_view.showModal();
   };
 
+  //on palace delete cancel
   const handleCancelDelete = () => {
     window.delete_confirm.close();
   };
 
-  const deletePalaceFromBackend = async (palaceId) => {
-    try {
-      const response = await fetch(`api/deleteMemoryPalace/${palaceId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          palaceId,
-        }),
-      });
-
-      const data = await response.json();
-
-      console.log("Response from backend deletion: ", data);
-
-      if (data.success) {
-        return true;
-      } else {
-        console.error(data.message);
-        return false;
-      }
-    } catch (error) {
-      console.error("Error deleting palace:", error);
-      return false;
-    }
-  };
-
+  //on palace delete confirm
   const handleConfirmDelete = async () => {
     window.delete_confirm.close();
     window.reg_view.close();
@@ -110,10 +70,7 @@ function RegularPalaceView({
     const success = await deletePalaceFromBackend(selectedPalace._id);
 
     if (success) {
-      // console.log("Palace successfully deleted!");
-      // alert("Palace Deleted!");
-
-      //show app alert
+      //show success app alert
       setShowAppAlert(true);
       setAppAlertType("success");
       setAppAlertMessage("Palace successfully deleted!");
@@ -122,6 +79,14 @@ function RegularPalaceView({
       }, 3000);
 
       fetchMemoryPalaces();
+    } else {
+      // Show app alert for failure
+      setShowAppAlert(true);
+      setAppAlertType("error");
+      setAppAlertMessage("Error deleting palace!");
+      setTimeout(() => {
+        setShowAppAlert(false);
+      }, 3000);
     }
   };
 
