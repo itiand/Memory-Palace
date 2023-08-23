@@ -39,6 +39,10 @@ const App = () => {
     tasks,
   } = useContext(PalaceContext);
 
+  const [showAppAlert, setShowAppAlert] = useState(false);
+  const [appAlertMessage, setAppAlertMessage] = useState("");
+  const [appAlertType, setAppAlertType] = useState("");
+
   useEffect(() => {
     themeChange(false);
   }, []);
@@ -61,13 +65,22 @@ const App = () => {
   return (
     <>
       <Navbar themes={themes} />
-      <RegularPalaceView />
+      <RegularPalaceView
+        setShowAppAlert={setShowAppAlert}
+        setAppAlertMessage={setAppAlertMessage}
+        setAppAlertType={setAppAlertType}
+      />
       <AddNewPalace />
       <AddPalaceImage />
       <AddRoom />
       <AddMemory />
       <div className="body -mt-6 pt-6">
         <div className="container m-auto mb-4 ">
+          <AlertMessage
+            showLocalAlert={showAppAlert}
+            localAlertMessage={appAlertMessage}
+            alertType={appAlertType}
+          />
           <div className="carousel-container container mx-auto text-center">
             <h1 className="mt-6 text-left text-lg text-gray-600">
               Palace Collection

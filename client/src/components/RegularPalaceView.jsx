@@ -13,7 +13,11 @@ import AlertMessage from "./AlertMessage";
 import RoomView from "./RoomView";
 import PalaceCoverImage from "./PalaceCoverImage";
 
-function RegularPalaceView() {
+function RegularPalaceView({
+  setShowAppAlert,
+  setAppAlertMessage,
+  setAppAlertType,
+}) {
   const {
     selectedPalace,
     updateMemoryPalace,
@@ -33,10 +37,9 @@ function RegularPalaceView() {
     // setShowAlert,
   } = useContext(PalaceContext);
 
-  const [showLocalAlert, setShowLocalAlert] = useState(false);
-  const [localAlertMessage, setLocalAlertMessage] =
-    useState("Some alert message");
-  const [alertType, setAlertType] = useState("");
+  const [showPalaceViewAlert, setShowPalaceViewAlert] = useState(false);
+  const [palaceViewAlertMessage, setPalaceViewAlertMessage] = useState("");
+  const [palaceViewAlertType, setPalaceViewAlertType] = useState("");
 
   const { PalaceName, Rooms } = selectedPalace;
 
@@ -107,8 +110,17 @@ function RegularPalaceView() {
     const success = await deletePalaceFromBackend(selectedPalace._id);
 
     if (success) {
-      console.log("Palace successfully deleted!");
-      alert("Palace Deleted!");
+      // console.log("Palace successfully deleted!");
+      // alert("Palace Deleted!");
+
+      //show app alert
+      setShowAppAlert(true);
+      setAppAlertType("success");
+      setAppAlertMessage("Palace successfully deleted!");
+      setTimeout(() => {
+        setShowAppAlert(false);
+      }, 3000);
+
       fetchMemoryPalaces();
     }
   };
@@ -147,10 +159,9 @@ function RegularPalaceView() {
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           <AlertMessage
-            showLocalAlert={showLocalAlert}
-            localAlertMessage={localAlertMessage}
-            alertType={alertType}
-            setShowLocalAlert={setShowLocalAlert}
+            showLocalAlert={showPalaceViewAlert}
+            localAlertMessage={palaceViewAlertMessage}
+            alertType={palaceViewAlertType}
           />
           <button
             className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
@@ -172,9 +183,9 @@ function RegularPalaceView() {
             {PalaceName}
           </h3>
           <PalaceCoverImage
-            setShowLocalAlert={setShowLocalAlert}
-            setLocalAlertMessage={setLocalAlertMessage}
-            setAlertType={setAlertType}
+            setShowLocalAlert={setShowPalaceViewAlert}
+            setLocalAlertMessage={setPalaceViewAlertMessage}
+            setAlertType={setPalaceViewAlertType}
           ></PalaceCoverImage>
           <div className="reg_view-rooms mt-5">
             <div className="flex items-center pb-1 text-lg">
