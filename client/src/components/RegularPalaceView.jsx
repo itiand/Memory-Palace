@@ -1,6 +1,13 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { FaRegEye, FaPlus, FaMinus, FaEdit } from "react-icons/fa";
+import {
+  FaRegEye,
+  FaPlus,
+  FaMinus,
+  FaEdit,
+  FaCheck,
+  FaTimes,
+} from "react-icons/fa";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import AlertMessage from "./AlertMessage";
 import RoomView from "./RoomView";
@@ -182,37 +189,59 @@ function RegularPalaceView({
                       alt={room.roomDescription}
                       className="w-full"
                     />
-                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:bg-black/60 hover:opacity-100">
+                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:bg-black hover:opacity-80">
                       <div className="flex items-center justify-center">
                         {isEditRoomMode && (
                           <span
-                            className="mr-1 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-xs text-white opacity-80 duration-200 hover:bg-red-600 hover:text-lg hover:ease-in-out"
+                            className="mr-2 inline-block cursor-pointer rounded-full bg-red-500 p-0.5 text-xs text-white opacity-80 duration-200 hover:bg-red-600 hover:text-lg hover:ease-in-out"
                             onClick={() => {}}
                           >
                             <FaMinus></FaMinus>
                           </span>
                         )}
-                        <span className="mb-1 text-2xl text-white opacity-60">
+                        <span className="text-2xl text-white opacity-60">
                           {room.roomName}
                         </span>
                       </div>
-                      <div className="flex opacity-60">
-                        <span
-                          className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
-                          onClick={() => {
-                            handleRoomClick(room._id);
-                          }}
-                        >
-                          <FaRegEye />
-                        </span>
-                        <span
-                          className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
-                          onClick={() => {
-                            handleRoomEdit(room._id);
-                          }}
-                        >
-                          <FaEdit />
-                        </span>
+                      <div className="">
+                        {isEditRoomMode ? (
+                          <>
+                            <span
+                              className="cursor-pointer px-2 py-1 text-xl text-white duration-200 hover:text-3xl hover:ease-in-out"
+                              onClick={""}
+                            >
+                              <FaCheck />
+                            </span>
+                            <span
+                              className="cursor-pointer px-2 py-1 text-xs text-white duration-200 hover:text-xl hover:ease-in-out"
+                              onClick={() => {
+                                setIsEditMode(false);
+                                setNewImageURL(""); // Reset the newImageURL to the original URL
+                              }}
+                            >
+                              <FaTimes />
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <span
+                              className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
+                              onClick={() => {
+                                handleRoomClick(room._id);
+                              }}
+                            >
+                              <FaRegEye />
+                            </span>
+                            <span
+                              className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
+                              onClick={() => {
+                                handleRoomEdit(room._id);
+                              }}
+                            >
+                              <FaEdit />
+                            </span>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
