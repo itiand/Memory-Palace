@@ -1,6 +1,6 @@
 import React from "react";
 
-const DeleteConfirm = ({ handleConfirmDelete, deleteMessage }) => {
+const DeleteConfirm = ({ handleConfirmDelete, deleteMessage, modalId }) => {
   //on palace delete cancel
   const handleCancelDelete = () => {
     window.palace_delete_confirm.close();
@@ -10,7 +10,7 @@ const DeleteConfirm = ({ handleConfirmDelete, deleteMessage }) => {
     <>
       {/*delete confirm modal*/}
       <dialog
-        id="palace_delete_confirm"
+        id={modalId}
         className="modal m-auto w-1/4 min-w-fit  text-gray-600"
       >
         <form method="dialog" className="modal-box bg-gray-100 text-center">

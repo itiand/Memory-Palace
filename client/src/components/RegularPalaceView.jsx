@@ -111,15 +111,18 @@ function RegularPalaceView({
 
   const onDeleteRoom = () => {
     console.log("deleteRoom");
+    window.room_delete_confirm.showModal();
   };
 
   return (
     <>
       <DeleteConfirm
+        modalId={"palace_delete_confirm"}
         handleConfirmDelete={handleConfirmPalaceDelete}
         deleteMessage={"Are you sure you want do delete this palace?"}
       ></DeleteConfirm>
       <DeleteConfirm
+        modalId={"room_delete_confirm"}
         handleConfirmDelete={handleConfirmRoomDelete}
         deleteMessage={"Are you sure you want to delete this room?"}
       ></DeleteConfirm>
