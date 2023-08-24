@@ -203,46 +203,44 @@ function RegularPalaceView({
                           {room.roomName}
                         </span>
                       </div>
-                      <div className="opacity-60">
-                        {isEditRoomMode ? (
-                          <>
-                            <span
-                              className="cursor-pointer  text-white duration-200  hover:ease-in-out"
-                              onClick={""}
-                            >
-                              <FaCheck />
-                            </span>
-                            <span
-                              className="l  cursor-pointer text-white duration-200 hover:ease-in-out"
-                              onClick={() => {
-                                setIsEditRoomMode(false);
-                                setNewImageURL(""); // Reset the newImageURL to the original URL
-                              }}
-                            >
-                              <FaTimes />
-                            </span>
-                          </>
-                        ) : (
-                          <>
-                            <span
-                              className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
-                              onClick={() => {
-                                handleRoomClick(room._id);
-                              }}
-                            >
-                              <FaRegEye />
-                            </span>
-                            <span
-                              className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
-                              onClick={() => {
-                                handleRoomEdit(room._id);
-                              }}
-                            >
-                              <FaEdit />
-                            </span>
-                          </>
-                        )}
-                      </div>
+                      {isEditRoomMode ? (
+                        <div className="opacity-60">
+                          <div
+                            className="mb-2 cursor-pointer text-white transition duration-200 hover:scale-150"
+                            onClick={""}
+                          >
+                            <FaCheck />
+                          </div>
+                          <div
+                            className="cursor-pointer text-white transition duration-200 hover:scale-150"
+                            onClick={() => {
+                              setIsEditRoomMode(false);
+                              setNewImageURL(""); // Reset the newImageURL to the original URL
+                            }}
+                          >
+                            <FaTimes />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex opacity-60">
+                          <span
+                            className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
+                            onClick={() => {
+                              handleRoomClick(room._id);
+                            }}
+                          >
+                            <FaRegEye />
+                          </span>
+                          <span
+                            className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
+                            onClick={() => {
+                              handleRoomEdit(room._id);
+                            }}
+                          >
+                            <FaEdit />
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 );
