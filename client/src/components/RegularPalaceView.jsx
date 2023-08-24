@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { FaRegEye, FaPlus, FaMinus } from "react-icons/fa";
+import { FaRegEye, FaPlus, FaMinus, FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { AiOutlineMinusCircle } from "react-icons/ai";
 import AlertMessage from "./AlertMessage";
 import RoomView from "./RoomView";
 import PalaceCoverImage from "./PalaceCoverImage";
@@ -90,6 +92,15 @@ function RegularPalaceView({
     }
   };
 
+  //const handle room edit
+
+  const handleRoomEdit = (roomId) => {
+    console.log("handleroomedit");
+
+    //be able to edit room name
+    //be able to delete room
+    //be able to edit description
+  };
   return (
     <>
       {/*delete confirm modal*/}
@@ -172,17 +183,37 @@ function RegularPalaceView({
                       className="w-full"
                     />
                     <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:opacity-60">
+                      {isEditMode && (
+                        <span
+                          className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
+                          onClick={() => {
+                            window.delete_confirm.showModal();
+                          }}
+                        >
+                          <AiOutlineMinusCircle></AiOutlineMinusCircle>
+                        </span>
+                      )}
                       <span className="mb-1 text-2xl text-white">
                         {room.roomName}
                       </span>
-                      <span
-                        className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
-                        onClick={() => {
-                          handleRoomClick(room._id);
-                        }}
-                      >
-                        <FaRegEye />
-                      </span>
+                      <div className="flex">
+                        <span
+                          className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
+                          onClick={() => {
+                            handleRoomClick(room._id);
+                          }}
+                        >
+                          <FaRegEye />
+                        </span>
+                        <span
+                          className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
+                          onClick={() => {
+                            handleRoomEdit(room._id);
+                          }}
+                        >
+                          <FaEdit />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );
