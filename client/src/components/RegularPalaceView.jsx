@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
 import { FaRegEye, FaPlus, FaMinus, FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import AlertMessage from "./AlertMessage";
 import RoomView from "./RoomView";
@@ -61,12 +60,12 @@ function RegularPalaceView({
 
   //on palace delete cancel
   const handleCancelDelete = () => {
-    window.delete_confirm.close();
+    window.palace_delete_confirm.close();
   };
 
   //on palace delete confirm
   const handleConfirmDelete = async () => {
-    window.delete_confirm.close();
+    window.palace_delete_confirm.close();
     window.reg_view.close();
 
     const success = await deletePalaceFromBackend(selectedPalace._id);
@@ -93,9 +92,10 @@ function RegularPalaceView({
   };
 
   //const handle room edit
-
+  const [isEditRoomMode, setIsEditRoomMode] = useState(false);
   const handleRoomEdit = (roomId) => {
     console.log("handleroomedit");
+    setIsEditRoomMode(true);
 
     //be able to edit room name
     //be able to delete room
@@ -105,7 +105,7 @@ function RegularPalaceView({
     <>
       {/*delete confirm modal*/}
       <dialog
-        id="delete_confirm"
+        id="palace_delete_confirm"
         className="modal m-auto w-1/4 min-w-fit  text-gray-600"
       >
         <form method="dialog" className="modal-box bg-gray-100 text-center">
@@ -150,7 +150,7 @@ function RegularPalaceView({
               <span
                 className="mr-1 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-lg text-white duration-200 hover:bg-red-600 hover:text-2xl hover:ease-in-out"
                 onClick={() => {
-                  window.delete_confirm.showModal();
+                  window.palace_delete_confirm.showModal();
                 }}
               >
                 <FaMinus></FaMinus>
@@ -182,21 +182,21 @@ function RegularPalaceView({
                       alt={room.roomDescription}
                       className="w-full"
                     />
-                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:opacity-60">
-                      {isEditMode && (
-                        <span
-                          className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
-                          onClick={() => {
-                            window.delete_confirm.showModal();
-                          }}
-                        >
-                          <AiOutlineMinusCircle></AiOutlineMinusCircle>
+                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:bg-black/60 hover:opacity-100">
+                      <div className="flex items-center justify-center">
+                        {isEditRoomMode && (
+                          <span
+                            className="mr-1 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-xs text-white opacity-80 duration-200 hover:bg-red-600 hover:text-lg hover:ease-in-out"
+                            onClick={() => {}}
+                          >
+                            <FaMinus></FaMinus>
+                          </span>
+                        )}
+                        <span className="mb-1 text-2xl text-white opacity-60">
+                          {room.roomName}
                         </span>
-                      )}
-                      <span className="mb-1 text-2xl text-white">
-                        {room.roomName}
-                      </span>
-                      <div className="flex">
+                      </div>
+                      <div className="flex opacity-60">
                         <span
                           className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
                           onClick={() => {
