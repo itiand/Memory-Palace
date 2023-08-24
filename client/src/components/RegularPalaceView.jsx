@@ -66,7 +66,7 @@ function RegularPalaceView({
   };
 
   //on palace delete confirm
-  const handleConfirmDelete = async () => {
+  const handleConfirmPalaceDelete = async () => {
     window.palace_delete_confirm.close();
     window.reg_view.close();
 
@@ -93,6 +93,11 @@ function RegularPalaceView({
     }
   };
 
+  //on room delete confirm
+  const handleConfirmRoomDelete = async () => {
+    console.log("confirmed to delete room");
+  };
+
   //const handle room edit
   const [isEditRoomMode, setIsEditRoomMode] = useState(false);
   const handleRoomEdit = (roomId) => {
@@ -103,9 +108,21 @@ function RegularPalaceView({
     //be able to delete room
     //be able to edit description
   };
+
+  const onDeleteRoom = () => {
+    console.log("deleteRoom");
+  };
+
   return (
     <>
-      <DeleteConfirm handleConfirmDelete={handleConfirmDelete}></DeleteConfirm>
+      <DeleteConfirm
+        handleConfirmDelete={handleConfirmPalaceDelete}
+        deleteMessage={"Are you sure you want do delete this palace?"}
+      ></DeleteConfirm>
+      <DeleteConfirm
+        handleConfirmDelete={handleConfirmRoomDelete}
+        deleteMessage={"Are you sure you want to delete this room?"}
+      ></DeleteConfirm>
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           <AlertMessage
@@ -161,7 +178,7 @@ function RegularPalaceView({
                         {isEditRoomMode && (
                           <span
                             className="mr-2 inline-block cursor-pointer rounded-full bg-red-500/100 p-0.5 text-xs text-white opacity-100 duration-200 hover:scale-150 hover:bg-red-600/100 hover:ease-in-out"
-                            onClick={() => {}}
+                            onClick={onDeleteRoom}
                           >
                             <FaMinus></FaMinus>
                           </span>
@@ -174,7 +191,7 @@ function RegularPalaceView({
                         <div className="mt-3">
                           <div
                             className="mb-2 cursor-pointer text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
-                            onClick={""}
+                            onClick={"needs an onClick handle"}
                           >
                             <FaCheck />
                           </div>

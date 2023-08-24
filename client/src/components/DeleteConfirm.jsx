@@ -1,6 +1,6 @@
 import React from "react";
 
-const DeleteConfirm = ({ handleConfirmDelete }) => {
+const DeleteConfirm = ({ handleConfirmDelete, deleteMessage }) => {
   //on palace delete cancel
   const handleCancelDelete = () => {
     window.palace_delete_confirm.close();
@@ -17,9 +17,7 @@ const DeleteConfirm = ({ handleConfirmDelete }) => {
           <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
             ✕
           </button>
-          <h3 className="mb-4 text-lg font-bold">
-            Are you sure you want do delete this palace?
-          </h3>
+          <h3 className="mb-4 text-lg font-bold">{deleteMessage}</h3>
           <div className="confirm-selection">
             <button
               className="btn mr-2 bg-gray-200 hover:bg-gray-300"
