@@ -189,11 +189,11 @@ function RegularPalaceView({
                       alt={room.roomDescription}
                       className="w-full"
                     />
-                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:bg-black hover:opacity-80">
+                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:bg-black/60 hover:opacity-100">
                       <div className="flex items-center justify-center">
                         {isEditRoomMode && (
                           <span
-                            className="mr-2 inline-block cursor-pointer rounded-full bg-red-500 p-0.5 text-xs text-white opacity-80 duration-200 hover:bg-red-600 hover:text-lg hover:ease-in-out"
+                            className="mr-2 inline-block cursor-pointer rounded-full bg-red-500/100 p-0.5 text-xs text-white opacity-100 duration-200 hover:bg-red-600/100 hover:text-lg hover:ease-in-out"
                             onClick={() => {}}
                           >
                             <FaMinus></FaMinus>
@@ -203,19 +203,19 @@ function RegularPalaceView({
                           {room.roomName}
                         </span>
                       </div>
-                      <div className="">
+                      <div className="opacity-60">
                         {isEditRoomMode ? (
                           <>
                             <span
-                              className="cursor-pointer px-2 py-1 text-xl text-white duration-200 hover:text-3xl hover:ease-in-out"
+                              className="cursor-pointer  text-white duration-200  hover:ease-in-out"
                               onClick={""}
                             >
                               <FaCheck />
                             </span>
                             <span
-                              className="cursor-pointer px-2 py-1 text-xs text-white duration-200 hover:text-xl hover:ease-in-out"
+                              className="l  cursor-pointer text-white duration-200 hover:ease-in-out"
                               onClick={() => {
-                                setIsEditMode(false);
+                                setIsEditRoomMode(false);
                                 setNewImageURL(""); // Reset the newImageURL to the original URL
                               }}
                             >
