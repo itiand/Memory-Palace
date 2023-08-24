@@ -193,7 +193,7 @@ function RegularPalaceView({
                       <div className="flex items-center justify-center">
                         {isEditRoomMode && (
                           <span
-                            className="mr-2 inline-block cursor-pointer rounded-full bg-red-500/100 p-0.5 text-xs text-white opacity-100 duration-200 hover:bg-red-600/100 hover:text-lg hover:ease-in-out"
+                            className="mr-2 inline-block cursor-pointer rounded-full bg-red-500/100 p-0.5 text-xs text-white opacity-100 duration-200 hover:scale-150 hover:bg-red-600/100 hover:ease-in-out"
                             onClick={() => {}}
                           >
                             <FaMinus></FaMinus>
@@ -204,15 +204,15 @@ function RegularPalaceView({
                         </span>
                       </div>
                       {isEditRoomMode ? (
-                        <div className="opacity-60">
+                        <div className="mt-3">
                           <div
-                            className="mb-2 cursor-pointer text-white transition duration-200 hover:scale-150"
+                            className="mb-2 cursor-pointer text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
                             onClick={""}
                           >
                             <FaCheck />
                           </div>
                           <div
-                            className="cursor-pointer text-white transition duration-200 hover:scale-150"
+                            className="cursor-pointer text-xs text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
                             onClick={() => {
                               setIsEditRoomMode(false);
                               setNewImageURL(""); // Reset the newImageURL to the original URL

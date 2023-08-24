@@ -72,13 +72,13 @@ const PalaceCoverImage = ({
               className="rounded p-1 text-black"
             />
             <span
-              className="cursor-pointer px-2 py-1 text-xl text-white duration-200 hover:text-3xl hover:ease-in-out"
+              className="cursor-pointer px-2 py-1 text-xl text-white duration-200 hover:scale-150 hover:ease-in-out"
               onClick={handleCoverImageSubmit}
             >
               <FaCheck />
             </span>
             <span
-              className="cursor-pointer px-2 py-1 text-xs text-white duration-200 hover:text-xl hover:ease-in-out"
+              className="cursor-pointer px-2 py-1 text-xs text-white duration-200 hover:scale-150 hover:ease-in-out"
               onClick={() => {
                 setIsEditMode(false);
                 setNewImageURL(""); // Reset the newImageURL to the original URL
@@ -89,7 +89,7 @@ const PalaceCoverImage = ({
           </div>
         ) : (
           <span
-            className="cursor-pointer px-2 py-1 text-xl text-white duration-200 hover:text-3xl hover:ease-in-out"
+            className="cursor-pointer px-2 py-1 text-xl text-white duration-200 hover:scale-150 hover:ease-in-out"
             onClick={() => setIsEditMode(true)}
           >
             <FaEdit />
