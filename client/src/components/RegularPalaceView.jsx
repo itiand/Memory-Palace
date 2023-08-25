@@ -96,6 +96,16 @@ function RegularPalaceView({
   //on room delete confirm
   const handleConfirmRoomDelete = async () => {
     console.log("confirmed to delete room");
+
+    //DONE llready closing because of default behaviour of the form
+
+    //reg palace view needs to refresh
+    //the selectedPalace state needs to update upon deletion
+
+    //need a client end function to make backend request.
+    //backend route to delete the room of that selected palace in the database
+
+    //return the new and updated palace.
   };
 
   //const handle room edit
