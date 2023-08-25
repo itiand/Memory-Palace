@@ -136,6 +136,9 @@ const useApplicationData = () => {
     }
   };
 
+  const deleteRoomFromBackend = async (palaceId, roomId) => {
+    console.log("deleteRoomFromBackend", palaceId, roomId);
+  };
   function fetchMemoryPalaces() {
     // Fetch All Memory Palaces
     fetch("/api/getMemoryPalaces")
@@ -554,6 +557,7 @@ const useApplicationData = () => {
     isEditRoomMode,
     setIsEditRoomMode,
     deletePalaceFromBackend,
+    deleteRoomFromBackend,
   };
 };
 
