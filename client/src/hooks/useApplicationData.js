@@ -138,6 +138,17 @@ const useApplicationData = () => {
 
   const deleteRoomFromBackend = async (palaceId, roomId) => {
     console.log("deleteRoomFromBackend", palaceId, roomId);
+    try {
+      const response = await fetch(`/api/palaces/${palaceId}/rooms/${roomId}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      console.log(data);
+      return data; // should be structured as { success: true, updatedPalace: {} } or similar
+    } catch (error) {
+      console.error("Error deleting room:", error);
+      return { success: false };
+    }
   };
   function fetchMemoryPalaces() {
     // Fetch All Memory Palaces

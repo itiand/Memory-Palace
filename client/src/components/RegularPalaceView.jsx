@@ -115,11 +115,8 @@ function RegularPalaceView({
   const [isEditRoomMode, setIsEditRoomMode] = useState(false);
   const handleRoomEdit = (roomId) => {
     console.log("handleroomedit");
+    selectRoom(roomId);
     setIsEditRoomMode(true);
-
-    //be able to edit room name
-    //be able to delete room
-    //be able to edit description
   };
 
   const onDeleteRoom = () => {

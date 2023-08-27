@@ -226,6 +226,11 @@ app.delete("/deleteMemoryPalace/:id", async (req, res) => {
   }
 });
 
+// DELETE: Room but palaceID and roomId
+app.delete("/palaces/:palaceId/rooms/:roomId", async (req, res) => {
+  console.log("REQ PARAMS", req.params);
+});
+
 // UPDATE: ToDoList of a Specific Room in a Memory Palace
 app.put("/updateToDoList", async (req, res) => {
   const { palaceId, roomId, tasksState } = req.body; // Now tasksState is the new ToDoList
