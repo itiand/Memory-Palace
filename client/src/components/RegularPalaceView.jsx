@@ -98,7 +98,10 @@ function RegularPalaceView({
   const handleConfirmRoomDelete = async () => {
     console.log("confirmed to delete room");
 
-    deleteRoomFromBackend(selectedPalace._id, selectedRoom._id);
+    const response = await deleteRoomFromBackend(
+      selectedPalace._id,
+      selectedRoom._id,
+    );
 
     //DONE llready closing because of default behaviour of the form
 
