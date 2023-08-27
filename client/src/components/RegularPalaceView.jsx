@@ -29,6 +29,7 @@ function RegularPalaceView({
     selectedRoom,
     deletePalaceFromBackend,
     deleteRoomFromBackend,
+    setSelectedPalace,
   } = useContext(PalaceContext);
 
   //locat alert states
@@ -103,9 +104,8 @@ function RegularPalaceView({
       selectedRoom._id,
     );
 
-    //DONE llready closing because of default behaviour of the form
-
     //reg palace view needs to refresh
+    setSelectedPalace(response.updatedPalace);
     //the selectedPalace state needs to update upon deletion
 
     //need a client end function to make backend request.

@@ -142,8 +142,7 @@ const useApplicationData = () => {
         method: "DELETE",
       });
       const data = await response.json();
-      console.log("RESPONSE", response);
-      console.log("deleteRoomFromBackEnd,", data);
+
       return data; // should be structured as { success: true, updatedPalace: {} } or similar
     } catch (error) {
       console.error("Error deleting room:", error);
