@@ -17,6 +17,7 @@ function RegularPalaceView({
   setShowAppAlert,
   setAppAlertMessage,
   setAppAlertType,
+  appAlertType,
 }) {
   const {
     selectedPalace,
@@ -67,6 +68,9 @@ function RegularPalaceView({
     window.add_room_view.showModal();
   };
 
+  useEffect(() => {
+    console.log("appAlertType", appAlertType); // See what's being logged when the state updates
+  }, [appAlertType]);
   //on palace delete confirm
   const handleConfirmPalaceDelete = async () => {
     window.palace_delete_confirm.close();
@@ -76,8 +80,8 @@ function RegularPalaceView({
 
     if (success) {
       //show success alert on app component
-      setShowAppAlert(true);
       setAppAlertType("success");
+      setShowAppAlert(true);
       setAppAlertMessage("Palace successfully deleted!");
       setTimeout(() => {
         setShowAppAlert(false);
@@ -105,13 +109,17 @@ function RegularPalaceView({
     );
 
     //reg palace view needs to refresh
-    setSelectedPalace(response.updatedPalace);
     //the selectedPalace state needs to update upon deletion
+    setSelectedPalace(response.updatedPalace);
 
-    //need a client end function to make backend request.
-    //backend route to delete the room of that selected palace in the database
+    //feedback -> successfully deleted
+    setShowAppAlert(true);
+    setAppAlertType("success");
+    setAppAlertMessage("Room successfully deleted!");
 
-    //return the new and updated palace.
+    //clear selectedRoom
+    //updated meoryPalacesstate
+    //setisEditRoom mode to false
   };
 
   //const handle room edit

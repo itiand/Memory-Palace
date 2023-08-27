@@ -50,6 +50,7 @@ const App = () => {
         setShowAppAlert={setShowAppAlert}
         setAppAlertMessage={setAppAlertMessage}
         setAppAlertType={setAppAlertType}
+        appAlertType={appAlertType}
       />
       <AddNewPalace />
       <AddPalaceImage />
