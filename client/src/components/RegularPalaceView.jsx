@@ -220,7 +220,7 @@ function RegularPalaceView({
                         </span>
                       </div>
                       {isEditRoomMode ? (
-                        <div className="mt-3">
+                        <div className="mt-3 flex flex-col items-center space-y-2">
                           <input
                             type="text"
                             value={""}
