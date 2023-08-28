@@ -39,6 +39,15 @@ function RegularPalaceView({
   const [palaceViewAlertMessage, setPalaceViewAlertMessage] = useState("");
   const [palaceViewAlertType, setPalaceViewAlertType] = useState("");
 
+  //ROOM
+  ////roomImgURL state
+  const [newRoomImageURL, setNewRoomImageURL] = useState("");
+  ////room check click handler
+  const handleEditRoomCheck = () => {
+    console.log("Checked clicked");
+    setNewRoomImageURL("");
+  };
+
   const { PalaceName, Rooms } = selectedPalace;
   //rooms object into an array
   const [rooms, setRooms] = useState([]);
@@ -223,9 +232,9 @@ function RegularPalaceView({
                         <div className="mt-3 flex flex-col items-center space-y-2">
                           <input
                             type="text"
-                            value={""}
+                            value={newRoomImageURL}
                             onChange={(e) => {
-                              console.log("TEMP");
+                              setNewRoomImageURL(e.target.value);
                             }}
                             placeholder="Enter new image URL"
                             className="rounded p-1 text-black"
@@ -234,6 +243,7 @@ function RegularPalaceView({
                             className="mb-2 cursor-pointer text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
                             onClick={() => {
                               setIsEditRoomMode(false);
+                              handleEditRoomCheck();
                             }}
                           >
                             <FaCheck />
