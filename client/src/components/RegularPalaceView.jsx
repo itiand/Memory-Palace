@@ -32,6 +32,7 @@ function RegularPalaceView({
     deleteRoomFromBackend,
     setSelectedPalace,
     setSelectedRoom,
+    updateRoomFromBackend,
   } = useContext(PalaceContext);
 
   //locat alert states
@@ -39,48 +40,8 @@ function RegularPalaceView({
   const [palaceViewAlertMessage, setPalaceViewAlertMessage] = useState("");
   const [palaceViewAlertType, setPalaceViewAlertType] = useState("");
 
-  //ROOM
-  ////roomImgURL state
-  const [newRoomImageURL, setNewRoomImageURL] = useState("");
-  ////room check click handler
-  const handleEditRoomCheck = () => {
-    console.log("Checked clicked");
-    setNewRoomImageURL("");
-  };
-
   const { PalaceName, Rooms } = selectedPalace;
-  //rooms object into an array
-  const [rooms, setRooms] = useState([]);
-  useEffect(() => {
-    if (Rooms) {
-      const roomArray = Object.values(Rooms);
-      setRooms(roomArray);
-    }
-  }, [Rooms]);
 
-  useEffect(() => {
-    console.log("selectedRoom updated:", selectedRoom);
-  }, [selectedRoom]);
-
-  //on room click
-  const handleRoomClick = (roomId) => {
-    selectRoom(roomId);
-    setIsEditMode(false);
-    setNewImageURL("");
-    window.room_view.showModal();
-    window.reg_view.close();
-  };
-
-  //add new room click
-  const handleNewRoomClick = () => {
-    setNewImageURL("");
-    window.reg_view.close();
-    window.add_room_view.showModal();
-  };
-
-  useEffect(() => {
-    console.log("appAlertType", appAlertType); // See what's being logged when the state updates
-  }, [appAlertType]);
   //on palace delete confirm
   const handleConfirmPalaceDelete = async () => {
     window.palace_delete_confirm.close();
@@ -107,6 +68,53 @@ function RegularPalaceView({
         setShowAppAlert(false);
       }, 3000);
     }
+  };
+
+  //ROOM
+  //rooms object into an array
+  const [rooms, setRooms] = useState([]);
+  useEffect(() => {
+    if (Rooms) {
+      const roomArray = Object.values(Rooms);
+      setRooms(roomArray);
+    }
+  }, [Rooms]);
+
+  ////roomImgURL state
+  const [newRoomImageURL, setNewRoomImageURL] = useState("");
+
+  useEffect(() => {
+    console.log("selectedRoom updated:", selectedRoom);
+  }, [selectedRoom]);
+
+  ////room check click handler
+  const handleEditRoomCheck = async () => {
+    console.log("Checked clicked");
+    if (newRoomImageURL) {
+      await updateRoomFromBackend(
+        selectedPalace._id,
+        selectedRoom._id,
+        "roomImg",
+        newRoomImageURL,
+      );
+    }
+    setNewRoomImageURL("");
+  };
+
+  //on room click
+  const handleRoomClick = (roomId) => {
+    selectRoom(roomId);
+    setIsEditMode(false);
+    setNewImageURL("");
+    window.room_view.showModal();
+    window.reg_view.close();
+  };
+
+  //add new room click
+  const handleNewRoomClick = () => {
+    setNewImageURL("");
+    window.reg_view.close();
+    window.add_room_view.showModal();
   };
 
   //on room delete confirm
@@ -151,6 +159,8 @@ function RegularPalaceView({
     window.room_delete_confirm.showModal();
   };
 
+  ///END ROOM
+
   return (
     <>
       <DeleteConfirm
@@ -194,6 +204,7 @@ function RegularPalaceView({
             setLocalAlertMessage={setPalaceViewAlertMessage}
             setAlertType={setPalaceViewAlertType}
           ></PalaceCoverImage>
+          {/* ROOMS SECTION */}
           <div className="reg_view-rooms mt-5">
             <div className="flex items-center pb-1 text-lg">
               <h4 className="mr-1 text-gray-700">Your rooms</h4>
@@ -205,7 +216,6 @@ function RegularPalaceView({
               </span>
             </div>
             <div className="carousel rounded-box max-h-80 w-full cursor-pointer gap-x-1">
-              {/* ROOMS SECTION */}
               {rooms.map((room, index) => {
                 return (
                   <div key={index} className="carousel-item relative w-1/2">

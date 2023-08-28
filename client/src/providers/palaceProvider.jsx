@@ -54,6 +54,7 @@ const PalaceProvider = (props) => {
     setIsEditRoomMode,
     deletePalaceFromBackend,
     deleteRoomFromBackend,
+    updateRoomFromBackend,
   } = useApplicationData();
 
   // Validation for props.children
@@ -111,6 +112,7 @@ const PalaceProvider = (props) => {
         setIsEditRoomMode,
         deletePalaceFromBackend,
         deleteRoomFromBackend,
+        updateRoomFromBackend,
       }}
     >
       {props.children}

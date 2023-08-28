@@ -136,6 +136,13 @@ const useApplicationData = () => {
     }
   };
 
+  const updateRoomFromBackend = (palaceId, roomId, roomProp, roomPropVal) => {
+    //check if url is valid
+    //make backend request to change roomCoverImage
+    //newRoomImageURL, roomId, palaceId
+    //update the state --> to change the ui
+  };
+
   const deleteRoomFromBackend = async (palaceId, roomId) => {
     try {
       const response = await fetch(`/api/palaces/${palaceId}/rooms/${roomId}`, {
@@ -149,6 +156,7 @@ const useApplicationData = () => {
       return { success: false };
     }
   };
+
   function fetchMemoryPalaces() {
     // Fetch All Memory Palaces
     fetch("/api/getMemoryPalaces")
@@ -568,6 +576,7 @@ const useApplicationData = () => {
     setIsEditRoomMode,
     deletePalaceFromBackend,
     deleteRoomFromBackend,
+    updateRoomFromBackend,
   };
 };
 
