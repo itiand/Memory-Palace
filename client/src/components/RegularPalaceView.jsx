@@ -31,6 +31,7 @@ function RegularPalaceView({
     deletePalaceFromBackend,
     deleteRoomFromBackend,
     setSelectedPalace,
+    setSelectedRoom,
   } = useContext(PalaceContext);
 
   //locat alert states
@@ -113,13 +114,19 @@ function RegularPalaceView({
     setSelectedPalace(response.updatedPalace);
 
     //feedback -> successfully deleted
-    setShowAppAlert(true);
-    setAppAlertType("success");
-    setAppAlertMessage("Room successfully deleted!");
+    setShowPalaceViewAlert(true);
+    setPalaceViewAlertType("success");
+    setPalaceViewAlertMessage("Room successfully deleted!");
+    setTimeout(() => {
+      setShowPalaceViewAlert(false);
+    }, 3000);
 
     //clear selectedRoom
+    setSelectedRoom({});
     //updated meoryPalacesstate
+    fetchMemoryPalaces();
     //setisEditRoom mode to false
+    setIsEditRoomMode(false);
   };
 
   //const handle room edit
