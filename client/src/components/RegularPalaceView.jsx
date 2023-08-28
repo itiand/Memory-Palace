@@ -223,7 +223,7 @@ function RegularPalaceView({
                           <div
                             className="mb-2 cursor-pointer text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
                             onClick={() => {
-                              console.log("TEMP onClikc for FaCheck");
+                              setIsEditRoomMode(false);
                             }}
                           >
                             <FaCheck />
