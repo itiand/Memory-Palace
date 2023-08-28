@@ -4,6 +4,10 @@ import { PalaceContext } from "../providers/palaceProvider";
 function AlertMessage({ showLocalAlert, localAlertMessage, alertType }) {
   if (!showLocalAlert) return null;
 
+  useEffect(() => {
+    // Update the document title using the browser API
+    console.log("ALERT TYPE", alertType);
+  }, [alertType]);
   return (
     <div className={`alert my-2 alert-${alertType}`}>
       {alertType === "success" && (

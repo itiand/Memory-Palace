@@ -114,16 +114,16 @@ function RegularPalaceView({
     setSelectedPalace(response.updatedPalace);
 
     //feedback -> successfully deleted
-    setShowPalaceViewAlert(true);
     setPalaceViewAlertType("success");
     setPalaceViewAlertMessage("Room successfully deleted!");
+    setShowPalaceViewAlert(true);
     setTimeout(() => {
       setShowPalaceViewAlert(false);
     }, 3000);
 
     //clear selectedRoom
     setSelectedRoom({});
-    //updated meoryPalacesstate
+    //updated meoryPalacesState
     fetchMemoryPalaces();
     //setisEditRoom mode to false
     setIsEditRoomMode(false);
@@ -222,7 +222,9 @@ function RegularPalaceView({
                         <div className="mt-3">
                           <div
                             className="mb-2 cursor-pointer text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
-                            onClick={"needs an onClick handle"}
+                            onClick={() => {
+                              console.log("TEMP onClikc for FaCheck");
+                            }}
                           >
                             <FaCheck />
                           </div>
