@@ -17,7 +17,7 @@ import AddMemory from "./components/AddMemory";
 import AlertMessage from "./components/AlertMessage";
 
 const App = () => {
-  const { themes, memoryPalaces, setSelectedPalace } =
+  const { themes, memoryPalaces, setSelectedPalace, selectedRoom } =
     useContext(PalaceContext);
 
   const [showAppAlert, setShowAppAlert] = useState(false);
@@ -28,6 +28,11 @@ const App = () => {
     themeChange(false);
   }, []);
 
+  //TEMP
+  useEffect(() => {
+    console.log("SELECTED ROOM", selectedRoom);
+  }, [selectedRoom]);
+  //TEMP
   const handlePalaceClick = (selected) => {
     setSelectedPalace(selected); // clicked palace as the selected palace state
     window.reg_view.showModal();

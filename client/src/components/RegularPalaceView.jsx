@@ -232,7 +232,7 @@ function RegularPalaceView({
                             className="cursor-pointer text-xs text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
                             onClick={() => {
                               setIsEditRoomMode(false);
-                              setNewImageURL(""); // Reset the newImageURL to the original URL
+                              setSelectedRoom({});
                             }}
                           >
                             <FaTimes />
