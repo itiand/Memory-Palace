@@ -196,6 +196,7 @@ function RegularPalaceView({
               </span>
             </div>
             <div className="carousel rounded-box max-h-80 w-full cursor-pointer gap-x-1">
+              {/* ROOMS SECTION */}
               {rooms.map((room, index) => {
                 return (
                   <div key={index} className="carousel-item relative w-1/2">
@@ -220,6 +221,15 @@ function RegularPalaceView({
                       </div>
                       {isEditRoomMode ? (
                         <div className="mt-3">
+                          <input
+                            type="text"
+                            value={""}
+                            onChange={(e) => {
+                              console.log("TEMP");
+                            }}
+                            placeholder="Enter new image URL"
+                            className="rounded p-1 text-black"
+                          />
                           <div
                             className="mb-2 cursor-pointer text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
                             onClick={() => {
