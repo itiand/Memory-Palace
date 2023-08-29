@@ -228,8 +228,38 @@ app.delete("/deleteMemoryPalace/:id", async (req, res) => {
 
 // UPDATE: Room - palaceID and roomId
 app.patch("/palaces/:palaceId/rooms/:roomId", async (req, res) => {
-  console.log("REQBODY ROOM UPDATE", req.body);
-  res.json({ message: "testing testing im just suggesting" });
+  const { palaceId, roomId } = req.params;
+  const palaceIdObj = new ObjectId(palaceId);
+  const updatedProperties = req.body;
+
+  try {
+    // Find the specific palace
+    //return 404 if palace or room not found
+    const memoryPalaceCollection = db.collection("Palaces");
+    const currentPalace = await memoryPalaceCollection.findOne({
+      _id: palaceIdObj,
+    });
+
+    if (!currentPalace) {
+      return res.status(404).json({
+        success: false,
+        message: "Memory palace not found.",
+      });
+    }
+    console.log("PALACE FOUND", currentPalace);
+
+    if (!currentPalace.Rooms[roomId]) {
+      return res.status(404).json({
+        success: false,
+        message: "Room not found.",
+      });
+    }
+
+    console.log("ROOM FOUND ASWELL", currentPalace.Rooms[roomId]);
+  } catch (error) {
+    console.error("Error deleting room:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
 });
 
 // DELETE: Room -  palaceID and roomId

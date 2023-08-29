@@ -108,6 +108,7 @@ const useApplicationData = () => {
         console.error("There was a problem:", error.message);
       });
   }
+
   const deletePalaceFromBackend = async (palaceId) => {
     try {
       const response = await fetch(`api/deleteMemoryPalace/${palaceId}`, {
@@ -153,6 +154,7 @@ const useApplicationData = () => {
         },
         body: JSON.stringify({ [roomProp]: roomPropVal }),
       });
+
       const data = await response.json();
 
       console.log("ACID RAIN", data);
