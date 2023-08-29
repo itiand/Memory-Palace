@@ -226,7 +226,13 @@ app.delete("/deleteMemoryPalace/:id", async (req, res) => {
   }
 });
 
-// DELETE: Room but palaceID and roomId
+// UPDATE: Room - palaceID and roomId
+app.patch("/palaces/:palaceId/rooms/:roomId", async (req, res) => {
+  console.log("REQBODY ROOM UPDATE", req.body);
+  res.json({ message: "testing testing im just suggesting" });
+});
+
+// DELETE: Room -  palaceID and roomId
 app.delete("/palaces/:palaceId/rooms/:roomId", async (req, res) => {
   const { palaceId, roomId } = req.params;
   const palaceIdObj = new ObjectId(palaceId);

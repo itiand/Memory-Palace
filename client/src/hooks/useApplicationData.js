@@ -136,11 +136,30 @@ const useApplicationData = () => {
     }
   };
 
-  const updateRoomFromBackend = (palaceId, roomId, roomProp, roomPropVal) => {
-    //check if url is valid
+  const updateRoomFromBackend = async (
+    palaceId,
+    roomId,
+    roomProp,
+    roomPropVal,
+  ) => {
     //make backend request to change roomCoverImage
-    //newRoomImageURL, roomId, palaceId
     //update the state --> to change the ui
+    console.log("WALDOOOOOOO", palaceId, roomId, roomProp, roomPropVal);
+    try {
+      const response = await fetch(`/api/palaces/${palaceId}/rooms/${roomId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ [roomProp]: roomPropVal }),
+      });
+      const data = await response.json();
+
+      console.log("ACID RAIN", data);
+    } catch (error) {
+      console.error("Error updating room:", error);
+      return { success: false, message: "Error updating room." };
+    }
   };
 
   const deleteRoomFromBackend = async (palaceId, roomId) => {
