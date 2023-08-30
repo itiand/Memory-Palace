@@ -144,8 +144,6 @@ const useApplicationData = () => {
     roomPropVal,
   ) => {
     //make backend request to change roomCoverImage
-    //update the state --> to change the ui
-    console.log("WALDOOOOOOO", palaceId, roomId, roomProp, roomPropVal);
     try {
       const response = await fetch(`/api/palaces/${palaceId}/rooms/${roomId}`, {
         method: "PATCH",
@@ -158,6 +156,7 @@ const useApplicationData = () => {
       const data = await response.json();
 
       console.log("ACID RAIN", data);
+      //update the state --> to change the ui
     } catch (error) {
       console.error("Error updating room:", error);
       return { success: false, message: "Error updating room." };

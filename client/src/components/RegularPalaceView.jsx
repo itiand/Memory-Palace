@@ -91,6 +91,7 @@ function RegularPalaceView({
   const handleEditRoomCheck = async () => {
     console.log("Checked clicked");
     if (newRoomImageURL) {
+      //!!! check if url is valid first
       await updateRoomFromBackend(
         selectedPalace._id,
         selectedRoom._id,

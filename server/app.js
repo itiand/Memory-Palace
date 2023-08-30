@@ -256,6 +256,31 @@ app.patch("/palaces/:palaceId/rooms/:roomId", async (req, res) => {
     }
 
     console.log("ROOM FOUND ASWELL", currentPalace.Rooms[roomId]);
+
+    // update properties of the specified room
+    Object.assign(currentPalace.Rooms[roomId], updatedProperties);
+    console.log("DID IT UPDATE", currentPalace.Rooms[roomId]);
+
+    // take the updated palace and replace the old state of the palace
+    const updateResult = await memoryPalaceCollection.replaceOne(
+      { _id: palaceIdObj },
+      currentPalace
+    );
+
+    //if update was successfull..
+    if (updateResult.matchedCount > 0) {
+      console.log("updated room:", currentPalace.Rooms[roomId]);
+      res.json({
+        success: true,
+        message: "Room updated successfully!",
+        updatedRoom: currentPalace.Rooms[roomId],
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: "Failed to update room.",
+      });
+    }
   } catch (error) {
     console.error("Error deleting room:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
