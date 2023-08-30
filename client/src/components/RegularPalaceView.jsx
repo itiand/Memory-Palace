@@ -103,6 +103,8 @@ function RegularPalaceView({
       if (updatedRoom.success) {
         // selectRoom(selectedRoom._id); --> does not reflect
         setSelectedPalace(updatedRoom.updatedPalace); // UPDATES
+        //update selectedPalace?
+        //update memoryPalaces?
       }
     }
     setNewRoomImageURL("");
