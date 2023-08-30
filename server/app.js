@@ -267,12 +267,14 @@ app.patch("/palaces/:palaceId/rooms/:roomId", async (req, res) => {
       currentPalace
     );
 
-    //if update was successfull..
+    //if update was successfull respond wtih...
     if (updateResult.matchedCount > 0) {
       console.log("updated room:", currentPalace.Rooms[roomId]);
+
       res.json({
         success: true,
         message: "Room updated successfully!",
+        updatedPalace: currentPalace,
         updatedRoom: currentPalace.Rooms[roomId],
       });
     } else {

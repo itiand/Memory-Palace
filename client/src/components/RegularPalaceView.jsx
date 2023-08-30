@@ -92,12 +92,18 @@ function RegularPalaceView({
     console.log("Checked clicked");
     if (newRoomImageURL) {
       //!!! check if url is valid first
-      await updateRoomFromBackend(
+      const updatedRoom = await updateRoomFromBackend(
         selectedPalace._id,
         selectedRoom._id,
         "roomImg",
         newRoomImageURL,
       );
+
+      console.log("Front End", updatedRoom);
+      if (updatedRoom.success) {
+        // selectRoom(selectedRoom._id); --> does not reflect
+        setSelectedPalace(updatedRoom.updatedPalace); // UPDATES
+      }
     }
     setNewRoomImageURL("");
   };

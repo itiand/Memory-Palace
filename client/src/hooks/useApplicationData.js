@@ -155,7 +155,14 @@ const useApplicationData = () => {
 
       const data = await response.json();
 
-      console.log("ACID RAIN", data);
+      return data;
+      /// ---> res.json({
+      //   success: true,
+      //   message: "Room updated successfully!",
+      //   updatedPalace: currentPalace,
+      //   updatedRoom: currentPalace.Rooms[roomId],
+      // });
+
       //update the state --> to change the ui
     } catch (error) {
       console.error("Error updating room:", error);
