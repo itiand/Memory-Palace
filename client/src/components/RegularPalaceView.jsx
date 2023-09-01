@@ -1,14 +1,23 @@
 import { useContext, useState, useEffect } from "react";
 import { PalaceContext } from "../providers/palaceProvider";
-import { FaRegEye, FaPlus, FaMinus } from "react-icons/fa";
+import {
+  FaRegEye,
+  FaPlus,
+  FaMinus,
+  FaEdit,
+  FaCheck,
+  FaTimes,
+} from "react-icons/fa";
 import AlertMessage from "./AlertMessage";
 import RoomView from "./RoomView";
 import PalaceCoverImage from "./PalaceCoverImage";
+import DeleteConfirm from "./DeleteConfirm";
 
 function RegularPalaceView({
   setShowAppAlert,
   setAppAlertMessage,
   setAppAlertType,
+  appAlertType,
 }) {
   const {
     selectedPalace,
@@ -20,6 +29,9 @@ function RegularPalaceView({
     selectRoom,
     selectedRoom,
     deletePalaceFromBackend,
+    deleteRoomFromBackend,
+    setSelectedPalace,
+    setSelectedRoom,
   } = useContext(PalaceContext);
 
   //locat alert states
@@ -57,22 +69,20 @@ function RegularPalaceView({
     window.add_room_view.showModal();
   };
 
-  //on palace delete cancel
-  const handleCancelDelete = () => {
-    window.delete_confirm.close();
-  };
-
+  useEffect(() => {
+    console.log("appAlertType", appAlertType); // See what's being logged when the state updates
+  }, [appAlertType]);
   //on palace delete confirm
-  const handleConfirmDelete = async () => {
-    window.delete_confirm.close();
+  const handleConfirmPalaceDelete = async () => {
+    window.palace_delete_confirm.close();
     window.reg_view.close();
 
     const success = await deletePalaceFromBackend(selectedPalace._id);
 
     if (success) {
-      //show success app alert
-      setShowAppAlert(true);
+      //show success alert on app component
       setAppAlertType("success");
+      setShowAppAlert(true);
       setAppAlertMessage("Palace successfully deleted!");
       setTimeout(() => {
         setShowAppAlert(false);
@@ -90,37 +100,60 @@ function RegularPalaceView({
     }
   };
 
+  //on room delete confirm
+  const handleConfirmRoomDelete = async () => {
+    console.log("confirmed to delete room");
+
+    const response = await deleteRoomFromBackend(
+      selectedPalace._id,
+      selectedRoom._id,
+    );
+
+    //reg palace view needs to refresh
+    //the selectedPalace state needs to update upon deletion
+    setSelectedPalace(response.updatedPalace);
+
+    //feedback -> successfully deleted
+    setPalaceViewAlertType("success");
+    setPalaceViewAlertMessage("Room successfully deleted!");
+    setShowPalaceViewAlert(true);
+    setTimeout(() => {
+      setShowPalaceViewAlert(false);
+    }, 3000);
+
+    //clear selectedRoom
+    setSelectedRoom({});
+    //updated meoryPalacesState
+    fetchMemoryPalaces();
+    //setisEditRoom mode to false
+    setIsEditRoomMode(false);
+  };
+
+  //const handle room edit
+  const [isEditRoomMode, setIsEditRoomMode] = useState(false);
+  const handleRoomEdit = (roomId) => {
+    console.log("handleroomedit");
+    selectRoom(roomId);
+    setIsEditRoomMode(true);
+  };
+
+  const onDeleteRoom = () => {
+    console.log("deleteRoom");
+    window.room_delete_confirm.showModal();
+  };
+
   return (
     <>
-      {/*delete confirm modal*/}
-      <dialog
-        id="delete_confirm"
-        className="modal m-auto w-1/4 min-w-fit  text-gray-600"
-      >
-        <form method="dialog" className="modal-box bg-gray-100 text-center">
-          <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
-            ✕
-          </button>
-          <h3 className="mb-4 text-lg font-bold">
-            Are you sure you want do delete this palace?
-          </h3>
-          <div className="confirm-selection">
-            <button
-              className="btn mr-2 bg-gray-200 hover:bg-gray-300"
-              onClick={handleCancelDelete}
-            >
-              Cancel
-            </button>
-            <button
-              className="btn bg-red-500 text-white hover:bg-red-600"
-              onClick={handleConfirmDelete}
-            >
-              Delete
-            </button>
-          </div>
-        </form>
-      </dialog>
-
+      <DeleteConfirm
+        modalId={"palace_delete_confirm"}
+        handleConfirmDelete={handleConfirmPalaceDelete}
+        deleteMessage={"Are you sure you want do delete this palace?"}
+      ></DeleteConfirm>
+      <DeleteConfirm
+        modalId={"room_delete_confirm"}
+        handleConfirmDelete={handleConfirmRoomDelete}
+        deleteMessage={"Are you sure you want to delete this room?"}
+      ></DeleteConfirm>
       <dialog id="reg_view" className="modal">
         <form method="dialog" className="modal-box">
           <AlertMessage
@@ -139,7 +172,7 @@ function RegularPalaceView({
               <span
                 className="mr-1 inline-block cursor-pointer rounded-full bg-red-500 p-1 text-lg text-white duration-200 hover:bg-red-600 hover:text-2xl hover:ease-in-out"
                 onClick={() => {
-                  window.delete_confirm.showModal();
+                  window.palace_delete_confirm.showModal();
                 }}
               >
                 <FaMinus></FaMinus>
@@ -171,18 +204,60 @@ function RegularPalaceView({
                       alt={room.roomDescription}
                       className="w-full"
                     />
-                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:opacity-60">
-                      <span className="mb-1 text-2xl text-white">
-                        {room.roomName}
-                      </span>
-                      <span
-                        className="rounded px-2 py-1 text-lg text-white duration-200 hover:text-2xl hover:ease-in-out"
-                        onClick={() => {
-                          handleRoomClick(room._id);
-                        }}
-                      >
-                        <FaRegEye />
-                      </span>
+                    <div className="overlay absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-black opacity-0 hover:bg-black/60 hover:opacity-100">
+                      <div className="flex items-center justify-center">
+                        {isEditRoomMode && (
+                          <span
+                            className="mr-2 inline-block cursor-pointer rounded-full bg-red-500/100 p-0.5 text-xs text-white opacity-100 duration-200 hover:scale-150 hover:bg-red-600/100 hover:ease-in-out"
+                            onClick={onDeleteRoom}
+                          >
+                            <FaMinus></FaMinus>
+                          </span>
+                        )}
+                        <span className="text-2xl text-white opacity-60">
+                          {room.roomName}
+                        </span>
+                      </div>
+                      {isEditRoomMode ? (
+                        <div className="mt-3">
+                          <div
+                            className="mb-2 cursor-pointer text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
+                            onClick={() => {
+                              setIsEditRoomMode(false);
+                            }}
+                          >
+                            <FaCheck />
+                          </div>
+                          <div
+                            className="cursor-pointer text-xs text-white opacity-60 duration-200 hover:scale-150 hover:opacity-90"
+                            onClick={() => {
+                              setIsEditRoomMode(false);
+                              setSelectedRoom({});
+                            }}
+                          >
+                            <FaTimes />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex opacity-60">
+                          <div
+                            className="rounded px-2 py-1 text-lg text-white duration-200 hover:scale-150 hover:ease-in-out"
+                            onClick={() => {
+                              handleRoomClick(room._id);
+                            }}
+                          >
+                            <FaRegEye />
+                          </div>
+                          <div
+                            className="rounded px-2 py-1 text-lg text-white duration-200 hover:scale-150 hover:ease-in-out"
+                            onClick={() => {
+                              handleRoomEdit(room._id);
+                            }}
+                          >
+                            <FaEdit />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 );

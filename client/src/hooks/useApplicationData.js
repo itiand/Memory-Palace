@@ -136,6 +136,19 @@ const useApplicationData = () => {
     }
   };
 
+  const deleteRoomFromBackend = async (palaceId, roomId) => {
+    try {
+      const response = await fetch(`/api/palaces/${palaceId}/rooms/${roomId}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+
+      return data; // should be structured as { success: true, updatedPalace: {} } or similar
+    } catch (error) {
+      console.error("Error deleting room:", error);
+      return { success: false };
+    }
+  };
   function fetchMemoryPalaces() {
     // Fetch All Memory Palaces
     fetch("/api/getMemoryPalaces")
@@ -554,6 +567,7 @@ const useApplicationData = () => {
     isEditRoomMode,
     setIsEditRoomMode,
     deletePalaceFromBackend,
+    deleteRoomFromBackend,
   };
 };
 

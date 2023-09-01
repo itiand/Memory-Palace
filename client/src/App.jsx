@@ -17,27 +17,8 @@ import AddMemory from "./components/AddMemory";
 import AlertMessage from "./components/AlertMessage";
 
 const App = () => {
-  const {
-    themes,
-    memoryPalaces,
-    selectedPalace,
-    setSelectedPalace,
-    selectedRoom,
-    findPalaceById,
-
-    switchSelectPalaceById,
-    switchToLastPalace,
-    createNewPalace,
-    deleteCurrentSelectedPalace,
-    changePalaceEntry,
-    deletePalaceEntry,
-    savePalaceState,
-    createPalaceExample,
-    getChatResponseFromServer,
-    getImageResponseFromServer,
-    setSelectedRoom,
-    tasks,
-  } = useContext(PalaceContext);
+  const { themes, memoryPalaces, setSelectedPalace, selectedRoom } =
+    useContext(PalaceContext);
 
   const [showAppAlert, setShowAppAlert] = useState(false);
   const [appAlertMessage, setAppAlertMessage] = useState("");
@@ -47,6 +28,11 @@ const App = () => {
     themeChange(false);
   }, []);
 
+  //TEMP
+  useEffect(() => {
+    console.log("SELECTED ROOM", selectedRoom);
+  }, [selectedRoom]);
+  //TEMP
   const handlePalaceClick = (selected) => {
     setSelectedPalace(selected); // clicked palace as the selected palace state
     window.reg_view.showModal();
@@ -69,6 +55,7 @@ const App = () => {
         setShowAppAlert={setShowAppAlert}
         setAppAlertMessage={setAppAlertMessage}
         setAppAlertType={setAppAlertType}
+        appAlertType={appAlertType}
       />
       <AddNewPalace />
       <AddPalaceImage />

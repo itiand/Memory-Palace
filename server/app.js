@@ -226,6 +226,31 @@ app.delete("/deleteMemoryPalace/:id", async (req, res) => {
   }
 });
 
+// DELETE: Room but palaceID and roomId
+app.delete("/palaces/:palaceId/rooms/:roomId", async (req, res) => {
+  const { palaceId, roomId } = req.params;
+  const palaceIdObj = new ObjectId(palaceId);
+  try {
+    const memoryPalaceCollection = db.collection("Palaces");
+
+    //delete specific room given palaceId and
+    await memoryPalaceCollection.updateOne(
+      { _id: palaceIdObj },
+      { $unset: { [`Rooms.${roomId}`]: 1 } }
+    );
+
+    //fectch the updated palace
+    const updatedPalace = await memoryPalaceCollection.findOne({
+      _id: palaceIdObj,
+    });
+
+    res.json({ success: true, updatedPalace });
+  } catch (error) {
+    console.error("Error deleting room:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 // UPDATE: ToDoList of a Specific Room in a Memory Palace
 app.put("/updateToDoList", async (req, res) => {
   const { palaceId, roomId, tasksState } = req.body; // Now tasksState is the new ToDoList

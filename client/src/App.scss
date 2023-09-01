@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
 body {
   height: 100%;
   background-color: #ffffff;
@@ -90,10 +93,19 @@ outer-nav {
 .info-card:hover {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
-}
+} //
 
 .nav-container {
   width: 85%;
   max-width: 2000px;
   margin: 0 auto;
 }
+
+//
+// .overlay {
+//   background-color: rgba(0, 0, 0, 0); /* 0 opacity to start with */
+// }
+
+// .overlay:hover {
+//   background-color: rgba(0, 0, 0, 0.6); /* 60% opacity on hover */
+// }
