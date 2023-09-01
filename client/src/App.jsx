@@ -17,7 +17,8 @@ import AddMemory from "./components/AddMemory";
 import AlertMessage from "./components/AlertMessage";
 
 const App = () => {
-  const { themes, memoryPalaces, setSelectedPalace, selectedRoom } =
+  const { themes, memoryPalaces, setSelectedPalace, selectedRoom, showLoginForm,
+    setShowLoginForm} =
     useContext(PalaceContext);
 
   const [showAppAlert, setShowAppAlert] = useState(false);
@@ -51,6 +52,7 @@ const App = () => {
   return (
     <>
       <Navbar themes={themes} />
+    {showLoginForm === false && <div>
       <RegularPalaceView
         setShowAppAlert={setShowAppAlert}
         setAppAlertMessage={setAppAlertMessage}
@@ -114,6 +116,8 @@ const App = () => {
           </div>
         </div>
       </div>
+    </div>
+    }
     </>
   );
 };

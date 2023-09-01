@@ -1,10 +1,18 @@
-// import React from "react";
+import React, { useContext} from "react";
 // import AddNewPalace from "./AddNewPalace";
 import PropTypes from "prop-types";
 import { BsHouseAdd } from "react-icons/bs";
 import postgresLogoURL from "../assets/postgres.svg";
+import Login from "../components/Login";
+import { PalaceContext } from "../providers/palaceProvider";
 
 function Navbar(props) {
+  const {showLoginForm, setShowLoginForm} = useContext(PalaceContext);
+
+  const handleLoginClick = () => {
+    // Toggle the state to show/hide the login form
+    setShowLoginForm(!showLoginForm);
+  };
   Navbar.propTypes = {
     themes: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
@@ -17,6 +25,7 @@ function Navbar(props) {
   };
 
   return (
+    
     <div className="outer-nav border-t-8 border-t-green-500 bg-indigo-500 pt-3 text-white">
       <div className="nav-container navbar ">
         <div className="navbar-start">
@@ -46,14 +55,13 @@ function Navbar(props) {
         <div className="navbar-end">
           <button
             className="text-md  btn border-none bg-indigo-600 font-light normal-case text-white hover:bg-indigo-700"
-            onClick={() => {
-              console.log("open user modal");
-            }}
+            onClick={handleLoginClick}
           >
-            Welcome Sherlock!
+            Login
           </button>
         </div>
       </div>
+      {showLoginForm ? <Login /> : null}
     </div>
   );
 }

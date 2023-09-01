@@ -19,6 +19,8 @@ const useApplicationData = () => {
   const [selectedRoom, setSelectedRoom] = useState({});
   const [isEditRoomMode, setIsEditRoomMode] = useState(false);
 
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
   const onCloseModal = () => {
     // setSelectedRoom({})
     // setSelectedPalace({});
@@ -568,6 +570,8 @@ const useApplicationData = () => {
     setIsEditRoomMode,
     deletePalaceFromBackend,
     deleteRoomFromBackend,
+    showLoginForm,
+    setShowLoginForm,
   };
 };
 

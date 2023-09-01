@@ -55,6 +55,10 @@ app.use(morgan(ENVIROMENT));
 // app.use('/cats', exampleRoutes);
 
 //Get Chat GPT Response
+app.get("/login", (req, res) => {
+  console.log(res);
+})
+
 app.post("/getChatResponse", async (req, res) => {
   const content = req.body.content;
 
