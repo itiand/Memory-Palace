@@ -73,12 +73,7 @@ function RoomView() {
 
 
 
-  const randomOddState = (keyword) => {
-    // 50% chance to return the original keyword
-    if (Math.random() < 0.5) {
-      return keyword;
-    }
-    // 50% chance to modify the keyword
+  const randomOddState = (keyword, responseMetaphor) => {
     const odd = [
       " playing poker.",
       " juggling chainsaws.",
@@ -134,10 +129,29 @@ function RoomView() {
       " in a chef's hat.",
       // ... (your existing array of funny strings)
     ];
-    const randomIndex = Math.floor(Math.random() * odd.length);
-    const randomAction = odd[randomIndex];
-    return `${keyword}${randomAction}`;
-  };
+
+    function containsBeepBoop(inputString) {
+      if  (inputString.includes(keyword)) {
+        return true;
+      }
+      return false;
+    }
+
+    if ( containsBeepBoop(responseMetaphor) === true ) {
+      const randomIndex = Math.floor(Math.random() * odd.length);
+      const randomAction = odd[randomIndex];
+      if (Math.random() < 0.5) {
+        return keyword;
+      } return `${keyword}${randomAction}`;
+    } else {
+      const randomIndex = Math.floor(Math.random() * odd.length);
+      const randomAction = odd[randomIndex];
+      if (Math.random() < 0.5) {
+        return keyword;
+      } return `${responseMetaphor}${randomAction}`;
+    }
+  }
+  
 
   const toggleIsEditRoomMode = (e) => {
     e.preventDefault();

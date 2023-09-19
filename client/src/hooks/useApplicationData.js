@@ -370,7 +370,7 @@ const randomSaying = (mode) => {
     // "...Are you ready to begin your Memory Journey?...",
     // "...Let's see what we can remember today!...",
     // "Welcome to MovieRecapped...oh wait, I meane welcome to your Mind Palace.",
-    "Welcome to your very own Mind Palace. It's my pleasure to help you remember! Let's get started!",
+    "Welcome to Elephant, your  Mind Palace Organizer! It's my pleasure to help you remember! Let's get started!",
   ];
   const randomIndex = Math.floor(Math.random() * intro.length);
   const randomIntro = `${intro[randomIndex]}. Your journey begins in ${selectedRoom.roomName}. Your first memory cue is`;
